@@ -37,6 +37,13 @@ class V17_2InferenceAdapter(BaseAIProvider):
 
     def _resolve_default_model_path(self) -> Optional[str]:
         """Find local V17.2 model directory if valid weights exist."""
+        # 0. Try explicit environment variable V17_2_MODEL_PATH if specified
+        env_path = os.getenv("V17_2_MODEL_PATH")
+        if env_path:
+            abs_env_path = os.path.abspath(env_path)
+            if self._verify_checkpoint_integrity(abs_env_path):
+                return abs_env_path
+
         # 1. Try relative to __file__
         file_dir = os.path.dirname(os.path.abspath(__file__))
         rel_to_file = os.path.abspath(os.path.join(file_dir, "../../../ml/models/checkpoints/flan_t5_v17_2/best_model"))
