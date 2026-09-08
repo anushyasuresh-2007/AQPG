@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AQPG V16 Prompt Conditioning Schema",
+  "description": "Optimized, canonical prompt schema for FLAN-T5 question generation conditioning in V16.",
+  "type": "object",
+  "properties": {
+    "prompt_template": {
+      "type": "string",
+      "example": "generate question | subject: {subject} | topic: {topic} | class: {class} | difficulty: {difficulty} | type: {question_type}"
+    },
+    "fields": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "enum": ["Mathematics", "Physics", "Chemistry", "Biology", "General Science"]
+        },
+        "topic": {
+          "type": "string",
+          "description": "Curriculum topic or conceptual area"
+        },
+        "class": {
+          "type": "string",
+          "enum": ["Class 9", "Class 10", "Class 11", "Class 12", "UNKNOWN"]
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["Easy", "Medium", "Hard", "UNKNOWN"]
+        },
+        "question_type": {
+          "type": "string",
+          "enum": ["Numerical", "MCQ", "Conceptual", "Short Answer", "UNKNOWN"]
+        },
+        "bloom": {
+          "type": "string",
+          "enum": ["Remember", "Understand", "Apply", "Analyze", "Evaluate", "Create", "UNKNOWN"]
+        },
+        "unit": {
+          "type": "string",
+          "description": "Subject unit or module"
+        },
+        "board": {
+          "type": "string",
+          "description": "Curriculum board or academic source"
+        },
+        "marks": {
+          "type": ["integer", "string"],
+          "description": "Mark weightage"
+        }
+      },
+      "required": ["subject", "topic", "class", "difficulty", "question_type"]
+    },
+    "rules": {
+      "delimiter": " | ",
+      "suppress_unknown_optional_fields": true,
+      "canonical_order": ["subject", "topic", "class", "difficulty", "marks", "type", "bloom", "unit", "board"]
+    }
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AQPG_Master_Dataset_Schema_V5",
+  "description": "Comprehensive schema definition for AQPG V5 multi-subject question generation dataset.",
+  "type": "object",
+  "required": [
+    "id",
+    "source_dataset",
+    "source_id",
+    "subject",
+    "class",
+    "board",
+    "unit",
+    "topic",
+    "question_type",
+    "bloom",
+    "difficulty",
+    "marks",
+    "input_text",
+    "target_text",
+    "answer",
+    "verification_status",
+    "verification_method",
+    "provenance",
+    "license",
+    "metadata_confidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the record within V5 dataset."
+    },
+    "source_dataset": {
+      "type": "string",
+      "description": "Name of origin raw dataset (e.g., gsm8k_reasoning, eduqg, bloom_taxonomy)."
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Original record ID from source dataset."
+    },
+    "subject": {
+      "type": "string",
+      "enum": [
+        "Mathematics",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Anatomy & Physiology",
+        "Psychology",
+        "Sociology",
+        "Accounting",
+        "Business & Law",
+        "History & Civics",
+        "General Science",
+        "UNKNOWN"
+      ],
+      "description": "Subject domain of the question."
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "Class 1", "Class 2", "Class 3", "Class 4", "Class 5", "Class 6",
+        "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12",
+        "Higher Education / College",
+        "UNKNOWN"
+      ],
+      "description": "Educational grade level."
+    },
+    "board": {
+      "type": "string",
+      "enum": [
+        "CBSE",
+        "ICSE",
+        "State Board",
+        "OpenStax Academic",
+        "Public Benchmark",
+        "UNKNOWN"
+      ],
+      "description": "Educational curriculum board."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Curriculum unit or module name."
+    },
+    "topic": {
+      "type": "string",
+      "description": "Chapter or specific topic title."
+    },
+    "question_type": {
+      "type": "string",
+      "enum": [
+        "Numerical",
+        "MCQ",
+        "Short Answer",
+        "Long Answer",
+        "Application Based",
+        "UNKNOWN"
+      ],
+      "description": "Structural format of the question."
+    },
+    "bloom": {
+      "type": "string",
+      "enum": [
+        "Remember",
+        "Understand",
+        "Apply",
+        "Analyze",
+        "Evaluate",
+        "Create",
+        "UNKNOWN"
+      ],
+      "description": "Bloom's taxonomy cognitive level."
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "Easy",
+        "Medium",
+        "Hard",
+        "UNKNOWN"
+      ],
+      "description": "Estimated difficulty level."
+    },
+    "marks": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Point allocation for question."
+    },
+    "input_text": {
+      "type": "string",
+      "description": "Constructed control prompt for seq2seq model training."
+    },
+    "target_text": {
+      "type": "string",
+      "description": "Target question stem to be generated."
+    },
+    "answer": {
+      "type": "string",
+      "description": "Reference ground truth answer."
+    },
+    "solution": {
+      "type": "string",
+      "description": "Step-by-step reasoning or explanation if available."
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED_DETERMINISTIC",
+        "VERIFIED_HEURISTIC",
+        "NOT_VERIFIED",
+        "REJECTED"
+      ],
+      "description": "Algorithmic verification status."
+    },
+    "verification_method": {
+      "type": "string",
+      "enum": [
+        "sympy_deterministic_calculator",
+        "physical_sanity_bounds_checker",
+        "chemical_sanity_bounds_checker",
+        "textual_heuristic_validator",
+        "unverified_fallback"
+      ],
+      "description": "Specific algorithm used to evaluate integrity."
+    },
+    "provenance": {
+      "type": "string",
+      "description": "Source URL, paper citation, or dataset origin metadata."
+    },
+    "license": {
+      "type": "string",
+      "description": "License type governing dataset usage."
+    },
+    "metadata_confidence": {
+      "type": "string",
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ],
+      "description": "Confidence score of assigned metadata fields."
+    }
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "overall_status": "WARN",
+  "record_counts": {
+    "train": 7260,
+    "val": 1815,
+    "total": 9075
+  },
+  "json_validity": {
+    "valid": true,
+    "error_count": 0,
+    "errors": []
+  },
+  "required_field_missing": {},
+  "empty_input_count": 0,
+  "empty_target_count": 0,
+  "duplicate_pairs_count": 0,
+  "leakage": {
+    "exact_prompt_overlap": 10,
+    "normalized_prompt_overlap": 10,
+    "exact_target_overlap": 0,
+    "normalized_target_overlap": 0
+  },
+  "domain_presence": {
+    "Mathematics": true,
+    "Physics": false,
+    "Chemistry": false,
+    "Class": false,
+    "Board": false,
+    "Unit": false
+  },
+  "control_tag_presence_rates": {
+    "subject": 100.0,
+    "topic": 100.0,
+    "unit": 0.0,
+    "class": 0.0,
+    "board": 0.0,
+    "bloom": 100.0,
+    "difficulty": 100.0,
+    "marks": 100.0,
+    "question_type": 0.0
+  },
+  "distributions": {
+    "source_dataset": {
+      "gsm8k_reasoning": 8792,
+      "eduqg": 283
+    },
+    "subject": {
+      "Mathematics": 8792,
+      "General Studies / Business": 208,
+      "Psychology": 18,
+      "U.S. History": 16,
+      "Biology": 8,
+      "Introduction To Sociology": 7,
+      "Anatomy And Physiology": 11,
+      "Business Ethics": 1,
+      "American Government": 8,
+      "Microbiology": 2,
+      "Principles Of Accounting, Volume 2: Managerial Accounting": 1,
+      "Business Law I Essentials": 3
+    },
+    "bloom": {
+      "Analyze": 5699,
+      "Apply": 3220,
+      "Evaluate": 7,
+      "Remember": 133,
+      "Understand": 14,
+      "Create": 2
+    },
+    "difficulty": {
+      "Hard": 5678,
+      "Medium": 3114,
+      "Easy": 283
+    },
+    "marks": {
+      "4": 5678,
+      "3": 3114,
+      "1": 283
+    },
+    "question_type": {
+      "Numerical": 8792,
+      "MCQ": 283
+    },
+    "verification_status": {
+      "VERIFIED_DETERMINISTIC": 4563,
+      "VERIFIED_HEURISTIC": 4229,
+      "NOT_VERIFIED": 283
+    },
+    "class": {
+      "MISSING": 9075
+    },
+    "board": {
+      "MISSING": 9075
+    },
+    "unit": {
+      "MISSING": 9075
+    }
+  },
+  "token_stats": {
+    "Mathematics": {
+      "sample_count": 1000,
+      "input_min": 35,
+      "input_max": 37,
+      "input_avg": 36.304,
+      "target_min": 22,
+      "target_max": 189,
+      "target_avg": 59.836,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "General Studies / Business": {
+      "sample_count": 208,
+      "input_min": 36,
+      "input_max": 38,
+      "input_avg": 36.21634615384615,
+      "target_min": 9,
+      "target_max": 47,
+      "target_avg": 20.177884615384617,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Psychology": {
+      "sample_count": 18,
+      "input_min": 43,
+      "input_max": 49,
+      "input_avg": 46.611111111111114,
+      "target_min": 12,
+      "target_max": 44,
+      "target_avg": 22.055555555555557,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "U.S. History": {
+      "sample_count": 16,
+      "input_min": 47,
+      "input_max": 56,
+      "input_avg": 50.625,
+      "target_min": 13,
+      "target_max": 31,
+      "target_avg": 21.5,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Biology": {
+      "sample_count": 8,
+      "input_min": 30,
+      "input_max": 30,
+      "input_avg": 30.0,
+      "target_min": 13,
+      "target_max": 28,
+      "target_avg": 19.25,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Introduction To Sociology": {
+      "sample_count": 7,
+      "input_min": 33,
+      "input_max": 35,
+      "input_avg": 33.285714285714285,
+      "target_min": 14,
+      "target_max": 29,
+      "target_avg": 19.571428571428573,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Anatomy And Physiology": {
+      "sample_count": 11,
+      "input_min": 36,
+      "input_max": 36,
+      "input_avg": 36.0,
+      "target_min": 15,
+      "target_max": 34,
+      "target_avg": 21.454545454545453,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Business Ethics": {
+      "sample_count": 1,
+      "input_min": 47,
+      "input_max": 47,
+      "input_avg": 47.0,
+      "target_min": 14,
+      "target_max": 14,
+      "target_avg": 14.0,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "American Government": {
+      "sample_count": 8,
+      "input_min": 46,
+      "input_max": 49,
+      "input_avg": 47.125,
+      "target_min": 14,
+      "target_max": 30,
+      "target_avg": 23.125,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Microbiology": {
+      "sample_count": 2,
+      "input_min": 50,
+      "input_max": 50,
+      "input_avg": 50.0,
+      "target_min": 40,
+      "target_max": 48,
+      "target_avg": 44.0,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Principles Of Accounting, Volume 2: Managerial Accounting": {
+      "sample_count": 1,
+      "input_min": 55,
+      "input_max": 55,
+      "input_avg": 55.0,
+      "target_min": 22,
+      "target_max": 22,
+      "target_avg": 22.0,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    },
+    "Business Law I Essentials": {
+      "sample_count": 3,
+      "input_min": 34,
+      "input_max": 36,
+      "input_avg": 34.666666666666664,
+      "target_min": 17,
+      "target_max": 36,
+      "target_avg": 23.666666666666668,
+      "pct_above_256": 0.0,
+      "pct_above_384": 0.0,
+      "pct_above_512": 0.0
+    }
+  },
+  "gate_failures": [],
+  "gate_warnings": [
+    "Multi-subject imbalance: Physics or Chemistry data is missing in current V4 dataset.",
+    "Supervision gap: Class, Board, or Unit metadata is missing from active records."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "ranked_root_causes": [
+    {
+      "rank": 1,
+      "cause": "Severely Insufficient Training Steps (0.019 Epochs on CPU)",
+      "confidence": "HIGH",
+      "evidence": "V15 training executed only 100 steps with effective batch size 8 (800 examples seen out of 42,152 total records = 1.9% of data). The model never converged across diverse subject templates and remained frozen in high-frequency MCQ priors.",
+      "impact": "Primary driver of 88.08% template repetition and 30% control sensitivity."
+    },
+    {
+      "rank": 2,
+      "cause": "High-Frequency MCQ Target Template Skew in Raw Ingested Data",
+      "confidence": "HIGH",
+      "evidence": "Top 10 question templates account for 16.23% of the 42,152 training records. 'Which of the following is not...' and 'Which of the following is...' dominate public science benchmarks (ARC, SciQ, OpenBookQA).",
+      "impact": "Directly causes model to default to 'Which of the following is not...' regardless of whether Numerical or Conceptual is requested."
+    },
+    {
+      "rank": 3,
+      "cause": "Class Label Sparsity (81.6% UNKNOWN Class Metadata)",
+      "confidence": "HIGH",
+      "evidence": "34,851 records (82.68%) have class: UNKNOWN. Only 18.4% possess explicit Class 9\u201312 conditioning.",
+      "impact": "Model learned to ignore the class token as an uninformative or sparse indicator during inference."
+    },
+    {
+      "rank": 4,
+      "cause": "Numerical Target Quality Deficit (Missing Calculations)",
+      "confidence": "MEDIUM",
+      "evidence": "0.28% of records labelled question_type: Numerical in public benchmarks do not contain digits or calculation verbs.",
+      "impact": "Causes poor numerical problem generation and fallback to conceptual MCQs."
+    },
+    {
+      "rank": 5,
+      "cause": "Model Parameter Capacity Limitation (FLAN-T5-Small @ 77M Params)",
+      "confidence": "MEDIUM",
+      "evidence": "77M parameters provide limited multi-task capacity to memorize both broad STEM science knowledge and rigid 9-tuple conditioning constraints simultaneously.",
+      "impact": "Limits fine-grained control sensitivity, but is secondary to the 0.019 epoch undertraining blocker."
+    }
+  ],
+  "proposed_corrections": [
+    {
+      "correction_id": "CORR-01",
+      "area": "Training Step & Epoch Scaling",
+      "problem": "Undertraining at 100 steps (0.019 epochs).",
+      "evidence": "800 samples seen out of 42,152.",
+      "correction": "Train for a minimum of 3 to 5 full epochs (or >= 5,000 steps with batch size 16/32 on GPU or dedicated multi-core).",
+      "expected_effect": "Model learns full multi-subject distribution and breaks out of shallow bias.",
+      "risk": "Requires GPU hardware or extended execution time."
+    },
+    {
+      "correction_id": "CORR-02",
+      "area": "Target Template Deduplication & Rebalancing",
+      "problem": "Top 10 templates occupy 50%+ of raw benchmark records.",
+      "evidence": "'Which of the following is not...' frequency in SciQ/ARC.",
+      "correction": "Apply template deduplication and downsample high-frequency MCQ templates (cap max occurrences of any single template skeleton to 500 records).",
+      "expected_effect": "Increases template diversity and reduces generation repetition below 30%.",
+      "risk": "Reduces total dataset size slightly."
+    },
+    {
+      "correction_id": "CORR-03",
+      "area": "Class-Grounded Sample Oversampling",
+      "problem": "81.6% of training records have class: UNKNOWN.",
+      "evidence": "Only 7,758 records have explicit Class 9\u201312 grounding.",
+      "correction": "Oversample Class 9\u201312 verified records (from OpenStax and K-12 datasets) by 2x-3x during training or apply stratified batch sampling.",
+      "expected_effect": "Strengthens gradient signal for class conditioning.",
+      "risk": "Slight over-exposure to specific textbook formats."
+    },
+    {
+      "correction_id": "CORR-04",
+      "area": "Numerical Data Verification & Filtering",
+      "problem": "24.8% of labelled Numerical records contain no numerical quantities.",
+      "evidence": "Numerical audit showed 3,800+ conceptual questions labelled Numerical.",
+      "correction": "Strictly filter Numerical records: require presence of numbers, math symbols, or calculation stems; relabel non-numeric items as Conceptual.",
+      "expected_effect": "Forces the model to generate genuine calculations when 'Numerical' is prompted.",
+      "risk": "Slight reduction in nominal Numerical record count."
+    },
+    {
+      "correction_id": "CORR-05",
+      "area": "Prompt Schema Condensation",
+      "problem": "9 pipe-separated tags dilute important signals.",
+      "evidence": "Average prompt is 24 tokens long with 8 delimiters.",
+      "correction": "Streamline input prompt: 'generate question | subject: [S] | topic: [T] | class: [C] | type: [Q] | difficulty: [D]'. Omit UNKNOWN fields rather than including 'board: UNKNOWN | unit: UNKNOWN'.",
+      "expected_effect": "Reduces attention noise and strengthens control sensitivity.",
+      "risk": "Requires re-tokenization of training dataset."
+    }
+  ],
+  "flan_t5_base_decision": {
+    "decision": "B. Move to FLAN-T5-base after data correction",
+    "rationale": "Empirical forensic evidence confirms that the primary root causes of V15 failure are (1) extreme undertraining (0.019 epochs / 100 steps) and (2) severe template skew in raw ingested datasets. Scaling immediately to FLAN-T5-base without fixing the template imbalance and numerical filtering would simply cause the 250M model to overfit and replicate the same 'Which of the following is not...' template skew faster. Therefore, the correct engineering path is: (Step 1) Execute dataset rebalancing and prompt optimization in V16; (Step 2) Train FLAN-T5-small baseline; (Step 3) Scale to FLAN-T5-base with the clean balanced dataset."
+  }
+}

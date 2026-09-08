@@ -1,0 +1,110 @@
+================================================================================
+AQPG PHASE 17: COMPREHENSIVE FLAN-T5-SMALL V15 QUALITY EVALUATION REPORT
+================================================================================
+Evaluation Timestamp: 2026-08-15 16:48:35 UTC
+Checkpoint Evaluated: C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\checkpoints\flan_t5_v15
+Dataset Evaluated:    datasets/v15/qg_dataset_v15.jsonl
+Total Prompts Tested: 520
+Execution Device:     cpu
+Total Parameters:     76,961,152 (76.96M)
+PyTorch Version:      2.5.1+cpu
+
+================================================================================
+1. QUESTION VALIDITY EVALUATION (STEP 3)
+================================================================================
+VALID Questions:            506 (97.31%)
+PARTIALLY VALID Questions:    1 (0.19%)
+INVALID Questions:           13 (2.50%)
+GARBLED / Degenerate:         0 (0.00%)
+
+================================================================================
+2. SUBJECT & TOPIC CONDITIONING ACCURACY (STEPS 4 & 5)
+================================================================================
+Subject Conditioning Accuracy: 60.77%
+Topic Match Rate:             43.27%
+Topic Mismatch Rate:          56.73%
+
+Subject Confusion Matrix (Rows = Requested, Cols = Inferred):
+Requested          | Math   | Physics  | Chemistry  | Biology  | GenSci  | Unknown
+--------------------------------------------------------------------------------
+Mathematics        | 4      | 0        | 0          | 0        | 0       | 102    
+Physics            | 1      | 78       | 2          | 0        | 6       | 20     
+Chemistry          | 0      | 1        | 79         | 0        | 0       | 25     
+Biology            | 0      | 0        | 10         | 83       | 0       | 9      
+General Science    | 0      | 48       | 9          | 12       | 3       | 28     
+
+================================================================================
+3. QUESTION-TYPE & DIFFICULTY CONTROL (STEPS 7 & 8)
+================================================================================
+Question-Type Alignment Rate:  64.23%
+Class Alignment Determination: NOT_VERIFIABLE (100.0%)
+  (Note: Model output length & vocabulary do not yet reliably discriminate Class 9 from Class 12)
+
+================================================================================
+4. SCIENTIFIC & MATHEMATICAL REASONING (STEPS 9, 10, 11)
+================================================================================
+Mathematics Numerical Verification: {'NOT_VERIFIED': 106}
+Physics Scientific Verification:     {'VERIFIED_HEURISTIC': 107}
+Chemistry Scientific Verification:   {'VERIFIED_HEURISTIC': 105}
+
+================================================================================
+5. DUPLICATION, MEMORIZATION & DIVERSITY (STEP 12)
+================================================================================
+Unique Output Rate:            11.92% (62/520)
+Template Repetition Rate:       88.08%
+Exact Training Set Memorized:   0.96% (5 records)
+
+================================================================================
+6. CONDITION SENSITIVITY TEST (STEP 13)
+================================================================================
+Sensitivity Rate:              30.00%
+Model Classification:          CONTROL-BLIND
+
+================================================================================
+7. BASELINE COMPARISON (STEP 15)
+================================================================================
+Model Comparison across Standard Prompt Samples:
+
+[Sample 1] PROMPT: generate question | subject: Mathematics | topic: Linear Equations & Word Problems | unit: UNKNOWN | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+  BASE FLAN-T5: What is the subject of Linear Equations & Word Problems?
+  V3 PILOT:     What is the subject of Linear Equations & Word Problems?
+  V15 MODEL:    Which of the following is NOT true?
+
+[Sample 2] PROMPT: generate question | subject: Physics | topic: Newton's Laws & Friction | unit: Mechanics | class: Class 11 | board: OpenStax Academic | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+  BASE FLAN-T5: What is the topic of Newton's Laws & Friction?
+  V3 PILOT:     What is the topic of Newton's Laws & Friction?
+  V15 MODEL:    Newton's Laws & Friction is an example of what?
+
+[Sample 3] PROMPT: generate question | subject: Chemistry | topic: Chemical Equilibrium & Le Chatelier | unit: UNKNOWN | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: MCQ
+  BASE FLAN-T5: What is the topic of Chemical Equilibrium & Le Chatelier?
+  V3 PILOT:     What is the topic of Chemical Equilibrium & Le Chatelier?
+  V15 MODEL:    Which of the following is not a chemical reaction?
+
+[Sample 4] PROMPT: generate question | subject: Biology | topic: Mendelian Genetics & Inheritance | unit: Genetics | class: Class 12 | board: OpenStax Academic | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ
+  BASE FLAN-T5: What is the name of the unit of Mendelian Genetics & Inheritance?
+  V3 PILOT:     What is the name of the unit of Mendelian Genetics & Inheritance?
+  V15 MODEL:    Which of the following is a characteristic of mendelian genetics & inheritance?
+
+[Sample 5] PROMPT: generate question | subject: General Science | topic: Matter in Our Surroundings | unit: Secondary General Science | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: MCQ
+  BASE FLAN-T5: What unit is Matter in Our Surroundings in?
+  V3 PILOT:     What unit is Matter in Our Surroundings in?
+  V15 MODEL:    Which of the following is not a source of energy?
+
+================================================================================
+8. PRODUCTION READINESS DECISION GATE (STEPS 16 & 17)
+================================================================================
+FINAL VERDICT: B. PROMISING — NEEDS IMPROVEMENT
+RATIONALE:     Model demonstrates basic domain awareness and vocabulary conditioning across STEM subjects, but suffers from template collapse (e.g. 'is a type of what', 'in the water'), weak numerical reasoning, and insufficient class-level differentiation.
+
+EVIDENCE SUMMARY:
+1. Valid Question Structure:     97.31% (Significant repetitive templates observed)
+2. Subject Domain Conditioning:  60.77%
+3. Topic Alignment:              43.27%
+4. Control Sensitivity:          30.00% (CONTROL-BLIND)
+5. Memorization Rate:            0.96%
+
+RECOMMENDED NEXT ACTIONS:
+1. Transition to FLAN-T5-Base / Large architecture to expand parameter capacity beyond 60M.
+2. Increase training steps beyond 100 steps on GPU hardware to allow deep convergence.
+3. Implement contrastive loss and anti-template repetition penalties during fine-tuning.
+================================================================================

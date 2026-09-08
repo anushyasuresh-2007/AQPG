@@ -1,0 +1,297 @@
+{
+  "phase": "21A",
+  "step": 2,
+  "title": "V17 Dataset Redesign & Rebalancing Specification",
+  "mode": "DESIGN_ONLY",
+  "completion_statement": "PHASE 21A STEP 2 \u2014 V17 DATASET REDESIGN SPECIFICATION COMPLETE",
+  "safety_declarations": {
+    "design_only": true,
+    "dataset_modified": false,
+    "model_loaded": false,
+    "inference_executed": false,
+    "training_executed": false,
+    "phase20_artifacts_modified": false,
+    "v17_build_requires_authorization": true
+  },
+  "artifact_provenance": {
+    "phase21_step1_dataset_training_audit.json": {
+      "exists": true,
+      "size_bytes": 11472,
+      "sha256": "00D23CF92B3CA1213514BA68CB4C219B792621176341E2833EC8F0FEB8D1242B"
+    },
+    "docs/phase21_step1_dataset_training_audit_report.md": {
+      "exists": true,
+      "size_bytes": 15970,
+      "sha256": "F0451A83AF29E0817881E72944C5F0ACF7AC3644F467115CAF248B314EC2714C"
+    },
+    "phase21_step1_dataset_distribution.csv": {
+      "exists": true,
+      "size_bytes": 1069,
+      "sha256": "46CD6879F5DD47EB24CF5950FF480B5AF028D4C8985E66E0F988B09DE86124FA"
+    },
+    "phase21_step1_root_cause_matrix.csv": {
+      "exists": true,
+      "size_bytes": 1282,
+      "sha256": "E6E0596D166AAD34DDC1B4145207411268B2B300F2431654527C2F20F517E808"
+    },
+    "phase20_evaluation_prompts.jsonl": {
+      "exists": true,
+      "size_bytes": 196260,
+      "sha256": "91335C1EC938454BADFD551975018689A2B87489EA10BECDD05C134A1ED3082E"
+    },
+    "phase18_v16_experiment_plan.json": {
+      "exists": true,
+      "size_bytes": 3725,
+      "sha256": "758AF0EDB3635898A195F18F9837AA63C0C7B869BBBF7AE7C514FEBA3EA2CBA7"
+    }
+  },
+  "v16_baseline": {
+    "total_train_records": 40557,
+    "unique_input_prompts": 204,
+    "unique_input_ratio_percent": 0.5,
+    "top_3_prompt_concentration_percent": 42.96,
+    "mcq_target_percent": 61.55,
+    "conceptual_target_percent": 1.38,
+    "numerical_concentration_in_1_prompt_percent": 85.3,
+    "class_unknown_percent": 82.13,
+    "v16_quality_gate_results": {
+      "control_sensitivity": "0.00%",
+      "template_concentration": "100.00% Top-10",
+      "question_type_accuracy": "46.80%",
+      "numerical_validity": "19.41%",
+      "exact_memorization": "4.62%",
+      "subject_accuracy": "67.60%",
+      "topic_accuracy": "72.60%"
+    }
+  },
+  "recommended_dataset_size": {
+    "selected_option": "Option B: 50,000 total records (40,000 train / 10,000 validation)",
+    "tradeoff_analysis": {
+      "Option A (40,000)": "Matches V16 size but risks insufficient coverage when oversampling Conceptual and Numerical prompts.",
+      "Option B (50,000) [RECOMMENDED]": "Optimal balance of prompt diversity, conceptual oversampling, deduplication capability, and manageable training time (~7,500 steps).",
+      "Option C (60,000)": "Provides high diversity but increases risk of synthetic duplicate injection and longer training times."
+    }
+  },
+  "question_type_targets": [
+    {
+      "type": "MCQ",
+      "v16_percent": 61.55,
+      "v17_target_percent": 35.0,
+      "v17_target_count": 17500,
+      "rationale": "Downsampled from 61.55% to prevent MCQ template dominance."
+    },
+    {
+      "type": "Numerical",
+      "v16_percent": 20.32,
+      "v17_target_percent": 35.0,
+      "v17_target_count": 17500,
+      "rationale": "Increased from 20.32% to expand calculation coverage across Physics and Chemistry."
+    },
+    {
+      "type": "Conceptual",
+      "v16_percent": 1.38,
+      "v17_target_percent": 25.0,
+      "v17_target_count": 12500,
+      "rationale": "Substantially increased from 1.38% (560 records) to solve the 24x benchmark deficit."
+    },
+    {
+      "type": "Short Answer",
+      "v16_percent": 16.74,
+      "v17_target_percent": 5.0,
+      "v17_target_count": 2500,
+      "rationale": "Retained for explanatory sentence variety."
+    }
+  ],
+  "control_dimension_targets": {
+    "subject": {
+      "Physics": 30.0,
+      "Chemistry": 30.0,
+      "Mathematics": 30.0,
+      "Biology_GenSci": 10.0
+    },
+    "class": {
+      "Class 9": 25.0,
+      "Class 10": 25.0,
+      "Class 11": 25.0,
+      "Class 12": 25.0,
+      "UNKNOWN": 0.0
+    },
+    "difficulty": {
+      "Easy": 33.3,
+      "Medium": 33.3,
+      "Hard": 33.4
+    },
+    "marks": {
+      "1": 30.0,
+      "2": 30.0,
+      "3": 25.0,
+      "5": 15.0
+    },
+    "bloom": {
+      "Remember": 15.0,
+      "Understand": 30.0,
+      "Apply": 35.0,
+      "Analyze": 15.0,
+      "Evaluate_Create": 5.0
+    }
+  },
+  "control_combination_requirements": {
+    "minimum_unique_input_prompts": 30000,
+    "minimum_unique_prompt_ratio_percent": 60.0,
+    "maximum_single_prompt_frequency": 50,
+    "maximum_single_prompt_percent": 0.1,
+    "maximum_top_3_prompt_percent": 0.3,
+    "maximum_top_10_prompt_percent": 0.8
+  },
+  "control_sensitivity_design": {
+    "minimum_paired_quadruplet_groups": 2500,
+    "rule": "Changing difficulty (Easy->Hard), marks (1->5), or question type (MCQ->Conceptual) within a paired group MUST produce distinct target text stems.",
+    "prohibited": "Artificial paired prompts with identical target text."
+  },
+  "template_diversity_requirements": {
+    "minimum_unique_normalized_stems_percent": 90.0,
+    "maximum_top_10_stem_concentration_percent": 15.0,
+    "minimum_stem_entropy_bits": 10.0,
+    "generic_stem_ceiling_percent": 5.0
+  },
+  "numerical_data_policy": {
+    "subject_distribution": {
+      "Mathematics": 40.0,
+      "Physics": 40.0,
+      "Chemistry": 20.0
+    },
+    "maximum_single_prompt_numerical_concentration_percent": 1.0,
+    "content_rules": [
+      "100% of numerical targets must contain explicit numbers and units",
+      "Must support step-by-step mathematical reasoning"
+    ]
+  },
+  "duplication_policy": {
+    "level_1_exact_input_duplicates_max_percent": 0.0,
+    "level_2_exact_pair_duplicates_max_percent": 0.0,
+    "level_3_near_duplicate_target_stems_max_percent": 2.0,
+    "train_val_exact_target_leakage_max": 0,
+    "train_val_stem_leakage_max_percent": 1.0
+  },
+  "train_validation_strategy": {
+    "split_ratio": "80 / 20 (40,000 train / 10,000 val)",
+    "method": "Stratified random split across question_type, subject, and class after full deduplication."
+  },
+  "mandatory_dataset_quality_gates": [
+    {
+      "gate_id": "GATE-D1",
+      "name": "Unique Input Prompt Ratio",
+      "metric": "unique_prompts / total_records",
+      "threshold": ">= 60.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D2",
+      "name": "Maximum Single Prompt Concentration",
+      "metric": "max_single_prompt_count / total_records",
+      "threshold": "<= 0.10%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D3",
+      "name": "Top-3 Prompt Concentration",
+      "metric": "top_3_prompt_count / total_records",
+      "threshold": "<= 0.30%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D4",
+      "name": "Conceptual Question Representation",
+      "metric": "conceptual_records / total_records",
+      "threshold": ">= 25.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D5",
+      "name": "Numerical Question Representation",
+      "metric": "numerical_records / total_records",
+      "threshold": ">= 35.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D6",
+      "name": "MCQ Question Representation Ceiling",
+      "metric": "mcq_records / total_records",
+      "threshold": "<= 35.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D7",
+      "name": "Class UNKNOWN Token Rate",
+      "metric": "class_unknown_count / total_records",
+      "threshold": "0.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D8",
+      "name": "Numerical Subject Diversity",
+      "metric": "max_single_subject_numerical / total_numerical",
+      "threshold": "<= 45.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D9",
+      "name": "Top-10 Target Stem Concentration",
+      "metric": "top_10_target_stems / total_records",
+      "threshold": "<= 15.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D10",
+      "name": "Exact Duplicate Pair Rate",
+      "metric": "exact_duplicate_pairs / total_records",
+      "threshold": "0.0%",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D11",
+      "name": "Train/Val Exact Target Leakage",
+      "metric": "exact_target_leakage_count",
+      "threshold": "0",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D12",
+      "name": "Paired Control Quadruplets",
+      "metric": "paired_quadruplet_count",
+      "threshold": ">= 2500",
+      "type": "MANDATORY"
+    },
+    {
+      "gate_id": "GATE-D13",
+      "name": "Target Stem Entropy",
+      "metric": "normalized_stem_entropy_bits",
+      "threshold": ">= 10.0 bits",
+      "type": "ADVISORY"
+    }
+  ],
+  "final_v17_specification_summary": {
+    "total_dataset_size": 50000,
+    "train_records": 40000,
+    "validation_records": 10000,
+    "unique_input_prompts_target": 30000,
+    "mcq_target": 17500,
+    "numerical_target": 17500,
+    "conceptual_target": 12500,
+    "short_answer_target": 2500
+  },
+  "step3_build_plan": [
+    "1. Extract raw unified records from verified source datasets.",
+    "2. Standardize control metadata schemas (Subject, Topic, Class 9-12, Difficulty, Marks, Type, Bloom).",
+    "3. Replace all UNKNOWN class tokens with verified grade level metadata.",
+    "4. Execute deduplication to eliminate exact input-target duplicate pairs.",
+    "5. Build paired control quadruplets (varying 1 control tag per group) to enforce control sensitivity.",
+    "6. Oversample Conceptual (12,500 records) and Numerical (17,500 records) targets.",
+    "7. Downsample MCQ targets to 17,500 records (35%).",
+    "8. Distribute Numerical prompts across Physics (40%), Math (40%), and Chemistry (20%).",
+    "9. Apply template anti-collapse filtering to enforce Top-10 concentration <= 15.0%.",
+    "10. Execute 80/20 stratified train/validation split after full deduplication.",
+    "11. Run pre-training dataset quality gates audit script.",
+    "12. Calculate SHA-256 hashes of final V17 dataset files and STOP."
+  ]
+}

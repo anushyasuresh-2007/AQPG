@@ -1,0 +1,126 @@
+{
+  "phase": "5",
+  "model": "V17.1",
+  "model_path": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v17\\best_model",
+  "model_loaded": true,
+  "training_started": false,
+  "model_modified": false,
+  "dataset_modified": false,
+  "remote_download": false,
+  "total_test_cases": 5,
+  "successful_inferences": 5,
+  "failed_inferences": 0,
+  "repetitive_outputs": 5,
+  "malformed_outputs": 5,
+  "question_like_outputs": 0,
+  "average_output_length": 762.0,
+  "min_output_length": 762,
+  "max_output_length": 762,
+  "results": [
+    {
+      "test_case_id": 1,
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations",
+      "class_name": "Class 10",
+      "marks": 2,
+      "difficulty": "easy",
+      "question_type": "Short Answer",
+      "bloom_level": "Understand",
+      "generated_output": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "inference_success": true,
+      "output_length": 762,
+      "quality_flags": {
+        "is_empty": false,
+        "is_repetitive": true,
+        "is_malformed": true,
+        "is_question_like": false,
+        "subject_relevant": false,
+        "topic_relevant": false
+      }
+    },
+    {
+      "test_case_id": 2,
+      "subject": "Physics",
+      "topic": "Newton's Laws of Motion",
+      "class_name": "Class 10",
+      "marks": 3,
+      "difficulty": "medium",
+      "question_type": "Conceptual",
+      "bloom_level": "Understand",
+      "generated_output": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "inference_success": true,
+      "output_length": 762,
+      "quality_flags": {
+        "is_empty": false,
+        "is_repetitive": true,
+        "is_malformed": true,
+        "is_question_like": false,
+        "subject_relevant": false,
+        "topic_relevant": false
+      }
+    },
+    {
+      "test_case_id": 3,
+      "subject": "Chemistry",
+      "topic": "Acids Bases and Salts",
+      "class_name": "Class 10",
+      "marks": 3,
+      "difficulty": "medium",
+      "question_type": "Short Answer",
+      "bloom_level": "Apply",
+      "generated_output": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "inference_success": true,
+      "output_length": 762,
+      "quality_flags": {
+        "is_empty": false,
+        "is_repetitive": true,
+        "is_malformed": true,
+        "is_question_like": false,
+        "subject_relevant": false,
+        "topic_relevant": false
+      }
+    },
+    {
+      "test_case_id": 4,
+      "subject": "Biology",
+      "topic": "Life Processes",
+      "class_name": "Class 10",
+      "marks": 5,
+      "difficulty": "hard",
+      "question_type": "Long Answer",
+      "bloom_level": "Analyze",
+      "generated_output": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "inference_success": true,
+      "output_length": 762,
+      "quality_flags": {
+        "is_empty": false,
+        "is_repetitive": true,
+        "is_malformed": true,
+        "is_question_like": false,
+        "subject_relevant": false,
+        "topic_relevant": false
+      }
+    },
+    {
+      "test_case_id": 5,
+      "subject": "General Science",
+      "topic": "Light",
+      "class_name": "Class 8",
+      "marks": 2,
+      "difficulty": "easy",
+      "question_type": "Short Answer",
+      "bloom_level": "Remember",
+      "generated_output": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "inference_success": true,
+      "output_length": 762,
+      "quality_flags": {
+        "is_empty": false,
+        "is_repetitive": true,
+        "is_malformed": true,
+        "is_question_like": false,
+        "subject_relevant": false,
+        "topic_relevant": false
+      }
+    }
+  ]
+}

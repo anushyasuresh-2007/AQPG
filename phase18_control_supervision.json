@@ -1,0 +1,181 @@
+{
+  "supervision_summary": {
+    "total_records": 42152,
+    "explicit_class_grounded": 7301,
+    "unknown_class_count": 34851,
+    "explicit_subject_count": 33882,
+    "explicit_board_count": 42152,
+    "explicit_unit_count": 12712,
+    "explicit_numerical_type": 8228
+  },
+  "sample_supervision_breakdown": {
+    "WEAK_SUPERVISION": 295,
+    "VALID_SUPERVISION": 105
+  },
+  "cross_tabulations": {
+    "subject_by_type": {
+      "General Science": {
+        "MCQ": 8219
+      },
+      "Mathematics": {
+        "Numerical": 6995,
+        "MCQ": 674
+      },
+      "UNKNOWN": {
+        "Short Answer": 6930,
+        "MCQ": 20
+      },
+      "Chemistry": {
+        "MCQ": 8900,
+        "Numerical": 6,
+        "Short Answer": 1
+      },
+      "Biology": {
+        "MCQ": 4443
+      },
+      "Physics": {
+        "MCQ": 2848,
+        "Numerical": 1227,
+        "Conceptual": 568,
+        "Short Answer": 1
+      },
+      "Social Science": {
+        "MCQ": 490
+      },
+      "Business & Law": {
+        "MCQ": 470
+      },
+      "History & Civics": {
+        "MCQ": 360
+      }
+    },
+    "subject_by_class": {
+      "General Science": {
+        "UNKNOWN": 6415,
+        "Class 9": 1264,
+        "Class 10": 540
+      },
+      "Mathematics": {
+        "UNKNOWN": 6995,
+        "Class 11": 233,
+        "Class 9": 338,
+        "Class 12": 103
+      },
+      "UNKNOWN": {
+        "UNKNOWN": 6950
+      },
+      "Chemistry": {
+        "UNKNOWN": 8272,
+        "Class 9": 245,
+        "Class 11": 191,
+        "Class 10": 112,
+        "Class 12": 87
+      },
+      "Biology": {
+        "UNKNOWN": 3377,
+        "Class 9": 465,
+        "Class 12": 138,
+        "Class 11": 282,
+        "Class 10": 181
+      },
+      "Physics": {
+        "UNKNOWN": 1522,
+        "Class 9": 452,
+        "Class 10": 195,
+        "Class 11": 1214,
+        "Class 12": 1261
+      },
+      "Social Science": {
+        "UNKNOWN": 490
+      },
+      "Business & Law": {
+        "UNKNOWN": 470
+      },
+      "History & Civics": {
+        "UNKNOWN": 360
+      }
+    },
+    "subject_by_difficulty": {
+      "General Science": {
+        "Easy": 4986,
+        "Medium": 2146,
+        "Hard": 1087
+      },
+      "Mathematics": {
+        "Medium": 7566,
+        "Hard": 103
+      },
+      "UNKNOWN": {
+        "Easy": 3438,
+        "Medium": 2221,
+        "Hard": 1291
+      },
+      "Chemistry": {
+        "Easy": 8015,
+        "Medium": 582,
+        "Hard": 310
+      },
+      "Biology": {
+        "Easy": 2849,
+        "Medium": 1080,
+        "Hard": 514
+      },
+      "Physics": {
+        "Easy": 1019,
+        "Hard": 462,
+        "Medium": 3163
+      },
+      "Social Science": {
+        "Easy": 490
+      },
+      "Business & Law": {
+        "Easy": 470
+      },
+      "History & Civics": {
+        "Easy": 360
+      }
+    },
+    "subject_by_bloom": {
+      "General Science": {
+        "Understand": 7132,
+        "Analyze": 1087
+      },
+      "Mathematics": {
+        "Apply": 7566,
+        "Analyze": 103
+      },
+      "UNKNOWN": {
+        "Understand": 1457,
+        "Analyze": 1019,
+        "Remember": 1981,
+        "Create": 650,
+        "Apply": 1202,
+        "Evaluate": 641
+      },
+      "Chemistry": {
+        "Understand": 8402,
+        "Apply": 193,
+        "Analyze": 311,
+        "Remember": 1
+      },
+      "Biology": {
+        "Understand": 3929,
+        "Analyze": 514
+      },
+      "Physics": {
+        "Understand": 2683,
+        "Analyze": 589,
+        "Apply": 1372
+      },
+      "Social Science": {
+        "Understand": 490
+      },
+      "Business & Law": {
+        "Understand": 470
+      },
+      "History & Civics": {
+        "Understand": 360
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+================================================================================
+AQPG V4 DATASET FORENSIC AUDIT REPORT
+================================================================================
+OVERALL STATUS: WARN
+
+1. RECORD COUNTS & JSON SYNTAX
+  - Train Set:         7260
+  - Validation Set:    1815
+  - Total V4 Records:  9075
+  - JSON Syntax Errors:0
+
+2. DATA LEAKAGE ANALYSIS
+  - Exact Prompt Overlap:      10
+  - Normalized Prompt Overlap: 10
+  - Exact Target Overlap:      0
+  - Normalized Target Overlap: 0 (Goal: 0)
+
+3. ACTUAL DOMAIN & CURRICULUM DATA PRESENCE
+  - Mathematics Data: True (8792 records)
+  - Physics Data:     False (0 records)
+  - Chemistry Data:   False (0 records)
+  - Class Data:       False
+  - Board Data:       False
+  - Unit Data:        False
+
+4. CONTROL TAG PRESENCE RATES IN INPUT PROMPTS:
+  - subject: 100.00%
+  - topic: 100.00%
+  - unit: 0.00%
+  - class: 0.00%
+  - board: 0.00%
+  - bloom: 100.00%
+  - difficulty: 100.00%
+  - marks: 100.00%
+  - question_type: 0.00%
+
+  [EXPLICIT REPORT]: Architecture supports this control, but the current dataset does not provide sufficient supervision.
+
+5. CATEGORICAL DISTRIBUTIONS IN V4
+
+Verification Status Distribution:
+  - VERIFIED_DETERMINISTIC: 4563 (50.28%)
+  - VERIFIED_HEURISTIC: 4229 (46.60%)
+  - NOT_VERIFIED: 283 (3.12%)
+
+Bloom Taxonomy Distribution:
+  - Analyze: 5699 (62.80%)
+  - Apply: 3220 (35.48%)
+  - Evaluate: 7 (0.08%)
+  - Remember: 133 (1.47%)
+  - Understand: 14 (0.15%)
+  - Create: 2 (0.02%)
+
+6. TOKENIZATION STATS (google/flan-t5-small)
+  [Mathematics] Input Tokens (Avg: 36.3, Max: 37) | Target Tokens (Avg: 59.8, Max: 189)
+  [General Studies / Business] Input Tokens (Avg: 36.2, Max: 38) | Target Tokens (Avg: 20.2, Max: 47)
+  [Psychology] Input Tokens (Avg: 46.6, Max: 49) | Target Tokens (Avg: 22.1, Max: 44)
+  [U.S. History] Input Tokens (Avg: 50.6, Max: 56) | Target Tokens (Avg: 21.5, Max: 31)
+  [Biology] Input Tokens (Avg: 30.0, Max: 30) | Target Tokens (Avg: 19.2, Max: 28)
+  [Introduction To Sociology] Input Tokens (Avg: 33.3, Max: 35) | Target Tokens (Avg: 19.6, Max: 29)
+  [Anatomy And Physiology] Input Tokens (Avg: 36.0, Max: 36) | Target Tokens (Avg: 21.5, Max: 34)
+  [Business Ethics] Input Tokens (Avg: 47.0, Max: 47) | Target Tokens (Avg: 14.0, Max: 14)
+  [American Government] Input Tokens (Avg: 47.1, Max: 49) | Target Tokens (Avg: 23.1, Max: 30)
+  [Microbiology] Input Tokens (Avg: 50.0, Max: 50) | Target Tokens (Avg: 44.0, Max: 48)
+  [Principles Of Accounting, Volume 2: Managerial Accounting] Input Tokens (Avg: 55.0, Max: 55) | Target Tokens (Avg: 22.0, Max: 22)
+  [Business Law I Essentials] Input Tokens (Avg: 34.7, Max: 36) | Target Tokens (Avg: 23.7, Max: 36)
+
+7. QUALITY GATES VERDICT SUMMARY
+  - Status: WARN
+  Warnings: Multi-subject imbalance: Physics or Chemistry data is missing in current V4 dataset.; Supervision gap: Class, Board, or Unit metadata is missing from active records.

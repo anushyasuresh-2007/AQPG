@@ -1,0 +1,142 @@
+================================================================================
+AQPG PHASE 14 DATASET FORENSIC AUDIT REPORT
+================================================================================
+OVERALL AUDIT VERDICT:    WARN
+EMPIRICAL READINESS:      B. NEED MORE DATA
+
+1. RECORD COUNTS & SYNTAX
+  - Train Set (80%):      40392
+  - Validation Set (20%): 10099
+  - Total V14 Records:    50491
+  - JSON Syntax Errors:   0
+
+2. DATA LEAKAGE & DUPLICATION
+  - Exact Prompt Overlap:          153
+  - Exact Target Overlap:          0 (Goal: 0)
+  - Normalized Target Overlap:     0 (Goal: 0)
+  - Duplicate Prompt-Target Pairs: 0 (Goal: 0)
+
+3. STEM SUBJECT BREAKDOWN
+  - Mathematics:   9626 (19.06%) [Threshold >=5,000: PASS]
+  - Physics:       3580 (7.09%) [Threshold >=5,000: FAIL]
+  - Chemistry:     11088 (21.96%) [Threshold >=5,000: PASS]
+  - Biology:       5529 (10.95%)
+  - General Science:10280 (20.36%)
+  - Social Science:630 (1.25%)
+  - Business & Law:578 (1.14%)
+  - History/Civics:464 (0.92%)
+  - UNKNOWN:       8716 (17.26%)
+
+4. K-12 CLASS GROUNDING BREAKDOWN
+  - Class 9:       3442 (6.82%) [Threshold >=1,000: PASS]
+  - Class 10:      1291 (2.56%) [Threshold >=1,000: PASS]
+  - Class 11:      1043 (2.07%) [Threshold >=1,000: PASS]
+  - Class 12:      1082 (2.14%) [Threshold >=1,000: PASS]
+  - Total Class 9-12:6858 (13.58%)
+  - Class UNKNOWN: 43633 (86.42%)
+
+5. BOARD GROUNDING BREAKDOWN
+  - CBSE:             12
+  - State Board:      0
+  - OpenStax Academic:3372
+  - Public Benchmark: 47107
+  - UNKNOWN:          0
+
+  - Unit UNKNOWN:     36816 (72.92%)
+
+6. CROSS-TABULATION MATRICES:
+
+A. Subject x Class:
+  [General Science]: {'UNKNOWN': 8021, 'Class 9': 1577, 'Class 10': 682}
+  [UNKNOWN]: {'UNKNOWN': 8716}
+  [Mathematics]: {'UNKNOWN': 8792, 'Class 9': 421, 'Class 11': 297, 'Class 12': 116}
+  [Chemistry]: {'UNKNOWN': 10304, 'Class 12': 114, 'Class 9': 305, 'Class 10': 140, 'Class 11': 225}
+  [Physics]: {'UNKNOWN': 1913, 'Class 10': 242, 'Class 9': 564, 'Class 12': 687, 'Class 11': 174}
+  [Business & Law]: {'UNKNOWN': 578}
+  [Biology]: {'UNKNOWN': 4215, 'Class 10': 227, 'Class 9': 575, 'Class 12': 165, 'Class 11': 347}
+  [History & Civics]: {'UNKNOWN': 464}
+  [Social Science]: {'UNKNOWN': 630}
+
+B. Subject x Board:
+  [General Science]: {'Public Benchmark': 10280}
+  [UNKNOWN]: {'Public Benchmark': 8685, 'OpenStax Academic': 31}
+  [Mathematics]: {'Public Benchmark': 9626}
+  [Chemistry]: {'Public Benchmark': 11082, 'CBSE': 6}
+  [Physics]: {'Public Benchmark': 3574, 'CBSE': 6}
+  [Business & Law]: {'OpenStax Academic': 578}
+  [Biology]: {'Public Benchmark': 3860, 'OpenStax Academic': 1669}
+  [History & Civics]: {'OpenStax Academic': 464}
+  [Social Science]: {'OpenStax Academic': 630}
+
+C. Subject x Question Type:
+  [General Science]: {'MCQ': 10280}
+  [UNKNOWN]: {'Short Answer': 8685, 'MCQ': 31}
+  [Mathematics]: {'Numerical': 8792, 'MCQ': 834}
+  [Chemistry]: {'MCQ': 11080, 'Numerical': 6, 'Short Answer': 2}
+  [Physics]: {'MCQ': 3572, 'Short Answer': 2, 'Numerical': 6}
+  [Business & Law]: {'MCQ': 578}
+  [Biology]: {'MCQ': 5529}
+  [History & Civics]: {'MCQ': 464}
+  [Social Science]: {'MCQ': 630}
+
+D. Subject x Verification Status:
+  [General Science]: {'VERIFIED_HEURISTIC': 10280}
+  [UNKNOWN]: {'VERIFIED_HEURISTIC': 8716}
+  [Mathematics]: {'VERIFIED_HEURISTIC': 8885, 'NOT_VERIFIED': 710, 'VERIFIED_DETERMINISTIC': 31}
+  [Chemistry]: {'VERIFIED_HEURISTIC': 11088}
+  [Physics]: {'VERIFIED_HEURISTIC': 3580}
+  [Business & Law]: {'VERIFIED_HEURISTIC': 578}
+  [Biology]: {'VERIFIED_HEURISTIC': 5529}
+  [History & Civics]: {'VERIFIED_HEURISTIC': 464}
+  [Social Science]: {'VERIFIED_HEURISTIC': 630}
+
+E. Class x Board:
+  [UNKNOWN]: {'Public Benchmark': 40261, 'OpenStax Academic': 3372}
+  [Class 9]: {'Public Benchmark': 3442}
+  [Class 10]: {'Public Benchmark': 1291}
+  [Class 11]: {'Public Benchmark': 1037, 'CBSE': 6}
+  [Class 12]: {'Public Benchmark': 1076, 'CBSE': 6}
+
+F. Source x Subject:
+  [openbookqa]: {'General Science': 4290, 'Physics': 625, 'Biology': 722, 'Chemistry': 116}
+  [bloom_taxonomy]: {'UNKNOWN': 8685}
+  [gsm8k_reasoning]: {'Mathematics': 8792}
+  [sciq]: {'Chemistry': 9861, 'General Science': 1930, 'Physics': 658, 'Biology': 1137}
+  [eduqg]: {'Business & Law': 578, 'Biology': 1669, 'History & Civics': 464, 'Social Science': 630, 'UNKNOWN': 31}
+  [ai2_arc]: {'Biology': 1489, 'General Science': 4060, 'Physics': 1433, 'Chemistry': 769}
+  [mmlu]: {'Mathematics': 834, 'Chemistry': 333, 'Biology': 512, 'Physics': 855}
+  [ncert_exemplar_class9_12_raw]: {'Chemistry': 9, 'Physics': 9}
+
+G. Source x Class:
+  [openbookqa]: {'UNKNOWN': 5753}
+  [bloom_taxonomy]: {'UNKNOWN': 8685}
+  [gsm8k_reasoning]: {'UNKNOWN': 8792}
+  [sciq]: {'UNKNOWN': 13586}
+  [eduqg]: {'UNKNOWN': 3372}
+  [ai2_arc]: {'UNKNOWN': 3445, 'Class 9': 3018, 'Class 10': 1288}
+  [mmlu]: {'Class 9': 421, 'Class 11': 1037, 'Class 12': 1076}
+  [ncert_exemplar_class9_12_raw]: {'Class 11': 6, 'Class 10': 3, 'Class 12': 6, 'Class 9': 3}
+
+H. Source x License:
+  [openbookqa]: {'Apache 2.0': 5753}
+  [bloom_taxonomy]: {'Public Domain': 8685}
+  [gsm8k_reasoning]: {'MIT License': 8792}
+  [sciq]: {'CC BY-NC 3.0': 13586}
+  [eduqg]: {'CC BY 4.0': 3372}
+  [ai2_arc]: {'CC BY-SA 4.0': 7751}
+  [mmlu]: {'MIT License': 2534}
+  [ncert_exemplar_class9_12_raw]: {'CC BY-NC 4.0': 12, 'CC BY-NC-SA 4.0': 4, 'CC BY-NC 3.0': 2}
+
+7. TOKENIZATION AUDIT (google/flan-t5-small)
+  - Sample Size:                  2000
+  - Input Tokens (Min / Max / Avg): 48 / 70 / 53.7
+  - Target Tokens (Min / Max / Avg):3 / 144 / 27.4
+  - % Inputs > 128 Tokens:        0.00%
+  - % Inputs > 256 Tokens:        0.00%
+  - % Targets > 128 Tokens:       0.30%
+  - % Targets > 256 Tokens:       0.00%
+
+8. QUALITY GATES & VERDICT
+  - Quality Gate Status: WARN
+  - Final Verdict:        B. NEED MORE DATA
+  - Warnings: Physics Target Threshold Gap: 3580 < 5,000 target records.

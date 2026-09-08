@@ -1,0 +1,37 @@
+[
+  {
+    "source_value": "CBSE",
+    "normalized_board": "CBSE",
+    "evidence_rule": "Explicit declaration in NCERT Exemplar & official curriculum datasets",
+    "confidence": "HIGH",
+    "notes": "Central Board of Secondary Education curriculum alignment"
+  },
+  {
+    "source_value": "State Board",
+    "normalized_board": "State Board",
+    "evidence_rule": "Explicit declaration in state secondary education board materials",
+    "confidence": "HIGH",
+    "notes": "State board curriculum alignment"
+  },
+  {
+    "source_value": "OpenStax Academic",
+    "normalized_board": "OpenStax Academic",
+    "evidence_rule": "Peer-reviewed open textbook curriculum",
+    "confidence": "HIGH",
+    "notes": "OpenStax college/high-school textbook corpus"
+  },
+  {
+    "source_value": "Public Benchmark",
+    "normalized_board": "Public Benchmark",
+    "evidence_rule": "Standard open scientific benchmarks (GSM8K, SciQ, AI2 ARC, MMLU, OpenBookQA)",
+    "confidence": "HIGH",
+    "notes": "Open scientific benchmarks"
+  },
+  {
+    "source_value": "UNKNOWN",
+    "normalized_board": "UNKNOWN",
+    "evidence_rule": "Source does not declare a board affiliation",
+    "confidence": "HIGH",
+    "notes": "Preserved as UNKNOWN"
+  }
+]

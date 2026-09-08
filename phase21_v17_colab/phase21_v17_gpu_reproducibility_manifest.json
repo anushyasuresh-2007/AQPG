@@ -1,0 +1,18 @@
+{
+  "reproducibility_policy": "CLEAN_RUN_FROM_BASE_MODEL",
+  "base_model": "google/flan-t5-small",
+  "seed": 42,
+  "python_seed": 42,
+  "numpy_seed": 42,
+  "torch_seed": 42,
+  "cuda_seed": 42,
+  "torch_deterministic": true,
+  "cudnn_benchmark": false,
+  "device": "cuda",
+  "fp16": true,
+  "archival_cpu_run": {
+    "task_id": "task-328",
+    "archived_in": "AQPG_V17_CPU_RUN_ARCHIVE_TASK328",
+    "resumed_in_gpu": false
+  }
+}

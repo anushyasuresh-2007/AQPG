@@ -1,0 +1,107 @@
+{
+  "experiments": {
+    "experiment_a": {
+      "name": "Experiment A (Sanity Baseline): V15 Dataset + Corrected Epoch Training",
+      "hypothesis": "Increasing training from 100 steps to 3 full epochs on FLAN-T5-small will improve subject accuracy from 60% to >80%, but template repetition will remain high due to unmitigated dataset template skew.",
+      "dataset": "V15 Unmodified (42,152 train records)",
+      "model": "google/flan-t5-small (77M)",
+      "training_config": {
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 0.0003,
+        "warmup_steps": 200
+      },
+      "metrics": [
+        "validity_rate",
+        "subject_acc",
+        "template_repetition_rate",
+        "control_sensitivity"
+      ]
+    },
+    "experiment_b": {
+      "name": "Experiment B (Proposed V16 Standard): Balanced & Filtered Dataset + Full Epoch Training",
+      "hypothesis": "Downsampling dominant MCQ templates (cap 500/template), oversampling Class 9-12 records (2x), filtering numerical records, and training for 3 full epochs on FLAN-T5-small will achieve >85% subject accuracy, <30% template repetition, and >70% control sensitivity.",
+      "dataset": "V16 Rebalanced & Filtered Dataset",
+      "model": "google/flan-t5-small (77M)",
+      "training_config": {
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 0.0003,
+        "warmup_steps": 200
+      },
+      "metrics": [
+        "validity_rate",
+        "subject_acc",
+        "template_repetition_rate",
+        "control_sensitivity",
+        "numerical_validity"
+      ]
+    },
+    "experiment_c": {
+      "name": "Experiment C (Scaled Architecture): Balanced Dataset + FLAN-T5-Base",
+      "hypothesis": "Deploying the V16 balanced dataset onto FLAN-T5-base (250M parameters) with 3 full epochs will break through the 80% control sensitivity threshold and enable nuanced Class 9-12 curriculum distinctions.",
+      "dataset": "V16 Rebalanced & Filtered Dataset",
+      "model": "google/flan-t5-base (250M)",
+      "training_config": {
+        "epochs": 3,
+        "batch_size": 8,
+        "learning_rate": 0.0002,
+        "gradient_accumulation": 4
+      },
+      "metrics": [
+        "validity_rate",
+        "subject_acc",
+        "template_repetition_rate",
+        "control_sensitivity",
+        "class_alignment"
+      ]
+    }
+  },
+  "success_gates": {
+    "question_validity_rate": {
+      "threshold": ">= 95.0%",
+      "v15_measured": "97.31%",
+      "status": "PASSING_BENCHMARK"
+    },
+    "subject_accuracy": {
+      "threshold": ">= 85.0%",
+      "v15_measured": "60.77%",
+      "status": "NEEDS_IMPROVEMENT"
+    },
+    "topic_accuracy": {
+      "threshold": ">= 80.0%",
+      "v15_measured": "43.27%",
+      "status": "NEEDS_IMPROVEMENT"
+    },
+    "question_type_accuracy": {
+      "threshold": ">= 85.0%",
+      "v15_measured": "64.23%",
+      "status": "NEEDS_IMPROVEMENT"
+    },
+    "control_sensitivity": {
+      "threshold": ">= 80.0%",
+      "v15_measured": "30.00%",
+      "status": "NEEDS_IMPROVEMENT"
+    },
+    "template_repetition_rate": {
+      "threshold": "<= 30.0%",
+      "v15_measured": "88.08%",
+      "status": "CRITICAL_DEFICIT"
+    },
+    "exact_training_memorization": {
+      "threshold": "<= 2.0%",
+      "v15_measured": "0.96%",
+      "status": "PASSING_BENCHMARK"
+    },
+    "numerical_validity": {
+      "threshold": ">= 85.0%",
+      "v15_measured": "NOT_VERIFIED",
+      "status": "NEEDS_IMPROVEMENT"
+    },
+    "class_alignment": {
+      "threshold": ">= 75.0% on grounded subset",
+      "v15_measured": "NOT_VERIFIABLE",
+      "status": "NEEDS_IMPROVEMENT"
+    }
+  }
+}

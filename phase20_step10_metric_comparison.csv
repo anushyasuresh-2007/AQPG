@@ -1,0 +1,11 @@
+Metric,Base Model,V15 Model,V16 (Step 9),V16 - Base Change,V16 - V15 Change,Direction,Comparable?,Provenance
+Generation Success Rate,100.0%,100.0%,100.0%,0.0%,0.0%,HIGHER_BETTER,YES,"phase20_base_outputs.jsonl, phase17_quality_evaluation.json"
+Question Structural Validity,100.0%*,97.31%,98.20%,-1.80%*,+0.89%,HIGHER_BETTER,YES,"phase17_quality_evaluation.json, Step 9 report"
+Subject Accuracy,0.0%,60.77%,67.60%,+67.60%,+6.83%,HIGHER_BETTER,YES,"phase17_quality_evaluation.json, Step 9 report"
+Topic Accuracy,0.0%,43.27%,72.60%,+72.60%,+29.33%,HIGHER_BETTER,YES,"phase17_quality_evaluation.json, Step 9 report"
+Class Alignment,0.0%,NOT_VERIFIABLE,81.60%,+81.60%,NOT_COMPARABLE,HIGHER_BETTER,NO (vs V15),"phase18_v16_experiment_plan.json, Step 9 report"
+Question-Type Accuracy,0.0%,64.23%,46.80%,+46.80%,-17.43%,HIGHER_BETTER,YES,"phase17_quality_evaluation.json, Step 9 report"
+Control Sensitivity Rate,0.0%,30.00%,0.00%,0.00%,-30.00%,HIGHER_BETTER,YES,"phase17_control_sensitivity.json, Step 9 report"
+Template Repetition / Concentration,Echo Prompt,88.08% Repetition,100.0% Top-10 Conc,NOT_COMPARABLE,NOT_COMPARABLE,LOWER_BETTER,NO,"phase17_quality_evaluation.json, Step 9 report"
+Exact Memorization,0.0%,0.96%,4.62%,+4.62%,NOT_COMPARABLE,LOWER_BETTER,NO (vs V15),"phase17_quality_evaluation.json, Step 9 report"
+Numerical Validity Rate,0.0%,NOT_VERIFIED,19.41%,+19.41%,NOT_COMPARABLE,HIGHER_BETTER,NO (vs V15),"phase18_v16_experiment_plan.json, Step 9 report"

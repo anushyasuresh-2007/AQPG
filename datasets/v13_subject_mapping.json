@@ -1,0 +1,58 @@
+[
+  {
+    "source_value": "Mathematics",
+    "normalized_subject": "Mathematics",
+    "evidence_rule": "Direct metadata label or reasoning math dataset source (GSM8K, MMLU math, NCERT Math)",
+    "confidence": "HIGH",
+    "notes": "Mathematical calculations, algebra, geometry, arithmetic"
+  },
+  {
+    "source_value": "Physics",
+    "normalized_subject": "Physics",
+    "evidence_rule": "Direct metadata label or physical sciences dataset source (NCERT Physics, MMLU Physics, SciQ Physics)",
+    "confidence": "HIGH",
+    "notes": "Mechanics, electromagnetism, thermodynamics, optics, modern physics"
+  },
+  {
+    "source_value": "Chemistry",
+    "normalized_subject": "Chemistry",
+    "evidence_rule": "Direct metadata label or chemical sciences dataset source (NCERT Chemistry, MMLU Chemistry, SciQ Chemistry)",
+    "confidence": "HIGH",
+    "notes": "Organic, inorganic, physical chemistry, stoichiometry, reactions"
+  },
+  {
+    "source_value": "Biology",
+    "normalized_subject": "Biology",
+    "evidence_rule": "Direct metadata label or biological sciences dataset source (EduQG Biology/Anatomy, MMLU Biology, SciQ Biology)",
+    "confidence": "HIGH",
+    "notes": "Cell biology, anatomy, physiology, genetics, ecology"
+  },
+  {
+    "source_value": "General Science",
+    "normalized_subject": "General Science",
+    "evidence_rule": "Interdisciplinary science benchmarks covering broad K-12 principles (OpenBookQA, AI2 ARC, SciQ general science)",
+    "confidence": "HIGH",
+    "notes": "Integrated scientific inquiry, earth & environmental sciences"
+  },
+  {
+    "source_value": "Computer Science",
+    "normalized_subject": "Computer Science",
+    "evidence_rule": "Direct metadata label for computing and programming questions",
+    "confidence": "HIGH",
+    "notes": "Algorithms, data structures, computer systems"
+  },
+  {
+    "source_value": "English",
+    "normalized_subject": "English",
+    "evidence_rule": "Direct metadata label for language arts and reading comprehension",
+    "confidence": "HIGH",
+    "notes": "Grammar, literature, comprehension"
+  },
+  {
+    "source_value": "UNKNOWN",
+    "normalized_subject": "UNKNOWN",
+    "evidence_rule": "Unclassified or general reasoning prompts without explicit disciplinary label",
+    "confidence": "HIGH",
+    "notes": "Preserved as UNKNOWN"
+  }
+]

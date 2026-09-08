@@ -1,0 +1,6 @@
+{
+  "base_model": "google/flan-t5-base",
+  "fallback_model": "google/flan-t5-small",
+  "train_samples_count": 22281,
+  "dataset_path": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\qg_flan_t5\\qg_train_dataset.jsonl"
+}

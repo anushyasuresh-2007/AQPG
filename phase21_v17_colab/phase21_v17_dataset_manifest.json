@@ -1,0 +1,15 @@
+{
+  "manifest_name": "AQPG V17 Dataset Google Colab Manifest",
+  "total_records": 50000,
+  "train_dataset": {
+    "filename": "phase21_step3_v17_train_dataset.jsonl",
+    "records": 40000,
+    "sha256": "F150ED036D3B1612FB307949323972C40DD7074C8DC3C885621A72B993548C85"
+  },
+  "validation_dataset": {
+    "filename": "phase21_step3_v17_validation_dataset.jsonl",
+    "records": 10000,
+    "sha256": "7038D9C15A68269574E413A6C7E7E491A6DF047CD85F3BF9C3FFD82E7B764A3E"
+  },
+  "quality_gates_status": "ALL_13_GATES_PASSED"
+}

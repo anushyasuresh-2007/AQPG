@@ -1,0 +1,22 @@
+{
+  "v15_class_distribution": {
+    "Class 11": 2343,
+    "Class 12": 1982,
+    "Class 9": 3442,
+    "UNKNOWN": 43633,
+    "Class 10": 1291
+  },
+  "v16_class_distribution": {
+    "Class 11": 2343,
+    "Class 12": 1982,
+    "Class 9": 3442,
+    "UNKNOWN": 41637,
+    "Class 10": 1291
+  },
+  "v15_unknown_pct": 82.81,
+  "v16_unknown_pct": 82.13,
+  "grounded_class_total_v15": 9058,
+  "grounded_class_total_v16": 9058,
+  "grounded_class_pct_v15": 17.19,
+  "grounded_class_pct_v16": 17.87
+}

@@ -1,0 +1,89 @@
+{
+  "phase": "21A",
+  "step": 5,
+  "audit_type": "GPU Package Integrity & Dataset Lineage Audit",
+  "final_decision": "PASS WITH WARNING \u2014 HASH/LINEAGE DIFFERENCE EXPLAINED AND DATA CONTENT VERIFIED",
+  "dataset_lineage": {
+    "canonical_step3_trial_draft_train_sha": "CFA5B581E0D10D5CD65D7BDB5B0F75D355EE97EDC8F70570ECF12FBB76C7641B",
+    "canonical_step3_trial_draft_val_sha": "A6BAAA9DEFAFCEDD924DAFA65BAAA19CD7484B776E013CF1D6EAF32ED021CFDF",
+    "step3_build_manifest_recorded_train_sha": "F150ED036D3B1612FB307949323972C40DD7074C8DC3C885621A72B993548C85",
+    "step3_build_manifest_recorded_val_sha": "7038D9C15A68269574E413A6C7E7E491A6DF047CD85F3BF9C3FFD82E7B764A3E",
+    "current_disk_train_sha": "F150ED036D3B1612FB307949323972C40DD7074C8DC3C885621A72B993548C85",
+    "current_disk_val_sha": "7038D9C15A68269574E413A6C7E7E491A6DF047CD85F3BF9C3FFD82E7B764A3E",
+    "lineage_explanation": "The current dataset files on disk (created Aug 24 17:34:20) are byte-for-byte identical to the final PASS-certified Step 3 build manifest. Early trial draft hashes from initial trial runs were updated during multi-template stem diversification.",
+    "lineage_match_with_step3_manifest": true
+  },
+  "content_level_comparison": {
+    "total_records": 50000,
+    "train_records": 40000,
+    "val_records": 10000,
+    "unique_input_prompts": 50000,
+    "unique_prompt_ratio_percent": 100.0,
+    "train_val_target_leakage": 0,
+    "exact_duplicate_pairs": 0,
+    "classification": "CASE B \u2014 Content 100% Intact; Hash Lineage Explained by Final Step 3 Manifest"
+  },
+  "configuration_audit": {
+    "status": "PASS",
+    "details": {
+      "base_model": true,
+      "max_input_length": true,
+      "max_target_length": true,
+      "epochs": true,
+      "batch_size": true,
+      "grad_accum": true,
+      "effective_batch_size": true,
+      "learning_rate": true,
+      "scheduler": true,
+      "warmup_ratio": true,
+      "weight_decay": true,
+      "label_smoothing": true,
+      "grad_clip": true,
+      "seed": true,
+      "eval_steps": true,
+      "save_steps": true,
+      "save_limit": true,
+      "metric_best": true,
+      "early_stopping_patience": true,
+      "fastapi_blocked": true
+    }
+  },
+  "gpu_package_audit": {
+    "status": "PASS",
+    "files_present": [
+      "phase21_v17_gpu_training.ipynb",
+      "train_flan_t5_v17_gpu.py",
+      "phase21_v17_gpu_training_config.json",
+      "phase21_v17_dataset_manifest.json",
+      "phase21_v17_gpu_reproducibility_manifest.json"
+    ],
+    "code_audits": {
+      "cuda_detection": true,
+      "no_silent_cpu_fallback": true,
+      "configurable_paths": true,
+      "no_hardcoded_user_paths": true,
+      "clean_run_policy": true,
+      "preflight_check": true,
+      "fastapi_blocked": true
+    }
+  },
+  "cpu_archive_preservation": {
+    "status": "PASS",
+    "archive_directory": "c:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\AQPG_V17_CPU_RUN_ARCHIVE_TASK328"
+  },
+  "boundary_integrity": {
+    "phase20_untouched": true,
+    "fastapi_untouched": true,
+    "approved_for_fastapi": false,
+    "fastapi_integration_status": "BLOCKED"
+  },
+  "mandatory_safety_declarations": {
+    "no_model_training_executed": true,
+    "no_inference_executed": true,
+    "no_dataset_modified": true,
+    "no_phase20_artifact_modified": true,
+    "no_fastapi_code_modified": true,
+    "no_cpu_checkpoint_deleted": true,
+    "no_gpu_training_started": true
+  }
+}

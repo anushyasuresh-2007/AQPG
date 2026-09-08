@@ -1,0 +1,6 @@
+Rank,Severity,Failure Mode,Empirical Evidence,Root Cause,Confidence,Recommended Fix
+1,CRITICAL,Control Blindness (0.00%),"Top 3 prompts account for 43% of entire training dataset (17,424 records)",Extreme prompt string repetition (204 unique prompts across 40.5k records),HIGH,Deduplicate input prompts & balance control token combinations
+2,CRITICAL,Template Collapse (100% Top-10),61.55% MCQ targets; model overfits on generic MCQ stem priors,High MCQ target density & prompt repetition,HIGH,Downsample MCQ targets to 35% & diversify stem templates
+3,HIGH,Question-Type Mismatch (46.80%),Conceptual questions comprise only 1.38% (560 records) of training set,Severe Conceptual under-representation (24x benchmark deficit),HIGH,Oversample Conceptual prompts to 30% of dataset
+4,HIGH,Numerical Validity Failure (19.41%),"85.3% (7,034 / 8,242) of numerical prompts share 1 generic Math prompt",Lack of numerical prompt variation across Physics/Chemistry/Classes,HIGH,"Distribute numerical prompts across Physics, Chemistry, and Classes 9-12"
+5,MODERATE,Training Memorization (4.62%),"Model trained 7,602 steps at lr=3e-4 on 204 unique prompts",Over-training on highly repeated prompt clusters,HIGH,"Reduce lr to 1e-4, add weight decay 0.05, apply control-token loss weighting"

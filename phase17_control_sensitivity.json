@@ -1,0 +1,86 @@
+{
+  "sensitivity_rate_percent": 30.0,
+  "classification": "CONTROL-BLIND",
+  "pairs": [
+    {
+      "pair_id": "PAIR-01",
+      "prompt_a": "generate question | subject: Physics | topic: Gravitation & Planetary Motion | unit: Mechanics | class: Class 9 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_a": "Which of the following is not a function of gravitational motion?",
+      "prompt_b": "generate question | subject: Physics | topic: Gravitation & Planetary Motion | unit: Mechanics | class: Class 12 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_b": "Which of the following is not a function of gravitational motion?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-02",
+      "prompt_a": "generate question | subject: Mathematics | topic: Probability & Statistics | unit: Statistics | class: Class 9 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_a": "Which of the following is not a factor in determining the probability of a person being hit by a car?",
+      "prompt_b": "generate question | subject: Mathematics | topic: Probability & Statistics | unit: Statistics | class: Class 12 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_b": "Which of the following is not a factor in determining the probability of a person being hit by a car?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-03",
+      "prompt_a": "generate question | subject: Chemistry | topic: Chemical Bonding | unit: Inorganic Chemistry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "output_a": "Which of the following is a type of chemical bonding?",
+      "prompt_b": "generate question | subject: Chemistry | topic: Chemical Bonding | unit: Inorganic Chemistry | class: Class 12 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "output_b": "Which of the following is a type of chemical bonding?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-04",
+      "prompt_a": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Algebra | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "output_a": "Which of the following is NOT true?",
+      "prompt_b": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Algebra | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 5 | type: Numerical",
+      "output_b": "Which of the following is NOT true?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-05",
+      "prompt_a": "generate question | subject: Physics | topic: Kinematics & Equations of Motion | unit: Mechanics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "output_a": "Which of the following is not a function of kinetics and equations of motion?",
+      "prompt_b": "generate question | subject: Physics | topic: Kinematics & Equations of Motion | unit: Mechanics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 5 | type: Numerical",
+      "output_b": "Which of the following is not a function of kinetic energy?",
+      "is_sensitive_to_change": true
+    },
+    {
+      "pair_id": "PAIR-06",
+      "prompt_a": "generate question | subject: Biology | topic: Cell Structure & Organelles | unit: Cell Biology | class: Class 11 | board: Public Benchmark | bloom: Analyze | difficulty: Easy | marks: 1 | type: MCQ",
+      "output_a": "Which of the following is not a characteristic of a cell?",
+      "prompt_b": "generate question | subject: Biology | topic: Cell Structure & Organelles | unit: Cell Biology | class: Class 11 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 5 | type: MCQ",
+      "output_b": "Which of the following is not a characteristic of a cell?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-07",
+      "prompt_a": "generate question | subject: Physics | topic: Current Electricity & Ohm's Law | unit: Electrodynamics | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_a": "Which of the following is not a function of current electricity & Ohm's Law?",
+      "prompt_b": "generate question | subject: Physics | topic: Current Electricity & Ohm's Law | unit: Electrodynamics | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: MCQ",
+      "output_b": "Which of the following is not a function of current electricity & Ohm's Law?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-08",
+      "prompt_a": "generate question | subject: Chemistry | topic: Solutions & Molarity Molality | unit: Physical Chemistry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_a": "Which of the following statements is true?",
+      "prompt_b": "generate question | subject: Chemistry | topic: Solutions & Molarity Molality | unit: Physical Chemistry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: MCQ",
+      "output_b": "Which of the following is not a chemical reaction?",
+      "is_sensitive_to_change": true
+    },
+    {
+      "pair_id": "PAIR-09",
+      "prompt_a": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_a": "Which of the following statements is true?",
+      "prompt_b": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: MCQ",
+      "output_b": "Which of the following statements is true?",
+      "is_sensitive_to_change": false
+    },
+    {
+      "pair_id": "PAIR-10",
+      "prompt_a": "generate question | subject: Physics | topic: Thermodynamics & Heat | unit: Physical Science | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_a": "Thermodynamics & heat is a type of what?",
+      "prompt_b": "generate question | subject: Chemistry | topic: Thermodynamics & Heat | unit: Physical Science | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "output_b": "Thermodynamics & heat is what?",
+      "is_sensitive_to_change": true
+    }
+  ]
+}

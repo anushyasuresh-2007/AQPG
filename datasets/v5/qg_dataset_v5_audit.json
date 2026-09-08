@@ -1,0 +1,233 @@
+{
+  "overall_status": "WARN",
+  "record_counts": {
+    "train": 16683,
+    "val": 4171,
+    "total": 20854
+  },
+  "json_validity": {
+    "valid": true,
+    "error_count": 0,
+    "errors": []
+  },
+  "leakage": {
+    "exact_prompt_overlap": 118,
+    "exact_target_overlap": 0,
+    "normalized_target_overlap": 0,
+    "duplicate_pairs_count": 0
+  },
+  "distributions": {
+    "source_dataset": {
+      "bloom_taxonomy": 8685,
+      "gsm8k_reasoning": 8792,
+      "eduqg": 3377
+    },
+    "subject": {
+      "UNKNOWN": 8716,
+      "Mathematics": 8792,
+      "Biology": 1672,
+      "Social Science": 630,
+      "History & Civics": 464,
+      "Business & Law": 580
+    },
+    "class": {
+      "UNKNOWN": 20854
+    },
+    "board": {
+      "Public Benchmark": 17477,
+      "OpenStax Academic": 3377
+    },
+    "unit": {
+      "UNKNOWN": 17477,
+      "Chapter 40": 12,
+      "Chapter 15": 101,
+      "Chapter 32": 19,
+      "Chapter 28": 47,
+      "Chapter 8": 162,
+      "Chapter 42": 18,
+      "Chapter 2": 149,
+      "Chapter 20": 73,
+      "Chapter 14": 122,
+      "Chapter 7": 153,
+      "Chapter 25": 60,
+      "Chapter 39": 12,
+      "Chapter 47": 10,
+      "Chapter 6": 151,
+      "Chapter 9": 158,
+      "Chapter 31": 18,
+      "Chapter 22": 73,
+      "Chapter 17": 101,
+      "Chapter 21": 86,
+      "Chapter 4": 157,
+      "Chapter 19": 72,
+      "Chapter 3": 157,
+      "Chapter 11": 160,
+      "Chapter 26": 63,
+      "Chapter 1": 181,
+      "Chapter 38": 16,
+      "Chapter 10": 138,
+      "Chapter 24": 60,
+      "Chapter 27": 32,
+      "Chapter 34": 11,
+      "Chapter 46": 17,
+      "Chapter 23": 53,
+      "Chapter 12": 121,
+      "Chapter 13": 129,
+      "Chapter 16": 102,
+      "Chapter 30": 33,
+      "Chapter 5": 131,
+      "Chapter 43": 26,
+      "Chapter 18": 70,
+      "Chapter 41": 12,
+      "Chapter 44": 6,
+      "Chapter 37": 12,
+      "Chapter 36": 15,
+      "Chapter 45": 20,
+      "Chapter 33": 20,
+      "Chapter 35": 15,
+      "Chapter 29": 23
+    },
+    "topic": {
+      "General Concept Evaluation": 8685,
+      "Arithmetic & Word Problems": 8792,
+      "UNKNOWN": 3377
+    },
+    "bloom": {
+      "Evaluate": 778,
+      "Apply": 10293,
+      "Remember": 2534,
+      "Understand": 5161,
+      "Analyze": 1288,
+      "Create": 800
+    },
+    "difficulty": {
+      "Hard": 1578,
+      "Medium": 11581,
+      "Easy": 7695
+    },
+    "marks": {
+      "2": 8685,
+      "3": 8792,
+      "1": 3377
+    },
+    "question_type": {
+      "Short Answer": 8686,
+      "Numerical": 8792,
+      "MCQ": 3376
+    },
+    "verification_status": {
+      "VERIFIED_HEURISTIC": 20547,
+      "NOT_VERIFIED": 307
+    }
+  },
+  "matrices": {
+    "subject_x_class": {
+      "UNKNOWN": {
+        "UNKNOWN": 8716
+      },
+      "Mathematics": {
+        "UNKNOWN": 8792
+      },
+      "Biology": {
+        "UNKNOWN": 1672
+      },
+      "Social Science": {
+        "UNKNOWN": 630
+      },
+      "History & Civics": {
+        "UNKNOWN": 464
+      },
+      "Business & Law": {
+        "UNKNOWN": 580
+      }
+    },
+    "subject_x_board": {
+      "UNKNOWN": {
+        "Public Benchmark": 8685,
+        "OpenStax Academic": 31
+      },
+      "Mathematics": {
+        "Public Benchmark": 8792
+      },
+      "Biology": {
+        "OpenStax Academic": 1672
+      },
+      "Social Science": {
+        "OpenStax Academic": 630
+      },
+      "History & Civics": {
+        "OpenStax Academic": 464
+      },
+      "Business & Law": {
+        "OpenStax Academic": 580
+      }
+    },
+    "subject_x_question_type": {
+      "UNKNOWN": {
+        "Short Answer": 8685,
+        "MCQ": 31
+      },
+      "Mathematics": {
+        "Numerical": 8792
+      },
+      "Biology": {
+        "MCQ": 1671,
+        "Short Answer": 1
+      },
+      "Social Science": {
+        "MCQ": 630
+      },
+      "History & Civics": {
+        "MCQ": 464
+      },
+      "Business & Law": {
+        "MCQ": 580
+      }
+    },
+    "subject_x_verification_status": {
+      "UNKNOWN": {
+        "VERIFIED_HEURISTIC": 8716
+      },
+      "Mathematics": {
+        "VERIFIED_HEURISTIC": 8485,
+        "NOT_VERIFIED": 307
+      },
+      "Biology": {
+        "VERIFIED_HEURISTIC": 1672
+      },
+      "Social Science": {
+        "VERIFIED_HEURISTIC": 630
+      },
+      "History & Civics": {
+        "VERIFIED_HEURISTIC": 464
+      },
+      "Business & Law": {
+        "VERIFIED_HEURISTIC": 580
+      }
+    },
+    "class_x_board": {
+      "UNKNOWN": {
+        "Public Benchmark": 17477,
+        "OpenStax Academic": 3377
+      }
+    }
+  },
+  "token_stats": {
+    "sample_size": 2000,
+    "input_min": 51,
+    "input_max": 57,
+    "input_avg": 54.73,
+    "target_min": 5,
+    "target_max": 154,
+    "target_avg": 36.2965,
+    "pct_input_exceed_128": 0.0,
+    "pct_input_exceed_256": 0.0,
+    "pct_target_exceed_128": 0.44999999999999996,
+    "pct_target_exceed_256": 0.0
+  },
+  "gate_failures": [],
+  "gate_warnings": [
+    "Multi-Subject Gap: Physics (0) or Chemistry (0) records are absent in V5.",
+    "Class Supervision Gap: Class is UNKNOWN for 20854/20854 records."
+  ]
+}

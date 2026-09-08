@@ -1,0 +1,197 @@
+"""AI Question Generator factory and multi-provider orchestrator with graceful fallback."""
+
+import os
+import random
+from typing import List, Optional
+
+from app.core.config import settings
+from app.services.ai.base import AIQuestionPrompt, BaseAIProvider, GeneratedQuestionResult
+from app.services.ai.gemini_provider import GeminiProvider
+from app.services.ai.openai_provider import OpenAIProvider
+
+
+class OfflineFallbackProvider(BaseAIProvider):
+    """Generates rigorous, subject-specific questions when external AI API keys are not provided."""
+
+    def is_available(self) -> bool:
+        return True
+
+    def generate_question(self, prompt: AIQuestionPrompt) -> GeneratedQuestionResult:
+        subj = prompt.subject_name.lower()
+        marks = prompt.marks
+        b_lvl = prompt.bloom_level
+        q_type = prompt.question_type
+
+        # Subject-specific realistic questions
+        if "math" in subj:
+            if marks <= 2:
+                val_x = random.randint(2, 9)
+                val_a = random.choice([2, 3, 4, 5])
+                val_b = random.randint(1, 12)
+                sign = random.choice(["+", "-"])
+                if sign == "+":
+                    val_c = val_a * val_x + val_b
+                    q_text = f"Find the value of x such that {val_a}x + {val_b} = {val_c} in the context of {prompt.unit_name}."
+                    ans = f"{val_a}x = {val_c} - {val_b} => {val_a}x = {val_c - val_b} => x = {val_x}."
+                else:
+                    val_c = val_a * val_x - val_b
+                    q_text = f"Find the value of x such that {val_a}x - {val_b} = {val_c} in the context of {prompt.unit_name}."
+                    ans = f"{val_a}x = {val_c} + {val_b} => {val_a}x = {val_c + val_b} => x = {val_x}."
+            elif marks <= 4:
+                quads = [
+                    {"eq": "x² - 5x + 6 = 0", "ans": "x = 2 or x = 3", "d": "25 - 24 = 1"},
+                    {"eq": "2x² - 5x + 2 = 0", "ans": "x = 2 or x = 1/2", "d": "25 - 16 = 9"},
+                    {"eq": "x² - 7x + 12 = 0", "ans": "x = 3 or x = 4", "d": "49 - 48 = 1"},
+                    {"eq": "x² - 8x + 15 = 0", "ans": "x = 3 or x = 5", "d": "64 - 60 = 4"},
+                    {"eq": "x² - 3x + 2 = 0", "ans": "x = 1 or x = 2", "d": "9 - 8 = 1"},
+                    {"eq": "x² - 2x - 3 = 0", "ans": "x = 3 or x = -1", "d": "4 + 12 = 16"},
+                    {"eq": "x² + 5x + 6 = 0", "ans": "x = -2 or x = -3", "d": "25 - 24 = 1"},
+                    {"eq": "x² - 9x + 20 = 0", "ans": "x = 4 or x = 5", "d": "81 - 80 = 1"},
+                    {"eq": "x² + 3x - 10 = 0", "ans": "x = 2 or x = -5", "d": "9 + 40 = 49"},
+                ]
+                selected = random.choice(quads)
+                q_text = f"Solve the quadratic equation {selected['eq']} using the quadratic formula and state the nature of roots ({prompt.unit_name})."
+                ans = f"Using x = [-b ± √(b² - 4ac)] / 2a, D = {selected['d']} > 0. Roots are real and distinct: {selected['ans']}."
+            else:
+                boats = [
+                    {"still": 18, "dist": 24, "diff": 1, "ans": 6},
+                    {"still": 15, "dist": 30, "diff": 4.5, "ans": 5},
+                    {"still": 12, "dist": 32, "diff": 2, "ans": 4},
+                    {"still": 10, "dist": 24, "diff": 1, "ans": 2},
+                    {"still": 24, "dist": 45, "diff": 1, "ans": 6},
+                ]
+                selected = random.choice(boats)
+                q_text = f"A motor boat whose speed is {selected['still']} km/h in still water takes {selected['diff']} hour(s) more to go {selected['dist']} km upstream than to return downstream to the same spot. Find the speed of the stream ({prompt.unit_name})."
+                ans = f"Let speed of stream be x km/h. {selected['dist']}/({selected['still']}-x) - {selected['dist']}/({selected['still']}+x) = {selected['diff']}. Solving gives speed of stream = {selected['ans']} km/h."
+        elif "physic" in subj:
+            if marks <= 2:
+                forces = [10, 15, 20, 25, 30]
+                disps = [2, 3, 4, 5, 8]
+                f = random.choice(forces)
+                d = random.choice(disps)
+                q_text = f"State the formula for work done and calculate the work when a force of {f} N displaces a body by {d} m in the direction of force ({prompt.unit_name})."
+                ans = f"Work W = F * d = {f} N * {d} m = {f * d} Joules."
+            elif marks <= 4:
+                phys_short = [
+                    {"mass": 5, "v": 20, "t": 4, "f": 25, "ke": 1000},
+                    {"mass": 2, "v": 10, "t": 2, "f": 10, "ke": 100},
+                    {"mass": 10, "v": 30, "t": 5, "f": 60, "ke": 4500},
+                    {"mass": 4, "v": 16, "t": 4, "f": 16, "ke": 512},
+                ]
+                selected = random.choice(phys_short)
+                q_text = f"A body of mass {selected['mass']} kg is accelerated from rest to {selected['v']} m/s in a time interval of {selected['t']} seconds. Calculate the net force and kinetic energy acquired ({prompt.unit_name})."
+                ans = f"Acceleration a = v/t = {selected['v']}/{selected['t']} = {selected['v']/selected['t']} m/s². Force F = m*a = {selected['mass']}*{selected['v']/selected['t']} = {selected['f']} N. KE = 0.5*m*v² = {selected['ke']} J."
+            else:
+                phys_long = [
+                    {"r": 20, "i": 15, "t": 2, "p": 4500, "e": 9.0},
+                    {"r": 10, "i": 10, "t": 3, "p": 1000, "e": 3.0},
+                    {"r": 30, "i": 20, "t": 1.5, "p": 12000, "e": 18.0},
+                ]
+                selected = random.choice(phys_long)
+                q_text = f"An electric heater of resistance {selected['r']} Ohms draws a current of {selected['i']} A from the service mains. Calculate the rate at which heat is developed in the heater over {selected['t']} hours and total electrical energy in kWh ({prompt.unit_name})."
+                ans = f"Rate of heat P = I²R = {selected['i']}² * {selected['r']} = {selected['p']} W. Energy E = P * t = {selected['p']/1000} kW * {selected['t']} h = {selected['e']} kWh."
+        elif "chem" in subj:
+            if marks <= 2:
+                reactions = [
+                    {"eq": "CaCO3(s) --[Heat]--> CaO(s) + CO2(g)", "sub": "calcium carbonate"},
+                    {"eq": "2Pb(NO3)2(s) --[Heat]--> 2PbO(s) + 4NO2(g) + O2(g)", "sub": "lead nitrate"},
+                    {"eq": "2FeSO4(s) --[Heat]--> Fe2O3(s) + SO2(g) + SO3(g)", "sub": "ferrous sulphate"},
+                ]
+                sel = random.choice(reactions)
+                q_text = f"Write the balanced chemical equation for the thermal decomposition of {sel['sub']} on heating ({prompt.unit_name})."
+                ans = f"Chemical equation: {sel['eq']}."
+            elif marks <= 4:
+                moles = [
+                    {"mass": 44, "gas": "Carbon Dioxide (CO2)", "molar": 44, "n": 1.0},
+                    {"mass": 18, "gas": "Water Vapor (H2O)", "molar": 18, "n": 1.0},
+                    {"mass": 36, "gas": "Water Vapor (H2O)", "molar": 18, "n": 2.0},
+                    {"mass": 17, "gas": "Ammonia (NH3)", "molar": 17, "n": 1.0},
+                    {"mass": 32, "gas": "Oxygen Gas (O2)", "molar": 32, "n": 1.0},
+                ]
+                sel = random.choice(moles)
+                q_text = f"Calculate the number of moles and molecules present in {sel['mass']} grams of {sel['gas']} gas ({prompt.unit_name})."
+                ans = f"Molar mass of {sel['gas']} = {sel['molar']} g/mol. Moles n = {sel['mass']}/{sel['molar']} = {sel['n']} mol. Molecules = {sel['n']} * 6.022 * 10²³ = {sel['n'] * 6.022} * 10²³ molecules."
+            else:
+                chem_long = [
+                    "Explain the principle of electrolytic refining of copper with a neat labeled diagram and reactions occurring at cathode and anode.",
+                    "Describe the Haber process for industrial synthesis of ammonia, including the balanced chemical equation, optimal pressure/temperature, and catalyst used.",
+                    "Explain the extraction of zinc from zinc blende ore, describing the roasting, reduction, and refining reactions with balanced equations."
+                ]
+                q_text = f"{random.choice(chem_long)} ({prompt.unit_name})."
+                ans = "Detailed description covering industrial parameters, anode/cathode half-reactions, and chemical equations."
+        elif "computer" in subj or "cs" in subj:
+            if marks <= 2:
+                cs_shorts = [
+                    {"expr": "[x**2 for x in range(5) if x % 2 != 0]", "ans": "[1, 9] (squares of odd numbers 1 and 3)"},
+                    {"expr": "[x + 10 for x in [1, 2, 3]]", "ans": "[11, 12, 13]"},
+                    {"expr": "str(1234)[::-1]", "ans": "'4321' (reversed string representation)"},
+                    {"expr": "set([1, 2, 2, 3, 3, 3])", "ans": "{1, 2, 3} (unique elements)"},
+                ]
+                sel = random.choice(cs_shorts)
+                q_text = f"What will be the output of the Python expression: `print({sel['expr']})`? ({prompt.unit_name})"
+                ans = f"Output: {sel['ans']}."
+            else:
+                cs_longs = [
+                    {"desc": "Write a Python function to search for a record in a binary file 'STUDENT.DAT' based on admission number.", "code": "import pickle\ndef search_record(adm_no):\n  with open('STUDENT.DAT', 'rb') as f:\n    try:\n      while True:\n        rec = pickle.load(f)\n        if rec['adm_no'] == adm_no: return rec\n    except EOFError: return None"},
+                    {"desc": "Write a Python function to count the occurrences of words starting with an uppercase letter in a text file 'STORY.TXT'.", "code": "def count_caps():\n  with open('STORY.TXT', 'r') as f:\n    words = f.read().split()\n    return sum(1 for w in words if w and w[0].isupper())"},
+                    {"desc": "Write a Python function to insert and retrieve student names using a stack structure.", "code": "stack = []\ndef push_name(name):\n  stack.append(name)\ndef pop_name():\n  return stack.pop() if stack else None"},
+                ]
+                sel = random.choice(cs_longs)
+                q_text = f"{sel['desc']} ({prompt.unit_name})"
+                ans = f"Code solution:\n{sel['code']}"
+        else:
+            templates = [
+                f"Analyze the key concepts of {prompt.unit_name} ({prompt.topic_name or 'Core Syllabus'}) and explain their practical implications ({prompt.board} {prompt.class_name}).",
+                f"Critically evaluate the significance of {prompt.unit_name} in modern academic and real-world contexts, illustrating with suitable examples.",
+                f"Discuss the foundational principles and historical evolution of {prompt.unit_name} and describe how it shapes current methodology.",
+                f"Formulate a detailed case study illustrating the core components of {prompt.unit_name} and propose solutions to associated challenges."
+            ]
+            q_text = random.choice(templates)
+            ans = f"Detailed explanation covering core pedagogical principles of {prompt.unit_name} with relevant real-world illustrations."
+
+        return GeneratedQuestionResult(
+            question_text=q_text,
+            answer=ans,
+            explanation=f"Generated for cognitive level '{b_lvl}' matching target difficulty '{prompt.difficulty}'.",
+            question_type=q_type,
+            marks=marks,
+            difficulty=prompt.difficulty.lower(),
+            bloom=b_lvl,
+            unit_name=prompt.unit_name,
+            topic_name=prompt.topic_name,
+        )
+
+    def generate_batch(self, prompts: List[AIQuestionPrompt]) -> List[GeneratedQuestionResult]:
+        return [self.generate_question(p) for p in prompts]
+
+
+def get_ai_generator() -> BaseAIProvider:
+    """Return configured AI Provider (Gemini, OpenAI, or Fallback)."""
+    provider_name = (os.getenv("AI_PROVIDER") or getattr(settings, "AI_PROVIDER", "gemini")).lower()
+
+    if provider_name in ("v17_2", "v17.2", "flan_t5_v17_2"):
+        from app.services.ai.v17_2_inference_adapter import V17_2InferenceAdapter
+        v17_2 = V17_2InferenceAdapter()
+        if v17_2.is_available():
+            return v17_2
+
+
+    if provider_name == "openai":
+        provider = OpenAIProvider()
+        if provider.is_available():
+            return provider
+    elif provider_name == "gemini":
+        provider = GeminiProvider()
+        if provider.is_available():
+            return provider
+
+    # Check both if primary not configured
+    gemini = GeminiProvider()
+    if gemini.is_available():
+        return gemini
+
+    openai = OpenAIProvider()
+    if openai.is_available():
+        return openai
+
+    return OfflineFallbackProvider()

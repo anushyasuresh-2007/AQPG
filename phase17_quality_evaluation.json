@@ -1,0 +1,51 @@
+{
+  "dataset_version": "V15",
+  "checkpoint_evaluated": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v15",
+  "total_prompts_evaluated": 520,
+  "validity_metrics": {
+    "valid_count": 506,
+    "valid_rate_percent": 97.31,
+    "partially_valid_count": 1,
+    "partially_valid_rate_percent": 0.19,
+    "invalid_count": 13,
+    "invalid_rate_percent": 2.5,
+    "garbled_count": 0,
+    "garbled_rate_percent": 0.0
+  },
+  "conditioning_accuracy": {
+    "subject_accuracy_percent": 60.77,
+    "topic_match_percent": 43.27,
+    "topic_mismatch_percent": 56.73,
+    "question_type_accuracy_percent": 64.23,
+    "class_not_verifiable_rate_percent": 100.0,
+    "control_sensitivity_percent": 30.0,
+    "control_sensitivity_classification": "CONTROL-BLIND"
+  },
+  "scientific_verification": {
+    "mathematics": {
+      "NOT_VERIFIED": 106
+    },
+    "physics": {
+      "VERIFIED_HEURISTIC": 107
+    },
+    "chemistry": {
+      "VERIFIED_HEURISTIC": 105
+    }
+  },
+  "diversity_and_memorization": {
+    "unique_generations_count": 62,
+    "unique_generation_rate_percent": 11.92,
+    "template_repetition_rate_percent": 88.08,
+    "exact_memorization_rate_percent": 0.96
+  },
+  "hardware_and_environment": {
+    "pytorch_version": "2.5.1+cpu",
+    "device": "cpu",
+    "parameter_count": 76961152,
+    "nan_inf_weights_present": false
+  },
+  "production_readiness": {
+    "final_verdict": "B. PROMISING \u2014 NEEDS IMPROVEMENT",
+    "rationale": "Model demonstrates basic domain awareness and vocabulary conditioning across STEM subjects, but suffers from template collapse (e.g. 'is a type of what', 'in the water'), weak numerical reasoning, and insufficient class-level differentiation."
+  }
+}

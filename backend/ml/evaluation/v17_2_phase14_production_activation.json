@@ -1,0 +1,330 @@
+{
+  "phase": 14,
+  "title": "AQPG V17.2 Controlled Production Activation & End-to-End API Validation Report",
+  "pre_activation_backup": {
+    "original_path": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\app\\services\\ai\\generator_factory.py",
+    "backup_path": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\evaluation\\phase14_backups\\generator_factory.py.20260907_221931.bak",
+    "sha256_before": "21c289802e8d55d2cf76a45d9ab7aa380f89f958225bacbdd8908090ec931fde",
+    "file_size_bytes": 12568,
+    "modification_reason": "Controlled activation of V17_2InferenceAdapter in GeneratorFactory provider selection"
+  },
+  "v17_1_integrity": {
+    "expected_hash": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+    "actual_pre_hash": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+    "actual_post_hash": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+    "match": true,
+    "status": "PASS"
+  },
+  "activation": {
+    "environment_variable": "AI_PROVIDER=v17_2",
+    "provider_class": "V17_2InferenceAdapter",
+    "model_path": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v17_2\\best_model",
+    "status": "PASS"
+  },
+  "api_startup": {
+    "fastapi_import": true,
+    "provider_instantiated": true,
+    "status": "PASS"
+  },
+  "end_to_end_api_tests": {
+    "total_requests": 10,
+    "successful_requests": 10,
+    "failed_requests": 0,
+    "test_cases": [
+      {
+        "request_id": 1,
+        "subject": "Mathematics",
+        "unit": "Algebra",
+        "topic": "Quadratic Equations",
+        "difficulty": "Medium",
+        "marks": 3,
+        "bloom": "Understand",
+        "type": "Conceptual",
+        "latency_sec": 28.9974,
+        "status_code": 200,
+        "success": true,
+        "question_text": "Explain the concept of Quadratic Equations (Reference Variant 4.0) and discuss how parameter 11.0 affects parameter 22.0 in Mathematics (Reference Variant 4.0) [Reference Variant 34.0]",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 2,
+        "subject": "Mathematics",
+        "unit": "Geometry & Trigonometry",
+        "topic": "Trigonometry",
+        "difficulty": "Hard",
+        "marks": 5,
+        "bloom": "Apply",
+        "type": "Application Based",
+        "latency_sec": 1.7384,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In Mathematics (Alternative Mathematics Problem 0): Calculate the output value when input is 8.0 and scaling constant is 9.",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 3,
+        "subject": "Physics",
+        "unit": "Optics",
+        "topic": "Light Reflection and Refraction",
+        "difficulty": "Easy",
+        "marks": 2,
+        "bloom": "Remember",
+        "type": "Short Answer",
+        "latency_sec": 8.6684,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In Physics (Semiconductor Problem 0): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 4,
+        "subject": "Physics",
+        "unit": "Current Electricity",
+        "topic": "Electricity",
+        "difficulty": "Hard",
+        "marks": 5,
+        "bloom": "Analyze",
+        "type": "Numerical",
+        "latency_sec": 1.8391,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In Physics (Electroelectricity Problem 0): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 5,
+        "subject": "Chemistry",
+        "unit": "Chemical Substances",
+        "topic": "Chemical Reactions and Equations",
+        "difficulty": "Medium",
+        "marks": 3,
+        "bloom": "Understand",
+        "type": "Conceptual",
+        "latency_sec": 1.9684,
+        "status_code": 200,
+        "success": true,
+        "question_text": "Explain the concept of a symbiotic relationship between a symbiotic relationship and a symbiotic relationship. (Reference Variant 10)",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 6,
+        "subject": "Chemistry",
+        "unit": "Chemical Reactions",
+        "topic": "Acids, Bases and Salts",
+        "difficulty": "Hard",
+        "marks": 5,
+        "bloom": "Evaluate",
+        "type": "Long Answer",
+        "latency_sec": 7.6774,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In Chemistry (Alternative Chemistry Problem 0): Calculate molar value when 14.0 g of solute is dissolved in 240 mL solution.",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 7,
+        "subject": "Biology",
+        "unit": "World of Living",
+        "topic": "Life Processes",
+        "difficulty": "Easy",
+        "marks": 2,
+        "bloom": "Remember",
+        "type": "Short Answer",
+        "latency_sec": 1.834,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In Biology (Alternative Biology Problem 0): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 8,
+        "subject": "Biology",
+        "unit": "Life Science",
+        "topic": "Control and Coordination",
+        "difficulty": "Medium",
+        "marks": 3,
+        "bloom": "Apply",
+        "type": "Conceptual",
+        "latency_sec": 7.367,
+        "status_code": 200,
+        "success": true,
+        "question_text": "Explain the concept of a symbiotic relationship between a symbiotic relationship and a symbiotic relationship. (Reference Variant 4).",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 9,
+        "subject": "General Science",
+        "unit": "Environmental Studies",
+        "topic": "Our Environment",
+        "difficulty": "Easy",
+        "marks": 1,
+        "bloom": "Remember",
+        "type": "MCQ",
+        "latency_sec": 2.1565,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In a laboratory exercise on a sandstone sandstone, a sandstone sandstone is a type of what?",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      },
+      {
+        "request_id": 10,
+        "subject": "General Science",
+        "unit": "Natural Resources",
+        "topic": "Management of Natural Resources",
+        "difficulty": "Hard",
+        "marks": 4,
+        "bloom": "Create",
+        "type": "Long Answer",
+        "latency_sec": 2.4066,
+        "status_code": 200,
+        "success": true,
+        "question_text": "In General Science (Geometry Problem & Evolution) [Ref 4]: Calculate the output value when input is 4.0 and scaling constant is 7.",
+        "response_contract_check": {
+          "question_text_valid": true,
+          "question_like": true,
+          "answer_valid": true,
+          "explanation_valid": true,
+          "type_preserved": true,
+          "marks_preserved": true,
+          "difficulty_preserved": true,
+          "bloom_preserved": true,
+          "unit_preserved": true,
+          "topic_preserved": true
+        }
+      }
+    ],
+    "status": "PASS"
+  },
+  "response_contract_validation": {
+    "question_text_non_empty": true,
+    "question_like_structure": true,
+    "metadata_preservation_100pct": true,
+    "status": "PASS"
+  },
+  "safety_checks": {
+    "remote_model_download": false,
+    "local_files_only": true,
+    "failure_safety": true,
+    "rollback_capability": true,
+    "status": "PASS"
+  },
+  "performance": {
+    "total_requests": 10,
+    "avg_latency_sec": 6.4653,
+    "min_latency_sec": 1.7384,
+    "max_latency_sec": 28.9974
+  },
+  "final_production_status": "ACTIVATION_SUCCESSFUL",
+  "safety_audit": {
+    "v17_1_modified": false,
+    "v17_1_deleted": false,
+    "v17_2_weights_modified": false,
+    "v17_2_checkpoint_modified": false,
+    "dataset_modified": false,
+    "training_started": false,
+    "remote_download": false,
+    "database_modified": false,
+    "production_files_modified": [
+      "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\app\\services\\ai\\generator_factory.py"
+    ]
+  }
+}

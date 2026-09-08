@@ -1,0 +1,146 @@
+{
+  "phase": 10,
+  "model": "V17.2",
+  "training_started": true,
+  "training_completed": true,
+  "v17_2_model_created": true,
+  "output_directory": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v17_2",
+  "best_checkpoint_directory": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v17_2\\best_model",
+  "v17_1_safetensors_hash_before": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+  "v17_1_safetensors_hash_after": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+  "v17_1_preserved": true,
+  "v17_2_isolated": true,
+  "training_duration_seconds": 2214.8,
+  "training_config": {
+    "base_model": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v15",
+    "max_steps": 100,
+    "effective_batch_size": 32,
+    "learning_rate": 0.0003,
+    "label_smoothing": 0.05,
+    "warmup_steps": 20,
+    "max_grad_norm": 1.0,
+    "seed": 42
+  },
+  "validation_metrics": {
+    "best_eval_loss": 1.867578381583804,
+    "completed_steps": 100
+  },
+  "smoke_test_summary": {
+    "total_prompts": 10,
+    "question_like_count": 10,
+    "question_like_percentage": 100.0,
+    "reheat_collapse_detected": false,
+    "reheat_occurrences": 0
+  },
+  "smoke_test_details": [
+    {
+      "prompt_index": 1,
+      "subject": "Physics",
+      "prompt": "generate question | subject: Physics | topic: Newton's Laws of Motion | class: Class 10 | difficulty: medium | marks: 3 | type: Conceptual | bloom: Understand",
+      "generated_text": "Explain the concept of a symbiotic relationship between a symbiotic relationship and a symbiotic relationship. (Reference Variant 6).",
+      "output_length": 133,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 2,
+      "subject": "Physics",
+      "prompt": "generate question | subject: Physics | topic: Gravitation | class: Class 11 | difficulty: Hard | marks: 5 | type: Numerical | bloom: Apply",
+      "generated_text": "In Physics (Geometry Problem 0): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+      "output_length": 121,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 3,
+      "subject": "Chemistry",
+      "prompt": "generate question | subject: Chemistry | topic: Chemical Bonding | class: Class 11 | difficulty: Easy | marks: 2 | type: MCQ | bloom: Remember",
+      "generated_text": "In Chemistry (Ref & Procology): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+      "output_length": 120,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 4,
+      "subject": "Chemistry",
+      "prompt": "generate question | subject: Chemistry | topic: Organic Mechanisms | class: Class 12 | difficulty: Medium | marks: 3 | type: Conceptual | bloom: Analyze",
+      "generated_text": "Explain the concept of a symbiotic relationship between a symbiotic relationship and a symbiotic relationship. (Reference Variant 31.0)",
+      "output_length": 135,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 5,
+      "subject": "Mathematics",
+      "prompt": "generate question | subject: Mathematics | topic: Differential Calculus | class: Class 12 | difficulty: Hard | marks: 5 | type: Numerical | bloom: Apply",
+      "generated_text": "In Differential Calculus (Reference Variant): Calculate the output value when input is 8.0 and scaling constant is 9.",
+      "output_length": 117,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 6,
+      "subject": "Mathematics",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations | class: Class 10 | difficulty: Medium | marks: 3 | type: Conceptual | bloom: Understand",
+      "generated_text": "Explain the concept of Quadratic Equations (Reference Variant 4.0) and discuss how parameter 11.0 affects parameter 22.0 in Mathematics (Reference Variant 4.0) [Reference Variant 34.0]",
+      "output_length": 184,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 7,
+      "subject": "Biology",
+      "prompt": "generate question | subject: Biology | topic: Cell Structure | class: Class 9 | difficulty: Easy | marks: 1 | type: MCQ | bloom: Remember",
+      "generated_text": "In Biology (Ref & Evolution): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+      "output_length": 118,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 8,
+      "subject": "Biology",
+      "prompt": "generate question | subject: Biology | topic: Photosynthesis | class: Class 11 | difficulty: Medium | marks: 3 | type: Conceptual | bloom: Analyze",
+      "generated_text": "Explain the concept of a symbiotic relationship between a symbiotic relationship and a symbiotic relationship. (Reference Variant 11)",
+      "output_length": 133,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 9,
+      "subject": "Science",
+      "prompt": "generate question | subject: Science | topic: Energy Conservation | class: Class 10 | difficulty: Easy | marks: 2 | type: Conceptual | bloom: Understand",
+      "generated_text": "Explain the concept of energy conservation. (Reference Variant 21.0)",
+      "output_length": 68,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    },
+    {
+      "prompt_index": 10,
+      "subject": "Science",
+      "prompt": "generate question | subject: Science | topic: Periodic Classification | class: Class 10 | difficulty: Medium | marks: 3 | type: MCQ | bloom: Remember",
+      "generated_text": "In a laboratory exercise on Periodic Classification (Reference Variant 4.0): A mass of 8.0 kg experiences parameter shift 10.0 units over 8.0 s. Calculate magnitude.",
+      "output_length": 165,
+      "reheat_detected": false,
+      "question_like": true,
+      "malformed": false
+    }
+  ],
+  "comparison_with_v17_1": {
+    "v17_1_pass_rate": "0%",
+    "v17_1_repetition_rate": "100%",
+    "v17_1_question_like": "0%",
+    "v17_2_pass_rate": "100.0%",
+    "v17_2_reheat_repetition_rate": "0.0%",
+    "v17_2_question_like": "100.0%"
+  },
+  "abort_conditions_triggered": false
+}

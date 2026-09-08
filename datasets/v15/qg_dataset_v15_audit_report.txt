@@ -1,0 +1,144 @@
+================================================================================
+AQPG PHASE 15 DATASET FORENSIC AUDIT REPORT
+================================================================================
+OVERALL AUDIT VERDICT:    PASS
+EMPIRICAL READINESS:      A. TRAINING AUTHORIZED
+
+1. RECORD COUNTS & SYNTAX
+  - Train Set (80%):      42152
+  - Validation Set (20%): 10539
+  - Total V15 Records:    52691
+  - JSON Syntax Errors:   0
+
+2. DATA LEAKAGE & DUPLICATION
+  - Exact Prompt Overlap:          185
+  - Exact Target Overlap:          0 (Goal: 0)
+  - Normalized Target Overlap:     0 (Goal: 0)
+  - Duplicate Prompt-Target Pairs: 0 (Goal: 0)
+
+3. STEM SUBJECT BREAKDOWN
+  - Mathematics:   9626 (18.27%) [Threshold >=5,000: PASS]
+  - Physics:       5780 (10.97%) [Threshold >=5,000: PASS]
+  - Chemistry:     11088 (21.04%) [Threshold >=5,000: PASS]
+  - Biology:       5529 (10.49%)
+  - General Science:10280 (19.51%)
+  - Social Science:630 (1.20%)
+  - Business & Law:578 (1.10%)
+  - History/Civics:464 (0.88%)
+  - UNKNOWN:       8716 (16.54%)
+
+4. K-12 CLASS GROUNDING BREAKDOWN
+  - Class 9:       3442 (6.53%) [Threshold >=1,000: PASS]
+  - Class 10:      1291 (2.45%) [Threshold >=1,000: PASS]
+  - Class 11:      2343 (4.45%) [Threshold >=1,000: PASS]
+  - Class 12:      1982 (3.76%) [Threshold >=1,000: PASS]
+  - Total Class 9-12:9058 (17.19%)
+  - Class UNKNOWN: 43633 (82.81%)
+
+5. BOARD GROUNDING BREAKDOWN
+  - CBSE:             12
+  - State Board:      0
+  - OpenStax Academic:5572
+  - Public Benchmark: 47107
+  - UNKNOWN:          0
+
+  - Unit UNKNOWN:     36816 (69.87%)
+
+6. CROSS-TABULATION MATRICES:
+
+A. Subject x Class:
+  [General Science]: {'UNKNOWN': 8021, 'Class 9': 1577, 'Class 10': 682}
+  [Mathematics]: {'UNKNOWN': 8792, 'Class 11': 297, 'Class 9': 421, 'Class 12': 116}
+  [UNKNOWN]: {'UNKNOWN': 8716}
+  [Chemistry]: {'UNKNOWN': 10304, 'Class 9': 305, 'Class 11': 225, 'Class 10': 140, 'Class 12': 114}
+  [Biology]: {'UNKNOWN': 4215, 'Class 9': 575, 'Class 12': 165, 'Class 11': 347, 'Class 10': 227}
+  [Physics]: {'UNKNOWN': 1913, 'Class 9': 564, 'Class 10': 242, 'Class 11': 1474, 'Class 12': 1587}
+  [Social Science]: {'UNKNOWN': 630}
+  [Business & Law]: {'UNKNOWN': 578}
+  [History & Civics]: {'UNKNOWN': 464}
+
+B. Subject x Board:
+  [General Science]: {'Public Benchmark': 10280}
+  [Mathematics]: {'Public Benchmark': 9626}
+  [UNKNOWN]: {'Public Benchmark': 8685, 'OpenStax Academic': 31}
+  [Chemistry]: {'Public Benchmark': 11082, 'CBSE': 6}
+  [Biology]: {'Public Benchmark': 3860, 'OpenStax Academic': 1669}
+  [Physics]: {'Public Benchmark': 3574, 'OpenStax Academic': 2200, 'CBSE': 6}
+  [Social Science]: {'OpenStax Academic': 630}
+  [Business & Law]: {'OpenStax Academic': 578}
+  [History & Civics]: {'OpenStax Academic': 464}
+
+C. Subject x Question Type:
+  [General Science]: {'MCQ': 10280}
+  [Mathematics]: {'Numerical': 8792, 'MCQ': 834}
+  [UNKNOWN]: {'Short Answer': 8685, 'MCQ': 31}
+  [Chemistry]: {'MCQ': 11080, 'Numerical': 6, 'Short Answer': 2}
+  [Biology]: {'MCQ': 5529}
+  [Physics]: {'MCQ': 3572, 'Numerical': 1506, 'Conceptual': 700, 'Short Answer': 2}
+  [Social Science]: {'MCQ': 630}
+  [Business & Law]: {'MCQ': 578}
+  [History & Civics]: {'MCQ': 464}
+
+D. Subject x Verification Status:
+  [General Science]: {'VERIFIED_HEURISTIC': 10280}
+  [Mathematics]: {'VERIFIED_HEURISTIC': 8885, 'NOT_VERIFIED': 710, 'VERIFIED_DETERMINISTIC': 31}
+  [UNKNOWN]: {'VERIFIED_HEURISTIC': 8716}
+  [Chemistry]: {'VERIFIED_HEURISTIC': 11088}
+  [Biology]: {'VERIFIED_HEURISTIC': 5529}
+  [Physics]: {'VERIFIED_HEURISTIC': 5780}
+  [Social Science]: {'VERIFIED_HEURISTIC': 630}
+  [Business & Law]: {'VERIFIED_HEURISTIC': 578}
+  [History & Civics]: {'VERIFIED_HEURISTIC': 464}
+
+E. Class x Board:
+  [UNKNOWN]: {'Public Benchmark': 40261, 'OpenStax Academic': 3372}
+  [Class 11]: {'Public Benchmark': 1037, 'OpenStax Academic': 1300, 'CBSE': 6}
+  [Class 9]: {'Public Benchmark': 3442}
+  [Class 10]: {'Public Benchmark': 1291}
+  [Class 12]: {'Public Benchmark': 1076, 'OpenStax Academic': 900, 'CBSE': 6}
+
+F. Source x Subject:
+  [openbookqa]: {'General Science': 4290, 'Biology': 722, 'Physics': 625, 'Chemistry': 116}
+  [gsm8k_reasoning]: {'Mathematics': 8792}
+  [mmlu]: {'Mathematics': 834, 'Physics': 855, 'Chemistry': 333, 'Biology': 512}
+  [bloom_taxonomy]: {'UNKNOWN': 8685}
+  [sciq]: {'Chemistry': 9861, 'Biology': 1137, 'General Science': 1930, 'Physics': 658}
+  [ai2_arc]: {'General Science': 4060, 'Physics': 1433, 'Chemistry': 769, 'Biology': 1489}
+  [openstax_physics]: {'Physics': 2200}
+  [eduqg]: {'Social Science': 630, 'Biology': 1669, 'Business & Law': 578, 'History & Civics': 464, 'UNKNOWN': 31}
+  [ncert_exemplar_class9_12_raw]: {'Chemistry': 9, 'Physics': 9}
+
+G. Source x Class:
+  [openbookqa]: {'UNKNOWN': 5753}
+  [gsm8k_reasoning]: {'UNKNOWN': 8792}
+  [mmlu]: {'Class 11': 1037, 'Class 9': 421, 'Class 12': 1076}
+  [bloom_taxonomy]: {'UNKNOWN': 8685}
+  [sciq]: {'UNKNOWN': 13586}
+  [ai2_arc]: {'UNKNOWN': 3445, 'Class 9': 3018, 'Class 10': 1288}
+  [openstax_physics]: {'Class 11': 1300, 'Class 12': 900}
+  [eduqg]: {'UNKNOWN': 3372}
+  [ncert_exemplar_class9_12_raw]: {'Class 9': 3, 'Class 11': 6, 'Class 12': 6, 'Class 10': 3}
+
+H. Source x License:
+  [openbookqa]: {'Apache 2.0': 5753}
+  [gsm8k_reasoning]: {'MIT License': 8792}
+  [mmlu]: {'MIT License': 2534}
+  [bloom_taxonomy]: {'Public Domain': 8685}
+  [sciq]: {'CC BY-NC 3.0': 13586}
+  [ai2_arc]: {'CC BY-SA 4.0': 7751}
+  [openstax_physics]: {'CC BY 4.0': 2200}
+  [eduqg]: {'CC BY 4.0': 3372}
+  [ncert_exemplar_class9_12_raw]: {'CC BY-NC-SA 4.0': 4, 'CC BY-NC 4.0': 12, 'CC BY-NC 3.0': 2}
+
+7. TOKENIZATION AUDIT (google/flan-t5-small)
+  - Sample Size:                  2000
+  - Input Tokens (Min / Max / Avg): 44 / 70 / 53.7
+  - Target Tokens (Min / Max / Avg):4 / 189 / 29.1
+  - % Inputs > 128 Tokens:        0.00%
+  - % Inputs > 256 Tokens:        0.00%
+  - % Targets > 128 Tokens:       0.40%
+  - % Targets > 256 Tokens:       0.00%
+
+8. QUALITY GATES & TRAINING AUTHORIZATION VERDICT
+  - Quality Gate Status: PASS
+  - Final Verdict:        A. TRAINING AUTHORIZED

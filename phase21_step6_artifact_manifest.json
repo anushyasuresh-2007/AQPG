@@ -1,0 +1,28 @@
+{
+  "phase": "21A",
+  "step": 6,
+  "title": "AQPG V17 Step 6 Artifact Manifest",
+  "generated_artifacts": {
+    "phase21_step6_v17_gpu_training_summary.json": {
+      "path": "phase21_step6_v17_gpu_training_summary.json",
+      "sha256": "66408C840582E21102881D86C89D786CC748D3FE860FB47AC4C6E165AF3BDBB2"
+    },
+    "phase21_step6_v17_gpu_training_report.md": {
+      "path": "docs/phase21_step6_v17_gpu_training_report.md",
+      "sha256": "B10638BB55C7E1731D12499F44B825ECA28392CDA5DDE47818F4EA23B5183611"
+    }
+  },
+  "gpu_package_artifacts": [
+    "phase21_v17_colab/phase21_v17_gpu_training.ipynb",
+    "phase21_v17_colab/train_flan_t5_v17_gpu.py",
+    "phase21_v17_colab/phase21_v17_gpu_training_config.json",
+    "phase21_v17_colab/phase21_v17_dataset_manifest.json",
+    "phase21_v17_colab/phase21_v17_gpu_reproducibility_manifest.json",
+    "docs/phase21_v17_colab_gpu_instructions.md"
+  ],
+  "safety_declarations": {
+    "approved_for_fastapi": false,
+    "fastapi_integration_status": "BLOCKED",
+    "production_approval": false
+  }
+}

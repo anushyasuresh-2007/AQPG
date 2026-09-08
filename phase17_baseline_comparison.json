@@ -1,0 +1,36 @@
+{
+  "comparison": [
+    {
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations & Word Problems | unit: UNKNOWN | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "flan_t5_base_raw": "What is the subject of Linear Equations & Word Problems?",
+      "v3_flan_t5_pilot": "What is the subject of Linear Equations & Word Problems?",
+      "v15_flan_t5_small": "Which of the following is NOT true?"
+    },
+    {
+      "prompt": "generate question | subject: Physics | topic: Newton's Laws & Friction | unit: Mechanics | class: Class 11 | board: OpenStax Academic | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical",
+      "flan_t5_base_raw": "What is the topic of Newton's Laws & Friction?",
+      "v3_flan_t5_pilot": "What is the topic of Newton's Laws & Friction?",
+      "v15_flan_t5_small": "Newton's Laws & Friction is an example of what?"
+    },
+    {
+      "prompt": "generate question | subject: Chemistry | topic: Chemical Equilibrium & Le Chatelier | unit: UNKNOWN | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: MCQ",
+      "flan_t5_base_raw": "What is the topic of Chemical Equilibrium & Le Chatelier?",
+      "v3_flan_t5_pilot": "What is the topic of Chemical Equilibrium & Le Chatelier?",
+      "v15_flan_t5_small": "Which of the following is not a chemical reaction?"
+    },
+    {
+      "prompt": "generate question | subject: Biology | topic: Mendelian Genetics & Inheritance | unit: Genetics | class: Class 12 | board: OpenStax Academic | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "flan_t5_base_raw": "What is the name of the unit of Mendelian Genetics & Inheritance?",
+      "v3_flan_t5_pilot": "What is the name of the unit of Mendelian Genetics & Inheritance?",
+      "v15_flan_t5_small": "Which of the following is a characteristic of mendelian genetics & inheritance?"
+    },
+    {
+      "prompt": "generate question | subject: General Science | topic: Matter in Our Surroundings | unit: Secondary General Science | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: MCQ",
+      "flan_t5_base_raw": "What unit is Matter in Our Surroundings in?",
+      "v3_flan_t5_pilot": "What unit is Matter in Our Surroundings in?",
+      "v15_flan_t5_small": "Which of the following is not a source of energy?"
+    }
+  ],
+  "v3_available": true,
+  "base_model": "google/flan-t5-small"
+}

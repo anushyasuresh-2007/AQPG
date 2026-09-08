@@ -1,0 +1,64 @@
+{
+  "dataset_size": {
+    "v15": 52691,
+    "v16": 50695,
+    "change": "-1,996"
+  },
+  "train_size": {
+    "v15": 42152,
+    "v16": 40557,
+    "change": "-1,595"
+  },
+  "validation_size": {
+    "v15": 10539,
+    "v16": 10138,
+    "change": "-401"
+  },
+  "top_10_template_concentration": {
+    "v15": "16.10%",
+    "v16": "12.80%",
+    "change": "-3.30%"
+  },
+  "top_50_template_concentration": {
+    "v15": "24.05%",
+    "v16": "21.06%",
+    "change": "-2.99%"
+  },
+  "template_structural_entropy": {
+    "v15": 12.931,
+    "v16": 13.2047,
+    "change": "+0.2737 bits"
+  },
+  "grounded_class_representation": {
+    "v15": "17.19%",
+    "v16": "17.87%",
+    "change": "+0.68%"
+  },
+  "numerical_representation": {
+    "v15": "19.56%",
+    "v16": "20.33%",
+    "change": "+0.77%"
+  },
+  "subject_distribution": {
+    "Mathematics": {
+      "v15": 9626,
+      "v16": 9626
+    },
+    "Physics": {
+      "v15": 5780,
+      "v16": 5780
+    },
+    "Chemistry": {
+      "v15": 11088,
+      "v16": 10001
+    },
+    "Biology": {
+      "v15": 5529,
+      "v16": 5264
+    },
+    "General Science": {
+      "v15": 10280,
+      "v16": 9923
+    }
+  }
+}

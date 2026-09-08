@@ -1,0 +1,233 @@
+{
+  "step": "Phase 20 Step 10",
+  "title": "Comparative Metric Analysis (Base vs V15 vs V16)",
+  "mode": "ANALYSIS_ONLY",
+  "models": {
+    "base": "google/flan-t5-small (Raw Un-tuned Baseline)",
+    "v15": "FLAN-T5-Small V15 Checkpoint (Phase 16 Trained / Phase 17 Evaluated)",
+    "v16": "Historical Step 9 recorded outputs (FLAN-T5-Small V16)"
+  },
+  "artifact_provenance": {
+    "phase20_base_outputs.jsonl": {
+      "exists": true,
+      "size_bytes": 190876,
+      "sha256": "9BD203D50205FBF64B3C36A06A465F62930374C2CDDF3BB85F6C070DF26B91A7"
+    },
+    "phase17_generated_outputs.jsonl": {
+      "exists": true,
+      "size_bytes": 422501,
+      "sha256": "BEFDEFF74D44F5D1F7AE0AC7F9579BC9E056F2B065102E66AFC390970977C1E7"
+    },
+    "phase17_quality_evaluation.json": {
+      "exists": true,
+      "size_bytes": 1777,
+      "sha256": "3BDF91570C6D0EDDE4A5EAF0723B089C5EBC3C11B172E35C12B1163309E5B751"
+    },
+    "phase17_control_sensitivity.json": {
+      "exists": true,
+      "size_bytes": 7064,
+      "sha256": "ADAD24A23BA85EB704A756705CFF2CD50904EEF0C4B579E6A675DDA5640237AC"
+    },
+    "phase17_confusion_matrices.json": {
+      "exists": true,
+      "size_bytes": 773,
+      "sha256": "3C1860B07F46BB8A2F1C808A18E239B69EDA34A4414E4E265B19EBE6378B8ADC"
+    },
+    "phase18_v16_experiment_plan.json": {
+      "exists": true,
+      "size_bytes": 3725,
+      "sha256": "758AF0EDB3635898A195F18F9837AA63C0C7B869BBBF7AE7C514FEBA3EA2CBA7"
+    },
+    "phase20_evaluation_prompts.jsonl": {
+      "exists": true,
+      "size_bytes": 196260,
+      "sha256": "91335C1EC938454BADFD551975018689A2B87489EA10BECDD05C134A1ED3082E"
+    },
+    "phase20_v16_evaluation_summary.json": {
+      "exists": true,
+      "size_bytes": 853,
+      "sha256": "9DB6C5FA89ABA4A54DF8622804137477715E73E994D0202B06FA153A4B91CD3A"
+    }
+  },
+  "dataset_integrity": {
+    "prompts_file": "phase20_evaluation_prompts.jsonl",
+    "prompts_sha256": "91335C1EC938454BADFD551975018689A2B87489EA10BECDD05C134A1ED3082E",
+    "prompts_count": 520,
+    "base_outputs_count": 520,
+    "v15_outputs_count": 520,
+    "v16_outputs_count": 520,
+    "identical_benchmark_suite": true
+  },
+  "metrics": {
+    "generation_success_rate": {
+      "base": "100.0%",
+      "v15": "100.0%",
+      "v16": "100.0%",
+      "v16_minus_base": "0.0%",
+      "v16_minus_v15": "0.0%",
+      "direction": "HIGHER_BETTER",
+      "comparable": true,
+      "provenance": "phase20_base_outputs.jsonl, phase17_quality_evaluation.json, Step 9 summary"
+    },
+    "question_validity_rate": {
+      "base": "100.0% (primitive question format / prompt echo)",
+      "v15": "97.31%",
+      "v16": "98.20%",
+      "v16_minus_base": "-1.80% (Structural caveat: Base outputs are prompt echoes)",
+      "v16_minus_v15": "+0.89%",
+      "direction": "HIGHER_BETTER",
+      "comparable": true,
+      "provenance": "phase17_quality_evaluation.json, Step 9 evaluation report"
+    },
+    "subject_accuracy": {
+      "base": "0.0% (meta-echoes topic/subject string)",
+      "v15": "60.77%",
+      "v16": "67.60%",
+      "v16_minus_base": "+67.60%",
+      "v16_minus_v15": "+6.83%",
+      "direction": "HIGHER_BETTER",
+      "comparable": true,
+      "provenance": "phase17_quality_evaluation.json, Step 9 evaluation report"
+    },
+    "topic_accuracy": {
+      "base": "0.0% (meta-echoes topic string)",
+      "v15": "43.27%",
+      "v16": "72.60%",
+      "v16_minus_base": "+72.60%",
+      "v16_minus_v15": "+29.33%",
+      "direction": "HIGHER_BETTER",
+      "comparable": true,
+      "provenance": "phase17_quality_evaluation.json, Step 9 evaluation report"
+    },
+    "class_alignment": {
+      "base": "0.0% (meta-echoes class tag)",
+      "v15": "NOT_VERIFIABLE (82.81% UNKNOWN class data in V15 dataset)",
+      "v16": "81.60%",
+      "v16_minus_base": "+81.60%",
+      "v16_minus_v15": "NOT_COMPARABLE",
+      "direction": "HIGHER_BETTER",
+      "comparable": false,
+      "provenance": "phase18_v16_experiment_plan.json, Step 9 evaluation report"
+    },
+    "question_type_accuracy": {
+      "base": "0.0% (meta-echoes prompt string)",
+      "v15": "64.23%",
+      "v16": "46.80%",
+      "v16_minus_base": "+46.80%",
+      "v16_minus_v15": "-17.43%",
+      "direction": "HIGHER_BETTER",
+      "comparable": true,
+      "provenance": "phase17_quality_evaluation.json, Step 9 evaluation report"
+    },
+    "control_sensitivity": {
+      "base": "0.0% (Control blind)",
+      "v15": "30.00% (Control blind)",
+      "v16": "0.00% (Control blind)",
+      "v16_minus_base": "0.00%",
+      "v16_minus_v15": "-30.00%",
+      "direction": "HIGHER_BETTER",
+      "comparable": true,
+      "provenance": "phase17_control_sensitivity.json, Step 9 evaluation report"
+    },
+    "numerical_validity": {
+      "base": "0.0%",
+      "v15": "NOT_VERIFIED",
+      "v16": "19.41%",
+      "v16_minus_base": "+19.41%",
+      "v16_minus_v15": "NOT_COMPARABLE",
+      "direction": "HIGHER_BETTER",
+      "comparable": false,
+      "provenance": "phase18_v16_experiment_plan.json, Step 9 evaluation report"
+    }
+  },
+  "subject_comparison": {
+    "Mathematics": {
+      "base": "Meta-Echo",
+      "v15": "Low (Unverified solution)",
+      "v16": "67.6% overall subject acc"
+    },
+    "Physics": {
+      "base": "Meta-Echo",
+      "v15": "Verified Heuristic",
+      "v16": "Improved topic grounding"
+    },
+    "Chemistry": {
+      "base": "Meta-Echo",
+      "v15": "Verified Heuristic",
+      "v16": "Improved topic grounding"
+    },
+    "Biology": {
+      "base": "Meta-Echo",
+      "v15": "Standard MCQ",
+      "v16": "Standard MCQ"
+    },
+    "General Science": {
+      "base": "Meta-Echo",
+      "v15": "Standard MCQ",
+      "v16": "Standard MCQ"
+    }
+  },
+  "question_type_comparison": {
+    "MCQ": {
+      "v15": "Dominant output pattern",
+      "v16": "100% top-10 concentration"
+    },
+    "Numerical": {
+      "v15": "NOT_VERIFIED",
+      "v16": "19.41% numerical validity"
+    },
+    "Conceptual": {
+      "v15": "Under-represented",
+      "v16": "Suppressed by MCQ collapse"
+    }
+  },
+  "diversity_comparison": {
+    "base": "High echo repetition (What is the topic of...)",
+    "v15": "88.08% template repetition rate (62 unique generations)",
+    "v16": "1.15 bits stem entropy / 100.0% top-10 concentration",
+    "comparable": false,
+    "reason_if_not_comparable": "V15 reports repetition rate % across 62 unique outputs; V16 reports stem entropy bits and top-10 concentration %. Both exhibit template collapse, but metrics use different mathematical formulas."
+  },
+  "memorization_comparison": {
+    "base": "0.0%",
+    "v15": "0.96%",
+    "v16": "4.62%",
+    "comparable": false,
+    "reason_if_not_comparable": "V15 and V16 used different training target datasets (V15=42,152 vs V16=44,534 rebalanced). Substring matching targets differed."
+  },
+  "numerical_comparison": {
+    "base": "0.0%",
+    "v15": "NOT_VERIFIED",
+    "v16": "19.41%",
+    "comparable": false,
+    "reason_if_not_comparable": "V15 numerical output quality was marked NOT_VERIFIED in historical evaluation."
+  },
+  "not_comparable": [
+    "Class Alignment vs V15 (V15 data contained 82.81% UNKNOWN class tokens)",
+    "Template Diversity metrics (V15 repetition % vs V16 stem entropy bits)",
+    "Exact Memorization vs V15 (Different underlying dataset sizes/targets)",
+    "Numerical Validity vs V15 (V15 numerical validity marked NOT_VERIFIED)"
+  ],
+  "improvements": [
+    "Topic Accuracy increased from 43.27% (V15) to 72.60% (V16) [+29.33%]",
+    "Subject Accuracy increased from 60.77% (V15) to 67.60% (V16) [+6.83%]",
+    "Question Structural Validity increased from 97.31% (V15) to 98.20% (V16) [+0.89%]",
+    "Numerical Validity reached 19.41% in V16 (up from unverified/0% in prior models)"
+  ],
+  "regressions": [
+    "Question-Type Accuracy dropped from 64.23% (V15) to 46.80% (V16) [-17.43%]",
+    "Control Sensitivity dropped from 30.00% (V15) to 0.00% (V16) [-30.00%]",
+    "Top-10 Template Concentration reached 100.0% in V16 (severe template collapse)"
+  ],
+  "persistent_deficits": [
+    "Complete Control Blindness (0.0% control sensitivity across paired prompts)",
+    "Severe MCQ Template Collapse (100.0% top-10 concentration / 1.15 bits stem entropy)",
+    "Low Numerical Validity (19.41% - majority of calculation questions fail exact mathematical verification)"
+  ],
+  "model_identity_caveat": {
+    "historical_step9_model_sha256": "E29B95E18DFE5CF6D8DB2D1F8781843C9DD4B8EE2CE81C9ED26E8DF56F443BC4",
+    "status": "NOT_RECOVERED",
+    "checkpoint_1000_note": "Recovered checkpoint-1000 (step 1000/7602) was NOT used for Step 10 comparison. Step 10 relies strictly on historical Step 9 recorded artifacts."
+  },
+  "verdict": "STEP 10 \u2014 COMPARATIVE ANALYSIS COMPLETE; NO HISTORICAL ACCEPTANCE THRESHOLD RECOVERED"
+}

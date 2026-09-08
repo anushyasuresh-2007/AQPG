@@ -1,0 +1,36 @@
+[
+  {
+    "id": "sciq_phy_001",
+    "question": "What physical quantity is defined as the rate of change of momentum of a body?",
+    "answer": "Force",
+    "solution": "According to Newton's Second Law of Motion, Force = dp/dt.",
+    "subject": "Physics",
+    "class": "Class 9",
+    "board": "Public Benchmark",
+    "chapter": "Laws of Motion",
+    "unit": "Mechanics",
+    "bloom": "Understand",
+    "difficulty": "Easy",
+    "marks": 1,
+    "question_type": "Short Answer",
+    "license": "CC BY-NC 3.0",
+    "provenance": "SciQ Benchmark (allenai/sciq)"
+  },
+  {
+    "id": "sciq_chem_001",
+    "question": "What type of chemical reaction absorbs thermal energy from its surroundings?",
+    "answer": "Endothermic reaction",
+    "solution": "Endothermic reactions absorb heat energy, causing local enthalpy change delta H > 0.",
+    "subject": "Chemistry",
+    "class": "Class 10",
+    "board": "Public Benchmark",
+    "chapter": "Chemical Reactions and Equations",
+    "unit": "Thermodynamics",
+    "bloom": "Understand",
+    "difficulty": "Easy",
+    "marks": 1,
+    "question_type": "Short Answer",
+    "license": "CC BY-NC 3.0",
+    "provenance": "SciQ Benchmark (allenai/sciq)"
+  }
+]

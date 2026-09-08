@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AQPG_V14_Master_Dataset_Record",
+  "description": "Schema definition for AQPG V14 Master Question Generation Dataset records.",
+  "type": "object",
+  "required": [
+    "id",
+    "source_dataset",
+    "source_record_id",
+    "subject",
+    "class",
+    "board",
+    "unit",
+    "topic",
+    "question_type",
+    "bloom",
+    "difficulty",
+    "marks",
+    "input_text",
+    "target_text",
+    "answer",
+    "solution",
+    "verification_status",
+    "verification_method",
+    "provenance",
+    "license",
+    "metadata_confidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^v14_[0-9]{6}$",
+      "description": "Unique identifier for the record in V14 dataset"
+    },
+    "source_dataset": {
+      "type": "string",
+      "description": "Name of the upstream source dataset"
+    },
+    "source_record_id": {
+      "type": "string",
+      "description": "Identifier of the record in the original source"
+    },
+    "subject": {
+      "type": "string",
+      "enum": [
+        "Mathematics",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "General Science",
+        "Social Science",
+        "Business & Law",
+        "History & Civics",
+        "Computer Science",
+        "English",
+        "UNKNOWN"
+      ]
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "Class 9",
+        "Class 10",
+        "Class 11",
+        "Class 12",
+        "UNKNOWN"
+      ]
+    },
+    "board": {
+      "type": "string",
+      "enum": [
+        "CBSE",
+        "State Board",
+        "OpenStax Academic",
+        "Public Benchmark",
+        "UNKNOWN"
+      ]
+    },
+    "unit": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "question_type": {
+      "type": "string",
+      "enum": [
+        "Numerical",
+        "MCQ",
+        "Short Answer",
+        "Long Answer",
+        "Reasoning",
+        "Conceptual",
+        "Application",
+        "Other"
+      ]
+    },
+    "bloom": {
+      "type": "string",
+      "enum": [
+        "Remember",
+        "Understand",
+        "Apply",
+        "Analyze",
+        "Evaluate",
+        "Create",
+        "UNKNOWN"
+      ]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "Easy",
+        "Medium",
+        "Hard",
+        "UNKNOWN"
+      ]
+    },
+    "marks": {
+      "type": ["integer", "string"]
+    },
+    "input_text": {
+      "type": "string",
+      "description": "Conditioning prompt formatted with control tokens"
+    },
+    "target_text": {
+      "type": "string",
+      "description": "Target question to be generated"
+    },
+    "answer": {
+      "type": "string",
+      "description": "Correct answer text"
+    },
+    "solution": {
+      "type": "string",
+      "description": "Step-by-step reasoning or solution"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED_DETERMINISTIC",
+        "VERIFIED_HEURISTIC",
+        "NOT_VERIFIED",
+        "REJECTED"
+      ]
+    },
+    "verification_method": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "metadata_confidence": {
+      "type": "string",
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

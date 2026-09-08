@@ -1,0 +1,362 @@
+{
+  "overall_status": "WARN",
+  "record_counts": {
+    "train": 16697,
+    "val": 4175,
+    "total": 20872
+  },
+  "json_validity": {
+    "valid": true,
+    "error_count": 0,
+    "errors": []
+  },
+  "leakage": {
+    "exact_prompt_overlap": 122,
+    "exact_target_overlap": 0,
+    "normalized_target_overlap": 0,
+    "duplicate_pairs_count": 0
+  },
+  "distributions": {
+    "source_dataset": {
+      "gsm8k_reasoning": 8792,
+      "eduqg": 3377,
+      "bloom_taxonomy": 8685,
+      "ncert_chemistry_class11_12": 6,
+      "sciq_science_questions": 2,
+      "scienceqa_physics_chemistry": 4,
+      "ncert_physics_class11_12": 6
+    },
+    "subject": {
+      "Mathematics": 8792,
+      "History & Civics": 464,
+      "UNKNOWN": 8716,
+      "Business & Law": 580,
+      "Biology": 1672,
+      "Social Science": 630,
+      "Chemistry": 9,
+      "Physics": 9
+    },
+    "class": {
+      "UNKNOWN": 20854,
+      "Class 12": 6,
+      "Class 10": 3,
+      "Class 11": 6,
+      "Class 9": 3
+    },
+    "board": {
+      "Public Benchmark": 17483,
+      "OpenStax Academic": 3377,
+      "CBSE": 12
+    },
+    "unit": {
+      "UNKNOWN": 17477,
+      "Chapter 21": 86,
+      "Chapter 12": 121,
+      "Chapter 5": 131,
+      "Chapter 17": 101,
+      "Chapter 7": 153,
+      "Chapter 16": 102,
+      "Chapter 2": 149,
+      "Chapter 6": 151,
+      "Chapter 14": 122,
+      "Chapter 31": 18,
+      "Chapter 15": 101,
+      "Chapter 3": 157,
+      "Chapter 1": 181,
+      "Chapter 11": 160,
+      "Chapter 13": 129,
+      "Chapter 25": 60,
+      "Chapter 30": 33,
+      "Chapter 9": 158,
+      "Chapter 23": 53,
+      "Chapter 19": 72,
+      "Chapter 8": 162,
+      "Chapter 47": 10,
+      "Chapter 36": 15,
+      "Chapter 22": 73,
+      "Chapter 35": 15,
+      "Chapter 10": 138,
+      "Chapter 43": 26,
+      "Physical Chemistry": 6,
+      "Chapter 4": 157,
+      "Chapter 42": 18,
+      "Chapter 44": 6,
+      "Chapter 24": 60,
+      "Chapter 32": 19,
+      "Chapter 20": 73,
+      "Chapter 27": 32,
+      "Chapter 26": 63,
+      "Chapter 46": 17,
+      "Chapter 40": 12,
+      "Chapter 33": 20,
+      "Chapter 37": 12,
+      "Chapter 18": 70,
+      "Chapter 39": 12,
+      "Chapter 45": 20,
+      "Chapter 28": 47,
+      "Chapter 29": 23,
+      "Thermodynamics": 1,
+      "Chapter 38": 16,
+      "Mechanics": 5,
+      "Inorganic Chemistry": 1,
+      "Chapter 41": 12,
+      "Chapter 34": 11,
+      "States of Matter": 1,
+      "Electromagnetism": 3,
+      "Optics": 1
+    },
+    "topic": {
+      "Arithmetic & Word Problems": 8792,
+      "Chapter 21": 86,
+      "General Concept Evaluation": 8685,
+      "Chapter 12": 121,
+      "Chapter 5": 131,
+      "Chapter 17": 101,
+      "Chapter 7": 153,
+      "Chapter 16": 102,
+      "Chapter 2": 149,
+      "Chapter 6": 151,
+      "Chapter 14": 122,
+      "Chapter 31": 18,
+      "Chapter 15": 101,
+      "Chapter 3": 157,
+      "Chapter 1": 181,
+      "Chapter 11": 160,
+      "Chapter 13": 129,
+      "Chapter 25": 60,
+      "Chapter 30": 33,
+      "Chapter 9": 158,
+      "Chapter 23": 53,
+      "Chapter 19": 72,
+      "Chapter 8": 162,
+      "Chapter 47": 10,
+      "Chapter 36": 15,
+      "Chapter 22": 73,
+      "Chapter 35": 15,
+      "Chapter 10": 138,
+      "Chapter 43": 26,
+      "Chemical Kinetics": 1,
+      "Chapter 4": 157,
+      "Chapter 42": 18,
+      "Chapter 44": 6,
+      "Chapter 24": 60,
+      "Chapter 32": 19,
+      "Chapter 20": 73,
+      "Chapter 27": 32,
+      "Chapter 26": 63,
+      "Chapter 46": 17,
+      "Chapter 40": 12,
+      "Chapter 33": 20,
+      "Chapter 37": 12,
+      "Chapter 18": 70,
+      "Chapter 39": 12,
+      "Electrochemistry": 1,
+      "Chapter 45": 20,
+      "Chapter 28": 47,
+      "Chapter 29": 23,
+      "Chemical Reactions and Equations": 1,
+      "Chapter 38": 16,
+      "Solutions & Stoichiometry": 1,
+      "Forces and Motion": 1,
+      "Acids, Bases and Salts": 1,
+      "Chapter 41": 12,
+      "Chapter 34": 11,
+      "Some Basic Concepts of Chemistry": 1,
+      "Gravitation": 1,
+      "Laws of Motion": 2,
+      "Equilibrium": 1,
+      "Matter in Our Surroundings": 1,
+      "Electric Charges and Fields": 1,
+      "Solutions": 1,
+      "Work, Energy and Power": 1,
+      "Current Electricity": 1,
+      "Wave Optics": 1,
+      "Electricity": 1
+    },
+    "bloom": {
+      "Apply": 10303,
+      "Understand": 5165,
+      "Create": 800,
+      "Remember": 2535,
+      "Analyze": 1291,
+      "Evaluate": 778
+    },
+    "difficulty": {
+      "Medium": 11592,
+      "Easy": 7701,
+      "Hard": 1579
+    },
+    "marks": {
+      "3": 8801,
+      "1": 3381,
+      "2": 8689,
+      "4": 1
+    },
+    "question_type": {
+      "Numerical": 8804,
+      "MCQ": 3378,
+      "Short Answer": 8690
+    },
+    "verification_status": {
+      "VERIFIED_HEURISTIC": 20565,
+      "NOT_VERIFIED": 307
+    }
+  },
+  "matrices": {
+    "subject_x_class": {
+      "Mathematics": {
+        "UNKNOWN": 8792
+      },
+      "History & Civics": {
+        "UNKNOWN": 464
+      },
+      "UNKNOWN": {
+        "UNKNOWN": 8716
+      },
+      "Business & Law": {
+        "UNKNOWN": 580
+      },
+      "Biology": {
+        "UNKNOWN": 1672
+      },
+      "Social Science": {
+        "UNKNOWN": 630
+      },
+      "Chemistry": {
+        "Class 12": 3,
+        "Class 10": 2,
+        "Class 11": 3,
+        "Class 9": 1
+      },
+      "Physics": {
+        "Class 9": 2,
+        "Class 11": 3,
+        "Class 12": 3,
+        "Class 10": 1
+      }
+    },
+    "subject_x_board": {
+      "Mathematics": {
+        "Public Benchmark": 8792
+      },
+      "History & Civics": {
+        "OpenStax Academic": 464
+      },
+      "UNKNOWN": {
+        "Public Benchmark": 8685,
+        "OpenStax Academic": 31
+      },
+      "Business & Law": {
+        "OpenStax Academic": 580
+      },
+      "Biology": {
+        "OpenStax Academic": 1672
+      },
+      "Social Science": {
+        "OpenStax Academic": 630
+      },
+      "Chemistry": {
+        "CBSE": 6,
+        "Public Benchmark": 3
+      },
+      "Physics": {
+        "Public Benchmark": 3,
+        "CBSE": 6
+      }
+    },
+    "subject_x_question_type": {
+      "Mathematics": {
+        "Numerical": 8792
+      },
+      "History & Civics": {
+        "MCQ": 464
+      },
+      "UNKNOWN": {
+        "Short Answer": 8685,
+        "MCQ": 31
+      },
+      "Business & Law": {
+        "MCQ": 580
+      },
+      "Biology": {
+        "MCQ": 1671,
+        "Short Answer": 1
+      },
+      "Social Science": {
+        "MCQ": 630
+      },
+      "Chemistry": {
+        "Numerical": 6,
+        "Short Answer": 2,
+        "MCQ": 1
+      },
+      "Physics": {
+        "MCQ": 1,
+        "Numerical": 6,
+        "Short Answer": 2
+      }
+    },
+    "subject_x_verification_status": {
+      "Mathematics": {
+        "VERIFIED_HEURISTIC": 8485,
+        "NOT_VERIFIED": 307
+      },
+      "History & Civics": {
+        "VERIFIED_HEURISTIC": 464
+      },
+      "UNKNOWN": {
+        "VERIFIED_HEURISTIC": 8716
+      },
+      "Business & Law": {
+        "VERIFIED_HEURISTIC": 580
+      },
+      "Biology": {
+        "VERIFIED_HEURISTIC": 1672
+      },
+      "Social Science": {
+        "VERIFIED_HEURISTIC": 630
+      },
+      "Chemistry": {
+        "VERIFIED_HEURISTIC": 9
+      },
+      "Physics": {
+        "VERIFIED_HEURISTIC": 9
+      }
+    },
+    "class_x_board": {
+      "UNKNOWN": {
+        "Public Benchmark": 17477,
+        "OpenStax Academic": 3377
+      },
+      "Class 12": {
+        "CBSE": 6
+      },
+      "Class 10": {
+        "Public Benchmark": 3
+      },
+      "Class 11": {
+        "CBSE": 6
+      },
+      "Class 9": {
+        "Public Benchmark": 3
+      }
+    }
+  },
+  "token_stats": {
+    "sample_size": 2000,
+    "input_min": 49,
+    "input_max": 57,
+    "input_avg": 54.3865,
+    "target_min": 5,
+    "target_max": 187,
+    "target_avg": 36.1225,
+    "pct_input_exceed_128": 0.0,
+    "pct_input_exceed_256": 0.0,
+    "pct_target_exceed_128": 0.6,
+    "pct_target_exceed_256": 0.0
+  },
+  "gate_failures": [],
+  "gate_warnings": [
+    "Class Supervision Gap: Class is UNKNOWN for 20854/20872 records."
+  ]
+}

@@ -1,0 +1,45 @@
+================================================================================
+AQPG PHASE 16 MANDATORY SMOKE TEST EXECUTION REPORT
+================================================================================
+SMOKE TEST STATUS: PASSED
+Base Model:         google/flan-t5-small
+Execution Device:   cpu
+Training Records:   100
+Validation Records: 20
+Smoke Step Loss:    3.7429
+Smoke Duration:     79.59 seconds
+Checkpoint Saved:   C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\checkpoints\flan_t5_v15_smoke
+Checkpoint Reload:  SUCCESS (Clean weights and generation verified)
+
+================================================================================
+SAMPLE TEST INFERENCES (5 CATEGORIES):
+================================================================================
+
+CATEGORY: Mathematics Numerical
+INPUT PROMPT:      generate question | subject: Mathematics | topic: Algebra & Arithmetic | unit: UNKNOWN | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+GENERATED STEM:    What is the smallest amount of water that a person can use?
+--------------------------------------------------------------------------------
+
+CATEGORY: Physics Numerical
+INPUT PROMPT:      generate question | subject: Physics | topic: Mechanics & Kinematics | unit: Mechanics | class: Class 11 | board: OpenStax Academic | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+GENERATED STEM:    What is the kinetic energy of a molecule?
+--------------------------------------------------------------------------------
+
+CATEGORY: Chemistry Conceptual
+INPUT PROMPT:      generate question | subject: Chemistry | topic: Chemical Bonding & Molecular Structure | unit: UNKNOWN | class: Class 11 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ
+GENERATED STEM:    What is a chemical bonding and a molecule?
+--------------------------------------------------------------------------------
+
+CATEGORY: Class 12 Senior Secondary Controlled
+INPUT PROMPT:      generate question | subject: Physics | topic: Wave Optics & Interference | unit: Optics | class: Class 12 | board: OpenStax Academic | bloom: Analyze | difficulty: Hard | marks: 3 | type: Numerical
+GENERATED STEM:    What is a refraction of light?
+--------------------------------------------------------------------------------
+
+CATEGORY: Bloom Taxonomy (Evaluate/Analyze) Controlled
+INPUT PROMPT:      generate question | subject: Biology | topic: Cellular Respiration & ATP Synthesis | unit: Cellular Biology | class: Class 11 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: MCQ
+GENERATED STEM:    Which of the following is a characteristic of a cell?
+--------------------------------------------------------------------------------
+
+================================================================================
+SMOKE TEST PASSED. FULL TRAINING IS READY TO LAUNCH.
+================================================================================

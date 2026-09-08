@@ -1,0 +1,175 @@
+[
+  {
+    "filename": "ncert_physics_class11_12.json",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\ncert_physics_class11_12.json",
+    "format": "JSON",
+    "record_count": 6,
+    "subjects": {
+      "Physics": 6
+    },
+    "classes": {
+      "Class 11": 3,
+      "Class 12": 3
+    },
+    "boards": {
+      "CBSE": 6
+    },
+    "units": {
+      "Mechanics": 3,
+      "Electromagnetism": 2,
+      "Optics": 1
+    },
+    "question_types": {
+      "Numerical": 6
+    },
+    "answer_availability": "6/6 (100.0%)",
+    "solution_availability": "6/6 (100.0%)",
+    "license": "CC BY-NC 4.0",
+    "provenance": "NCERT Class 12 Physics Exemplar Chapter 10",
+    "verification_capability": "SymPy Math & Physical/Chemical Domain Sanity Bounds"
+  },
+  {
+    "filename": "ncert_chemistry_class11_12.json",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\ncert_chemistry_class11_12.json",
+    "format": "JSON",
+    "record_count": 6,
+    "subjects": {
+      "Chemistry": 6
+    },
+    "classes": {
+      "Class 11": 3,
+      "Class 12": 3
+    },
+    "boards": {
+      "CBSE": 6
+    },
+    "units": {
+      "Physical Chemistry": 6
+    },
+    "question_types": {
+      "Numerical": 6
+    },
+    "answer_availability": "6/6 (100.0%)",
+    "solution_availability": "6/6 (100.0%)",
+    "license": "CC BY-NC 4.0",
+    "provenance": "NCERT Class 12 Chemistry Exemplar Chapter 2",
+    "verification_capability": "SymPy Math & Physical/Chemical Domain Sanity Bounds"
+  },
+  {
+    "filename": "scienceqa_physics_chemistry.json",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\scienceqa_physics_chemistry.json",
+    "format": "JSON",
+    "record_count": 4,
+    "subjects": {
+      "Physics": 2,
+      "Chemistry": 2
+    },
+    "classes": {
+      "Class 9": 2,
+      "Class 10": 2
+    },
+    "boards": {
+      "Public Benchmark": 4
+    },
+    "units": {
+      "Mechanics": 1,
+      "Electromagnetism": 1,
+      "States of Matter": 1,
+      "Inorganic Chemistry": 1
+    },
+    "question_types": {
+      "MCQ": 2,
+      "Short Answer": 2
+    },
+    "answer_availability": "4/4 (100.0%)",
+    "solution_availability": "4/4 (100.0%)",
+    "license": "CC BY-NC-SA 4.0",
+    "provenance": "ScienceQA Benchmark (derek-thomas/ScienceQA)",
+    "verification_capability": "SymPy Math & Physical/Chemical Domain Sanity Bounds"
+  },
+  {
+    "filename": "sciq_science_questions.json",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\sciq_science_questions.json",
+    "format": "JSON",
+    "record_count": 2,
+    "subjects": {
+      "Physics": 1,
+      "Chemistry": 1
+    },
+    "classes": {
+      "Class 9": 1,
+      "Class 10": 1
+    },
+    "boards": {
+      "Public Benchmark": 2
+    },
+    "units": {
+      "Mechanics": 1,
+      "Thermodynamics": 1
+    },
+    "question_types": {
+      "Short Answer": 2
+    },
+    "answer_availability": "2/2 (100.0%)",
+    "solution_availability": "2/2 (100.0%)",
+    "license": "CC BY-NC 3.0",
+    "provenance": "SciQ Benchmark (allenai/sciq)",
+    "verification_capability": "SymPy Math & Physical/Chemical Domain Sanity Bounds"
+  },
+  {
+    "filename": "gsm8k_reasoning_all.csv",
+    "format": "CSV",
+    "record_count": 17584,
+    "subjects": {
+      "Mathematics": 17584
+    },
+    "classes": {
+      "UNKNOWN": 17584
+    },
+    "boards": {
+      "UNKNOWN": 17584
+    },
+    "units": {
+      "UNKNOWN": 17584
+    },
+    "question_types": {
+      "Numerical": 17584
+    },
+    "answer_availability": "17584/17584 (100.0%)",
+    "solution_availability": "0/17584 (0.0%)",
+    "license": "MIT License",
+    "provenance": "OpenAI GSM8K Benchmark",
+    "verification_capability": "SymPy Deterministic Calculator"
+  },
+  {
+    "filename": "eduqg_train_val.json",
+    "format": "JSON",
+    "record_count": 3397,
+    "subjects": {
+      "Biology": 631,
+      "Anatomy & Physiology": 635,
+      "Psychology": 298,
+      "Sociology": 335,
+      "History & Civics": 464,
+      "Business & Law": 580,
+      "Accounting": 440
+    },
+    "classes": {
+      "UNKNOWN": 3397
+    },
+    "boards": {
+      "OpenStax Academic": 3397
+    },
+    "units": {
+      "Chapter 1-20": 3397
+    },
+    "question_types": {
+      "MCQ": 3397
+    },
+    "answer_availability": "3397/3397 (100.0%)",
+    "solution_availability": "0/3397 (0.0%)",
+    "license": "CC BY 4.0",
+    "provenance": "OpenStax Academic Textbook Dataset",
+    "verification_capability": "Textual Heuristic Match"
+  }
+]

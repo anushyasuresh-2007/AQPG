@@ -1,0 +1,37 @@
+{
+  "deployment_title": "AQPG V17.2 Production Final Deployment Certification",
+  "deployment_status": "PASS",
+  "overall_status": "PASS",
+  "active_model": "FLAN-T5 V17.2",
+  "v17_2_model_sha256": "e2cfed7ba5fd44ea31c67e352985e42072fb6532ce96222769b573530d3b4954",
+  "v17_1_rollback_sha256": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+  "endpoints": {
+    "frontend_url": "http://localhost:5174",
+    "backend_url": "http://127.0.0.1:8011",
+    "health_url": "http://127.0.0.1:8011/health",
+    "docs_url": "http://127.0.0.1:8011/docs"
+  },
+  "safety_verifications": {
+    "training_started": false,
+    "v17_2_weights_modified": false,
+    "v17_1_modified": false,
+    "datasets_modified": false,
+    "database_modified": false,
+    "remote_model_download": false,
+    "unauthorized_package_changes": false,
+    "rollback_preserved": true,
+    "local_files_only_enforced": true
+  },
+  "smoke_test_results": {
+    "step_1_checkpoint_verification": "PASS",
+    "step_2_adapter_verification": "PASS",
+    "step_3_factory_verification": "PASS",
+    "step_4_5_backend_health": "PASS",
+    "step_6_multi_subject_generation": "PASS",
+    "step_7_frontend_verification": "PASS",
+    "step_8_cors_verification": "PASS",
+    "step_9_end_to_end_smoke_test": "PASS"
+  },
+  "files_modified": [],
+  "blockers": null
+}

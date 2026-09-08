@@ -1,0 +1,14 @@
+{
+  "class_9": 2764,
+  "class_10": 1028,
+  "class_11": 1920,
+  "class_12": 1589,
+  "unknown": 34851,
+  "grounding_status": {
+    "Class 9": "EXPLICIT (K-12 OpenStax / Textbooks)",
+    "Class 10": "EXPLICIT (K-12 Board Datasets)",
+    "Class 11": "EXPLICIT (OpenStax Senior College/AP)",
+    "Class 12": "EXPLICIT (OpenStax Senior College/AP)",
+    "UNKNOWN": "UNGROUNDED (Public Benchmark Raw Repositories)"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "model_name": "google/flan-t5-small",
+  "epochs": 3,
+  "train_records": 40557,
+  "validation_records": 10138,
+  "batch_size": 8,
+  "gradient_accumulation_steps": 2,
+  "effective_batch_size": 16,
+  "steps_per_epoch": 2534,
+  "total_optimization_steps": 7602,
+  "learning_rate": 0.0003,
+  "warmup_steps": 380,
+  "max_input_length": 128,
+  "max_target_length": 256,
+  "weight_decay": 0.01,
+  "gradient_clipping": 1.0,
+  "seed": 42,
+  "device": "cpu"
+}

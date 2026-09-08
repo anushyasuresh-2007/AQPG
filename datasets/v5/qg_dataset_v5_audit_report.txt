@@ -1,0 +1,60 @@
+================================================================================
+AQPG V5 DATASET FORENSIC AUDIT REPORT
+================================================================================
+OVERALL AUDIT VERDICT: WARN
+
+1. RECORD COUNTS & SYNTAX
+  - Train Set:            16683
+  - Validation Set:       4171
+  - Total V5 Records:     20854
+  - JSON Syntax Errors:   0
+
+2. DATA LEAKAGE & DUPLICATION
+  - Exact Prompt Overlap:         118
+  - Exact Target Overlap:         0 (Goal: 0)
+  - Normalized Target Overlap:    0 (Goal: 0)
+  - Duplicate Prompt-Target Pairs: 0 (Goal: 0)
+
+3. SUBJECT COVERAGE & STEM BREAKDOWN
+  - Mathematics: 8792 (42.16%)
+  - Physics:     0 (0.00%)
+  - Chemistry:   0 (0.00%)
+  - Biology:     1672 (8.02%)
+  - Social Science: 630 (3.02%)
+  - Business & Law: 580 (2.78%)
+  - History & Civics: 464 (2.22%)
+  - UNKNOWN:     8716 (41.80%)
+
+4. CURRICULUM METADATA COVERAGE
+  - Class Specified: 0 | UNKNOWN: 20854
+  - Board Specified: 20854 | UNKNOWN: 0
+  - Unit Specified:  3377 | UNKNOWN: 17477
+
+5. CROSS-TABULATION MATRIX: SUBJECT × QUESTION TYPE
+  [UNKNOWN]: {'Short Answer': 8685, 'MCQ': 31}
+  [Mathematics]: {'Numerical': 8792}
+  [Biology]: {'MCQ': 1671, 'Short Answer': 1}
+  [Social Science]: {'MCQ': 630}
+  [History & Civics]: {'MCQ': 464}
+  [Business & Law]: {'MCQ': 580}
+
+6. CROSS-TABULATION MATRIX: SUBJECT × VERIFICATION STATUS
+  [UNKNOWN]: {'VERIFIED_HEURISTIC': 8716}
+  [Mathematics]: {'VERIFIED_HEURISTIC': 8485, 'NOT_VERIFIED': 307}
+  [Biology]: {'VERIFIED_HEURISTIC': 1672}
+  [Social Science]: {'VERIFIED_HEURISTIC': 630}
+  [History & Civics]: {'VERIFIED_HEURISTIC': 464}
+  [Business & Law]: {'VERIFIED_HEURISTIC': 580}
+
+7. TOKENIZATION AUDIT (google/flan-t5-small)
+  - Sample Size:                 2000
+  - Input Tokens (Avg / Max):    54.7 / 57
+  - Target Tokens (Avg / Max):   36.3 / 154
+  - % Inputs > 128 Tokens:       0.00%
+  - % Inputs > 256 Tokens:       0.00%
+  - % Targets > 128 Tokens:      0.45%
+  - % Targets > 256 Tokens:      0.00%
+
+8. QUALITY GATES SUMMARY
+  - Overall Verdict: WARN
+  - Warnings: Multi-Subject Gap: Physics (0) or Chemistry (0) records are absent in V5.; Class Supervision Gap: Class is UNKNOWN for 20854/20854 records.

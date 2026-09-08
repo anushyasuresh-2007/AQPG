@@ -1,0 +1,296 @@
+[
+  {
+    "filename": "archive (1).zip",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\archive (1).zip",
+    "format": "ZIP Archive",
+    "contained_files": [
+      "blooms_taxonomy_dataset.csv"
+    ],
+    "provenance_license": "Public Benchmark Archive"
+  },
+  {
+    "filename": "archive (2).zip",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\archive (2).zip",
+    "format": "ZIP Archive",
+    "contained_files": [
+      "main_test.csv",
+      "main_train.csv",
+      "socratic_test.csv",
+      "socratic_train.csv"
+    ],
+    "provenance_license": "Public Benchmark Archive"
+  },
+  {
+    "filename": "archive.zip",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\archive.zip",
+    "format": "ZIP Archive",
+    "contained_files": [
+      "eduqg_llm_formatted.csv",
+      "eduqg_train.json",
+      "eduqg_val.json"
+    ],
+    "provenance_license": "Public Benchmark Archive"
+  },
+  {
+    "filename": "main_train.csv",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\reasoning\\main_train.csv",
+    "format": "CSV",
+    "record_count": 7473,
+    "columns": [
+      "question",
+      "answer"
+    ],
+    "subjects": {
+      "UNKNOWN": 7473
+    },
+    "classes": {
+      "UNKNOWN": 7473
+    },
+    "boards": {
+      "UNKNOWN": 7473
+    },
+    "units": {
+      "UNKNOWN": 7473
+    },
+    "question_types": {
+      "Short Answer": 7473
+    },
+    "answer_availability": "7473/7473 (100.0%)",
+    "solution_availability": "0/7473 (0.0%)",
+    "provenance_license": "Permissive Academic / Public Benchmark",
+    "verification_capability": "SymPy (Math) / String Match",
+    "subject_override": "Mathematics"
+  },
+  {
+    "filename": "main_test.csv",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\reasoning\\main_test.csv",
+    "format": "CSV",
+    "record_count": 1319,
+    "columns": [
+      "question",
+      "answer"
+    ],
+    "subjects": {
+      "UNKNOWN": 1319
+    },
+    "classes": {
+      "UNKNOWN": 1319
+    },
+    "boards": {
+      "UNKNOWN": 1319
+    },
+    "units": {
+      "UNKNOWN": 1319
+    },
+    "question_types": {
+      "Short Answer": 1319
+    },
+    "answer_availability": "1319/1319 (100.0%)",
+    "solution_availability": "0/1319 (0.0%)",
+    "provenance_license": "Permissive Academic / Public Benchmark",
+    "verification_capability": "SymPy (Math) / String Match",
+    "subject_override": "Mathematics"
+  },
+  {
+    "filename": "socratic_train.csv",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\reasoning\\socratic_train.csv",
+    "format": "CSV",
+    "record_count": 7473,
+    "columns": [
+      "question",
+      "answer"
+    ],
+    "subjects": {
+      "UNKNOWN": 7473
+    },
+    "classes": {
+      "UNKNOWN": 7473
+    },
+    "boards": {
+      "UNKNOWN": 7473
+    },
+    "units": {
+      "UNKNOWN": 7473
+    },
+    "question_types": {
+      "Short Answer": 7473
+    },
+    "answer_availability": "7473/7473 (100.0%)",
+    "solution_availability": "0/7473 (0.0%)",
+    "provenance_license": "Permissive Academic / Public Benchmark",
+    "verification_capability": "SymPy (Math) / String Match",
+    "subject_override": "Mathematics"
+  },
+  {
+    "filename": "socratic_test.csv",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\reasoning\\socratic_test.csv",
+    "format": "CSV",
+    "record_count": 1319,
+    "columns": [
+      "question",
+      "answer"
+    ],
+    "subjects": {
+      "UNKNOWN": 1319
+    },
+    "classes": {
+      "UNKNOWN": 1319
+    },
+    "boards": {
+      "UNKNOWN": 1319
+    },
+    "units": {
+      "UNKNOWN": 1319
+    },
+    "question_types": {
+      "Short Answer": 1319
+    },
+    "answer_availability": "1319/1319 (100.0%)",
+    "solution_availability": "0/1319 (0.0%)",
+    "provenance_license": "Permissive Academic / Public Benchmark",
+    "verification_capability": "SymPy (Math) / String Match",
+    "subject_override": "Mathematics"
+  },
+  {
+    "filename": "eduqg_train.json",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\eduqg\\eduqg_train.json",
+    "format": "JSON",
+    "document_count": 192,
+    "record_count": 2726,
+    "subjects": {
+      "Principles Of Accounting, Volume 1: Financial Accounting": 193,
+      "Introduction To Sociology": 238,
+      "Principles Of Accounting, Volume 2: Managerial Accounting": 186,
+      "Business Ethics": 55,
+      "Biology": 527,
+      "Anatomy And Physiology": 533,
+      "American Government": 167,
+      "Psychology": 221,
+      "Microbiology": 318,
+      "Business Law I Essentials": 65,
+      "U.S. History": 192,
+      "Introduction To Intellectual Property": 31
+    },
+    "classes": {
+      "UNKNOWN": 2726
+    },
+    "boards": {
+      "UNKNOWN": 2726
+    },
+    "units": {
+      "UNKNOWN": 2726
+    },
+    "question_types": {
+      "MCQ": 2726
+    },
+    "answer_availability": "2726/2726 (100.0%)",
+    "solution_availability": "0/2726 (0.0%)",
+    "provenance_license": "OpenStax Academic Benchmark",
+    "verification_capability": "Heuristic Context Match"
+  },
+  {
+    "filename": "eduqg_val.json",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\eduqg\\eduqg_val.json",
+    "format": "JSON",
+    "document_count": 49,
+    "record_count": 671,
+    "subjects": {
+      "U.S. History": 85,
+      "Introduction To Sociology": 97,
+      "Psychology": 77,
+      "Anatomy And Physiology": 102,
+      "Business Law I Essentials": 19,
+      "Microbiology": 98,
+      "Biology": 104,
+      "Business Ethics": 8,
+      "American Government": 20,
+      "Principles Of Accounting, Volume 1: Financial Accounting": 44,
+      "Principles Of Accounting, Volume 2: Managerial Accounting": 17
+    },
+    "classes": {
+      "UNKNOWN": 671
+    },
+    "boards": {
+      "UNKNOWN": 671
+    },
+    "units": {
+      "UNKNOWN": 671
+    },
+    "question_types": {
+      "MCQ": 671
+    },
+    "answer_availability": "670/671 (99.9%)",
+    "solution_availability": "0/671 (0.0%)",
+    "provenance_license": "OpenStax Academic Benchmark",
+    "verification_capability": "Heuristic Context Match"
+  },
+  {
+    "filename": "eduqg_llm_formatted.csv",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\eduqg\\eduqg_llm_formatted.csv",
+    "format": "CSV",
+    "record_count": 3369,
+    "columns": [
+      "id",
+      "prompt",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "answer"
+    ],
+    "subjects": {
+      "UNKNOWN": 3369
+    },
+    "classes": {
+      "UNKNOWN": 3369
+    },
+    "boards": {
+      "UNKNOWN": 3369
+    },
+    "units": {
+      "UNKNOWN": 3369
+    },
+    "question_types": {
+      "MCQ": 3369
+    },
+    "answer_availability": "3369/3369 (100.0%)",
+    "solution_availability": "0/3369 (0.0%)",
+    "provenance_license": "Permissive Academic / Public Benchmark",
+    "verification_capability": "Heuristic String Match"
+  },
+  {
+    "filename": "blooms_taxonomy_dataset.csv",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\extracted\\bloom\\blooms_taxonomy_dataset.csv",
+    "format": "CSV",
+    "record_count": 8767,
+    "columns": [
+      "Questions",
+      "Category"
+    ],
+    "subjects": {
+      "BT1": 2582,
+      "BT2": 1801,
+      "BT3": 1508,
+      "BT4": 1293,
+      "BT6": 800,
+      "BT5": 783
+    },
+    "classes": {
+      "UNKNOWN": 8767
+    },
+    "boards": {
+      "UNKNOWN": 8767
+    },
+    "units": {
+      "UNKNOWN": 8767
+    },
+    "question_types": {
+      "Short Answer": 8767
+    },
+    "answer_availability": "0/8767 (0.0%)",
+    "solution_availability": "0/8767 (0.0%)",
+    "provenance_license": "Permissive Academic / Public Benchmark",
+    "verification_capability": "Heuristic String Match"
+  }
+]

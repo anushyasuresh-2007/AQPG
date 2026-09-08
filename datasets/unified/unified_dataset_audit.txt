@@ -1,0 +1,72 @@
+================================================================================
+UNIFIED DATASET AUDIT REPORT
+File: datasets/unified/unified_questions.jsonl
+================================================================================
+
+1. OVERALL RECORD STATS
+Total Records:             22281
+Unique Question Stems:     22281
+Duplicate Question Stems:  0
+
+2. MISSING VALUES ANALYSIS
+Missing Questions:         0 (0.00%)
+Missing Answers:           8725 (39.16%)
+Missing Subjects:          8725 (39.16%)
+Missing Topics:            12857 (57.70%)
+Missing Bloom Levels:      0 (0.00%)
+Missing Difficulty:        0 (0.00%)
+Missing Marks:             0 (0.00%)
+Missing Question Types:    0 (0.00%)
+Missing Class Level:       22281 (100.00%)
+Missing Board Info:        22281 (100.00%)
+
+3. DISTRIBUTION BREAKDOWNS
+
+Bloom Taxonomy Distribution:
+  - Analyze: 7156 (32.12%)
+  - Apply: 5931 (26.62%)
+  - Remember: 5099 (22.88%)
+  - Understand: 2244 (10.07%)
+  - Evaluate: 994 (4.46%)
+  - Create: 857 (3.85%)
+
+Question Type Distribution:
+  - Numerical: 8792 (39.46%)
+  - MCQ: 4764 (21.38%)
+  - Short Answer: 4346 (19.51%)
+  - Application Based: 2799 (12.56%)
+  - Long Answer: 1580 (7.09%)
+
+Subject Distribution:
+  - Mathematics: 8792 (39.46%)
+  - None: 8725 (39.16%)
+  - General Studies / Business: 3327 (14.93%)
+  - Biology: 307 (1.38%)
+  - Anatomy And Physiology: 267 (1.20%)
+  - Psychology: 226 (1.01%)
+  - Introduction To Sociology: 159 (0.71%)
+  - American Government: 102 (0.46%)
+  - Principles Of Accounting, Volume 2: Managerial Accounting: 80 (0.36%)
+  - U.S. History: 72 (0.32%)
+  - Microbiology: 61 (0.27%)
+  - Business Law I Essentials: 61 (0.27%)
+  - Principles Of Accounting, Volume 1: Financial Accounting: 56 (0.25%)
+  - Business Ethics: 35 (0.16%)
+  - Introduction To Intellectual Property: 11 (0.05%)
+
+Difficulty Distribution:
+  - easy: 9074 (40.73%)
+  - hard: 7258 (32.57%)
+  - medium: 5949 (26.70%)
+
+Marks Distribution:
+  - 1: 9110 (40.89%)
+  - 4: 7258 (32.57%)
+  - 3: 3114 (13.98%)
+  - 2: 2799 (12.56%)
+
+Class Level Distribution:
+  - None: 22281 (100.00%)
+
+Board Information Distribution:
+  - None: 22281 (100.00%)

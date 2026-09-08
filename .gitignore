@@ -1,0 +1,37 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.env
+
+# Node
+node_modules/
+dist/
+build/
+
+# Local configuration
+.vscode/
+.DS_Store
+
+# Storage folders
+uploads/
+generated_papers/
+question_bank/
+
+# Logs and Vite cache
+.vite/
+*.log
+scratch/*.log
+
+# Large Model Checkpoint Weights (>100MB)
+*.safetensors
+*.bin
+*.pt
+*.onnx
+backend/ml/models/checkpoints/
+
+

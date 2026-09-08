@@ -1,0 +1,18 @@
+{
+  "model_name": "google/flan-t5-small",
+  "tokenizer_name": "google/flan-t5-small",
+  "dataset_version": "V15",
+  "train_samples": 42152,
+  "val_samples": 10539,
+  "epochs": "100_steps_cpu_cap",
+  "per_device_batch_size": 4,
+  "gradient_accumulation_steps": 2,
+  "effective_batch_size": 8,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.01,
+  "max_source_length": 128,
+  "max_target_length": 128,
+  "random_seed": 42,
+  "device": "cpu",
+  "checkpoint_dir": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v15"
+}

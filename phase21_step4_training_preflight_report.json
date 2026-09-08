@@ -1,0 +1,103 @@
+{
+  "phase": "21A",
+  "step": 4,
+  "audit_title": "AQPG V17 Training Configuration & Pre-Flight Audit",
+  "final_verdict": "V17 TRAINING PRE-FLIGHT \u2014 PASS",
+  "timestamp": "2026-08-24T17:38:40Z",
+  "gates_evaluated": 12,
+  "gates_passed": 12,
+  "gates_failed": 0,
+  "gates": [
+    {
+      "gate_id": "GATE-T1",
+      "metric_name": "Dataset Manifest Cryptographic Signature Match",
+      "observed_value": "Train SHA: F150ED036D3B..., Val SHA: 7038D9C15A68...",
+      "required_threshold": "Hashes match Step 3 manifest exactly",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T2",
+      "metric_name": "Train/Validation Record Counts",
+      "observed_value": "Train: 40,000, Val: 10,000, Total: 50,000",
+      "required_threshold": "Train=40,000, Val=10,000, Total=50,000",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T3",
+      "metric_name": "Pre-Training Quality Gates Certification",
+      "observed_value": "12/12 Mandatory Gates PASSED",
+      "required_threshold": "All D1-D12 mandatory gates PASS",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T4",
+      "metric_name": "Tokenizer & Sequence Length Compatibility",
+      "observed_value": "google/flan-t5-small (Vocab: 32,100, Max Seq: 256/256)",
+      "required_threshold": "Tokenizer loadable, 100% inputs < 256 tokens",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T5",
+      "metric_name": "Control Tag Field Preservation in Prompts",
+      "observed_value": "100% prompts preserve subject, topic, class, difficulty, marks, type",
+      "required_threshold": "100% control tag coverage across input prompts",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T6",
+      "metric_name": "Target Label Format Integrity",
+      "observed_value": "100% targets valid non-empty structured responses (>= 15 chars)",
+      "required_threshold": "Valid target strings across train & validation",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T7",
+      "metric_name": "Train/Validation Exact Target Leakage",
+      "observed_value": "0 target leakage count",
+      "required_threshold": "0 exact target leakage",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T8",
+      "metric_name": "Deterministic Reproducibility Configuration",
+      "observed_value": "Fixed seed=42, torch.deterministic=True, cudnn.benchmark=False",
+      "required_threshold": "Fully deterministic seed and CUDA settings",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T9",
+      "metric_name": "Checkpointing & Selection Policy",
+      "observed_value": "eval_steps=250, save_steps=250, limit=3, best_metric=eval_loss",
+      "required_threshold": "Step-based checkpointing with best model selection",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T10",
+      "metric_name": "Validation Monitoring & Early Stopping Policy",
+      "observed_value": "patience=3 (750 steps), eval_steps=250, threshold=0.001",
+      "required_threshold": "Early stopping enabled with patience >= 3",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T11",
+      "metric_name": "V16 Failure Mode Remediation Mapping",
+      "observed_value": "6/6 V16 failure modes mapped to dataset/training controls",
+      "required_threshold": "Explicit remediation mapping for all 6 failure modes",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-T12",
+      "metric_name": "Production FastAPI Integration Isolation",
+      "observed_value": "approved_for_fastapi=false, status=BLOCKED, backend untouched",
+      "required_threshold": "FastAPI integration disabled and isolated",
+      "status": "PASS"
+    }
+  ],
+  "safety_declarations": {
+    "no_training_executed": true,
+    "no_inference_executed": true,
+    "no_dataset_modified": true,
+    "no_fastapi_code_modified": true,
+    "no_phase20_artifacts_modified": true
+  }
+}

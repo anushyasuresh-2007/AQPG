@@ -1,0 +1,14 @@
+Metric Category,Field / Value,Train Record Count,Percentage,Assessment
+Total Records,Train Dataset,40557,100.00%,Full V16 Training Set
+Unique Input Prompts,Unique Prompt Strings,204,0.50%,CRITICAL PROMPT CONCENTRATION DEFICIT
+Top Repeated Prompt 1,Math | Arithmetic & Word Problems,7034,17.34%,17.34% of entire dataset is 1 prompt string
+Top Repeated Prompt 2,Chem | Scientific Inquiry,7028,17.33%,17.33% of entire dataset is 1 prompt string
+Top Repeated Prompt 3,GenSci | Core Science Principles,3362,8.29%,8.29% of entire dataset is 1 prompt string
+Question Type,MCQ,24964,61.55%,Over-represented
+Question Type,Numerical,8242,20.32%,Needs redistribution across STEM
+Question Type,Short Answer,6791,16.74%,Standard text format
+Question Type,Conceptual,560,1.38%,CRITICAL UNDER-REPRESENTATION
+Class Metadata,UNKNOWN,33310,82.13%,CRITICAL METADATA DEFICIT
+Class Metadata,Grounded (Class 9-12),7247,17.87%,Grounded subset
+Board Metadata,Public Benchmark,36250,89.38%,Dominant board label
+Board Metadata,OpenStax Academic,4298,10.60%,Academic textbook label

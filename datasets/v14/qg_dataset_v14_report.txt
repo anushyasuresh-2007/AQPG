@@ -1,0 +1,38 @@
+================================================================================
+AQPG PHASE 14 MASTER DATASET PIPELINE BUILD REPORT
+================================================================================
+Total Ingested Raw Candidate Records: 59784
+Total Clean V14 Records Constructed:  50491
+Total Rejected Records:               9293
+
+TRAIN / VAL LEAKAGE-SAFE SPLIT (Seed 42):
+  - Training Set V14 (80%):    40392 records
+  - Validation Set V14 (20%):  10099 records
+
+SUBJECT DISTRIBUTION IN V14:
+  - Physics: 3580 (7.09%)
+  - Chemistry: 11088 (21.96%)
+  - Mathematics: 9626 (19.06%)
+  - Biology: 5529 (10.95%)
+  - General Science: 10280 (20.36%)
+  - Business & Law: 578 (1.14%)
+  - Social Science: 630 (1.25%)
+  - History & Civics: 464 (0.92%)
+  - UNKNOWN: 8716 (17.26%)
+
+CLASS DISTRIBUTION IN V14:
+  - Class 11: 1043 (2.07%)
+  - Class 12: 1082 (2.14%)
+  - Class 9: 3442 (6.82%)
+  - UNKNOWN: 43633 (86.42%)
+  - Class 10: 1291 (2.56%)
+
+BOARD DISTRIBUTION IN V14:
+  - Public Benchmark: 47107 (93.30%)
+  - CBSE: 12 (0.02%)
+  - OpenStax Academic: 3372 (6.68%)
+
+VERIFICATION STATUS BREAKDOWN IN V14:
+  - VERIFIED_HEURISTIC: 49750 (98.53%)
+  - NOT_VERIFIED: 710 (1.41%)
+  - VERIFIED_DETERMINISTIC: 31 (0.06%)

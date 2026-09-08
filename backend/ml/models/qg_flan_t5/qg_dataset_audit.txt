@@ -1,0 +1,89 @@
+================================================================================
+QUESTION GENERATION (QG) DATASET AUDIT REPORT
+File: backend/ml/models/qg_flan_t5/qg_train_dataset.jsonl
+Target Model Architecture: google/flan-t5-base / flan-t5-small
+================================================================ me
+
+1. OVERALL DATASET METRICS
+Total Examples:              22281
+Duplicate Input Prompts:     20888
+Duplicate Target Questions:  0
+Empty Input Prompts:         0
+Empty Target Questions:      0
+Malformed Examples:          0
+
+2. PROMPT & TARGET LENGTH METRICS
+Avg Prompt Length (chars):   94.16
+Avg Prompt Length (words):   9.70
+Avg Target Length (chars):   143.59
+Avg Target Length (words):   25.65
+
+3. METADATA COVERAGE IN INPUT PROMPTS
+Contains Question Type:      22281 (100.00%)
+Contains Subject:            22281 (100.00%)
+Contains Bloom Taxonomy:     22281 (100.00%)
+Contains Context:            1437 (6.45%)
+Contains Difficulty:         0 (0.00%)  [MISSING IN CURRENT PROMPT STRING]
+Contains Marks:              0 (0.00%)  [MISSING IN CURRENT PROMPT STRING]
+Contains Topic:              0 (0.00%)  [MISSING IN CURRENT PROMPT STRING]
+
+4. DISTRIBUTION BREAKDOWNS
+
+Bloom Taxonomy Distribution:
+  - Analyze: 6974 (31.30%)
+  - Understand: 6249 (28.05%)
+  - Apply: 4653 (20.88%)
+  - Remember: 2825 (12.68%)
+  - Create: 800 (3.59%)
+  - Evaluate: 780 (3.50%)
+
+Question Type Distribution:
+  - Numerical: 8792 (39.46%)
+  - MCQ: 4764 (21.38%)
+  - Short Answer: 4346 (19.51%)
+  - Application Based: 2799 (12.56%)
+  - Long Answer: 1580 (7.09%)
+
+Subject Distribution:
+  - Mathematics: 8792 (39.46%)
+  - General Science: 8725 (39.16%)
+  - General Studies / Business: 3327 (14.93%)
+  - Biology: 307 (1.38%)
+  - Anatomy And Physiology: 267 (1.20%)
+  - Psychology: 226 (1.01%)
+  - Introduction To Sociology: 159 (0.71%)
+  - American Government: 102 (0.46%)
+  - Principles Of Accounting, Volume 2: Managerial Accounting: 80 (0.36%)
+  - U.S. History: 72 (0.32%)
+  - Microbiology: 61 (0.27%)
+  - Business Law I Essentials: 61 (0.27%)
+  - Principles Of Accounting, Volume 1: Financial Accounting: 56 (0.25%)
+  - Business Ethics: 35 (0.16%)
+  - Introduction To Intellectual Property: 11 (0.05%)
+
+5. FIRST 5 SAMPLE PROMPT-TARGET PAIRS IN DATASET:
+
+Sample 1:
+  INPUT PROMPT: generate question: type=Short Answer, subject=General Science, bloom=Remember
+  TARGET Q:     About what proportion of the population of the US is living on farms?
+  ANSWER:       None
+
+Sample 2:
+  INPUT PROMPT: generate question: type=Short Answer, subject=General Science, bloom=Remember
+  TARGET Q:     Correctly label the brain lobes indicated on the diagram below
+  ANSWER:       None
+
+Sample 3:
+  INPUT PROMPT: generate question: type=Short Answer, subject=General Science, bloom=Remember
+  TARGET Q:     Define compound interest.
+  ANSWER:       None
+
+Sample 4:
+  INPUT PROMPT: generate question: type=Short Answer, subject=General Science, bloom=Remember
+  TARGET Q:     Define four types of traceability
+  ANSWER:       None
+
+Sample 5:
+  INPUT PROMPT: generate question: type=Short Answer, subject=General Science, bloom=Remember
+  TARGET Q:     Define mercantilism.
+  ANSWER:       None

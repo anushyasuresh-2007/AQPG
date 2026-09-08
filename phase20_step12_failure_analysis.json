@@ -1,0 +1,187 @@
+{
+  "step": "Phase 20 Step 12",
+  "title": "Forensic Failure Mode Audit",
+  "mode": "ANALYSIS_ONLY",
+  "summary_statement": "PHASE 20 STEP 12 \u2014 FORENSIC FAILURE ANALYSIS COMPLETE",
+  "acceptance_threshold_note": "NO HISTORICAL ACCEPTANCE THRESHOLD RECOVERED FOR STEP 12",
+  "model_identity_caveat": {
+    "historical_v16_model_sha256": "E29B95E18DFE5CF6D8DB2D1F8781843C9DD4B8EE2CE81C9ED26E8DF56F443BC4",
+    "status": "NOT_RECOVERED_LOCALLY",
+    "authoritative_source": "Historical recorded Step 9 evaluation outputs"
+  },
+  "execution_metadata": {
+    "timestamp": "2026-08-24 15:31:30",
+    "no_model_loaded": true,
+    "no_inference_performed": true,
+    "no_training_performed": true,
+    "step9_10_11_artifacts_preserved": true
+  },
+  "artifact_provenance": {
+    "phase20_evaluation_prompts.jsonl": {
+      "exists": true,
+      "size_bytes": 196260,
+      "sha256": "91335C1EC938454BADFD551975018689A2B87489EA10BECDD05C134A1ED3082E"
+    },
+    "phase20_base_outputs.jsonl": {
+      "exists": true,
+      "size_bytes": 190876,
+      "sha256": "9BD203D50205FBF64B3C36A06A465F62930374C2CDDF3BB85F6C070DF26B91A7"
+    },
+    "phase17_generated_outputs.jsonl": {
+      "exists": true,
+      "size_bytes": 422501,
+      "sha256": "BEFDEFF74D44F5D1F7AE0AC7F9579BC9E056F2B065102E66AFC390970977C1E7"
+    },
+    "phase17_quality_evaluation.json": {
+      "exists": true,
+      "size_bytes": 1777,
+      "sha256": "3BDF91570C6D0EDDE4A5EAF0723B089C5EBC3C11B172E35C12B1163309E5B751"
+    },
+    "phase17_control_sensitivity.json": {
+      "exists": true,
+      "size_bytes": 7064,
+      "sha256": "ADAD24A23BA85EB704A756705CFF2CD50904EEF0C4B579E6A675DDA5640237AC"
+    },
+    "phase17_confusion_matrices.json": {
+      "exists": true,
+      "size_bytes": 773,
+      "sha256": "3C1860B07F46BB8A2F1C808A18E239B69EDA34A4414E4E265B19EBE6378B8ADC"
+    },
+    "phase18_v16_experiment_plan.json": {
+      "exists": true,
+      "size_bytes": 3725,
+      "sha256": "758AF0EDB3635898A195F18F9837AA63C0C7B869BBBF7AE7C514FEBA3EA2CBA7"
+    },
+    "phase20_v16_evaluation_summary.json": {
+      "exists": true,
+      "size_bytes": 853,
+      "sha256": "9DB6C5FA89ABA4A54DF8622804137477715E73E994D0202B06FA153A4B91CD3A"
+    },
+    "phase20_step10_comparative_analysis.json": {
+      "exists": true,
+      "size_bytes": 8983,
+      "sha256": "062A7798F300D43F8E7048B37206EB849D02ADA334739A05B2A43C0DAE6F7D24"
+    },
+    "docs/phase20_step10_comparative_report.md": {
+      "exists": true,
+      "size_bytes": 11849,
+      "sha256": "EF2C8ED2DED86EA80DF0069A255CD4C9CFC6D765F95332AAEB99CB02C7144102"
+    },
+    "phase20_step11_quality_gate_report.json": {
+      "exists": true,
+      "size_bytes": 4667,
+      "sha256": "864CE94640A862D96F10BE924864C42C8FFACA83FE80DA3AFC3FAC5EDB09B75D"
+    },
+    "docs/phase20_step11_quality_gate_report.md": {
+      "exists": true,
+      "size_bytes": 5554,
+      "sha256": "F920E619F8D43100DD70EDA7D25D14D8F89A8793382B8F5DD3BDAF47FD618101"
+    }
+  },
+  "failed_gate_summary": [
+    {
+      "gate": "Control Sensitivity",
+      "v16": "0.00%",
+      "required": ">=80.0%",
+      "verdict": "FAIL"
+    },
+    {
+      "gate": "Template Concentration",
+      "v16": "100.00% Top-10",
+      "required": "<=30.0%",
+      "verdict": "FAIL"
+    },
+    {
+      "gate": "Question-Type Accuracy",
+      "v16": "46.80%",
+      "required": ">=85.0%",
+      "verdict": "FAIL"
+    },
+    {
+      "gate": "Numerical Validity",
+      "v16": "19.41%",
+      "required": ">=85.0%",
+      "verdict": "FAIL"
+    },
+    {
+      "gate": "Subject Accuracy",
+      "v16": "67.60%",
+      "required": ">=85.0%",
+      "verdict": "FAIL"
+    },
+    {
+      "gate": "Topic Accuracy",
+      "v16": "72.60%",
+      "required": ">=80.0%",
+      "verdict": "FAIL"
+    },
+    {
+      "gate": "Exact Training Memorization",
+      "v16": "4.62%",
+      "required": "<=2.0%",
+      "verdict": "FAIL"
+    }
+  ],
+  "passed_gate_summary": [
+    {
+      "gate": "Question Structural Validity",
+      "v16": "98.20%",
+      "required": ">=95.0%",
+      "verdict": "PASS"
+    },
+    {
+      "gate": "Class-Level Grounded Accuracy",
+      "v16": "81.60%",
+      "required": ">=75.0%",
+      "verdict": "PASS"
+    }
+  ],
+  "failure_categories": {
+    "template_collapse": {
+      "severity": "CRITICAL",
+      "description": "100.0% of top generations concentrate in 10 dominant MCQ stems; stem entropy is 1.15 bits.",
+      "impact": "Suppresses non-MCQ formatting and causes question-type accuracy failure (46.80%)."
+    },
+    "control_blindness": {
+      "severity": "CRITICAL",
+      "description": "0.00% control sensitivity across paired prompts.",
+      "impact": "Altering difficulty (Easy/Hard), marks (1/5), or question type yields identical generated output."
+    },
+    "numerical_reasoning_failure": {
+      "severity": "HIGH",
+      "description": "19.41% numerical calculation validity; 80.59% failure rate.",
+      "impact": "Generates MCQ text stems without numbers/calculations for numerical prompts."
+    },
+    "training_memorization_breach": {
+      "severity": "MODERATE",
+      "description": "4.62% exact training substring match (exceeds 2.0% ceiling).",
+      "impact": "Model copies verbatim training sequences for high-frequency topics."
+    },
+    "subject_topic_mismatch": {
+      "severity": "MODERATE",
+      "description": "Subject accuracy 67.60% and Topic accuracy 72.60%.",
+      "impact": "Generic template stems omit specific domain entities required for 100% topic accuracy."
+    }
+  },
+  "cross_metric_root_causes": {
+    "primary_root_cause": "MCQ Template Collapse & Loss of Control-Token Conditioning",
+    "mechanism": "The fine-tuned FLAN-T5-small model learned language fluency (98.20% validity) and class tokens (81.60% groundedness), but collapsed onto high-frequency MCQ target priors during 3-epoch training. The model ignores input control tags (0.00% control sensitivity) and defaults to MCQ stems regardless of requested question type or difficulty.",
+    "distinction": {
+      "observed_evidence": "100% top-10 concentration, 0% control sensitivity, 46.80% type accuracy, 19.41% numerical validity.",
+      "likely_root_cause": "High proportion of MCQ targets in training supervision data combined with insufficient control-token loss weighting.",
+      "unverified_hypothesis": "Scaling to 250M FLAN-T5-base or applying explicit control-token penalty loss will restore control sensitivity."
+    }
+  },
+  "v15_v16_comparison": {
+    "improvements": [
+      "Topic accuracy increased from 43.27% (V15) to 72.60% (V16) [+29.33%].",
+      "Subject accuracy increased from 60.77% (V15) to 67.60% (V16) [+6.83%].",
+      "Class groundedness increased to 81.60% (V16) from UNKNOWN token dominance in V15."
+    ],
+    "regressions": [
+      "Question-type accuracy dropped from 64.23% (V15) to 46.80% (V16) [-17.43%].",
+      "Control sensitivity dropped from 30.00% (V15) to 0.00% (V16) [-30.00%]."
+    ]
+  },
+  "final_step12_conclusion": "Step 12 forensic audit complete. Empirical evidence demonstrates that V16 achieved marked improvements in topic grounding (+29.33%) and class differentiation (+81.60%), but suffered from critical MCQ template collapse (100% top-10 concentration) and total control blindness (0.00% sensitivity)."
+}

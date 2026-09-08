@@ -1,0 +1,50 @@
+================================================================================
+AQPG PHASE 16: FLAN-T5-SMALL V15 MODEL TRAINING REPORT
+================================================================================
+TRAINING STATUS: COMPLETED SUCCESSFULLY
+Base Model:              google/flan-t5-small
+Dataset Version:         V15
+Training Records:        42152
+Validation Records:      10539
+Execution Device:        cpu
+Training Duration:       296.11 seconds
+Final Training Loss:     3.6262
+Checkpoint Saved To:     C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\checkpoints\flan_t5_v15
+
+================================================================================
+CHECKPOINT INTEGRITY & RELOAD INFERENCE SAMPLES:
+================================================================================
+
+CATEGORY: Math Numerical
+INPUT PROMPT:   generate question | subject: Mathematics | topic: Linear Equations & Word Problems | unit: UNKNOWN | class: Class 10 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+GENERATED STEM: What is the smallest amount of water in the water?
+STATUS:         PASS
+--------------------------------------------------------------------------------
+
+CATEGORY: Physics Mechanics
+INPUT PROMPT:   generate question | subject: Physics | topic: Newton's Laws & Friction | unit: Mechanics | class: Class 11 | board: OpenStax Academic | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+GENERATED STEM: Newton's Laws & Friction is a type of what?
+STATUS:         PASS
+--------------------------------------------------------------------------------
+
+CATEGORY: Chemistry Stoichiometry
+INPUT PROMPT:   generate question | subject: Chemistry | topic: Chemical Equilibrium & Le Chatelier | unit: UNKNOWN | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: MCQ
+GENERATED STEM: Which of the following is not a chemical reaction?
+STATUS:         PASS
+--------------------------------------------------------------------------------
+
+CATEGORY: Biology Genetics
+INPUT PROMPT:   generate question | subject: Biology | topic: Mendelian Genetics & Inheritance | unit: Genetics | class: Class 12 | board: OpenStax Academic | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ
+GENERATED STEM: Which of the following is not a genus of mendelian?
+STATUS:         PASS
+--------------------------------------------------------------------------------
+
+CATEGORY: General Science Class 9
+INPUT PROMPT:   generate question | subject: General Science | topic: Matter in Our Surroundings | unit: Secondary General Science | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: MCQ
+GENERATED STEM: Which of the following is not a characteristic of a plant?
+STATUS:         PASS
+--------------------------------------------------------------------------------
+
+================================================================================
+V15 MODEL TRAINING COMPLETED AND CHECKPOINT VERIFIED.
+================================================================================

@@ -1,0 +1,12 @@
+{
+  "archive_name": "AQPG_V17_CPU_RUN_ARCHIVE_TASK328",
+  "reason": "V17 CPU training interrupted for GPU migration",
+  "task_id": "task-328",
+  "stopped_at_timestamp": "2026-08-24T19:26:31Z",
+  "base_model": "google/flan-t5-small",
+  "last_known_step": "checkpoint-250 (Epoch 1)",
+  "preserved_items": [
+    "DIR: best_model"
+  ],
+  "status": "V17 CPU training interrupted for GPU migration"
+}

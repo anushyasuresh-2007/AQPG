@@ -1,0 +1,132 @@
+{
+  "step": "Phase 20 Step 11",
+  "title": "Phase 18 Quality-Gate Pass/Fail Evaluation",
+  "mode": "ANALYSIS_ONLY",
+  "summary_statement": "PHASE 20 STEP 11 \u2014 QUALITY-GATE EVALUATION COMPLETE",
+  "overall_verdict": "FAIL",
+  "model_lineage_note": "Analysis-only evaluation of historical Step 9 recorded results (FLAN-T5-Small V16). No model was loaded, no inference was performed, and no retraining occurred.",
+  "boundary_statement": "Steps 12\u201314 have NOT been executed.",
+  "gate_summary": {
+    "total_gates": 9,
+    "passed_gates": 2,
+    "failed_gates": 7,
+    "pass_percentage": "22.22%"
+  },
+  "gates": [
+    {
+      "gate_id": "GATE-01",
+      "metric_name": "Question Structural Validity Rate",
+      "v16_value": "98.20%",
+      "v16_numeric": 98.2,
+      "required_threshold": ">= 95.0%",
+      "threshold_numeric": 95.0,
+      "operator": ">=",
+      "verdict": "PASS",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-02",
+      "metric_name": "Subject Conditioning Accuracy",
+      "v16_value": "67.60%",
+      "v16_numeric": 67.6,
+      "required_threshold": ">= 85.0%",
+      "threshold_numeric": 85.0,
+      "operator": ">=",
+      "verdict": "FAIL",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-03",
+      "metric_name": "Topic Alignment Accuracy",
+      "v16_value": "72.60%",
+      "v16_numeric": 72.6,
+      "required_threshold": ">= 80.0%",
+      "threshold_numeric": 80.0,
+      "operator": ">=",
+      "verdict": "FAIL",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-04",
+      "metric_name": "Question-Type Accuracy",
+      "v16_value": "46.80%",
+      "v16_numeric": 46.8,
+      "required_threshold": ">= 85.0%",
+      "threshold_numeric": 85.0,
+      "operator": ">=",
+      "verdict": "FAIL",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-05",
+      "metric_name": "Control Sensitivity Rate",
+      "v16_value": "0.00%",
+      "v16_numeric": 0.0,
+      "required_threshold": ">= 80.0%",
+      "threshold_numeric": 80.0,
+      "operator": ">=",
+      "verdict": "FAIL",
+      "source_artifact": "phase17_control_sensitivity.json, docs/phase20_step9_evaluation_report.md",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-06",
+      "metric_name": "Template Concentration Ceiling",
+      "v16_value": "100.00% (Top-10 Concentration)",
+      "v16_numeric": 100.0,
+      "required_threshold": "<= 30.0%",
+      "threshold_numeric": 30.0,
+      "operator": "<=",
+      "verdict": "FAIL",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-07",
+      "metric_name": "Exact Training Memorization Rate",
+      "v16_value": "4.62%",
+      "v16_numeric": 4.62,
+      "required_threshold": "<= 2.0%",
+      "threshold_numeric": 2.0,
+      "operator": "<=",
+      "verdict": "FAIL",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-08",
+      "metric_name": "Numerical Calculation Validity Rate",
+      "v16_value": "19.41%",
+      "v16_numeric": 19.41,
+      "required_threshold": ">= 85.0%",
+      "threshold_numeric": 85.0,
+      "operator": ">=",
+      "verdict": "FAIL",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    },
+    {
+      "gate_id": "GATE-09",
+      "metric_name": "Class-Level Grounded Accuracy",
+      "v16_value": "81.60%",
+      "v16_numeric": 81.6,
+      "required_threshold": ">= 75.0%",
+      "threshold_numeric": 75.0,
+      "operator": ">=",
+      "verdict": "PASS",
+      "source_artifact": "docs/phase20_step9_evaluation_report.md, phase18_v16_experiment_plan.json",
+      "directly_verifiable": true
+    }
+  ],
+  "integrity_check": {
+    "no_model_loaded": true,
+    "no_inference_performed": true,
+    "no_training_performed": true,
+    "no_step9_artifacts_modified": true,
+    "step11_artifacts_created_only": true
+  }
+}

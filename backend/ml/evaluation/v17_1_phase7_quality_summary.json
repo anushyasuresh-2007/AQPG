@@ -1,0 +1,177 @@
+{
+  "phase": "7",
+  "overall_result": "FAIL (Pass Rate: 0.0%, Avg Quality: 3.67/100)",
+  "strongest_area": "Metadata propagation (100% Bloom and parameter pass-through)",
+  "weakest_area": "Text generation heads (100% token loop collapse into 'reheat...')",
+  "top_5_failure_modes": [
+    "HIGH_WORD_REPETITION",
+    "MALFORMED_OUTPUT",
+    "NOT_CLEARLY_A_QUESTION",
+    "LOW_SUBJECT_RELEVANCE",
+    "LOW_TOPIC_RELEVANCE"
+  ],
+  "subject_comparison": {
+    "Mathematics": {
+      "N": 6,
+      "average_quality": 3.33,
+      "median_quality": 5.0,
+      "PASS": 0,
+      "FAIL": 6,
+      "repetition_count": 6,
+      "malformed_count": 6,
+      "question_like_count": 0,
+      "subject_relevance_failures": 6,
+      "topic_relevance_failures": 6
+    },
+    "Physics": {
+      "N": 6,
+      "average_quality": 3.33,
+      "median_quality": 5.0,
+      "PASS": 0,
+      "FAIL": 6,
+      "repetition_count": 6,
+      "malformed_count": 6,
+      "question_like_count": 0,
+      "subject_relevance_failures": 6,
+      "topic_relevance_failures": 6
+    },
+    "Chemistry": {
+      "N": 6,
+      "average_quality": 3.33,
+      "median_quality": 5.0,
+      "PASS": 0,
+      "FAIL": 6,
+      "repetition_count": 6,
+      "malformed_count": 6,
+      "question_like_count": 0,
+      "subject_relevance_failures": 6,
+      "topic_relevance_failures": 6
+    },
+    "Biology": {
+      "N": 6,
+      "average_quality": 5.0,
+      "median_quality": 5.0,
+      "PASS": 0,
+      "FAIL": 6,
+      "repetition_count": 6,
+      "malformed_count": 6,
+      "question_like_count": 0,
+      "subject_relevance_failures": 6,
+      "topic_relevance_failures": 6
+    },
+    "General Science": {
+      "N": 6,
+      "average_quality": 3.33,
+      "median_quality": 5.0,
+      "PASS": 0,
+      "FAIL": 6,
+      "repetition_count": 6,
+      "malformed_count": 6,
+      "question_like_count": 0,
+      "subject_relevance_failures": 6,
+      "topic_relevance_failures": 6
+    }
+  },
+  "Bloom_comparison": {
+    "Remember": {
+      "N": 5,
+      "metadata_match": 5,
+      "metadata_mismatch": 0,
+      "semantic_assessable": 0,
+      "semantic_not_assessable": 5,
+      "average_quality": 5.0
+    },
+    "Understand": {
+      "N": 5,
+      "metadata_match": 5,
+      "metadata_mismatch": 0,
+      "semantic_assessable": 0,
+      "semantic_not_assessable": 5,
+      "average_quality": 5.0
+    },
+    "Apply": {
+      "N": 5,
+      "metadata_match": 5,
+      "metadata_mismatch": 0,
+      "semantic_assessable": 0,
+      "semantic_not_assessable": 5,
+      "average_quality": 1.0
+    },
+    "Analyze": {
+      "N": 5,
+      "metadata_match": 5,
+      "metadata_mismatch": 0,
+      "semantic_assessable": 0,
+      "semantic_not_assessable": 5,
+      "average_quality": 1.0
+    },
+    "Evaluate": {
+      "N": 5,
+      "metadata_match": 5,
+      "metadata_mismatch": 0,
+      "semantic_assessable": 0,
+      "semantic_not_assessable": 5,
+      "average_quality": 5.0
+    },
+    "Create": {
+      "N": 5,
+      "metadata_match": 5,
+      "metadata_mismatch": 0,
+      "semantic_assessable": 0,
+      "semantic_not_assessable": 5,
+      "average_quality": 5.0
+    }
+  },
+  "question_type_comparison": {
+    "Short Answer": {
+      "N": 10,
+      "correct_type": 0,
+      "type_mismatch": 10,
+      "average_quality": 5.0,
+      "repetition_count": 10
+    },
+    "Conceptual": {
+      "N": 5,
+      "correct_type": 0,
+      "type_mismatch": 5,
+      "average_quality": 5.0,
+      "repetition_count": 5
+    },
+    "Numerical": {
+      "N": 4,
+      "correct_type": 0,
+      "type_mismatch": 4,
+      "average_quality": 0.0,
+      "repetition_count": 4
+    },
+    "Problem Solving": {
+      "N": 4,
+      "correct_type": 0,
+      "type_mismatch": 4,
+      "average_quality": 0.0,
+      "repetition_count": 4
+    },
+    "Descriptive": {
+      "N": 6,
+      "correct_type": 0,
+      "type_mismatch": 6,
+      "average_quality": 5.0,
+      "repetition_count": 6
+    },
+    "Long Answer": {
+      "N": 1,
+      "correct_type": 0,
+      "type_mismatch": 1,
+      "average_quality": 5.0,
+      "repetition_count": 1
+    }
+  },
+  "baseline_comparison": {
+    "baseline_pass_rate": "16.73%",
+    "current_pass_rate": "0.0%",
+    "baseline_avg_quality": "49.58/100",
+    "current_avg_quality": "3.67/100",
+    "verdict": "DECLINED"
+  },
+  "recommendation": "Preserve V17.1 artifacts and evaluation reports for diagnostic evidence. Do NOT attempt retraining in this phase."
+}

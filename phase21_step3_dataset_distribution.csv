@@ -1,0 +1,14 @@
+Dimension,Category,Record_Count,Percentage,V16_Comparison_Pct
+Question Type,MCQ,17500,35.00%,82.13% (MCQ)
+Question Type,Numerical,17500,35.00%,16.49%
+Question Type,Conceptual,12500,25.00%,1.38%
+Question Type,Short Answer,2500,5.00%,16.49%
+Class Grounding,Class 9,12500,25.00%,4.47%
+Class Grounding,Class 10,12500,25.00%,4.47%
+Class Grounding,Class 11,12500,25.00%,4.47%
+Class Grounding,Class 12,12500,25.00%,4.47%
+Class Grounding,UNKNOWN,0,0.00%,82.13% UNKNOWN in V16
+Subject Balance,Physics,15250,30.50%,25.00%
+Subject Balance,Chemistry,12750,25.50%,25.00%
+Subject Balance,Mathematics,13250,26.50%,25.00%
+Subject Balance,Biology,8750,17.50%,25.00%

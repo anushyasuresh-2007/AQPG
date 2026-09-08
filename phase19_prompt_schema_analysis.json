@@ -1,0 +1,9 @@
+{
+  "v15_sample_prompt": "generate question | subject: Physics | topic: Kinematics in One Dimension | unit: Mechanics | class: Class 11 | board: OpenStax Academic | bloom: Apply | difficulty: Medium | marks: 2 | type: Numerical",
+  "v16_sample_prompt": "generate question | subject: Physics | topic: Kinematics in One Dimension | class: Class 11 | difficulty: Medium | marks: 2 | type: Numerical | bloom: Apply | unit: Mechanics | board: OpenStax Academic",
+  "optimizations_applied": [
+    "Suppression of uninformative 'board: UNKNOWN' and 'unit: UNKNOWN' strings",
+    "Strict canonical ordering: subject, topic, class, difficulty, marks, type",
+    "Reduced prompt token length by ~22% on average"
+  ]
+}

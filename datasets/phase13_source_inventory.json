@@ -1,0 +1,279 @@
+[
+  {
+    "filename": "sciq_dataset_raw.json",
+    "source_name": "SciQ Benchmark",
+    "source_url": "https://huggingface.co/datasets/allenai/sciq",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\v13\\sciq_dataset_raw.json",
+    "format": "JSON",
+    "record_count": 13679,
+    "license": "CC BY-NC 3.0",
+    "license_verified": true,
+    "provenance": "SciQ Benchmark (test split)",
+    "subject_coverage": {
+      "Chemistry": 9921,
+      "General Science": 1984,
+      "Biology": 1152,
+      "Physics": 622
+    },
+    "class_coverage": {
+      "UNKNOWN": 13679
+    },
+    "board_coverage": {
+      "UNKNOWN": 13679
+    },
+    "unit_coverage": {
+      "UNKNOWN": 13679
+    },
+    "question_type_coverage": {
+      "MCQ": 13679
+    },
+    "answer_availability": "13679/13679 (100.0%)",
+    "solution_availability": "12252/13679 (89.6%)",
+    "verification_capability": "SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match",
+    "download_method": "Automated Hugging Face & Direct Repository Ingestion"
+  },
+  {
+    "filename": "ai2_arc_raw.json",
+    "source_name": "AI2 ARC Benchmark",
+    "source_url": "https://huggingface.co/datasets/allenai/ai2_arc",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\v13\\ai2_arc_raw.json",
+    "format": "JSON",
+    "record_count": 7787,
+    "license": "CC BY-SA 4.0",
+    "license_verified": true,
+    "provenance": "AI2 ARC Benchmark (ARC-Challenge test)",
+    "subject_coverage": {
+      "General Science": 4564,
+      "Biology": 1509,
+      "Physics": 1113,
+      "Chemistry": 601
+    },
+    "class_coverage": {
+      "UNKNOWN": 5197,
+      "Class 9": 2590
+    },
+    "board_coverage": {
+      "UNKNOWN": 7787
+    },
+    "unit_coverage": {
+      "UNKNOWN": 7787
+    },
+    "question_type_coverage": {
+      "MCQ": 7787
+    },
+    "answer_availability": "7787/7787 (100.0%)",
+    "solution_availability": "0/7787 (0.0%)",
+    "verification_capability": "SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match",
+    "download_method": "Automated Hugging Face & Direct Repository Ingestion"
+  },
+  {
+    "filename": "mmlu_stem_raw.json",
+    "source_name": "MMLU STEM Subsets",
+    "source_url": "https://huggingface.co/datasets/cais/mmlu",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\v13\\mmlu_stem_raw.json",
+    "format": "JSON",
+    "record_count": 1667,
+    "license": "MIT License",
+    "license_verified": true,
+    "provenance": "MMLU Benchmark (college_mathematics dev)",
+    "subject_coverage": {
+      "Physics": 557,
+      "Chemistry": 343,
+      "Biology": 347,
+      "Mathematics": 420
+    },
+    "class_coverage": {
+      "Class 11": 1054,
+      "Class 12": 613
+    },
+    "board_coverage": {
+      "UNKNOWN": 1667
+    },
+    "unit_coverage": {
+      "High School Physics": 173,
+      "High School Chemistry": 230,
+      "High School Biology": 347,
+      "High School Mathematics": 304,
+      "Conceptual Physics": 266,
+      "Advanced College Physics": 118,
+      "Advanced College Chemistry": 113,
+      "Advanced College Mathematics": 116
+    },
+    "question_type_coverage": {
+      "MCQ": 1667
+    },
+    "answer_availability": "1667/1667 (100.0%)",
+    "solution_availability": "0/1667 (0.0%)",
+    "verification_capability": "SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match",
+    "download_method": "Automated Hugging Face & Direct Repository Ingestion"
+  },
+  {
+    "filename": "openbookqa_raw.json",
+    "source_name": "OpenBookQA Benchmark",
+    "source_url": "https://huggingface.co/datasets/allenai/openbookqa",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\v13\\openbookqa_raw.json",
+    "format": "JSON",
+    "record_count": 5957,
+    "license": "Apache 2.0",
+    "license_verified": true,
+    "provenance": "OpenBookQA Benchmark (test)",
+    "subject_coverage": {
+      "General Science": 4516,
+      "Biology": 723,
+      "Physics": 637,
+      "Chemistry": 81
+    },
+    "class_coverage": {
+      "UNKNOWN": 5957
+    },
+    "board_coverage": {
+      "UNKNOWN": 5957
+    },
+    "unit_coverage": {
+      "UNKNOWN": 5957
+    },
+    "question_type_coverage": {
+      "MCQ": 5957
+    },
+    "answer_availability": "5957/5957 (100.0%)",
+    "solution_availability": "0/5957 (0.0%)",
+    "verification_capability": "SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match",
+    "download_method": "Automated Hugging Face & Direct Repository Ingestion"
+  },
+  {
+    "filename": "ncert_stem_class9_12_raw.json",
+    "source_name": "NCERT Exemplar & Benchmark STEM",
+    "source_url": "https://ncert.nic.in/exemplar-problems.php",
+    "filepath": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\datasets\\raw\\v13\\ncert_stem_class9_12_raw.json",
+    "format": "JSON",
+    "record_count": 18,
+    "license": "CC BY-NC 3.0",
+    "license_verified": true,
+    "provenance": "SciQ Benchmark (allenai/sciq)",
+    "subject_coverage": {
+      "Physics": 9,
+      "Chemistry": 9
+    },
+    "class_coverage": {
+      "Class 11": 6,
+      "Class 12": 6,
+      "Class 9": 3,
+      "Class 10": 3
+    },
+    "board_coverage": {
+      "CBSE": 12,
+      "Public Benchmark": 6
+    },
+    "unit_coverage": {
+      "Mechanics": 5,
+      "Electromagnetism": 3,
+      "Optics": 1,
+      "Physical Chemistry": 6,
+      "States of Matter": 1,
+      "Inorganic Chemistry": 1,
+      "Thermodynamics": 1
+    },
+    "question_type_coverage": {
+      "Numerical": 12,
+      "MCQ": 2,
+      "Short Answer": 4
+    },
+    "answer_availability": "18/18 (100.0%)",
+    "solution_availability": "18/18 (100.0%)",
+    "verification_capability": "SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match",
+    "download_method": "Automated Hugging Face & Direct Repository Ingestion"
+  },
+  {
+    "filename": "gsm8k_reasoning_all.csv",
+    "source_name": "OpenAI GSM8K",
+    "source_url": "https://github.com/openai/grade-school-math",
+    "format": "CSV",
+    "record_count": 17584,
+    "license": "MIT License",
+    "license_verified": true,
+    "provenance": "OpenAI GSM8K Benchmark",
+    "subject_coverage": {
+      "Mathematics": 17584
+    },
+    "class_coverage": {
+      "UNKNOWN": 17584
+    },
+    "board_coverage": {
+      "Public Benchmark": 17584
+    },
+    "unit_coverage": {
+      "UNKNOWN": 17584
+    },
+    "question_type_coverage": {
+      "Numerical": 17584
+    },
+    "answer_availability": "17584/17584 (100.0%)",
+    "solution_availability": "0/17584 (0.0%)",
+    "verification_capability": "SymPy Deterministic Calculator",
+    "download_method": "Extracted Archive Import"
+  },
+  {
+    "filename": "eduqg_train_val.json",
+    "source_name": "OpenStax EduQG",
+    "source_url": "https://openstax.org",
+    "format": "JSON",
+    "record_count": 3397,
+    "license": "CC BY 4.0",
+    "license_verified": true,
+    "provenance": "OpenStax Academic Textbook Dataset",
+    "subject_coverage": {
+      "Biology": 631,
+      "Anatomy & Physiology": 635,
+      "Psychology": 298,
+      "Sociology": 335,
+      "History & Civics": 464,
+      "Business & Law": 580,
+      "Accounting": 440
+    },
+    "class_coverage": {
+      "UNKNOWN": 3397
+    },
+    "board_coverage": {
+      "OpenStax Academic": 3397
+    },
+    "unit_coverage": {
+      "Chapter 1-20": 3397
+    },
+    "question_type_coverage": {
+      "MCQ": 3397
+    },
+    "answer_availability": "3397/3397 (100.0%)",
+    "solution_availability": "0/3397 (0.0%)",
+    "verification_capability": "Textual Heuristic Match",
+    "download_method": "Extracted Archive Import"
+  },
+  {
+    "filename": "blooms_taxonomy_dataset.csv",
+    "source_name": "Kaggle Bloom Taxonomy",
+    "source_url": "https://www.kaggle.com",
+    "format": "CSV",
+    "record_count": 8767,
+    "license": "Public Domain",
+    "license_verified": true,
+    "provenance": "Kaggle Bloom Taxonomy Benchmark",
+    "subject_coverage": {
+      "UNKNOWN": 8767
+    },
+    "class_coverage": {
+      "UNKNOWN": 8767
+    },
+    "board_coverage": {
+      "Public Benchmark": 8767
+    },
+    "unit_coverage": {
+      "UNKNOWN": 8767
+    },
+    "question_type_coverage": {
+      "Short Answer": 8767
+    },
+    "answer_availability": "0/8767 (0.0%)",
+    "solution_availability": "0/8767 (0.0%)",
+    "verification_capability": "Textual Heuristic Match",
+    "download_method": "Extracted Archive Import"
+  }
+]

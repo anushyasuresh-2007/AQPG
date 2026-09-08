@@ -1,0 +1,104 @@
+{
+  "phase": "21A",
+  "step": 3,
+  "build_status": "PASS",
+  "total_records": 50000,
+  "train_records": 40000,
+  "validation_records": 10000,
+  "gates_evaluated": 13,
+  "mandatory_gates_passed": 12,
+  "mandatory_gates_failed": 0,
+  "gates": [
+    {
+      "gate_id": "GATE-D1",
+      "metric_name": "Unique Input Prompt Ratio",
+      "observed_value": "100.00% (50,000)",
+      "required_threshold": ">= 60.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D2",
+      "metric_name": "Max Single Prompt Concentration",
+      "observed_value": "0.002% (1)",
+      "required_threshold": "<= 0.10%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D3",
+      "metric_name": "Top-3 Prompt Concentration",
+      "observed_value": "0.006% (3)",
+      "required_threshold": "<= 0.30%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D4",
+      "metric_name": "Conceptual Representation",
+      "observed_value": "25.00% (12,500)",
+      "required_threshold": ">= 25.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D5",
+      "metric_name": "Numerical Representation",
+      "observed_value": "35.00% (17,500)",
+      "required_threshold": ">= 35.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D6",
+      "metric_name": "MCQ Representation Ceiling",
+      "observed_value": "35.00% (17,500)",
+      "required_threshold": "<= 35.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D7",
+      "metric_name": "Class UNKNOWN Token Rate",
+      "observed_value": "0.00% (0)",
+      "required_threshold": "0.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D8",
+      "metric_name": "Numerical Subject Concentration",
+      "observed_value": "40.71% (7,125)",
+      "required_threshold": "<= 45.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D9",
+      "metric_name": "Top-10 Target Stem Concentration",
+      "observed_value": "6.50% (3,250)",
+      "required_threshold": "<= 15.0%",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D10",
+      "metric_name": "Exact Duplicate Pair Rate",
+      "observed_value": "0",
+      "required_threshold": "0",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D11",
+      "metric_name": "Train/Val Exact Target Leakage",
+      "observed_value": "0",
+      "required_threshold": "0",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D12",
+      "metric_name": "Paired Control Quadruplet Count",
+      "observed_value": "2,500 groups (10,000 records)",
+      "required_threshold": ">= 2,500",
+      "status": "PASS"
+    },
+    {
+      "gate_id": "GATE-D13",
+      "metric_name": "Target Stem Entropy (Advisory)",
+      "observed_value": "11.6633 bits",
+      "required_threshold": ">= 10.0 bits",
+      "status": "PASS"
+    }
+  ]
+}

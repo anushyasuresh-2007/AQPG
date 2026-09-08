@@ -1,0 +1,113 @@
+{
+  "phase": "6",
+  "model": "V17.1",
+  "model_path": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v17\\best_model",
+  "model_modified": false,
+  "training_started": false,
+  "dataset_modified": false,
+  "checkpoint_modified": false,
+  "fastapi_modified": false,
+  "bloom_levels": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Analyze",
+    "Evaluate",
+    "Create"
+  ],
+  "existing_ml_bloom_classifier": {
+    "evaluated": true,
+    "overall_accuracy_pct": 88.46,
+    "macro_f1_score": 0.8985,
+    "samples_evaluated": 22281,
+    "model_type": "TF-IDF + LogisticRegression",
+    "location": "backend/ml/models/bloom_classifier/"
+  },
+  "total_bloom_tests": 6,
+  "metadata_match_count": 6,
+  "metadata_match_rate": "100.0%",
+  "semantic_assessment_overall": "NOT ASSESSABLE",
+  "known_generation_failure": true,
+  "repetition_count": 0,
+  "tests": [
+    {
+      "test_id": 1,
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations",
+      "requested_bloom": "Remember",
+      "prompt_bloom": "Remember",
+      "result_bloom": "Remember",
+      "metadata_match": true,
+      "generated_output_sample": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "semantic_bloom_assessment": "NOT ASSESSABLE",
+      "semantic_signal": "LIGHTWEIGHT HEURISTIC SIGNAL ONLY",
+      "assessment_note": "No heuristic keywords detected"
+    },
+    {
+      "test_id": 2,
+      "subject": "Physics",
+      "topic": "Newton's Laws of Motion",
+      "requested_bloom": "Understand",
+      "prompt_bloom": "Understand",
+      "result_bloom": "Understand",
+      "metadata_match": true,
+      "generated_output_sample": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "semantic_bloom_assessment": "NOT ASSESSABLE",
+      "semantic_signal": "LIGHTWEIGHT HEURISTIC SIGNAL ONLY",
+      "assessment_note": "No heuristic keywords detected"
+    },
+    {
+      "test_id": 3,
+      "subject": "Chemistry",
+      "topic": "Acids, Bases and Salts",
+      "requested_bloom": "Apply",
+      "prompt_bloom": "Apply",
+      "result_bloom": "Apply",
+      "metadata_match": true,
+      "generated_output_sample": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "semantic_bloom_assessment": "NOT ASSESSABLE",
+      "semantic_signal": "LIGHTWEIGHT HEURISTIC SIGNAL ONLY",
+      "assessment_note": "No heuristic keywords detected"
+    },
+    {
+      "test_id": 4,
+      "subject": "Biology",
+      "topic": "Life Processes",
+      "requested_bloom": "Analyze",
+      "prompt_bloom": "Analyze",
+      "result_bloom": "Analyze",
+      "metadata_match": true,
+      "generated_output_sample": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "semantic_bloom_assessment": "NOT ASSESSABLE",
+      "semantic_signal": "LIGHTWEIGHT HEURISTIC SIGNAL ONLY",
+      "assessment_note": "No heuristic keywords detected"
+    },
+    {
+      "test_id": 5,
+      "subject": "General Science",
+      "topic": "Light",
+      "requested_bloom": "Evaluate",
+      "prompt_bloom": "Evaluate",
+      "result_bloom": "Evaluate",
+      "metadata_match": true,
+      "generated_output_sample": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "semantic_bloom_assessment": "NOT ASSESSABLE",
+      "semantic_signal": "LIGHTWEIGHT HEURISTIC SIGNAL ONLY",
+      "assessment_note": "No heuristic keywords detected"
+    },
+    {
+      "test_id": 6,
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations",
+      "requested_bloom": "Create",
+      "prompt_bloom": "Create",
+      "result_bloom": "Create",
+      "metadata_match": true,
+      "generated_output_sample": "reheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheatreheat",
+      "semantic_bloom_assessment": "NOT ASSESSABLE",
+      "semantic_signal": "LIGHTWEIGHT HEURISTIC SIGNAL ONLY",
+      "assessment_note": "No heuristic keywords detected"
+    }
+  ],
+  "status": "PHASE 6 COMPLETE"
+}

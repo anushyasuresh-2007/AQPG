@@ -1,0 +1,85 @@
+================================================================================
+QUESTION GENERATION (QG) PREPROCESSING & AUDIT REPORT (V3)
+Target Architecture: google/flan-t5-base / flan-t5-small
+================================================================================
+
+1. FILE LOCATIONS
+  - Source Unified Dataset:  C:\Users\Divya\OneDrive\Desktop\AQPG\datasets\unified\unified_questions.jsonl
+  - Train Set V3 (80%):      C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\qg_flan_t5\qg_train_dataset_v3.jsonl
+  - Val Set V3 (20%):        C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\qg_flan_t5\qg_validation_dataset_v3.jsonl
+
+2. DATASET FILTERING METRICS
+  - Original Unified Records: 22281
+  - Final Clean QG V3 Samples: 10229
+  - Removed Records Total:    12052
+
+  Removal Reasons Breakdown:
+    * Lacks context AND meaningful subject/topic anchor: 12047
+    * Trivial or empty question text: 5
+
+3. TASK SUBSET BREAKDOWN
+  - A. General Educational QG:             0
+  - B. Numerical Question Generation:      8792
+  - C. MCQ Generation:                     1437
+  - D. Application-Based Question Gen:     0
+
+4. PROMPT COLLISION & LEAKAGE ANALYSIS
+  - Total Final Samples:                  10229
+  - Unique Input Prompts:                 1385
+  - Duplicate Prompts (Cat 2: diff Q):    8844
+  - Prompt Collision Rate:                86.4601%
+  - Unique Target Questions:              10229
+  - Duplicate Targets (Cat 1):            0
+  - Train/Val Target Question Leakage:    0
+  - Train/Val Prompt Overlap:             17
+
+5. TRAIN / VALIDATION SPLIT METRICS
+  - Training Set Size (80%):              8183 (80.00%)
+  - Validation Set Size (20%):            2046 (20.00%)
+
+6. COVERAGE STATS
+  - Topic Coverage:                       10229 (100.00%)
+  - Context Passage Coverage:             1437 (14.05%)
+
+7. CATEGORICAL DISTRIBUTIONS IN FINAL QG V3 DATASET
+
+Bloom Taxonomy Distribution:
+  - Analyze: 5696 (55.68%)
+  - Apply: 3220 (31.48%)
+  - Remember: 1200 (11.73%)
+  - Understand: 79 (0.77%)
+  - Evaluate: 26 (0.25%)
+  - Create: 8 (0.08%)
+
+Question Type Distribution:
+  - Numerical: 8792 (85.95%)
+  - MCQ: 1437 (14.05%)
+
+Difficulty Distribution:
+  - hard: 5678 (55.51%)
+  - medium: 3150 (30.79%)
+  - easy: 1401 (13.70%)
+
+Marks Distribution:
+  - 4: 5678 (55.51%)
+  - 3: 3114 (30.44%)
+  - 1: 1437 (14.05%)
+
+Subject Distribution:
+  - Mathematics: 8792 (85.95%)
+  - Biology: 307 (3.00%)
+  - Anatomy And Physiology: 267 (2.61%)
+  - Psychology: 226 (2.21%)
+  - Introduction To Sociology: 159 (1.55%)
+  - American Government: 102 (1.00%)
+  - Principles Of Accounting, Volume 2: Managerial Accounting: 80 (0.78%)
+  - U.S. History: 72 (0.70%)
+  - Microbiology: 61 (0.60%)
+  - Business Law I Essentials: 61 (0.60%)
+  - Principles Of Accounting, Volume 1: Financial Accounting: 56 (0.55%)
+  - Business Ethics: 35 (0.34%)
+  - Introduction To Intellectual Property: 11 (0.11%)
+
+8. RECOMMENDED MODEL INPUT FORMAT
+  - Format: generate question | subject: <Subject> | topic: <Topic> | bloom: <Bloom> | difficulty: <Difficulty> | marks: <Marks> | type: <Type> | context: <Context>
+  - Omit missing tags (e.g. board/class) rather than fabricating 'unknown' when they add no control signal.

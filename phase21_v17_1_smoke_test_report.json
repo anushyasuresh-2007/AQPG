@@ -1,0 +1,43 @@
+{
+  "title": "AQPG V17.1 GPU Numerical Stability Smoke Test Report",
+  "timestamp": "2026-09-04T13:17:00Z",
+  "status": "PRE-FLIGHT_PASSED_READY_FOR_COLAB_GPU_SMOKE_TEST",
+  "environment": {
+    "target_hardware": "Tesla T4 / V100 / A100 GPU",
+    "cuda_required": true,
+    "cpu_fallback_forbidden": true
+  },
+  "dataset_integrity": {
+    "train_records": 40000,
+    "validation_records": 10000,
+    "train_sha256": "F150ED036D3B1612FB307949323972C40DD7074C8DC3C885621A72B993548C85",
+    "validation_sha256": "7038D9C15A68269574E413A6C7E7E491A6DF047CD85F3BF9C3FFD82E7B764A3E",
+    "read_only_verified": true
+  },
+  "numerical_stability_hyperparameters": {
+    "base_model": "google/flan-t5-small",
+    "fp16": false,
+    "bf16": false,
+    "learning_rate": 0.00005,
+    "label_smoothing_factor": 0.0,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "warmup_steps": 187,
+    "per_device_train_batch_size": 16,
+    "per_device_eval_batch_size": 16,
+    "gradient_accumulation_steps": 2,
+    "effective_batch_size": 32,
+    "max_steps": 100,
+    "eval_strategy": "steps",
+    "eval_steps": 50,
+    "save_steps": 50
+  },
+  "smoke_test_checkpoint_directory": "backend/ml/models/checkpoints/flan_t5_v17_1_gpu_smoketest/",
+  "safety_boundaries": {
+    "approved_for_fastapi": false,
+    "fastapi_integration_status": "BLOCKED",
+    "v16_artifacts_protected": true,
+    "phase20_artifacts_protected": true,
+    "cpu_archive_preserved": true
+  }
+}

@@ -1,0 +1,7 @@
+Failure Category,Severity,V16 Measured Value,Target Threshold,Primary Impact,Root Cause Hypothesis
+Template Collapse,CRITICAL,100.0% Top-10 Conc.,<=30.0%,Recycles 10 MCQ stems across all prompts,High frequency MCQ priors in supervision data
+Control Blindness,CRITICAL,0.00% Sensitivity,>=80.0%,Prompt controls (difficulty/type) ignored,Loss of attention conditioning on control tags
+Question-Type Mismatch,HIGH,46.80% Accuracy,>=85.0%,Fails Numerical/Conceptual prompt requests,Overproduction of MCQ stems
+Numerical Calculation Failure,HIGH,19.41% Validity,>=85.0%,80.59% numerical prompts lack calculation,Model outputs text stems instead of math steps
+Training Memorization Breach,MODERATE,4.62% Match,<=2.0%,Verbatim copying of training sub-phrases,High frequency repeating phrases in dataset
+Subject/Topic Mismatch,MODERATE,67.60% / 72.60%,>=85.0% / >=80.0%,Generic stems omit specific domain terms,Generic stem structure lacks domain entities

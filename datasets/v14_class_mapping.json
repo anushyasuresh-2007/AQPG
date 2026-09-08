@@ -1,0 +1,37 @@
+[
+  {
+    "source_value": "Class 9",
+    "normalized_class": "Class 9",
+    "evidence_rule": "Explicit source grade attribution in ARC-Challenge / MMLU Elementary Math / NCERT Class 9",
+    "confidence": "HIGH",
+    "notes": "Corresponds directly to K-12 Grade 9 standard"
+  },
+  {
+    "source_value": "Class 10",
+    "normalized_class": "Class 10",
+    "evidence_rule": "Explicit secondary school science curriculum calibration in ARC-Challenge / NCERT Class 10 Exemplar",
+    "confidence": "HIGH",
+    "notes": "Corresponds directly to K-12 Grade 10 secondary school science standard"
+  },
+  {
+    "source_value": "Class 11",
+    "normalized_class": "Class 11",
+    "evidence_rule": "Explicit High School STEM standard (MMLU High School Physics, Chemistry, Math, Biology / NCERT Class 11)",
+    "confidence": "HIGH",
+    "notes": "Corresponds to Grade 11 Higher Secondary standard"
+  },
+  {
+    "source_value": "Class 12",
+    "normalized_class": "Class 12",
+    "evidence_rule": "Explicit Advanced High School & Senior Secondary standard (MMLU College Physics, Conceptual Physics, Chemistry, Math, Astronomy / NCERT Class 12)",
+    "confidence": "HIGH",
+    "notes": "Corresponds to Grade 12 Senior Secondary standard"
+  },
+  {
+    "source_value": "UNKNOWN",
+    "normalized_class": "UNKNOWN",
+    "evidence_rule": "Source does not declare a single grade allocation",
+    "confidence": "HIGH",
+    "notes": "Preserved as UNKNOWN per strict integrity rules"
+  }
+]

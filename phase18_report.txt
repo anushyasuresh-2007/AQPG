@@ -1,0 +1,69 @@
+================================================================================
+AQPG PHASE 18: FORENSIC DIAGNOSIS & TRAINING STRATEGY REPORT
+================================================================================
+1. FORENSIC DIAGNOSIS OF V15 FAILURES
+--------------------------------------------------------------------------------
+A. Template Repetition (Measured in V17: 88.08%):
+   - Root Cause: Top 10 target templates account for 16.23% of all 42,152 training records.
+   - Overwhelming dominance of 'Which of the following is not...' (101 records).
+   - Template Structural Entropy is low (12.7414 bits).
+
+B. Control Sensitivity (Measured in V17: 30.00% / CONTROL-BLIND):
+   - Root Cause: V15 trained for only 100 steps (800 examples seen = 1.898% of data).
+   - Model never updated weights enough to learn subtle multi-variable control conditioning.
+   - 81.6% of training records have class: UNKNOWN, teaching the model to ignore class tokens.
+
+C. Topic Accuracy (Measured in V17: 43.27%):
+   - Root Cause: Model copies high-frequency topic keywords into generic question frames
+     (e.g., 'Newton's Laws is an example of what?') rather than synthesizing real problem statements.
+
+D. Numerical Reasoning Failure:
+   - Root Cause: 0.28% of records labelled 'Numerical' are conceptual questions without numbers.
+
+================================================================================
+2. RANKED ROOT CAUSES
+================================================================================
+Rank 1: Severely Insufficient Training Steps (0.019 Epochs on CPU) (Confidence: HIGH)
+  Evidence: V15 training executed only 100 steps with effective batch size 8 (800 examples seen out of 42,152 total records = 1.9% of data). The model never converged across diverse subject templates and remained frozen in high-frequency MCQ priors.
+  Impact:   Primary driver of 88.08% template repetition and 30% control sensitivity.
+
+Rank 2: High-Frequency MCQ Target Template Skew in Raw Ingested Data (Confidence: HIGH)
+  Evidence: Top 10 question templates account for 16.23% of the 42,152 training records. 'Which of the following is not...' and 'Which of the following is...' dominate public science benchmarks (ARC, SciQ, OpenBookQA).
+  Impact:   Directly causes model to default to 'Which of the following is not...' regardless of whether Numerical or Conceptual is requested.
+
+Rank 3: Class Label Sparsity (81.6% UNKNOWN Class Metadata) (Confidence: HIGH)
+  Evidence: 34,851 records (82.68%) have class: UNKNOWN. Only 18.4% possess explicit Class 9–12 conditioning.
+  Impact:   Model learned to ignore the class token as an uninformative or sparse indicator during inference.
+
+Rank 4: Numerical Target Quality Deficit (Missing Calculations) (Confidence: MEDIUM)
+  Evidence: 0.28% of records labelled question_type: Numerical in public benchmarks do not contain digits or calculation verbs.
+  Impact:   Causes poor numerical problem generation and fallback to conceptual MCQs.
+
+Rank 5: Model Parameter Capacity Limitation (FLAN-T5-Small @ 77M Params) (Confidence: MEDIUM)
+  Evidence: 77M parameters provide limited multi-task capacity to memorize both broad STEM science knowledge and rigid 9-tuple conditioning constraints simultaneously.
+  Impact:   Limits fine-grained control sensitivity, but is secondary to the 0.019 epoch undertraining blocker.
+
+================================================================================
+3. FLAN-T5-BASE SCALING DECISION
+================================================================================
+DECISION:  B. Move to FLAN-T5-base after data correction
+RATIONALE: Empirical forensic evidence confirms that the primary root causes of V15 failure are (1) extreme undertraining (0.019 epochs / 100 steps) and (2) severe template skew in raw ingested datasets. Scaling immediately to FLAN-T5-base without fixing the template imbalance and numerical filtering would simply cause the 250M model to overfit and replicate the same 'Which of the following is not...' template skew faster. Therefore, the correct engineering path is: (Step 1) Execute dataset rebalancing and prompt optimization in V16; (Step 2) Train FLAN-T5-small baseline; (Step 3) Scale to FLAN-T5-base with the clean balanced dataset.
+
+================================================================================
+4. V16 EXPERIMENT PLAN & SUCCESS GATES
+================================================================================
+Experiment A: V15 Dataset + Corrected Full Epochs (FLAN-T5-Small)
+Experiment B: Rebalanced/Filtered Dataset + Full Epochs (FLAN-T5-Small) [PRIMARY]
+Experiment C: Rebalanced/Filtered Dataset + Full Epochs (FLAN-T5-Base)
+
+Measurable Success Gates for V16:
+  - Question Validity:         >= 95.0% (V15: 97.31%)
+  - Subject Accuracy:          >= 85.0% (V15: 60.77%)
+  - Topic Accuracy:            >= 80.0% (V15: 43.27%)
+  - Question-Type Accuracy:    >= 85.0% (V15: 64.23%)
+  - Control Sensitivity:       >= 80.0% (V15: 30.00%)
+  - Template Repetition:       <= 30.0% (V15: 88.08%)
+  - Exact Memorization:        <=  2.0% (V15:  0.96%)
+  - Numerical Validity:        >= 85.0% (V15: NOT_VERIFIED)
+  - Class Alignment:           >= 75.0% (V15: NOT_VERIFIABLE)
+================================================================================

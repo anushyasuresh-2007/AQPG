@@ -1,0 +1,39 @@
+================================================================================
+AQPG PHASE 13 MASTER DATASET PIPELINE BUILD REPORT
+================================================================================
+Total Ingested Raw Candidate Records: 58856
+Total Clean V13 Records Constructed:  49574
+Total Rejected Records:               9282
+
+TRAIN / VAL LEAKAGE-SAFE SPLIT (Seed 42):
+  - Training Set V13 (80%):    39659 records
+  - Validation Set V13 (20%):  9915 records
+
+SUBJECT DISTRIBUTION IN V13:
+  - Chemistry: 10875 (21.94%)
+  - General Science: 10867 (21.92%)
+  - Biology: 5367 (10.83%)
+  - Physics: 2872 (5.79%)
+  - Mathematics: 9204 (18.57%)
+  - Business & Law: 579 (1.17%)
+  - Social Science: 630 (1.27%)
+  - History & Civics: 464 (0.94%)
+  - UNKNOWN: 8716 (17.58%)
+
+CLASS DISTRIBUTION IN V13:
+  - UNKNOWN: 45368 (91.52%)
+  - Class 9: 2576 (5.20%)
+  - Class 11: 1042 (2.10%)
+  - Class 12: 585 (1.18%)
+  - Class 10: 3 (0.01%)
+
+BOARD DISTRIBUTION IN V13:
+  - UNKNOWN: 28706 (57.91%)
+  - CBSE: 12 (0.02%)
+  - Public Benchmark: 17483 (35.27%)
+  - OpenStax Academic: 3373 (6.80%)
+
+VERIFICATION STATUS BREAKDOWN IN V13:
+  - VERIFIED_HEURISTIC: 49205 (99.26%)
+  - NOT_VERIFIED: 338 (0.68%)
+  - VERIFIED_DETERMINISTIC: 31 (0.06%)

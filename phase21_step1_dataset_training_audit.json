@@ -1,0 +1,276 @@
+{
+  "phase": "21A",
+  "step": 1,
+  "title": "Dataset & Training Failure Audit",
+  "mode": "ANALYSIS_ONLY",
+  "model_loaded": false,
+  "inference_executed": false,
+  "training_executed": false,
+  "existing_artifacts_modified": false,
+  "mandatory_completion_statement": "PHASE 21A STEP 1 \u2014 DATASET & TRAINING FAILURE AUDIT COMPLETE",
+  "remediation_verdict_statement": "V16 REMEDIATION REQUIRES DATASET/TRAINING CORRECTION BEFORE RETRAINING",
+  "artifact_provenance": {
+    "datasets/v16/qg_train_dataset_v16.jsonl": {
+      "exists": true,
+      "size_bytes": 26991359,
+      "sha256": "FFD14E48A376F66CC85F38C907CC2A1CD4BFBD0C7FF9DC49534A4129506C8A90"
+    },
+    "datasets/v16/qg_validation_dataset_v16.jsonl": {
+      "exists": true,
+      "size_bytes": 6732195,
+      "sha256": "E6A5CCD54E14CEB321FF09CB2194DD7107CF114AB07F8C17792E1C4F81679DC0"
+    },
+    "v16_training_config.json": {
+      "exists": true,
+      "size_bytes": 470,
+      "sha256": "BBA7027D48727010D5651167FD6D30ADD58872BE29078CF54F2B45E8C445701A"
+    },
+    "phase20_evaluation_prompts.jsonl": {
+      "exists": true,
+      "size_bytes": 196260,
+      "sha256": "91335C1EC938454BADFD551975018689A2B87489EA10BECDD05C134A1ED3082E"
+    },
+    "phase20_step11_quality_gate_report.json": {
+      "exists": true,
+      "size_bytes": 4667,
+      "sha256": "864CE94640A862D96F10BE924864C42C8FFACA83FE80DA3AFC3FAC5EDB09B75D"
+    },
+    "phase20_step12_failure_analysis.json": {
+      "exists": true,
+      "size_bytes": 7445,
+      "sha256": "8D31B63970107769B129A4F0B80DA80B6140FC31DE1FB906EF4B27072875A276"
+    },
+    "phase20_step13_production_readiness_decision.json": {
+      "exists": true,
+      "size_bytes": 5713,
+      "sha256": "A24327A5F08F57AA7CBC8DBAF2F0C040618C9827EBB07D663FF3416C863751F3"
+    },
+    "phase20_step14_final_phase_summary.json": {
+      "exists": true,
+      "size_bytes": 6562,
+      "sha256": "39AB68BB41EB946FD1A951DD53790EE946BF0BA14B97270F3D5611947214CD7F"
+    }
+  },
+  "dataset_statistics": {
+    "total_train_records": 40557,
+    "total_val_records": 10138,
+    "unique_input_prompts": 204,
+    "unique_input_prompt_ratio_percent": 0.5,
+    "prompt_duplication_concentration": {
+      "top_1_prompt_count": 7034,
+      "top_1_prompt_percent": 17.34,
+      "top_2_prompt_count": 14062,
+      "top_2_prompt_percent": 34.67,
+      "top_3_prompt_count": 17424,
+      "top_3_prompt_percent": 42.96
+    },
+    "unique_target_questions": 40557,
+    "unique_target_ratio_percent": 100.0,
+    "exact_duplicate_input_target_pairs": 0,
+    "unique_normalized_stems": 38866,
+    "stem_entropy_bits": 15.0822
+  },
+  "control_analysis": {
+    "subject_distribution": {
+      "Chemistry": 8000,
+      "General Science": 7939,
+      "Mathematics": 7702,
+      "UNKNOWN": 6811,
+      "Physics": 4623
+    },
+    "class_distribution": {
+      "UNKNOWN": 33310,
+      "Class 9": 2754,
+      "Class 11": 1875,
+      "Class 12": 1585,
+      "Class 10": 1033
+    },
+    "class_unknown_percent": 82.13,
+    "board_distribution": {
+      "Public Benchmark": 36250,
+      "OpenStax Academic": 4298,
+      "CBSE": 9
+    },
+    "board_benchmark_percent": 89.38,
+    "unit_distribution": {
+      "UNKNOWN": 28066,
+      "Secondary General Science": 6150,
+      "Mechanics": 761,
+      "Electromagnetism": 362,
+      "Secondary Mathematics & Arithmetic": 337
+    },
+    "unit_unknown_percent": 69.2,
+    "difficulty_distribution": {
+      "Easy": 20083,
+      "Medium": 16764,
+      "Hard": 3710
+    },
+    "marks_distribution": {
+      "1": 20876,
+      "2": 11490,
+      "3": 8191
+    },
+    "bloom_distribution": {
+      "Understand": 23485,
+      "Apply": 10341,
+      "Analyze": 3606,
+      "Remember": 1866,
+      "Create": 651
+    }
+  },
+  "question_type_analysis": {
+    "train_distribution": {
+      "MCQ": {
+        "count": 24964,
+        "percent": 61.55
+      },
+      "Numerical": {
+        "count": 8242,
+        "percent": 20.32
+      },
+      "Short Answer": {
+        "count": 6791,
+        "percent": 16.74
+      },
+      "Conceptual": {
+        "count": 560,
+        "percent": 1.38
+      }
+    },
+    "mcq_to_non_mcq_ratio": "1.60 : 1",
+    "conceptual_deficit": "1.38% in training set vs 33.3% in 520 evaluation benchmark (Severe 24x Imbalance)",
+    "type_mismatch_finding": "Conceptual questions comprise only 560 examples out of 40,557 training records. Model collapses to MCQ target stems when Conceptual is requested."
+  },
+  "template_analysis": {
+    "unique_normalized_stems": 38866,
+    "unique_stem_ratio_percent": 95.83,
+    "top_10_stem_concentration_percent": 1.03,
+    "top_20_stem_concentration_percent": 2.02,
+    "top_50_stem_concentration_percent": 4.28,
+    "stem_entropy_bits": 15.0822,
+    "dataset_vs_model_collapse_finding": "The training targets contain 38,866 unique normalized stems (high target diversity). However, the INPUT PROMPTS contain severe template collapse (only 204 unique input prompts across 40,557 records). The model collapsed during training because 43% of training updates mapped to 3 identical input prompts."
+  },
+  "numerical_analysis": {
+    "total_numerical_prompts": 8242,
+    "numerical_percent": 20.32,
+    "prompt_concentration_deficit": "7,034 out of 8,242 numerical prompts (85.3%) share a single prompt string: Mathematics | Arithmetic & Word Problems | class: UNKNOWN.",
+    "calculation_style_targets": 8109,
+    "calculation_style_percent": 98.39,
+    "numerical_finding": "Numerical training examples are concentrated in a single generic Mathematics prompt, causing 0% transfer to Physics/Chemistry numerical problems or specific Class 9-12 grades."
+  },
+  "memorization_risk": {
+    "exact_target_leakage_val": 0,
+    "stem_leakage_val": 439,
+    "stem_leakage_percent": 4.33,
+    "historical_memorization_measured": 4.62,
+    "memorization_finding": "4.62% memorization rate is caused by 3-epoch fine-tuning on highly repeated prompt clusters (7,034 repeats of top prompt)."
+  },
+  "subject_topic_analysis": {
+    "dominant_topics": {
+      "Scientific Inquiry": 9752,
+      "Arithmetic & Word Problems": 7034,
+      "General Concept Evaluation": 6788,
+      "Scientific Reasoning & Concept Evaluation": 6150
+    },
+    "umbrella_topic_concentration_percent": 73.35,
+    "topic_finding": "73.35% of training records are assigned to 4 generic umbrella topics, obscuring specific domain concepts."
+  },
+  "training_configuration": {
+    "model_name": "google/flan-t5-small",
+    "epochs": 3,
+    "train_records": 40557,
+    "validation_records": 10138,
+    "effective_batch_size": 16,
+    "total_optimization_steps": 7602,
+    "learning_rate": 0.0003,
+    "warmup_steps": 380,
+    "max_input_length": 128,
+    "max_target_length": 256,
+    "weight_decay": 0.01,
+    "config_finding": "3 epochs (7,602 steps) at lr=3e-4 on a dataset with only 204 unique input prompts caused catastrophic over-fitting on MCQ target priors and total loss of control-token attention."
+  },
+  "split_analysis": {
+    "train_records": 40557,
+    "val_records": 10138,
+    "split_ratio": "80 : 20",
+    "exact_target_leakage_count": 0,
+    "stem_leakage_count": 439,
+    "stem_leakage_percent": 4.33
+  },
+  "root_causes": [
+    {
+      "rank": 1,
+      "severity": "CRITICAL",
+      "cause": "Catastrophic Input Prompt Collateral Concentration (204 Unique Prompts across 40,557 Records)",
+      "evidence": "Top 3 input prompt strings account for 17,424 records (42.96% of the entire training dataset). Top 1 prompt is repeated 7,034 times.",
+      "measured_value": "204 unique prompts (0.50% unique prompt ratio)",
+      "affected_metrics": [
+        "Control Sensitivity (0.00%)",
+        "Template Concentration (100% Top-10)"
+      ],
+      "confidence": "HIGH (100% empirical dataset measurement)",
+      "recommended_remediation": "Deduplicate and diversify input prompts so each prompt string is unique or paired with distinct control tokens."
+    },
+    {
+      "rank": 2,
+      "severity": "CRITICAL",
+      "cause": "Class UNKNOWN Token Dominance in Prompt Schema",
+      "evidence": "82.13% (33,310 / 40,557) of training records contain class: UNKNOWN.",
+      "measured_value": "82.13% UNKNOWN class rate",
+      "affected_metrics": [
+        "Subject Accuracy (67.60%)",
+        "Topic Accuracy (72.60%)",
+        "Class Alignment"
+      ],
+      "confidence": "HIGH (100% empirical dataset measurement)",
+      "recommended_remediation": "Fully ground all training records with explicit Class 9, Class 10, Class 11, or Class 12 metadata tags."
+    },
+    {
+      "rank": 3,
+      "severity": "HIGH",
+      "cause": "Severe Question-Type Imbalance (Conceptual Under-Representation)",
+      "evidence": "MCQ targets comprise 61.55% (24,964) while Conceptual targets comprise only 1.38% (560 examples). Benchmark requires 33.3% Conceptual.",
+      "measured_value": "1.38% Conceptual training rate",
+      "affected_metrics": [
+        "Question-Type Accuracy (46.80%)"
+      ],
+      "confidence": "HIGH",
+      "recommended_remediation": "Oversample Conceptual and Numerical targets; downsample MCQ targets to achieve a balanced 35% MCQ / 35% Numerical / 30% Conceptual training split."
+    },
+    {
+      "rank": 4,
+      "severity": "HIGH",
+      "cause": "Numerical Prompt Concentration In Single Mathematics Topic",
+      "evidence": "85.3% (7,034 / 8,242) of all numerical prompts share a single generic Mathematics prompt string.",
+      "measured_value": "85.3% single-prompt numerical concentration",
+      "affected_metrics": [
+        "Numerical Calculation Validity (19.41%)"
+      ],
+      "confidence": "HIGH",
+      "recommended_remediation": "Distribute numerical calculation prompts across Physics (Kinematics, Thermodynamics, Electricity) and Chemistry (Stoichiometry, Solutions) with explicit class tags."
+    },
+    {
+      "rank": 5,
+      "severity": "MODERATE",
+      "cause": "Over-Training on Repetitive Prompts (3 Epochs / 7,602 Steps)",
+      "evidence": "Model trained for 7,602 steps at lr=3e-4 where 43% of updates targeted 3 prompt strings.",
+      "measured_value": "4.62% training memorization rate",
+      "affected_metrics": [
+        "Exact Memorization (4.62%)"
+      ],
+      "confidence": "HIGH",
+      "recommended_remediation": "Reduce learning rate to 1e-4, introduce weight decay 0.05, and apply explicit control-token loss weighting."
+    }
+  ],
+  "remediation_recommendations": [
+    "Deduplicate input prompt strings: Ensure prompt strings have unique control parameter combinations.",
+    "Eliminate class: UNKNOWN tokens: Replace 33,310 UNKNOWN class tokens with explicit Class 9-12 curriculum grounding.",
+    "Rebalance Question Types: Downsample MCQ to 35%, oversample Numerical to 35%, oversample Conceptual to 30%.",
+    "Diversify Numerical Prompts: Distribute numerical calculation prompts across Physics, Chemistry, and Mathematics.",
+    "Implement Control-Token Loss Weighting during fine-tuning to penalize control-blind generation."
+  ],
+  "confidence_and_limitations": [
+    "Dataset audit conclusions are based on 100% empirical measurement of qg_train_dataset_v16.jsonl and qg_validation_dataset_v16.jsonl.",
+    "No model fine-tuning or inference was executed during this audit."
+  ]
+}

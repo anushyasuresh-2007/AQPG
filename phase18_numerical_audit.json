@@ -1,0 +1,17 @@
+{
+  "total_numerical_labelled_train_records": 8228,
+  "percentage_of_total_train": 19.52,
+  "contains_actual_numerical_digits": 8094,
+  "contains_numerical_digits_pct": 98.37,
+  "contains_mathematical_equations": 1403,
+  "contains_mathematical_equations_pct": 17.05,
+  "contains_calculation_verbs": 4708,
+  "contains_calculation_verbs_pct": 57.22,
+  "purely_conceptual_mislabelled_as_numerical": 23,
+  "purely_conceptual_mislabelled_pct": 0.28,
+  "subject_breakdown": {
+    "Mathematics": 6995,
+    "Physics": 1227,
+    "Chemistry": 6
+  }
+}

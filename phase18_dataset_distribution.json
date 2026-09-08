@@ -1,0 +1,48 @@
+{
+  "master_record_count": 52691,
+  "train_record_count": 42152,
+  "validation_record_count": 10539,
+  "subject_distribution": {
+    "Physics": 5780,
+    "Chemistry": 11088,
+    "Mathematics": 9626,
+    "Biology": 5529,
+    "General Science": 10280,
+    "Business & Law": 578,
+    "Social Science": 630,
+    "History & Civics": 464,
+    "UNKNOWN": 8716
+  },
+  "class_distribution": {
+    "Class 11": 2343,
+    "Class 12": 1982,
+    "Class 9": 3442,
+    "UNKNOWN": 43633,
+    "Class 10": 1291
+  },
+  "board_distribution": {
+    "OpenStax Academic": 5572,
+    "Public Benchmark": 47107,
+    "CBSE": 12
+  },
+  "question_type_distribution": {
+    "Numerical": 10304,
+    "Conceptual": 700,
+    "MCQ": 32998,
+    "Short Answer": 8689
+  },
+  "difficulty_distribution": {
+    "Medium": 21020,
+    "Hard": 4636,
+    "Easy": 27035
+  },
+  "bloom_distribution": {
+    "Apply": 12914,
+    "Understand": 31150,
+    "Analyze": 4514,
+    "Remember": 2535,
+    "Create": 800,
+    "Evaluate": 778
+  },
+  "average_target_word_length": 20.58
+}

@@ -1,0 +1,38 @@
+================================================================================
+AQPG PHASE 15 MASTER DATASET PIPELINE BUILD REPORT
+================================================================================
+Total Ingested Raw Candidate Records: 61984
+Total Clean V15 Records Constructed:  52691
+Total Rejected Records:               9293
+
+TRAIN / VAL LEAKAGE-SAFE SPLIT (Seed 42):
+  - Training Set V15 (80%):    42152 records
+  - Validation Set V15 (20%):  10539 records
+
+SUBJECT DISTRIBUTION IN V15:
+  - Physics: 5780 (10.97%)
+  - Chemistry: 11088 (21.04%)
+  - Mathematics: 9626 (18.27%)
+  - Biology: 5529 (10.49%)
+  - General Science: 10280 (19.51%)
+  - Business & Law: 578 (1.10%)
+  - Social Science: 630 (1.20%)
+  - History & Civics: 464 (0.88%)
+  - UNKNOWN: 8716 (16.54%)
+
+CLASS DISTRIBUTION IN V15:
+  - Class 11: 2343 (4.45%)
+  - Class 12: 1982 (3.76%)
+  - Class 9: 3442 (6.53%)
+  - UNKNOWN: 43633 (82.81%)
+  - Class 10: 1291 (2.45%)
+
+BOARD DISTRIBUTION IN V15:
+  - OpenStax Academic: 5572 (10.57%)
+  - Public Benchmark: 47107 (89.40%)
+  - CBSE: 12 (0.02%)
+
+VERIFICATION STATUS BREAKDOWN IN V15:
+  - VERIFIED_HEURISTIC: 51950 (98.59%)
+  - NOT_VERIFIED: 710 (1.35%)
+  - VERIFIED_DETERMINISTIC: 31 (0.06%)

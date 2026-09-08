@@ -1,0 +1,12 @@
+{
+  "max_steps": 100,
+  "train_batch_size": 4,
+  "gradient_accumulation_steps": 2,
+  "effective_batch_size": 8,
+  "total_examples_exposed_to_model": 800,
+  "total_dataset_size": 42152,
+  "dataset_coverage_percent": 1.898,
+  "effective_epochs_completed": 0.019,
+  "learning_rate": 0.0003,
+  "critical_finding": "Model was trained for only 100 steps on CPU (800 samples seen out of 42,152), representing ONLY 1.898% of the dataset (0.019 epochs). The weights barely updated beyond initial high-frequency priors."
+}

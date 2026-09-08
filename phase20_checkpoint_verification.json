@@ -1,0 +1,35 @@
+{
+  "sha256_hashes": {},
+  "files": {
+    "model.safetensors": {
+      "exists": false,
+      "size_bytes": 0,
+      "sha256": null
+    },
+    "config.json": {
+      "exists": false,
+      "size_bytes": 0,
+      "sha256": null
+    },
+    "generation_config.json": {
+      "exists": false,
+      "size_bytes": 0,
+      "sha256": null
+    },
+    "tokenizer.json": {
+      "exists": false,
+      "size_bytes": 0,
+      "sha256": null
+    },
+    "tokenizer_config.json": {
+      "exists": false,
+      "size_bytes": 0,
+      "sha256": null
+    },
+    "special_tokens_map.json": {
+      "exists": false,
+      "size_bytes": 0,
+      "sha256": null
+    }
+  }
+}

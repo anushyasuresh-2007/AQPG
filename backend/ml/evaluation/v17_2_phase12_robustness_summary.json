@@ -1,0 +1,35 @@
+{
+  "phase": 12,
+  "model": "V17.2",
+  "model_found": true,
+  "model_loading": "PASS",
+  "inference": "PASS",
+  "total_prompts": 60,
+  "question_like_outputs": "60/60",
+  "quality_pass_rate": "95.0%",
+  "average_quality": 91.0,
+  "median_quality": 95.0,
+  "repetition_failures": "3/60",
+  "malformed_outputs": "3/60",
+  "bloom_metadata_match": "100.0%",
+  "semantic_bloom_assessment": "PASS",
+  "category_rankings": {
+    "best_subject": "Physics",
+    "weakest_subject": "General Science",
+    "best_bloom": "Apply",
+    "weakest_bloom": "Create",
+    "best_qtype": "Short Answer",
+    "weakest_qtype": "Conceptual"
+  },
+  "v17_2_robustness": "STABLE RECOVERY",
+  "gates": {
+    "GATE_1_repetition": "PASS",
+    "GATE_2_question_generation": "PASS",
+    "GATE_3_quality_improvement": "PASS",
+    "GATE_4_bloom_consistency": "PASS",
+    "GATE_5_semantic_bloom": "PASS",
+    "GATE_6_model_integrity": "PASS",
+    "GATE_7_no_remote_download": "PASS"
+  },
+  "status": "PHASE 12 COMPLETE"
+}

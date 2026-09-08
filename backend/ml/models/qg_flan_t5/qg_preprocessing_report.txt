@@ -1,0 +1,83 @@
+================================================================================
+QUESTION GENERATION (QG) PREPROCESSING & AUDIT REPORT (V2)
+Target Architecture: google/flan-t5-base / flan-t5-small
+================================================================================
+
+1. FILE LOCATIONS
+  - Source Unified Dataset:  C:\Users\Divya\OneDrive\Desktop\AQPG\datasets\unified\unified_questions.jsonl
+  - Original QG Dataset:     C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\qg_flan_t5\qg_train_dataset.jsonl
+  - Backup QG Dataset:       C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\qg_flan_t5\qg_train_dataset_backup.jsonl
+  - Train Set V2 (80%):      C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\qg_flan_t5\qg_train_dataset_v2.jsonl
+  - Val Set V2 (20%):        C:\Users\Divya\OneDrive\Desktop\AQPG\backend\ml\models\qg_flan_t5\qg_validation_dataset_v2.jsonl
+
+2. DATASET FILTERING STATS
+  - Original Raw Records:    22281
+  - Final Clean QG Samples:  22276
+  - Removed Records Total:   5
+
+  Removal Reasons Breakdown:
+    * Empty or trivial target question: 5
+
+3. PROMPT COLLISION & LEAKAGE ANALYSIS
+  - Total Final Samples:     22276
+  - Unique Input Prompts:    1397
+  - Duplicate Input Prompts: 20879
+  - Prompt Collision Rate:   93.7287%
+  - Unique Target Questions: 22276
+  - Duplicate Targets:       0
+  - Train/Val Target Leak:   0
+
+4. TRAIN / VALIDATION SPLIT METRICS
+  - Training Set Size:       17820 (80.00%)
+  - Validation Set Size:     4456 (20.00%)
+
+5. CATEGORICAL DISTRIBUTIONS IN FINAL QG DATASET
+
+Bloom Taxonomy Distribution:
+  - Analyze: 7156 (32.12%)
+  - Apply: 5929 (26.62%)
+  - Remember: 5098 (22.89%)
+  - Understand: 2244 (10.07%)
+  - Evaluate: 992 (4.45%)
+  - Create: 857 (3.85%)
+
+Question Type Distribution:
+  - Numerical: 8792 (39.47%)
+  - MCQ: 4764 (21.39%)
+  - Short Answer: 4345 (19.51%)
+  - Application Based: 2797 (12.56%)
+  - Long Answer: 1578 (7.08%)
+
+Difficulty Distribution:
+  - easy: 9073 (40.73%)
+  - hard: 7256 (32.57%)
+  - medium: 5947 (26.70%)
+
+Marks Distribution:
+  - 1: 9109 (40.89%)
+  - 4: 7256 (32.57%)
+  - 3: 3114 (13.98%)
+  - 2: 2797 (12.56%)
+
+Subject Distribution:
+  - Mathematics: 8792 (39.47%)
+  - unknown: 8720 (39.15%)
+  - General Studies / Business: 3327 (14.94%)
+  - Biology: 307 (1.38%)
+  - Anatomy And Physiology: 267 (1.20%)
+  - Psychology: 226 (1.01%)
+  - Introduction To Sociology: 159 (0.71%)
+  - American Government: 102 (0.46%)
+  - Principles Of Accounting, Volume 2: Managerial Accounting: 80 (0.36%)
+  - U.S. History: 72 (0.32%)
+  - Microbiology: 61 (0.27%)
+  - Business Law I Essentials: 61 (0.27%)
+  - Principles Of Accounting, Volume 1: Financial Accounting: 56 (0.25%)
+  - Business Ethics: 35 (0.16%)
+  - Introduction To Intellectual Property: 11 (0.05%)
+
+Class Level Distribution:
+  - unknown: 22276 (100.00%)
+
+Board Distribution:
+  - unknown: 22276 (100.00%)

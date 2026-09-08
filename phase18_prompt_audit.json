@@ -1,0 +1,19 @@
+{
+  "standard_prompt_schema": "generate question | subject: General Science | topic: Core Science Principles | unit: UNKNOWN | class: UNKNOWN | board: Public Benchmark | bloom: Understand | difficulty: Easy | marks: 1 | type: MCQ",
+  "average_prompt_token_length": 33.35,
+  "delimiter": " | ",
+  "control_fields_present": [
+    "subject",
+    "topic",
+    "unit",
+    "class",
+    "board",
+    "bloom",
+    "difficulty",
+    "marks",
+    "type"
+  ],
+  "delimiter_dilution_risk": "HIGH (9 separate metadata tags create high prefix overhead before target generation)",
+  "missing_value_handling": "Uses literal 'UNKNOWN' string, causing model to treat UNKNOWN as an active semantic token",
+  "recommended_optimization": "Group sparse tags into structured prefix (e.g. 'Generate [Type] question for [Subject] ([Class], [Difficulty]): Topic: [Topic]')."
+}

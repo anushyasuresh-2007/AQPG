@@ -1,0 +1,44 @@
+[
+  {
+    "source_value": "Class 9",
+    "normalized_class": "Class 9",
+    "evidence_rule": "Explicit source metadata label in benchmark / exemplar",
+    "confidence": "HIGH",
+    "notes": "Directly matches K-12 9th grade curriculum"
+  },
+  {
+    "source_value": "Class 10",
+    "normalized_class": "Class 10",
+    "evidence_rule": "Explicit source metadata label in benchmark / exemplar",
+    "confidence": "HIGH",
+    "notes": "Directly matches K-12 10th grade curriculum"
+  },
+  {
+    "source_value": "Class 11",
+    "normalized_class": "Class 11",
+    "evidence_rule": "Explicit source metadata label or High School standard (MMLU High School / NCERT Class 11)",
+    "confidence": "HIGH",
+    "notes": "Corresponds to Grade 11 / Higher Secondary Year 1"
+  },
+  {
+    "source_value": "Class 12",
+    "normalized_class": "Class 12",
+    "evidence_rule": "Explicit source metadata label or Advanced High School / College benchmark standard (MMLU College/Conceptual / NCERT Class 12)",
+    "confidence": "HIGH",
+    "notes": "Corresponds to Grade 12 / Higher Secondary Senior Year"
+  },
+  {
+    "source_value": "Grade 9",
+    "normalized_class": "Class 9",
+    "evidence_rule": "Explicit source grade attribute in ARC-Challenge standard",
+    "confidence": "HIGH",
+    "notes": "Mapped directly to Class 9 without inference"
+  },
+  {
+    "source_value": "UNKNOWN",
+    "normalized_class": "UNKNOWN",
+    "evidence_rule": "No grade or class declaration present in raw source",
+    "confidence": "HIGH",
+    "notes": "Preserved as UNKNOWN per data integrity rules; zero model/heuristic guessing"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-08-21 10:56:44",
+  "step": "Phase 20 Step 9 \u2014 520 Controlled Prompt Post-Training Evaluation",
+  "verdict": "FAIL (LOCAL_CHECKPOINT_MISSING)",
+  "checkpoint_directory": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\backend\\ml\\models\\checkpoints\\flan_t5_v16_small",
+  "missing_files": [
+    "model.safetensors",
+    "config.json",
+    "generation_config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "special_tokens_map.json"
+  ],
+  "prompts_file": "C:\\Users\\Divya\\OneDrive\\Desktop\\AQPG\\phase20_evaluation_prompts.jsonl",
+  "prompts_sha256": "91335C1EC938454BADFD551975018689A2B87489EA10BECDD05C134A1ED3082E",
+  "prompts_count": 520,
+  "safeguard_checks": {
+    "checkpoint_exists": false,
+    "model_reload": false,
+    "nan_inf_scan": false,
+    "prompt_count_valid": true
+  }
+}

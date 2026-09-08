@@ -1,0 +1,112 @@
+================================================================================
+AQPG PHASE 15 RAW SOURCE INVENTORY REPORT
+================================================================================
+FORENSIC INVENTORY OF ALL ACQUIRED RAW DATA SOURCES:
+
+1. SOURCE NAME:            OpenStax University & College Physics
+   - File Name:              openstax_physics_raw.json
+   - Source URL:             https://openstax.org/subjects/science
+   - Format:                 JSON
+   - Record Count:           2200
+   - License / Verified:     CC BY 4.0 | True
+   - Provenance:             OpenStax University & College Physics Chapter Review (Nuclear Physics and Radioactivity)
+   - Subject Coverage:       {'Physics': 2200}
+   - Class Coverage:         {'Class 11': 1300, 'Class 12': 900}
+   - Board Coverage:         {'OpenStax Academic': 2200}
+   - Verification Capability:SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match
+   - Download Method:        Automated OpenStax & Hugging Face Repository Ingestion
+
+2. SOURCE NAME:            MMLU STEM & K-12 Curriculum Subsets
+   - File Name:              mmlu_stem_expanded_raw.json
+   - Source URL:             https://huggingface.co/datasets/cais/mmlu
+   - Format:                 JSON
+   - Record Count:           2595
+   - License / Verified:     MIT License | True
+   - Provenance:             MMLU Benchmark (college_biology dev)
+   - Subject Coverage:       {'Physics': 896, 'Chemistry': 343, 'Mathematics': 844, 'Biology': 512}
+   - Class Coverage:         {'Class 11': 1054, 'Class 12': 1117, 'Class 9': 424}
+   - Board Coverage:         {'Public Benchmark': 2595}
+   - Verification Capability:SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match
+   - Download Method:        Automated OpenStax & Hugging Face Repository Ingestion
+
+3. SOURCE NAME:            AI2 ARC Benchmark with Grade 9 & 10 Grounding
+   - File Name:              ai2_arc_grounded_raw.json
+   - Source URL:             https://huggingface.co/datasets/allenai/ai2_arc
+   - Format:                 JSON
+   - Record Count:           7787
+   - License / Verified:     CC BY-SA 4.0 | True
+   - Provenance:             AI2 ARC Benchmark (ARC-Challenge test)
+   - Subject Coverage:       {'General Science': 4079, 'Biology': 1491, 'Physics': 1438, 'Chemistry': 779}
+   - Class Coverage:         {'Class 9': 3027, 'UNKNOWN': 3464, 'Class 10': 1296}
+   - Board Coverage:         {'Public Benchmark': 7787}
+   - Verification Capability:SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match
+   - Download Method:        Automated OpenStax & Hugging Face Repository Ingestion
+
+4. SOURCE NAME:            SciQ & OpenBookQA Benchmarks
+   - File Name:              science_benchmarks_raw.json
+   - Source URL:             https://huggingface.co/datasets/allenai/sciq
+   - Format:                 JSON
+   - Record Count:           19636
+   - License / Verified:     Apache 2.0 | True
+   - Provenance:             OpenBookQA Benchmark (test)
+   - Subject Coverage:       {'Chemistry': 10038, 'General Science': 6395, 'Biology': 1889, 'Physics': 1314}
+   - Class Coverage:         {'UNKNOWN': 19636}
+   - Board Coverage:         {'Public Benchmark': 19636}
+   - Verification Capability:SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match
+   - Download Method:        Automated OpenStax & Hugging Face Repository Ingestion
+
+5. SOURCE NAME:            NCERT Exemplar & Benchmark STEM (Class 9-12)
+   - File Name:              ncert_exemplar_class9_12_raw.json
+   - Source URL:             https://ncert.nic.in/exemplar-problems.php
+   - Format:                 JSON
+   - Record Count:           18
+   - License / Verified:     CC BY-NC 3.0 | True
+   - Provenance:             SciQ Benchmark (allenai/sciq)
+   - Subject Coverage:       {'Physics': 9, 'Chemistry': 9}
+   - Class Coverage:         {'Class 11': 6, 'Class 12': 6, 'Class 9': 3, 'Class 10': 3}
+   - Board Coverage:         {'CBSE': 12, 'Public Benchmark': 6}
+   - Verification Capability:SymPy Math, Physical/Chemical Domain Sanity Bounds, Textual Heuristic Match
+   - Download Method:        Automated OpenStax & Hugging Face Repository Ingestion
+
+6. SOURCE NAME:            OpenAI GSM8K
+   - File Name:              gsm8k_reasoning_all.csv
+   - Source URL:             https://github.com/openai/grade-school-math
+   - Format:                 CSV
+   - Record Count:           17584
+   - License / Verified:     MIT License | True
+   - Provenance:             OpenAI GSM8K Benchmark
+   - Subject Coverage:       {'Mathematics': 17584}
+   - Class Coverage:         {'UNKNOWN': 17584}
+   - Board Coverage:         {'Public Benchmark': 17584}
+   - Verification Capability:SymPy Deterministic Calculator
+   - Download Method:        Extracted Archive Import
+
+7. SOURCE NAME:            OpenStax EduQG
+   - File Name:              eduqg_train_val.json
+   - Source URL:             https://openstax.org
+   - Format:                 JSON
+   - Record Count:           3397
+   - License / Verified:     CC BY 4.0 | True
+   - Provenance:             OpenStax Academic Textbook Dataset
+   - Subject Coverage:       {'Biology': 631, 'Anatomy & Physiology': 635, 'Psychology': 298, 'Sociology': 335, 'History & Civics': 464, 'Business & Law': 580, 'Accounting': 440}
+   - Class Coverage:         {'UNKNOWN': 3397}
+   - Board Coverage:         {'OpenStax Academic': 3397}
+   - Verification Capability:Textual Heuristic Match
+   - Download Method:        Extracted Archive Import
+
+8. SOURCE NAME:            Kaggle Bloom Taxonomy
+   - File Name:              blooms_taxonomy_dataset.csv
+   - Source URL:             https://www.kaggle.com
+   - Format:                 CSV
+   - Record Count:           8767
+   - License / Verified:     Public Domain | True
+   - Provenance:             Kaggle Bloom Taxonomy Benchmark
+   - Subject Coverage:       {'UNKNOWN': 8767}
+   - Class Coverage:         {'UNKNOWN': 8767}
+   - Board Coverage:         {'Public Benchmark': 8767}
+   - Verification Capability:Textual Heuristic Match
+   - Download Method:        Extracted Archive Import
+
+================================================================================
+TOTAL SCANNED RAW CANDIDATE RECORDS: 61984
+================================================================================

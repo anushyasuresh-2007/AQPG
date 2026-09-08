@@ -1,0 +1,42 @@
+{
+  "Mathematics": {
+    "Mathematics": 4,
+    "Physics": 0,
+    "Chemistry": 0,
+    "Biology": 0,
+    "General Science": 0,
+    "UNKNOWN": 102
+  },
+  "Physics": {
+    "Mathematics": 1,
+    "Physics": 78,
+    "Chemistry": 2,
+    "Biology": 0,
+    "General Science": 6,
+    "UNKNOWN": 20
+  },
+  "Chemistry": {
+    "Mathematics": 0,
+    "Physics": 1,
+    "Chemistry": 79,
+    "Biology": 0,
+    "General Science": 0,
+    "UNKNOWN": 25
+  },
+  "Biology": {
+    "Mathematics": 0,
+    "Physics": 0,
+    "Chemistry": 10,
+    "Biology": 83,
+    "General Science": 0,
+    "UNKNOWN": 9
+  },
+  "General Science": {
+    "Mathematics": 0,
+    "Physics": 48,
+    "Chemistry": 9,
+    "Biology": 12,
+    "General Science": 3,
+    "UNKNOWN": 28
+  }
+}

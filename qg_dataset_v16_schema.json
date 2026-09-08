@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AQPG V16 Dataset Record Schema",
+  "description": "Schema definition for V16 question generation dataset records.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "input_text": { "type": "string" },
+    "target_text": { "type": "string" },
+    "subject": {
+      "type": "string",
+      "enum": ["Mathematics", "Physics", "Chemistry", "Biology", "General Science"]
+    },
+    "topic": { "type": "string" },
+    "class": {
+      "type": "string",
+      "enum": ["Class 9", "Class 10", "Class 11", "Class 12", "UNKNOWN"]
+    },
+    "board": { "type": "string" },
+    "unit": { "type": "string" },
+    "bloom": { "type": "string" },
+    "difficulty": {
+      "type": "string",
+      "enum": ["Easy", "Medium", "Hard", "UNKNOWN"]
+    },
+    "marks": { "type": ["integer", "string"] },
+    "question_type": {
+      "type": "string",
+      "enum": ["Numerical", "MCQ", "Conceptual", "Short Answer", "UNKNOWN"]
+    },
+    "source": { "type": "string" },
+    "template_cluster": { "type": "string" }
+  },
+  "required": [
+    "id",
+    "input_text",
+    "target_text",
+    "subject",
+    "topic",
+    "class",
+    "difficulty",
+    "question_type",
+    "source"
+  ]
+}

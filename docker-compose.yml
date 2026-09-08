@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: aqpg_mysql
+    environment:
+      MYSQL_DATABASE: aqpg_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - aqpg_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aqpg_backend
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: mysql+mysqlconnector://root@mysql:3306/aqpg_db
+      SECRET_KEY: production-secret-key-change-me-12903741
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+      GEMINI_API_KEY: "${GEMINI_API_KEY:-}"
+    ports:
+      - "8011:8011"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - aqpg_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: aqpg_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - aqpg_network
+
+volumes:
+  mysql_data:
+
+networks:
+  aqpg_network:
+    driver: bridge

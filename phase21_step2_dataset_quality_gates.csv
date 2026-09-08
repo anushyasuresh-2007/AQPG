@@ -1,0 +1,14 @@
+Gate ID,Gate Name,Metric Formula,Target Threshold,Type,Failure Addressed
+GATE-D1,Unique Input Prompt Ratio,unique_prompts / total_records,>= 60.0%,MANDATORY,Control Blindness (0.00%)
+GATE-D2,Max Single Prompt Concentration,max_single_prompt / total_records,<= 0.10%,MANDATORY,Control Blindness (0.00%)
+GATE-D3,Top-3 Prompt Concentration,top_3_prompts / total_records,<= 0.30%,MANDATORY,Control Blindness (0.00%)
+GATE-D4,Conceptual Question Representation,conceptual_count / total_records,>= 25.0%,MANDATORY,Question-Type Mismatch (46.80%)
+GATE-D5,Numerical Question Representation,numerical_count / total_records,>= 35.0%,MANDATORY,Numerical Validity (19.41%)
+GATE-D6,MCQ Representation Ceiling,mcq_count / total_records,<= 35.0%,MANDATORY,Template Collapse (100% Top-10)
+GATE-D7,Class UNKNOWN Token Rate,class_unknown_count / total_records,0.0%,MANDATORY,Subject/Topic Conditioning
+GATE-D8,Numerical Subject Concentration,max_subject_numerical / total_numerical,<= 45.0%,MANDATORY,Numerical Validity (19.41%)
+GATE-D9,Top-10 Target Stem Concentration,top_10_target_stems / total_records,<= 15.0%,MANDATORY,Template Collapse (100% Top-10)
+GATE-D10,Exact Duplicate Pair Rate,duplicate_pairs / total_records,0.0%,MANDATORY,Memorization Breach (4.62%)
+GATE-D11,Train/Val Exact Target Leakage,exact_target_leakage_count,0,MANDATORY,Train/Val Leakage
+GATE-D12,Paired Control Quadruplets,paired_quadruplet_count,>= 2500,MANDATORY,Control Blindness (0.00%)
+GATE-D13,Target Stem Entropy,normalized_stem_entropy_bits,>= 10.0 bits,ADVISORY,Template Diversity

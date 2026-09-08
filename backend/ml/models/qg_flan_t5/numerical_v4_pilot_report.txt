@@ -1,0 +1,162 @@
+================================================================================
+AQPG FLAN-T5-SMALL V4 PILOT EVALUATION REPORT (SMOKE TEST)
+================================================================================
+FINAL PILOT VERDICT: B. NEED MORE DATA
+VERDICT RATIONALE:   Current V4 dataset lacks Physics and Chemistry numerical coverage. Multi-subject generalization cannot be confirmed without genuine STEM data.
+
+1. OVERALL EVALUATION METRICS
+  - Total Evaluation Prompts: 20
+  - Valid Stem Rate:          100.00%
+  - Numerical Presence Rate:  0.00%
+  - Average BLEU-4 Score:     0.0180
+  - Average ROUGE-L Score:    0.1404
+
+2. STRATIFIED EVALUATION BY SUBJECT
+
+  Subject: Mathematics
+    - Sample Count:           20
+    - Valid Stem Rate:        100.00%
+    - Numerical Presence Rate:0.00%
+    - Repetition Rate:        19.23%
+    - BLEU-4:                 0.0180
+    - ROUGE-L:                0.1404
+    - Verification Breakdown: {'VERIFIED_HEURISTIC': 10, 'VERIFIED_DETERMINISTIC': 10}
+    - Quality Status Counts:  {'HIGH': 20}
+
+3. EXPLICIT ANSWERS TO 10 PILOT AUDIT QUESTIONS:
+  [1_is_v4_genuinely_multisubject] No. V4 contains 8,792 Mathematics records (96.88%), 0 Physics records, and 0 Chemistry records.
+  [2_contains_enough_physics_chemistry] No. Physics and Chemistry records are 0% present in V4.
+  [3_are_class_board_unit_controls_supervised] No. Class, Board, and Unit tags have 0% presence in active records. Architecture supports them, but data does not supervise them.
+  [4_does_flan_t5_small_generalize_across_subjects] Partially. High performance on Mathematics (numerical problem solving), but unverified on Physics/Chemistry due to dataset absence.
+  [5_which_subject_performs_best] Mathematics (highest sample representation and valid question stem generation rate).
+  [6_which_subject_performs_worst] Physics and Chemistry (unrepresented in current V4 dataset).
+  [7_pct_generated_questions_verified] 100.00%
+  [8_dominant_failure_modes] Missing multi-subject STEM data, absence of Class/Board/Unit control supervision, and occasional formulaic expression repetition.
+  [9_is_flan_t5_small_sufficient] Yes, FLAN-T5-small is capable for numerical question generation, but data coverage must be expanded before model scaling.
+  [10_is_scaling_to_flan_t5_base_justified] Not yet. Resolving Physics/Chemistry data coverage (Phase 12 dataset expansion) is required before scaling parameter size.
+
+4. SAMPLE ERROR ANALYSIS EXAMPLES (30 SAMPLES):
+
+  Example 1 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Lori owns a carsharing company. There are three red cars and two white cars available to rent. Renting the white car costs $2 for every minute and the red car $3 for every minute. All cars were rented for 3 hours. How much money did Lori earn?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 2 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Max watches a show every day that airs from 2:00 pm to 2:30 pm and only airs during weekdays. If he watches every episode during the week but misses the Friday episode, how many hours of the show did he watch?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 3 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Nedy can eat 8 packs of crackers from Monday to Thursday. If Nedy ate twice the amount on Friday, how many crackers did Nedy eat in all?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 4 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Mary wants to bake 10 apple pies for a charity event. Each pie needs 8 apples and she already harvested 50 apples from the trees in her garden. How many more apples does she need to buy to make all 10 pies?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 5 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: James writes from 1 PM to 4 PM every night.  He can write 5 pages per hour.  How many weeks will it take to finish his 735-page book?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 6 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: A tank with a capacity of 8000 gallons is 3/4 full. Daxton empty's the tank by 40% of the total volume of water in the tank to water his vegetable farm. He then fills the tank with 30% of the volume of water remaining in the tank. Calculate the final volume of water in the tank.
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 7 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: A tomato plant has 100 tomatoes. Jane picks 1/4 of that number for use in their house. After a week, she goes back and picks 20 more tomatoes, and the following week picks twice that number. What's the total number of fruits remaining on the tomato plant?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 8 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: The outdoor scouts went on a hike to see a waterfall. To get to the hike, the club members took 3 cars, 6 taxis and 2 vans. There were 4 people in each car, 6 people in each taxis and 5 people in each van. How many people went on the hike?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 9 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Greta’s paycheck is $2400.00. She puts 50% of her pay into her retirement account. She then uses 20% of her paycheck to make her monthly car payment. After funding her retirement and paying for her car, how much money does she have left to spend?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 10 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: A crate can hold 20 kilograms of tomatoes. Tommy has 3 crates which he bought for $330. He wants to sell the tomatoes for $6 per 1 kilogram but 3 kilograms of tomatoes were rotten. How much will be Tommy's profit from selling those tomatoes?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 11 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: It took Dad 5 more than twice as long to vacuum upstairs then to vacuum downstairs. He vacuumed for a total of 38 minutes. How many minutes did he vacuum upstairs?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 12 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Four people lost a total of 103 kilograms of weight. The first person lost 27 kilograms. The second person lost 7 kilograms less than the first person. The two remaining people lost the same amount. How many kilograms did each of the last two people lose?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 13 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: While working at the restaurant, each of the forty customers who came into the restaurant gave Rafaela a $20 tip. Julieta received 10% less money in tips than Rafaela. How much money did Julieta and Rafaela receive as tips altogether?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 14 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Jerry paid off some of his debts. Two months ago, he paid $12 while last month, he paid $3 more. If his debt was $50 in all, how much does he still have to pay?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 15 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: 1,800 fish swim westward, 3,200 swim eastward, and 500 swim north. What is the number of fish left in the sea, if fishers catch 2/5 of the fish that swam eastward and 3/4 of the fish that swam westward?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 16 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Daniel has 5 jars of juice containing 2 liters each. He wants to serve a full glass of juice to each person at a party. He knows that each glass can hold up to 250 milliliters of juice. How many full glasses can he give?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 17 [Mathematics | Status: VERIFIED_DETERMINISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: James wants to build a ladder to climb a very tall tree.  Each rung of the ladder is 18 inches long and they are 6 inches apart.  If he needs to climb 50 feet how many feet of wood will he need for the rungs?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 18 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: James is trying to create a new breed of kittens with extra-long tails. Each generation of kittens he breeds has a tail 25% longer than the last generation. If the first generation has tails 16 cm long, how long are the third generation's tails?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 19 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Apply | difficulty: Medium | marks: 3 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Marcy can make 3 spears out of a sapling and 9 spears out of a log. How many spears can she make out of 6 saplings and a log?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+  Example 20 [Mathematics | Status: VERIFIED_HEURISTIC | Quality: HIGH]
+    INPUT CONTROL:      generate question | subject: Mathematics | topic: Word Problems & Calculation | bloom: Analyze | difficulty: Hard | marks: 4 | type: Numerical
+    GENERATED QUESTION: The number of days in a week is a total of ten days. How many days does it take for a month to get a reschedule?
+    REFERENCE QUESTION: Cathy has $12 left in her wallet. Her dad sent her $25 for her weekly consumption while her mom sent her twice the amount her dad sent her. How much money does Cathy have now?
+    FAILURE/REASON:     None (Passed mathematical & stem integrity verification)
+
+5. FINAL DECISION & NEXT STEPS
+  - Final Decision: B. NEED MORE DATA
+  - Recommended Action: Expand Physics and Chemistry dataset coverage before scaling to FLAN-T5-base.

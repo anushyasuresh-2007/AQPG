@@ -1,0 +1,65 @@
+[
+  {
+    "source_value": "Mathematics",
+    "normalized_subject": "Mathematics",
+    "evidence_rule": "Mathematical reasoning, word problems, algebra, calculus benchmarks (GSM8K, MMLU Math, NCERT Math)",
+    "confidence": "HIGH",
+    "notes": "Mathematical sciences"
+  },
+  {
+    "source_value": "Physics",
+    "normalized_subject": "Physics",
+    "evidence_rule": "Physical sciences, mechanics, electromagnetism, optics, thermodynamics (MMLU Physics, SciQ Physics, ARC Physics, NCERT Physics)",
+    "confidence": "HIGH",
+    "notes": "Physical sciences"
+  },
+  {
+    "source_value": "Chemistry",
+    "normalized_subject": "Chemistry",
+    "evidence_rule": "Chemical sciences, reactions, stoichiometry, molecular properties (MMLU Chemistry, SciQ Chemistry, ARC Chemistry, NCERT Chemistry)",
+    "confidence": "HIGH",
+    "notes": "Chemical sciences"
+  },
+  {
+    "source_value": "Biology",
+    "normalized_subject": "Biology",
+    "evidence_rule": "Biological sciences, cellular biology, genetics, ecology (MMLU Biology, EduQG Biology, SciQ Biology)",
+    "confidence": "HIGH",
+    "notes": "Biological sciences"
+  },
+  {
+    "source_value": "General Science",
+    "normalized_subject": "General Science",
+    "evidence_rule": "Integrated science inquiry benchmarks (OpenBookQA, ARC General Science, SciQ Science)",
+    "confidence": "HIGH",
+    "notes": "Integrated natural science"
+  },
+  {
+    "source_value": "Social Science",
+    "normalized_subject": "Social Science",
+    "evidence_rule": "Sociology and psychology curriculum datasets (EduQG)",
+    "confidence": "HIGH",
+    "notes": "Social sciences"
+  },
+  {
+    "source_value": "Business & Law",
+    "normalized_subject": "Business & Law",
+    "evidence_rule": "Business, accounting, and legal curriculum datasets (EduQG)",
+    "confidence": "HIGH",
+    "notes": "Business and commercial studies"
+  },
+  {
+    "source_value": "History & Civics",
+    "normalized_subject": "History & Civics",
+    "evidence_rule": "History and civics curriculum datasets (EduQG)",
+    "confidence": "HIGH",
+    "notes": "History and government studies"
+  },
+  {
+    "source_value": "UNKNOWN",
+    "normalized_subject": "UNKNOWN",
+    "evidence_rule": "Generic prompts lacking explicit subject attribution",
+    "confidence": "HIGH",
+    "notes": "Preserved as UNKNOWN"
+  }
+]

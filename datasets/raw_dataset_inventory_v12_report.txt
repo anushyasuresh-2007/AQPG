@@ -1,0 +1,62 @@
+================================================================================
+AQPG PHASE 12 RAW SOURCE INVENTORY REPORT
+================================================================================
+FORENSIC INVENTORY OF ALL ACQUIRED RAW DATA SOURCES:
+
+1. FILE NAME: ncert_physics_class11_12.json
+   - Format:                  JSON
+   - Record Count:            6
+   - Subject Coverage:        {'Physics': 6}
+   - Class Coverage:          {'Class 11': 3, 'Class 12': 3}
+   - Board Coverage:          {'CBSE': 6}
+   - License / Provenance:    CC BY-NC 4.0 | NCERT Class 12 Physics Exemplar Chapter 10
+   - Verification Capability: SymPy Math & Physical/Chemical Domain Sanity Bounds
+
+2. FILE NAME: ncert_chemistry_class11_12.json
+   - Format:                  JSON
+   - Record Count:            6
+   - Subject Coverage:        {'Chemistry': 6}
+   - Class Coverage:          {'Class 11': 3, 'Class 12': 3}
+   - Board Coverage:          {'CBSE': 6}
+   - License / Provenance:    CC BY-NC 4.0 | NCERT Class 12 Chemistry Exemplar Chapter 2
+   - Verification Capability: SymPy Math & Physical/Chemical Domain Sanity Bounds
+
+3. FILE NAME: scienceqa_physics_chemistry.json
+   - Format:                  JSON
+   - Record Count:            4
+   - Subject Coverage:        {'Physics': 2, 'Chemistry': 2}
+   - Class Coverage:          {'Class 9': 2, 'Class 10': 2}
+   - Board Coverage:          {'Public Benchmark': 4}
+   - License / Provenance:    CC BY-NC-SA 4.0 | ScienceQA Benchmark (derek-thomas/ScienceQA)
+   - Verification Capability: SymPy Math & Physical/Chemical Domain Sanity Bounds
+
+4. FILE NAME: sciq_science_questions.json
+   - Format:                  JSON
+   - Record Count:            2
+   - Subject Coverage:        {'Physics': 1, 'Chemistry': 1}
+   - Class Coverage:          {'Class 9': 1, 'Class 10': 1}
+   - Board Coverage:          {'Public Benchmark': 2}
+   - License / Provenance:    CC BY-NC 3.0 | SciQ Benchmark (allenai/sciq)
+   - Verification Capability: SymPy Math & Physical/Chemical Domain Sanity Bounds
+
+5. FILE NAME: gsm8k_reasoning_all.csv
+   - Format:                  CSV
+   - Record Count:            17584
+   - Subject Coverage:        {'Mathematics': 17584}
+   - Class Coverage:          {'UNKNOWN': 17584}
+   - Board Coverage:          {'UNKNOWN': 17584}
+   - License / Provenance:    MIT License | OpenAI GSM8K Benchmark
+   - Verification Capability: SymPy Deterministic Calculator
+
+6. FILE NAME: eduqg_train_val.json
+   - Format:                  JSON
+   - Record Count:            3397
+   - Subject Coverage:        {'Biology': 631, 'Anatomy & Physiology': 635, 'Psychology': 298, 'Sociology': 335, 'History & Civics': 464, 'Business & Law': 580, 'Accounting': 440}
+   - Class Coverage:          {'UNKNOWN': 3397}
+   - Board Coverage:          {'OpenStax Academic': 3397}
+   - License / Provenance:    CC BY 4.0 | OpenStax Academic Textbook Dataset
+   - Verification Capability: Textual Heuristic Match
+
+================================================================================
+TOTAL SCANNED RAW CANDIDATE RECORDS: 20999
+================================================================================

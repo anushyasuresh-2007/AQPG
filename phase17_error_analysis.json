@@ -1,0 +1,611 @@
+{
+  "total_failures": 341,
+  "failure_modes": {
+    "degenerate_template_loops": 13,
+    "subject_mismatch": 204,
+    "topic_mismatch": 123,
+    "garbled_or_truncated": 1
+  },
+  "sample_failures": [
+    {
+      "prompt_id": "P17-0001",
+      "subject": "Mathematics",
+      "topic": "Linear Equations in Two Variables",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations in Two Variables | unit: Algebra | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Linear Equations in Two Variables, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0002",
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations & Roots",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Quadratic Equations & Roots, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0003",
+      "subject": "Mathematics",
+      "topic": "Arithmetic Progressions & Series",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Arithmetic Progressions & Series | unit: Trigonometry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Arithmetic Progressions & Series, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0004",
+      "subject": "Mathematics",
+      "topic": "Coordinate Geometry & Distance Formula",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Coordinate Geometry & Distance Formula | unit: Coordinate Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Coordinate Geometry & Distance Formula, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0005",
+      "subject": "Mathematics",
+      "topic": "Trigonometric Ratios & Heights",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Trigonometric Ratios & Heights | unit: Statistics | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Trigonometric Ratios & Heights, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0006",
+      "subject": "Mathematics",
+      "topic": "Circles & Tangents",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Circles & Tangents | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Circles & Tangents, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0007",
+      "subject": "Mathematics",
+      "topic": "Surface Areas & Volumes of Solids",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Algebra | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Surface Areas & Volumes of Solids, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0008",
+      "subject": "Mathematics",
+      "topic": "Probability & Sample Space",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Probability & Sample Space | unit: Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Probability & Sample Space, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0009",
+      "subject": "Mathematics",
+      "topic": "Statistics & Mean Median Mode",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Statistics & Mean Median Mode | unit: Trigonometry | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Statistics & Mean Median Mode, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0010",
+      "subject": "Mathematics",
+      "topic": "Polynomials & Factorization",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Polynomials & Factorization | unit: Coordinate Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Polynomials & Factorization, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0011",
+      "subject": "Mathematics",
+      "topic": "Linear Equations in Two Variables",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations in Two Variables | unit: Statistics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is TRUE?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Linear Equations in Two Variables, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0012",
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations & Roots",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Mensuration | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following is not a factor in determining how many digits of a digit of a digit of a digit?",
+      "failure_category": "TOPIC_MISMATCH",
+      "reason": "Expected Mathematics/Quadratic Equations & Roots, but generated 'Mathematics' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0013",
+      "subject": "Mathematics",
+      "topic": "Arithmetic Progressions & Series",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Arithmetic Progressions & Series | unit: Algebra | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following is NOT true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Arithmetic Progressions & Series, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0014",
+      "subject": "Mathematics",
+      "topic": "Coordinate Geometry & Distance Formula",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Coordinate Geometry & Distance Formula | unit: Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Coordinate Geometry & Distance Formula, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0015",
+      "subject": "Mathematics",
+      "topic": "Trigonometric Ratios & Heights",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Trigonometric Ratios & Heights | unit: Trigonometry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Trigonometric Ratios & Heights, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0016",
+      "subject": "Mathematics",
+      "topic": "Circles & Tangents",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Circles & Tangents | unit: Coordinate Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Circles & Tangents, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0017",
+      "subject": "Mathematics",
+      "topic": "Surface Areas & Volumes of Solids",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Statistics | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is TRUE?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Surface Areas & Volumes of Solids, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0018",
+      "subject": "Mathematics",
+      "topic": "Probability & Sample Space",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Probability & Sample Space | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following is not a factor in determining how much time a person spends on a project?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Probability & Sample Space, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0019",
+      "subject": "Mathematics",
+      "topic": "Statistics & Mean Median Mode",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Statistics & Mean Median Mode | unit: Algebra | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Statistics & Mean Median Mode, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0020",
+      "subject": "Mathematics",
+      "topic": "Polynomials & Factorization",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Polynomials & Factorization | unit: Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Polynomials & Factorization, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0021",
+      "subject": "Mathematics",
+      "topic": "Linear Equations in Two Variables",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations in Two Variables | unit: Trigonometry | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "What is the relationship between the two variables?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Linear Equations in Two Variables, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0022",
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations & Roots",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Coordinate Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Quadratic Equations & Roots, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0023",
+      "subject": "Mathematics",
+      "topic": "Arithmetic Progressions & Series",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Arithmetic Progressions & Series | unit: Statistics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following is not a factor in the amount of time that a person spends on a project?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Arithmetic Progressions & Series, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0024",
+      "subject": "Mathematics",
+      "topic": "Coordinate Geometry & Distance Formula",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Coordinate Geometry & Distance Formula | unit: Mensuration | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Coordinate Geometry & Distance Formula, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0025",
+      "subject": "Mathematics",
+      "topic": "Trigonometric Ratios & Heights",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Trigonometric Ratios & Heights | unit: Algebra | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Trigonometric Ratios & Heights, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0026",
+      "subject": "Mathematics",
+      "topic": "Circles & Tangents",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Circles & Tangents | unit: Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Circles & Tangents, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0027",
+      "subject": "Mathematics",
+      "topic": "Surface Areas & Volumes of Solids",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Trigonometry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is TRUE?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Surface Areas & Volumes of Solids, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0028",
+      "subject": "Mathematics",
+      "topic": "Probability & Sample Space",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Probability & Sample Space | unit: Coordinate Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Probability & Sample Space, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0029",
+      "subject": "Mathematics",
+      "topic": "Statistics & Mean Median Mode",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Statistics & Mean Median Mode | unit: Statistics | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Statistics & Mean Median Mode, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0030",
+      "subject": "Mathematics",
+      "topic": "Polynomials & Factorization",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Polynomials & Factorization | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Polynomials & Factorization, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0031",
+      "subject": "Mathematics",
+      "topic": "Linear Equations in Two Variables",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations in Two Variables | unit: Algebra | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Linear Equations in Two Variables, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0032",
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations & Roots",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Quadratic Equations & Roots, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0033",
+      "subject": "Mathematics",
+      "topic": "Arithmetic Progressions & Series",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Arithmetic Progressions & Series | unit: Trigonometry | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Arithmetic Progressions & Series, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0034",
+      "subject": "Mathematics",
+      "topic": "Coordinate Geometry & Distance Formula",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Coordinate Geometry & Distance Formula | unit: Coordinate Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Coordinate Geometry & Distance Formula, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0035",
+      "subject": "Mathematics",
+      "topic": "Trigonometric Ratios & Heights",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Trigonometric Ratios & Heights | unit: Statistics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Trigonometric Ratios & Heights, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0036",
+      "subject": "Mathematics",
+      "topic": "Circles & Tangents",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Circles & Tangents | unit: Mensuration | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Circles & Tangents, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0037",
+      "subject": "Mathematics",
+      "topic": "Surface Areas & Volumes of Solids",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Algebra | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Surface Areas & Volumes of Solids, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0038",
+      "subject": "Mathematics",
+      "topic": "Probability & Sample Space",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Probability & Sample Space | unit: Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following is not a factor in determining how much time a person spends on a project?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Probability & Sample Space, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0039",
+      "subject": "Mathematics",
+      "topic": "Statistics & Mean Median Mode",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Statistics & Mean Median Mode | unit: Trigonometry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Statistics & Mean Median Mode, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0040",
+      "subject": "Mathematics",
+      "topic": "Polynomials & Factorization",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Polynomials & Factorization | unit: Coordinate Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Polynomials & Factorization, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0041",
+      "subject": "Mathematics",
+      "topic": "Linear Equations in Two Variables",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations in Two Variables | unit: Statistics | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Linear Equations in Two Variables, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0042",
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations & Roots",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Quadratic Equations & Roots, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0043",
+      "subject": "Mathematics",
+      "topic": "Arithmetic Progressions & Series",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Arithmetic Progressions & Series | unit: Algebra | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following is NOT true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Arithmetic Progressions & Series, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0044",
+      "subject": "Mathematics",
+      "topic": "Coordinate Geometry & Distance Formula",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Coordinate Geometry & Distance Formula | unit: Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Coordinate Geometry & Distance Formula, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0045",
+      "subject": "Mathematics",
+      "topic": "Trigonometric Ratios & Heights",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Trigonometric Ratios & Heights | unit: Trigonometry | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Trigonometric Ratios & Heights, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0046",
+      "subject": "Mathematics",
+      "topic": "Circles & Tangents",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Circles & Tangents | unit: Coordinate Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Circles & Tangents, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0047",
+      "subject": "Mathematics",
+      "topic": "Surface Areas & Volumes of Solids",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Statistics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is TRUE?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Surface Areas & Volumes of Solids, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0048",
+      "subject": "Mathematics",
+      "topic": "Probability & Sample Space",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Probability & Sample Space | unit: Mensuration | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Probability & Sample Space, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0049",
+      "subject": "Mathematics",
+      "topic": "Statistics & Mean Median Mode",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Statistics & Mean Median Mode | unit: Algebra | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Statistics & Mean Median Mode, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0050",
+      "subject": "Mathematics",
+      "topic": "Polynomials & Factorization",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Polynomials & Factorization | unit: Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Polynomials & Factorization, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0051",
+      "subject": "Mathematics",
+      "topic": "Linear Equations in Two Variables",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Linear Equations in Two Variables | unit: Trigonometry | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "What is the relationship between the two variables?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Linear Equations in Two Variables, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0052",
+      "subject": "Mathematics",
+      "topic": "Quadratic Equations & Roots",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Quadratic Equations & Roots | unit: Coordinate Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Quadratic Equations & Roots, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0053",
+      "subject": "Mathematics",
+      "topic": "Arithmetic Progressions & Series",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Arithmetic Progressions & Series | unit: Statistics | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following is not a factor in the amount of time that a person spends on a project?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Arithmetic Progressions & Series, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0054",
+      "subject": "Mathematics",
+      "topic": "Coordinate Geometry & Distance Formula",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Coordinate Geometry & Distance Formula | unit: Mensuration | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Coordinate Geometry & Distance Formula, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0055",
+      "subject": "Mathematics",
+      "topic": "Trigonometric Ratios & Heights",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Trigonometric Ratios & Heights | unit: Algebra | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Trigonometric Ratios & Heights, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0056",
+      "subject": "Mathematics",
+      "topic": "Circles & Tangents",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Circles & Tangents | unit: Geometry | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Circles & Tangents, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0057",
+      "subject": "Mathematics",
+      "topic": "Surface Areas & Volumes of Solids",
+      "class": "Class 9",
+      "prompt": "generate question | subject: Mathematics | topic: Surface Areas & Volumes of Solids | unit: Trigonometry | class: Class 9 | board: Public Benchmark | bloom: Remember | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is TRUE?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Surface Areas & Volumes of Solids, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0058",
+      "subject": "Mathematics",
+      "topic": "Probability & Sample Space",
+      "class": "Class 10",
+      "prompt": "generate question | subject: Mathematics | topic: Probability & Sample Space | unit: Coordinate Geometry | class: Class 10 | board: Public Benchmark | bloom: Understand | difficulty: Easy | marks: 1 | type: Numerical",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Probability & Sample Space, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0059",
+      "subject": "Mathematics",
+      "topic": "Statistics & Mean Median Mode",
+      "class": "Class 11",
+      "prompt": "generate question | subject: Mathematics | topic: Statistics & Mean Median Mode | unit: Statistics | class: Class 11 | board: Public Benchmark | bloom: Apply | difficulty: Medium | marks: 2 | type: MCQ",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Statistics & Mean Median Mode, but generated 'UNKNOWN' / mismatched content."
+    },
+    {
+      "prompt_id": "P17-0060",
+      "subject": "Mathematics",
+      "topic": "Polynomials & Factorization",
+      "class": "Class 12",
+      "prompt": "generate question | subject: Mathematics | topic: Polynomials & Factorization | unit: Mensuration | class: Class 12 | board: Public Benchmark | bloom: Analyze | difficulty: Hard | marks: 3 | type: Conceptual",
+      "generated_output": "Which of the following statements is true?",
+      "failure_category": "SUBJECT_MISMATCH",
+      "reason": "Expected Mathematics/Polynomials & Factorization, but generated 'UNKNOWN' / mismatched content."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+================================================================================
+AQPG MASTER DATASET (V4) BUILD REPORT
+================================================================================
+Total Raw Source Records:     22281
+Total Clean V4 Records:       9075
+Removed Records:              13206
+
+TRAIN / VAL SPLIT
+  - Training Set V4 (80%):    7260 records
+  - Validation Set V4 (20%):  1815 records
+
+VERIFICATION STATUS BREAKDOWN:
+  - NOT_VERIFIED: 283 (3.12%)
+  - VERIFIED_DETERMINISTIC: 4563 (50.28%)
+  - VERIFIED_HEURISTIC: 4229 (46.60%)

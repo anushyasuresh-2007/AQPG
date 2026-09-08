@@ -1,0 +1,24 @@
+================================================================================
+AQPG MASTER DATASET (V5) PIPELINE BUILD REPORT
+================================================================================
+Total Ingested Raw Candidate Records: 29766
+Total Clean V5 Records Constructed:   20872
+Total Rejected Records:               8894
+
+TRAIN / VAL LEAKAGE-SAFE SPLIT (Seed 42):
+  - Training Set V5 (80%):    16697 records
+  - Validation Set V5 (20%):  4175 records
+
+SUBJECT DISTRIBUTION IN V5:
+  - Physics: 9 (0.04%)
+  - Chemistry: 9 (0.04%)
+  - Mathematics: 8792 (42.12%)
+  - Business & Law: 580 (2.78%)
+  - Social Science: 630 (3.02%)
+  - Biology: 1672 (8.01%)
+  - History & Civics: 464 (2.22%)
+  - UNKNOWN: 8716 (41.76%)
+
+VERIFICATION STATUS BREAKDOWN IN V5:
+  - VERIFIED_HEURISTIC: 20565 (98.53%)
+  - NOT_VERIFIED: 307 (1.47%)

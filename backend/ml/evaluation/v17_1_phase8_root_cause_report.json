@@ -1,0 +1,117 @@
+{
+  "phase": 8,
+  "model": "V17.1",
+  "diagnostic_only": true,
+  "training_started": false,
+  "model_modified": false,
+  "checkpoint_modified": false,
+  "dataset_modified": false,
+  "root_cause": "Model Checkpoint Weight Collapse (LM Head Logit Attractor at Token ID 22777 'reheat')",
+  "confidence": "HIGH",
+  "checkpoint_integrity": {
+    "status": "PASS",
+    "safetensors_bytes": 307867048,
+    "safetensors_sha256": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+    "verified_match": true
+  },
+  "tokenizer_integrity": {
+    "status": "PASS",
+    "vocab_size": 32100,
+    "roundtrip_test": "PASS",
+    "special_tokens_valid": true
+  },
+  "generation_config": {
+    "status": "NORMAL",
+    "decoder_start_token_id": 0,
+    "eos_token_id": [
+      1
+    ],
+    "pad_token_id": 0
+  },
+  "inference_audit": {
+    "status": "PASS",
+    "adapter_file": "backend/app/services/ai/v17_1_inference_adapter.py",
+    "pipeline_integrity": "VALID"
+  },
+  "prompt_compatibility": {
+    "status": "PARTIAL MATCH",
+    "training_format": "generate question | subject: {subj} | topic: {topic} | class: {cls} | difficulty: {diff} | marks: {marks} | type: {qtype} | bloom: {bloom} | unit: {unit} | board: {board}",
+    "inference_format": "generate question | subject: {subj} | topic: {top} | class: Class 10 | difficulty: {diff} | marks: {m} | type: {q_type} | bloom: {b_lvl}",
+    "compatibility_impact": "LOW"
+  },
+  "training_config": {
+    "base_model": "google/flan-t5-small",
+    "epochs": 3,
+    "learning_rate": 5e-05,
+    "effective_batch_size": 32,
+    "optimizer": "adamw_torch_fused",
+    "max_steps_setting": "100 steps smoke script artifact or premature save"
+  },
+  "dataset_forensics": {
+    "total_train_records": 40000,
+    "total_val_records": 10000,
+    "reheat_in_targets": false,
+    "reheat_occurrences_in_data": 1
+  },
+  "decoding_experiments": {
+    "config_A_greedy": {
+      "output_snippet": "reheatreheatreheat...",
+      "malformed": true,
+      "question_like": false
+    },
+    "config_B_beam1": {
+      "output_snippet": "reheatreheatreheat...",
+      "malformed": true,
+      "question_like": false
+    },
+    "config_C_beam4_rep1.1": {
+      "output_snippet": "debit debit debit Bitcoin Bitcoin...",
+      "malformed": true,
+      "question_like": false
+    },
+    "config_D_sample_temp0.7": {
+      "output_snippet": "reheatreheatreheatsynchronousreheat...",
+      "malformed": true,
+      "question_like": false
+    },
+    "config_E_beam4_rep1.2": {
+      "output_snippet": "debit debit debit Bitcoin... desktop...",
+      "malformed": true,
+      "question_like": false
+    },
+    "recovery_achieved": false
+  },
+  "differential_diagnosis": {
+    "rank_1": {
+      "cause": "Model Checkpoint Weight Collapse",
+      "evidence": "Model generates token 22777 continuously regardless of prompt; anti-repetition decoding produces ungrounded random vocabulary words.",
+      "confidence": "HIGH",
+      "status": "CONFIRMED"
+    },
+    "rank_2": {
+      "cause": "Training Strategy / Step Count Anomaly",
+      "evidence": "training_args.bin shows 100 step smoke run / premature save artifact.",
+      "confidence": "MEDIUM",
+      "status": "STRONGLY SUSPECTED"
+    },
+    "rank_3": {
+      "cause": "Prompt Format Minor Variation",
+      "evidence": "Inference prompt omits unit and board tags.",
+      "confidence": "LOW",
+      "status": "UNLIKELY"
+    },
+    "rank_4": {
+      "cause": "Tokenizer / Decoding Configuration Issue",
+      "evidence": "Tokenizer roundtrips successfully; decoding tweaks fail to recover questions.",
+      "confidence": "HIGH",
+      "status": "RULED OUT"
+    },
+    "rank_5": {
+      "cause": "Checkpoint File Corruption",
+      "evidence": "SHA-256 hash 0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7 matches byte-for-byte.",
+      "confidence": "HIGH",
+      "status": "RULED OUT"
+    }
+  },
+  "recommendation": "Retraining is required. Ensure full GPU fine-tuning execution across complete dataset epochs, implement entropy regularization / label smoothing, and maintain prompt parity."
+}

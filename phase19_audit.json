@@ -1,0 +1,273 @@
+{
+  "dataset_version": "V16",
+  "record_counts": {
+    "master": 50695,
+    "train": 40557,
+    "validation": 10138
+  },
+  "quality_gates": {
+    "syntax_validity": "PASS",
+    "schema_validity": "PASS",
+    "leakage_zero": "PASS",
+    "deduplication_clean": "PASS",
+    "tokenization_bounded": "PASS",
+    "overall_status": "ALL_GATES_PASSED"
+  },
+  "leakage_metrics": {
+    "exact_target_leakage": 0,
+    "normalized_target_leakage": 0,
+    "prompt_target_pair_leakage": 0,
+    "duplicate_train_prompt_targets": 0
+  },
+  "template_metrics": {
+    "top_10_percentage": 12.8,
+    "top_50_percentage": 21.06,
+    "entropy_bits": 13.2047,
+    "top_10_templates": [
+      [
+        "In a laboratory ...",
+        2160
+      ],
+      [
+        "[X] is a [Y]?",
+        709
+      ],
+      [
+        "Which of the following [X]?",
+        657
+      ],
+      [
+        "What is the [X]?",
+        613
+      ],
+      [
+        "Which of these ...",
+        427
+      ],
+      [
+        "What is [X]?",
+        413
+      ],
+      [
+        "What type of ...",
+        385
+      ],
+      [
+        "What is a [X]?",
+        382
+      ],
+      [
+        "What are [X]?",
+        374
+      ],
+      [
+        "What are the [X]?",
+        368
+      ]
+    ]
+  },
+  "subject_distribution": {
+    "Physics": 5780,
+    "Chemistry": 10001,
+    "Mathematics": 9626,
+    "Biology": 5264,
+    "General Science": 9923,
+    "UNKNOWN": 8514,
+    "Social Science": 612,
+    "Business & Law": 540,
+    "History & Civics": 435
+  },
+  "class_distribution": {
+    "Class 11": 2343,
+    "Class 12": 1982,
+    "Class 9": 3442,
+    "UNKNOWN": 41637,
+    "Class 10": 1291
+  },
+  "question_type_distribution": {
+    "Numerical": 10304,
+    "Conceptual": 700,
+    "MCQ": 31202,
+    "Short Answer": 8489
+  },
+  "difficulty_distribution": {
+    "Medium": 20893,
+    "Hard": 4635,
+    "Easy": 25167
+  },
+  "cross_tabulations": {
+    "subject_by_class": {
+      "Physics": {
+        "Class 11": 1474,
+        "Class 12": 1587,
+        "UNKNOWN": 1913,
+        "Class 9": 564,
+        "Class 10": 242
+      },
+      "Chemistry": {
+        "Class 11": 225,
+        "Class 12": 114,
+        "Class 9": 305,
+        "Class 10": 140,
+        "UNKNOWN": 9217
+      },
+      "Mathematics": {
+        "Class 11": 297,
+        "Class 12": 116,
+        "Class 9": 421,
+        "UNKNOWN": 8792
+      },
+      "Biology": {
+        "Class 11": 347,
+        "Class 12": 165,
+        "Class 9": 575,
+        "Class 10": 227,
+        "UNKNOWN": 3950
+      },
+      "General Science": {
+        "Class 9": 1577,
+        "Class 10": 682,
+        "UNKNOWN": 7664
+      },
+      "UNKNOWN": {
+        "UNKNOWN": 8514
+      },
+      "Social Science": {
+        "UNKNOWN": 612
+      },
+      "Business & Law": {
+        "UNKNOWN": 540
+      },
+      "History & Civics": {
+        "UNKNOWN": 435
+      }
+    },
+    "subject_by_type": {
+      "Physics": {
+        "Numerical": 1506,
+        "Conceptual": 700,
+        "MCQ": 3572,
+        "Short Answer": 2
+      },
+      "Chemistry": {
+        "MCQ": 9993,
+        "Numerical": 6,
+        "Short Answer": 2
+      },
+      "Mathematics": {
+        "MCQ": 834,
+        "Numerical": 8792
+      },
+      "Biology": {
+        "MCQ": 5264
+      },
+      "General Science": {
+        "MCQ": 9923
+      },
+      "UNKNOWN": {
+        "Short Answer": 8485,
+        "MCQ": 29
+      },
+      "Social Science": {
+        "MCQ": 612
+      },
+      "Business & Law": {
+        "MCQ": 540
+      },
+      "History & Civics": {
+        "MCQ": 435
+      }
+    },
+    "class_by_type": {
+      "Class 11": {
+        "Numerical": 906,
+        "Conceptual": 400,
+        "MCQ": 1037
+      },
+      "Class 12": {
+        "Numerical": 606,
+        "Conceptual": 300,
+        "MCQ": 1076
+      },
+      "Class 9": {
+        "MCQ": 3441,
+        "Short Answer": 1
+      },
+      "UNKNOWN": {
+        "MCQ": 24360,
+        "Numerical": 8792,
+        "Short Answer": 8485
+      },
+      "Class 10": {
+        "MCQ": 1288,
+        "Short Answer": 3
+      }
+    },
+    "subject_by_difficulty": {
+      "Physics": {
+        "Medium": 3915,
+        "Hard": 579,
+        "Easy": 1286
+      },
+      "Chemistry": {
+        "Medium": 704,
+        "Hard": 389,
+        "Easy": 8908
+      },
+      "Mathematics": {
+        "Medium": 9510,
+        "Hard": 116
+      },
+      "Biology": {
+        "Medium": 1349,
+        "Hard": 629,
+        "Easy": 3286
+      },
+      "General Science": {
+        "Medium": 2640,
+        "Hard": 1345,
+        "Easy": 5938
+      },
+      "UNKNOWN": {
+        "Medium": 2775,
+        "Easy": 4162,
+        "Hard": 1577
+      },
+      "Social Science": {
+        "Easy": 612
+      },
+      "Business & Law": {
+        "Easy": 540
+      },
+      "History & Civics": {
+        "Easy": 435
+      }
+    }
+  },
+  "tokenization_stats": {
+    "input": {
+      "min": 45,
+      "max": 70,
+      "mean": 48.87,
+      "median": 47,
+      "p95": 56,
+      "p99": 60,
+      "pct_gt_128": 0.0,
+      "pct_gt_256": 0.0
+    },
+    "target": {
+      "min": 4,
+      "max": 191,
+      "mean": 28.26,
+      "median": 20,
+      "p95": 72,
+      "p99": 96,
+      "pct_gt_128": 0.12,
+      "pct_gt_256": 0.0
+    }
+  },
+  "final_decision": {
+    "verdict": "A. READY FOR CONTROLLED TRAINING",
+    "rationale": "V16 dataset successfully achieved zero syntax errors, zero schema violations, zero train/validation target leakage, significant template rebalancing, and optimal prompt condensation."
+  }
+}

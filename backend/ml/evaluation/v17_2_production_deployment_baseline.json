@@ -1,0 +1,47 @@
+{
+  "deployment_title": "AQPG V17.2 Production Baseline Freeze",
+  "deployed_version": "V17.2",
+  "status": "PRODUCTION BASELINE — DO NOT MODIFY",
+  "timestamp": "2026-09-08T10:25:00Z",
+  "models": {
+    "v17_2_production": {
+      "checkpoint_dir": "backend/ml/models/checkpoints/flan_t5_v17_2/best_model",
+      "model_file": "model.safetensors",
+      "sha256": "e2cfed7ba5fd44ea31c67e352985e42072fb6532ce96222769b573530d3b4954",
+      "status": "FROZEN_ACTIVE"
+    },
+    "v17_1_rollback": {
+      "checkpoint_dir": "backend/ml/models/checkpoints/flan_t5_v17/best_model",
+      "model_file": "model.safetensors",
+      "sha256": "0dd47fe5a6949df9687d08d82bffbfcc85cf4d4f21c2e2964760b6c4df544bf7",
+      "status": "FROZEN_ROLLBACK_AVAILABLE"
+    }
+  },
+  "endpoints": {
+    "frontend_url": "http://localhost:5174",
+    "backend_url": "http://127.0.0.1:8011",
+    "health_url": "http://127.0.0.1:8011/health",
+    "swagger_url": "http://127.0.0.1:8011/docs"
+  },
+  "audit_results": {
+    "phase_a_pre_deployment_audit": "PASS (10/10 checks passed)",
+    "phase_b_local_production_test": "PASS (Multi-subject evaluation matrix certified)",
+    "phase_c_deployment_preparation": "PASS (Zero secrets exposed, clean config)",
+    "phase_d_deployment": "PASS (Local production deployment active)",
+    "phase_e_post_deployment_validation": "PASS (All 10 validation gates certified)"
+  },
+  "safety_declarations": {
+    "training_executed": false,
+    "v17_2_modified": false,
+    "v17_1_modified": false,
+    "dataset_modified": false,
+    "database_modified": false,
+    "remote_model_download": false,
+    "local_files_only_enforced": true
+  },
+  "future_training_rules": {
+    "rule_1": "Next model iteration MUST use a new isolated directory (e.g. V17.3 / V18).",
+    "rule_2": "NEVER overwrite or retrain over backend/ml/models/checkpoints/flan_t5_v17_2/best_model.",
+    "rule_3": "V17.2 must remain frozen for instant rollback capability."
+  }
+}

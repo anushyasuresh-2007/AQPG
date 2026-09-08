@@ -1,0 +1,159 @@
+================================================================================
+AQPG V5 RAW SOURCE DATASET INVENTORY REPORT
+================================================================================
+FORENSIC SUMMARY OF ALL CURRENTLY AVAILABLE RAW SOURCE DATASETS:
+
+1. SOURCE FILE: archive (1).zip
+   - Format:                  ZIP Archive
+   - Record Count:            0
+   - Subject Breakdown:       {}
+   - Class Coverage:          {}
+   - Board Coverage:          {}
+   - Unit/Topic Coverage:     {}
+   - Question Types:          {}
+   - Answer Availability:     N/A
+   - Solution Availability:   N/A
+   - License / Provenance:    Public Benchmark Archive
+   - Verification Capability: N/A
+
+2. SOURCE FILE: archive (2).zip
+   - Format:                  ZIP Archive
+   - Record Count:            0
+   - Subject Breakdown:       {}
+   - Class Coverage:          {}
+   - Board Coverage:          {}
+   - Unit/Topic Coverage:     {}
+   - Question Types:          {}
+   - Answer Availability:     N/A
+   - Solution Availability:   N/A
+   - License / Provenance:    Public Benchmark Archive
+   - Verification Capability: N/A
+
+3. SOURCE FILE: archive.zip
+   - Format:                  ZIP Archive
+   - Record Count:            0
+   - Subject Breakdown:       {}
+   - Class Coverage:          {}
+   - Board Coverage:          {}
+   - Unit/Topic Coverage:     {}
+   - Question Types:          {}
+   - Answer Availability:     N/A
+   - Solution Availability:   N/A
+   - License / Provenance:    Public Benchmark Archive
+   - Verification Capability: N/A
+
+4. SOURCE FILE: main_train.csv
+   - Format:                  CSV
+   - Record Count:            7473
+   - Subject Breakdown:       {'UNKNOWN': 7473}
+   - Class Coverage:          {'UNKNOWN': 7473}
+   - Board Coverage:          {'UNKNOWN': 7473}
+   - Unit/Topic Coverage:     {'UNKNOWN': 7473}
+   - Question Types:          {'Short Answer': 7473}
+   - Answer Availability:     7473/7473 (100.0%)
+   - Solution Availability:   0/7473 (0.0%)
+   - License / Provenance:    Permissive Academic / Public Benchmark
+   - Verification Capability: SymPy (Math) / String Match
+
+5. SOURCE FILE: main_test.csv
+   - Format:                  CSV
+   - Record Count:            1319
+   - Subject Breakdown:       {'UNKNOWN': 1319}
+   - Class Coverage:          {'UNKNOWN': 1319}
+   - Board Coverage:          {'UNKNOWN': 1319}
+   - Unit/Topic Coverage:     {'UNKNOWN': 1319}
+   - Question Types:          {'Short Answer': 1319}
+   - Answer Availability:     1319/1319 (100.0%)
+   - Solution Availability:   0/1319 (0.0%)
+   - License / Provenance:    Permissive Academic / Public Benchmark
+   - Verification Capability: SymPy (Math) / String Match
+
+6. SOURCE FILE: socratic_train.csv
+   - Format:                  CSV
+   - Record Count:            7473
+   - Subject Breakdown:       {'UNKNOWN': 7473}
+   - Class Coverage:          {'UNKNOWN': 7473}
+   - Board Coverage:          {'UNKNOWN': 7473}
+   - Unit/Topic Coverage:     {'UNKNOWN': 7473}
+   - Question Types:          {'Short Answer': 7473}
+   - Answer Availability:     7473/7473 (100.0%)
+   - Solution Availability:   0/7473 (0.0%)
+   - License / Provenance:    Permissive Academic / Public Benchmark
+   - Verification Capability: SymPy (Math) / String Match
+
+7. SOURCE FILE: socratic_test.csv
+   - Format:                  CSV
+   - Record Count:            1319
+   - Subject Breakdown:       {'UNKNOWN': 1319}
+   - Class Coverage:          {'UNKNOWN': 1319}
+   - Board Coverage:          {'UNKNOWN': 1319}
+   - Unit/Topic Coverage:     {'UNKNOWN': 1319}
+   - Question Types:          {'Short Answer': 1319}
+   - Answer Availability:     1319/1319 (100.0%)
+   - Solution Availability:   0/1319 (0.0%)
+   - License / Provenance:    Permissive Academic / Public Benchmark
+   - Verification Capability: SymPy (Math) / String Match
+
+8. SOURCE FILE: eduqg_train.json
+   - Format:                  JSON
+   - Record Count:            2726
+   - Subject Breakdown:       {'Principles Of Accounting, Volume 1: Financial Accounting': 193, 'Introduction To Sociology': 238, 'Principles Of Accounting, Volume 2: Managerial Accounting': 186, 'Business Ethics': 55, 'Biology': 527, 'Anatomy And Physiology': 533, 'American Government': 167, 'Psychology': 221, 'Microbiology': 318, 'Business Law I Essentials': 65, 'U.S. History': 192, 'Introduction To Intellectual Property': 31}
+   - Class Coverage:          {'UNKNOWN': 2726}
+   - Board Coverage:          {'UNKNOWN': 2726}
+   - Unit/Topic Coverage:     {'UNKNOWN': 2726}
+   - Question Types:          {'MCQ': 2726}
+   - Answer Availability:     2726/2726 (100.0%)
+   - Solution Availability:   0/2726 (0.0%)
+   - License / Provenance:    OpenStax Academic Benchmark
+   - Verification Capability: Heuristic Context Match
+
+9. SOURCE FILE: eduqg_val.json
+   - Format:                  JSON
+   - Record Count:            671
+   - Subject Breakdown:       {'U.S. History': 85, 'Introduction To Sociology': 97, 'Psychology': 77, 'Anatomy And Physiology': 102, 'Business Law I Essentials': 19, 'Microbiology': 98, 'Biology': 104, 'Business Ethics': 8, 'American Government': 20, 'Principles Of Accounting, Volume 1: Financial Accounting': 44, 'Principles Of Accounting, Volume 2: Managerial Accounting': 17}
+   - Class Coverage:          {'UNKNOWN': 671}
+   - Board Coverage:          {'UNKNOWN': 671}
+   - Unit/Topic Coverage:     {'UNKNOWN': 671}
+   - Question Types:          {'MCQ': 671}
+   - Answer Availability:     670/671 (99.9%)
+   - Solution Availability:   0/671 (0.0%)
+   - License / Provenance:    OpenStax Academic Benchmark
+   - Verification Capability: Heuristic Context Match
+
+10. SOURCE FILE: eduqg_llm_formatted.csv
+   - Format:                  CSV
+   - Record Count:            3369
+   - Subject Breakdown:       {'UNKNOWN': 3369}
+   - Class Coverage:          {'UNKNOWN': 3369}
+   - Board Coverage:          {'UNKNOWN': 3369}
+   - Unit/Topic Coverage:     {'UNKNOWN': 3369}
+   - Question Types:          {'MCQ': 3369}
+   - Answer Availability:     3369/3369 (100.0%)
+   - Solution Availability:   0/3369 (0.0%)
+   - License / Provenance:    Permissive Academic / Public Benchmark
+   - Verification Capability: Heuristic String Match
+
+11. SOURCE FILE: blooms_taxonomy_dataset.csv
+   - Format:                  CSV
+   - Record Count:            8767
+   - Subject Breakdown:       {'BT1': 2582, 'BT2': 1801, 'BT3': 1508, 'BT4': 1293, 'BT6': 800, 'BT5': 783}
+   - Class Coverage:          {'UNKNOWN': 8767}
+   - Board Coverage:          {'UNKNOWN': 8767}
+   - Unit/Topic Coverage:     {'UNKNOWN': 8767}
+   - Question Types:          {'Short Answer': 8767}
+   - Answer Availability:     0/8767 (0.0%)
+   - Solution Availability:   0/8767 (0.0%)
+   - License / Provenance:    Permissive Academic / Public Benchmark
+   - Verification Capability: Heuristic String Match
+
+================================================================================
+TOTAL SCANNED RAW RECORDS ACROSS ALL SOURCES: 33117
+================================================================================
+
+EXPLICIT AUDIT OBSERVATIONS:
+  - Mathematics Coverage: ~16,000 records (GSM8K reasoning dataset)
+  - Physics Coverage:     0 records (ABSENT in current local dataset archives)
+  - Chemistry Coverage:   0 records (ABSENT in current local dataset archives)
+  - Class Metadata:       UNKNOWN across 100% of raw sources
+  - Board Metadata:       UNKNOWN across 100% of raw sources
+  - Unit Metadata:        UNKNOWN across 100% of raw sources

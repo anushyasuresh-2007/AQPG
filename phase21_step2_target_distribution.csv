@@ -1,0 +1,14 @@
+Dimension / Category,V16 Baseline %,V17 Target %,V17 Target Count,Minimum %,Maximum %,Primary Purpose / Benefit
+Question Type: MCQ,61.55%,35.0%,17500,30.0%,40.0%,Downsampled to prevent MCQ template collapse
+Question Type: Numerical,20.32%,35.0%,17500,30.0%,40.0%,"Expanded across Physics, Math, and Chemistry"
+Question Type: Conceptual,1.38%,25.0%,12500,20.0%,30.0%,Substantially increased to solve 24x benchmark deficit
+Question Type: Short Answer,16.74%,5.0%,2500,3.0%,10.0%,Retained for explanatory sentence variety
+Class: Class 9,6.79%,25.0%,12500,20.0%,30.0%,Equal grade distribution
+Class: Class 10,2.55%,25.0%,12500,20.0%,30.0%,Equal grade distribution
+Class: Class 11,4.62%,25.0%,12500,20.0%,30.0%,Equal grade distribution
+Class: Class 12,3.91%,25.0%,12500,20.0%,30.0%,Equal grade distribution
+Class: UNKNOWN,82.13%,0.0%,0,0.0%,0.0%,ELIMINATED (100% grounded grade metadata)
+Subject: Physics,11.40%,30.0%,15000,25.0%,35.0%,Balanced core STEM subject
+Subject: Chemistry,19.72%,30.0%,15000,25.0%,35.0%,Balanced core STEM subject
+Subject: Mathematics,18.99%,30.0%,15000,25.0%,35.0%,Balanced core STEM subject
+Subject: Bio / GenSci,49.89%,10.0%,5000,5.0%,15.0%,Downsampled generic science

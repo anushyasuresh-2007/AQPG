@@ -1,0 +1,212 @@
+{
+  "v15_template_count": 30646,
+  "v16_template_count": 30646,
+  "v15_top_10_pct": 16.1,
+  "v16_top_10_pct": 12.8,
+  "v15_top_50_pct": 24.05,
+  "v16_top_50_pct": 21.06,
+  "v15_entropy": 12.931,
+  "v16_entropy": 13.2047,
+  "v16_top_50_templates": [
+    [
+      "In a laboratory ...",
+      2160
+    ],
+    [
+      "[X] is a [Y]?",
+      709
+    ],
+    [
+      "Which of the following [X]?",
+      657
+    ],
+    [
+      "What is the [X]?",
+      613
+    ],
+    [
+      "Which of these ...",
+      427
+    ],
+    [
+      "What is [X]?",
+      413
+    ],
+    [
+      "What type of ...",
+      385
+    ],
+    [
+      "What is a [X]?",
+      382
+    ],
+    [
+      "What are [X]?",
+      374
+    ],
+    [
+      "What are the [X]?",
+      368
+    ],
+    [
+      "Which of the following is [X]?",
+      352
+    ],
+    [
+      "How do [X]?",
+      348
+    ],
+    [
+      "What kind of ...",
+      221
+    ],
+    [
+      "How many [X]?",
+      214
+    ],
+    [
+      "What do you ...",
+      203
+    ],
+    [
+      "Define [X].",
+      191
+    ],
+    [
+      "State [X].",
+      187
+    ],
+    [
+      "Which of the following is not [X]?",
+      132
+    ],
+    [
+      "[X] is called what?",
+      131
+    ],
+    [
+      "Which type of ...",
+      128
+    ],
+    [
+      "What is the name of [X]?",
+      118
+    ],
+    [
+      "Find the [X]?",
+      99
+    ],
+    [
+      "Which is the ...",
+      97
+    ],
+    [
+      "How can you ...",
+      95
+    ],
+    [
+      "How would you ...",
+      95
+    ],
+    [
+      "Explain the concept ...",
+      94
+    ],
+    [
+      "An example of ...",
+      91
+    ],
+    [
+      "Why do [X]?",
+      85
+    ],
+    [
+      "What term is ...",
+      82
+    ],
+    [
+      "What does the ...",
+      73
+    ],
+    [
+      "What part of ...",
+      73
+    ],
+    [
+      "What happens to ...",
+      70
+    ],
+    [
+      "All of the ...",
+      70
+    ],
+    [
+      "Draw and explain ...",
+      69
+    ],
+    [
+      "Calculate the [X]?",
+      68
+    ],
+    [
+      "Discuss the principles ...",
+      64
+    ],
+    [
+      "What do we ...",
+      57
+    ],
+    [
+      "A student is ...",
+      56
+    ],
+    [
+      "Which statement best ...",
+      56
+    ],
+    [
+      "What occurs when ...",
+      56
+    ],
+    [
+      "Why is [X]?",
+      55
+    ],
+    [
+      "Determine the [X]?",
+      55
+    ],
+    [
+      "A group of ...",
+      54
+    ],
+    [
+      "[X] is an example of what?",
+      53
+    ],
+    [
+      "Debate the ethical ...",
+      53
+    ],
+    [
+      "Which part of ...",
+      52
+    ],
+    [
+      "Which is an ...",
+      49
+    ],
+    [
+      "What term describes ...",
+      49
+    ],
+    [
+      "Write a short ...",
+      48
+    ],
+    [
+      "which of these ...",
+      47
+    ]
+  ]
+}

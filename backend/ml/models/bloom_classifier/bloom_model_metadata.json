@@ -1,0 +1,16 @@
+{
+  "model_type": "TF-IDF + LogisticRegression (Balanced)",
+  "train_samples": 14277,
+  "test_samples": 3570,
+  "accuracy": 0.6851540616246499,
+  "f1_macro": 0.7218414382967074,
+  "classes": [
+    "Analyze",
+    "Apply",
+    "Create",
+    "Evaluate",
+    "Remember",
+    "Understand"
+  ],
+  "vectorizer_features": 25000
+}
