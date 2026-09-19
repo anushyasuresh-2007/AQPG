@@ -13,7 +13,7 @@ const Register = () => {
     setLoading(true)
     setMessage('')
     try {
-      await api.post('/register', form)
+      await api.post('/api/v1/register', form)
       setMessage('Registration successful. Please log in.')
       navigate('/login')
     } catch (error) {
