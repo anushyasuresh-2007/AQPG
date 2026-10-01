@@ -13,7 +13,7 @@ const Login = () => {
     setLoading(true)
     setMessage('')
     try {
-      const response = await api.post('/login', form)
+      const response = await api.post('/api/v1/login', form)
       setToken(response.data.access_token)
       navigate('/dashboard', { replace: true })
     } catch (error) {
