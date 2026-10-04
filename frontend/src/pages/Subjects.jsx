@@ -8,7 +8,7 @@ const Subjects = () => {
   const [board, setBoard] = useState('CBSE')
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
-  
+
   // Edit State
   const [editingSubject, setEditingSubject] = useState(null)
   const [editForm, setEditForm] = useState({ subject_name: '', class_name: '', board: '' })
@@ -16,7 +16,7 @@ const Subjects = () => {
   const loadSubjects = async () => {
     setLoading(true)
     try {
-      const response = await api.get('/subjects')
+      const response = await api.get('/api/v1/subjects')
       setSubjects(response.data)
       setMessage('')
     } catch (error) {
@@ -31,7 +31,7 @@ const Subjects = () => {
   const addSubject = async (e) => {
     e.preventDefault()
     try {
-      await api.post('/subjects', { subject_name: subjectName, class_name: className, board })
+      await api.post('/api/v1/subjects', { subject_name: subjectName, class_name: className, board })
       setSubjectName('')
       setClassName('12')
       setBoard('CBSE')
@@ -45,7 +45,7 @@ const Subjects = () => {
   const deleteSubject = async (id) => {
     if (!window.confirm('Are you sure you want to delete this subject? This will delete all units and questions under it.')) return
     try {
-      await api.delete(`/subjects/${id}`)
+      await api.delete(`/api/v1/subjects/${id}`)
       setMessage('Subject deleted')
       loadSubjects()
     } catch (error) {
@@ -68,7 +68,7 @@ const Subjects = () => {
 
   const saveEdit = async (id) => {
     try {
-      await api.put(`/subjects/${id}`, editForm)
+      await api.put(`/api/v1/subjects/${id}`, editForm)
       setEditingSubject(null)
       setMessage('Subject updated')
       loadSubjects()
