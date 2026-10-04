@@ -21,7 +21,7 @@ const Curriculum = () => {
   const loadStatus = async () => {
     setLoading(true)
     try {
-      const res = await api.get('/curriculum/status')
+      const res = await api.get('/api/v1/curriculum/status')
       setStatusData(res.data)
       setBoards(res.data.boards || [])
       if (res.data.boards && res.data.boards.length > 0 && !selectedBoardId) {
@@ -44,7 +44,7 @@ const Curriculum = () => {
     if (!selectedBoardId) return
     const fetchClasses = async () => {
       try {
-        const res = await api.get(`/classes?board_id=${selectedBoardId}`)
+        const res = await api.get(`/api/v1/classes?board_id=${selectedBoardId}`)
         setClasses(res.data)
         if (res.data.length > 0) {
           setSelectedClassId(String(res.data[0].id))
@@ -66,7 +66,7 @@ const Curriculum = () => {
     const fetchSubjects = async () => {
       setLoadingCatalog(true)
       try {
-        const res = await api.get(`/subjects?board_id=${selectedBoardId}&class_id=${selectedClassId}`)
+        const res = await api.get(`/api/v1/subjects?board_id=${selectedBoardId}&class_id=${selectedClassId}`)
         setSubjects(res.data)
         if (res.data.length > 0) {
           setSelectedSubjectId(String(res.data[0].id))
@@ -88,7 +88,7 @@ const Curriculum = () => {
     if (!selectedSubjectId) return
     const fetchUnits = async () => {
       try {
-        const res = await api.get(`/units?subject_id=${selectedSubjectId}`)
+        const res = await api.get(`/api/v1/units?subject_id=${selectedSubjectId}`)
         setUnits(res.data)
       } catch (err) {
         // Handled
@@ -101,7 +101,7 @@ const Curriculum = () => {
     setSyncingBoard(boardKey)
     setMessage('')
     try {
-      const res = await api.post('/curriculum/sync', {
+      const res = await api.post('/api/v1/curriculum/sync', {
         board: boardKey,
         academic_year: '2026-27',
       })
@@ -362,7 +362,7 @@ const Curriculum = () => {
               setMessage("Ingesting structured syllabus dataset...");
               setMessageType("info");
               const parsed = JSON.parse(textarea.value);
-              const res = await api.post("/syllabus/import", parsed);
+              const res = await api.post("/api/v1/syllabus/import", parsed);
               setMessage(res.data?.message || "Syllabus dataset successfully ingested!");
               setMessageType("success");
               loadStatus();

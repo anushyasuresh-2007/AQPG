@@ -73,10 +73,10 @@ const Questions = () => {
     setLoading(true)
     try {
       const [questionRes, subjectRes, unitRes, bloomRes] = await Promise.all([
-        api.get('/questions?limit=500'),
-        api.get('/subjects'),
-        api.get('/units'),
-        api.get('/bloom-levels'),
+        api.get('/api/v1/questions?limit=500'),
+        api.get('/api/v1/subjects'),
+        api.get('/api/v1/units'),
+        api.get('/api/v1/bloom-levels'),
       ])
       setQuestions(questionRes.data)
       setSubjects(subjectRes.data)
@@ -156,7 +156,7 @@ const Questions = () => {
     }
 
     try {
-      await api.post('/questions', {
+      await api.post('/api/v1/questions', {
         subject_id: Number(form.subject_id),
         unit_id: Number(form.unit_id),
         bloom_level_id: Number(form.bloom_level_id),
@@ -182,7 +182,7 @@ const Questions = () => {
   const handleDeleteQuestion = async (id) => {
     if (!window.confirm('Are you sure you want to delete this question from the Question Bank?')) return
     try {
-      await api.delete(`/questions/${id}`)
+      await api.delete(`/api/v1/questions/${id}`)
       setMessage('Question deleted successfully.')
       setMessageType('success')
       loadData()
@@ -212,7 +212,7 @@ const Questions = () => {
   // Save Edit
   const handleSaveEdit = async () => {
     try {
-      await api.put(`/questions/${editForm.id}`, {
+      await api.put(`/api/v1/questions/${editForm.id}`, {
         subject_id: Number(editForm.subject_id),
         unit_id: Number(editForm.unit_id),
         bloom_level_id: Number(editForm.bloom_level_id),
@@ -306,7 +306,7 @@ const Questions = () => {
         throw new Error('No valid question rows found in input.')
       }
 
-      const res = await api.post('/questions/bulk-upload', items)
+      const res = await api.post('/api/v1/questions/bulk-upload', items)
       setBulkResult(res.data)
       setMessage(`Bulk Import Complete: ${res.data.successful_count} created, ${res.data.failed_count} failed.`)
       setMessageType(res.data.failed_count === 0 ? 'success' : 'info')
@@ -337,7 +337,7 @@ Data Structures,Unit 3 - Stacks and Queues,Apply,medium,5,Long Answer,"Write alg
     setAiQuestions([])
 
     try {
-      const res = await api.post('/questions/generate-ai', {
+      const res = await api.post('/api/v1/questions/generate-ai', {
         subject_id: Number(aiForm.subject_id),
         unit_id: Number(aiForm.unit_id),
         bloom_level_id: Number(aiForm.bloom_level_id),
@@ -379,7 +379,7 @@ Data Structures,Unit 3 - Stacks and Queues,Apply,medium,5,Long Answer,"Write alg
     let saved = 0
     try {
       for (const item of selected) {
-        await api.post('/questions', {
+        await api.post('/api/v1/questions', {
           subject_id: Number(aiForm.subject_id),
           unit_id: Number(aiForm.unit_id),
           bloom_level_id: Number(aiForm.bloom_level_id),

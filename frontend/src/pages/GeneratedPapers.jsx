@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
+import api, { API_BASE_URL } from "../api";
 
 
 export default function GeneratedPapers() {
@@ -13,7 +13,7 @@ export default function GeneratedPapers() {
   const fetchPapers = async () => {
     try {
       setLoading(true);
-      const res = await api.get("/generated-papers");
+      const res = await api.get("/api/v1/generated-papers");
       setPapers(res.data || []);
       setError("");
     } catch (err) {
@@ -30,7 +30,7 @@ export default function GeneratedPapers() {
   const handleView = async (paperId) => {
     try {
       setPreviewLoading(true);
-      const res = await api.get(`/generated-papers/${paperId}`);
+      const res = await api.get(`/api/v1/generated-papers/${paperId}`);
       setSelectedPaper(res.data);
     } catch (err) {
       alert("Failed to load paper details");
@@ -42,7 +42,7 @@ export default function GeneratedPapers() {
   const handleDelete = async (paperId) => {
     if (!window.confirm("Are you sure you want to delete this question paper?")) return;
     try {
-      await api.delete(`/generated-papers/${paperId}`);
+      await api.delete(`/api/v1/generated-papers/${paperId}`);
       setPapers((prev) => prev.filter((p) => p.paper_id !== paperId && p.id !== paperId));
       if (selectedPaper && (selectedPaper.paper_id === paperId || selectedPaper.id === paperId)) {
         setSelectedPaper(null);
@@ -213,7 +213,7 @@ export default function GeneratedPapers() {
                       <button
                         onClick={() =>
                           downloadFile(
-                            `http://127.0.0.1:8011/api/v1/generated-papers/${p.paper_id}/docx`,
+                            `${API_BASE_URL}/api/v1/generated-papers/${p.paper_id}/docx`,
                             `${p.paper_id}.docx`
                           )
                         }
@@ -225,7 +225,7 @@ export default function GeneratedPapers() {
                       <button
                         onClick={() =>
                           downloadFile(
-                            `http://127.0.0.1:8011/api/v1/generated-papers/${p.paper_id}/pdf`,
+                            `${API_BASE_URL}/api/v1/generated-papers/${p.paper_id}/pdf`,
                             `${p.paper_id}_Exam.pdf`
                           )
                         }
@@ -267,7 +267,7 @@ export default function GeneratedPapers() {
                   <button
                     onClick={() =>
                       downloadFile(
-                        `http://127.0.0.1:8011/api/v1/generated-papers/${selectedPaper.paper_id}/docx`,
+                        `${API_BASE_URL}/api/v1/generated-papers/${selectedPaper.paper_id}/docx`,
                         `${selectedPaper.paper_id}.docx`
                       )
                     }
@@ -278,7 +278,7 @@ export default function GeneratedPapers() {
                   <button
                     onClick={() =>
                       downloadFile(
-                        `http://127.0.0.1:8011/api/v1/generated-papers/${selectedPaper.paper_id}/pdf`,
+                        `${API_BASE_URL}/api/v1/generated-papers/${selectedPaper.paper_id}/pdf`,
                         `${selectedPaper.paper_id}_Exam.pdf`
                       )
                     }
@@ -289,7 +289,7 @@ export default function GeneratedPapers() {
                   <button
                     onClick={() =>
                       downloadFile(
-                        `http://127.0.0.1:8011/api/v1/generated-papers/${selectedPaper.paper_id}/solutions-pdf`,
+                        `${API_BASE_URL}/api/v1/generated-papers/${selectedPaper.paper_id}/solutions-pdf`,
                         `${selectedPaper.paper_id}_Solutions.pdf`
                       )
                     }

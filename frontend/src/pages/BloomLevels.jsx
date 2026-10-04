@@ -14,7 +14,7 @@ const BloomLevels = () => {
   const loadBlooms = async () => {
     setLoading(true)
     try {
-      const response = await api.get('/bloom-levels')
+      const response = await api.get('/api/v1/bloom-levels')
       setBlooms(response.data)
       setMessage('')
     } catch (error) {
@@ -29,7 +29,7 @@ const BloomLevels = () => {
   const addBloom = async (e) => {
     e.preventDefault()
     try {
-      await api.post('/bloom-levels', { level_name: levelName })
+      await api.post('/api/v1/bloom-levels', { level_name: levelName })
       setLevelName('')
       setMessage('Bloom level added')
       loadBlooms()
@@ -41,7 +41,7 @@ const BloomLevels = () => {
   const deleteBloom = async (id) => {
     if (!window.confirm('Are you sure you want to delete this Bloom level?')) return
     try {
-      await api.delete(`/bloom-levels/${id}`)
+      await api.delete(`/api/v1/bloom-levels/${id}`)
       setMessage('Bloom level deleted')
       loadBlooms()
     } catch (error) {
@@ -60,7 +60,7 @@ const BloomLevels = () => {
 
   const saveEdit = async (id) => {
     try {
-      await api.put(`/bloom-levels/${id}`, editForm)
+      await api.put(`/api/v1/bloom-levels/${id}`, editForm)
       setEditingBloom(null)
       setMessage('Bloom level updated')
       loadBlooms()

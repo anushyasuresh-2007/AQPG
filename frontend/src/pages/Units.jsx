@@ -20,7 +20,7 @@ const Units = () => {
   const loadData = async () => {
     setLoading(true)
     try {
-      const [unitResponse, subjectResponse] = await Promise.all([api.get('/units'), api.get('/subjects')])
+      const [unitResponse, subjectResponse] = await Promise.all([api.get('/api/v1/units'), api.get('/api/v1/subjects')])
       setUnits(unitResponse.data)
       setSubjects(subjectResponse.data)
       setMessage('')
@@ -36,7 +36,7 @@ const Units = () => {
   const addUnit = async (e) => {
     e.preventDefault()
     try {
-      await api.post('/units', { unit_name: unitName, subject_id: Number(subjectId) })
+      await api.post('/api/v1/units', { unit_name: unitName, subject_id: Number(subjectId) })
       setUnitName('')
       setSubjectId('')
       setMessage('Unit added')
@@ -49,7 +49,7 @@ const Units = () => {
   const deleteUnit = async (id) => {
     if (!window.confirm('Are you sure you want to delete this unit? This will delete all questions under it.')) return
     try {
-      await api.delete(`/units/${id}`)
+      await api.delete(`/api/v1/units/${id}`)
       setMessage('Unit deleted')
       loadData()
     } catch (error) {
@@ -71,7 +71,7 @@ const Units = () => {
 
   const saveEdit = async (id) => {
     try {
-      await api.put(`/units/${id}`, {
+      await api.put(`/api/v1/units/${id}`, {
         unit_name: editForm.unit_name,
         subject_id: Number(editForm.subject_id)
       })
@@ -93,7 +93,7 @@ const Units = () => {
     setMessage('')
     setFetchedUnits([])
     try {
-      const response = await api.post('/units/fetch-syllabus', {
+      const response = await api.post('/api/v1/units/fetch-syllabus', {
         subject_id: Number(subjectId)
       })
       const items = (response.data.units || []).map((name) => ({
@@ -123,7 +123,7 @@ const Units = () => {
     let count = 0
     try {
       for (const item of toImport) {
-        await api.post('/units', {
+        await api.post('/api/v1/units', {
           unit_name: item.name,
           subject_id: Number(subjectId)
         })

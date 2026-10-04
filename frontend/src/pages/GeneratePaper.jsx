@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api, { getToken, formatApiError } from "../api";
+import api, { API_BASE_URL, getToken, formatApiError } from "../api";
 
 const DIFFICULTY_PRESETS = {
   balanced: { easy: 30, medium: 50, hard: 20, label: "Balanced (30/50/20)" },
@@ -67,7 +67,7 @@ export default function GeneratePaper() {
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        const res = await api.get("/boards");
+        const res = await api.get("/api/v1/boards");
         const bList = res.data || [];
         setBoards(bList);
         if (bList.length > 0) {
@@ -86,7 +86,7 @@ export default function GeneratePaper() {
     if (!selectedBoardObj) return;
     const fetchClasses = async () => {
       try {
-        const res = await api.get(`/classes?board_id=${selectedBoardObj.id}`);
+        const res = await api.get(`/api/v1/classes?board_id=${selectedBoardObj.id}`);
         const classList = res.data || [];
         setClasses(classList);
         if (classList.length > 0) {
@@ -114,7 +114,7 @@ export default function GeneratePaper() {
     if (!selectedBoardObj || !selectedClassObj) return;
     const fetchSubjects = async () => {
       try {
-        const res = await api.get(`/subjects?board_id=${selectedBoardObj.id}&class_id=${selectedClassObj.id}`);
+        const res = await api.get(`/api/v1/subjects?board_id=${selectedBoardObj.id}&class_id=${selectedClassObj.id}`);
         const subList = res.data || [];
         setSubjects(subList);
         if (subList.length > 0) {
@@ -138,7 +138,7 @@ export default function GeneratePaper() {
     if (!selectedSubject) return;
     const fetchUnits = async () => {
       try {
-        const res = await api.get(`/units?subject_id=${selectedSubject}`);
+        const res = await api.get(`/api/v1/units?subject_id=${selectedSubject}`);
         const uList = res.data || [];
         setUnits(uList);
         setSelectedUnits(uList.map((u) => u.id));
@@ -246,7 +246,7 @@ export default function GeneratePaper() {
     setShortageDetails(null);
 
     try {
-      const res = await api.post("/generate-paper", payload);
+      const res = await api.post("/api/v1/generate-paper", payload);
       setGeneratedPaper(res.data);
       setActiveTab("paper");
     } catch (err) {
@@ -675,7 +675,7 @@ export default function GeneratePaper() {
                     <button
                       onClick={() =>
                         downloadFile(
-                          `http://127.0.0.1:8011/api/v1/generated-papers/${generatedPaper.paper_id}/docx`,
+                          `${API_BASE_URL}/api/v1/generated-papers/${generatedPaper.paper_id}/docx`,
                           `${generatedPaper.paper_id}.docx`
                         )
                       }
@@ -686,7 +686,7 @@ export default function GeneratePaper() {
                     <button
                       onClick={() =>
                         downloadFile(
-                          `http://127.0.0.1:8011/api/v1/generated-papers/${generatedPaper.paper_id}/pdf`,
+                          `${API_BASE_URL}/api/v1/generated-papers/${generatedPaper.paper_id}/pdf`,
                           `${generatedPaper.paper_id}_Exam.pdf`
                         )
                       }
@@ -697,7 +697,7 @@ export default function GeneratePaper() {
                     <button
                       onClick={() =>
                         downloadFile(
-                          `http://127.0.0.1:8011/api/v1/generated-papers/${generatedPaper.paper_id}/solutions-pdf`,
+                          `${API_BASE_URL}/api/v1/generated-papers/${generatedPaper.paper_id}/solutions-pdf`,
                           `${generatedPaper.paper_id}_Solutions.pdf`
                         )
                       }

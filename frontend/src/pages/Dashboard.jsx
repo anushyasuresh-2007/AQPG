@@ -13,10 +13,10 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const [subRes, unitRes, questionRes, bloomRes] = await Promise.all([
-          api.get('/subjects'),
-          api.get('/units'),
-          api.get('/questions'),
-          api.get('/bloom-levels'),
+          api.get('/api/v1/subjects'),
+          api.get('/api/v1/units'),
+          api.get('/api/v1/questions'),
+          api.get('/api/v1/bloom-levels'),
         ])
         
         const subjects = subRes.data
