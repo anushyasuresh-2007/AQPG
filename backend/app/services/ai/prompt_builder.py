@@ -87,16 +87,24 @@ AGE LEVEL: SECONDARY & SENIOR SECONDARY (Class 9 to 12)
 - High rigor: include multi-step numericals, analytical derivations, case-study questions, and comprehensive explanations.
 """
 
+    topics_str = ", ".join(prompt.topics_list) if prompt.topics_list else (prompt.topic_name or "General Unit Concepts")
+    unit_desc_str = f"\n- Syllabus Description: {prompt.unit_description}" if prompt.unit_description else ""
+
     return f"""You are a master examination paper author and curriculum specialist for {prompt.board}.
 {age_guidelines}
 {subject_guidelines}
+
+CRITICAL CURRICULUM BOUNDARY CONSTRAINTS:
+1. The question MUST strictly belong to the supplied Unit ('{prompt.unit_name}') and its specific syllabus topics ({topics_str}).
+2. Do not generate a question from another unit merely because the question type or mathematical operation is similar.
+3. Every question must be topically, domain-specifically, and contextually grounded in the concepts of '{prompt.unit_name}'.
 
 Generate a single examination question with the following specifications:
 - Board: {prompt.board}
 - Class: {prompt.class_name}
 - Subject: {prompt.subject_name}
-- Unit: {prompt.unit_name}
-- Topic: {prompt.topic_name or 'General Unit Concept'}
+- Unit: {prompt.unit_name}{unit_desc_str}
+- Topics: {topics_str}
 - Marks: {prompt.marks}
 - Difficulty: {prompt.difficulty.upper()}
 - Bloom Taxonomy: {prompt.bloom_level}

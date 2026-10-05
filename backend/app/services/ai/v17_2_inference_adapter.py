@@ -8,21 +8,52 @@ Enforces strict read-only guarantees:
 - Fails safely with explicit RuntimeError if V17.2 local weights are not present
 """
 
+import hashlib
 import os
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 import torch
 
 from app.services.ai.base import AIQuestionPrompt, BaseAIProvider, GeneratedQuestionResult
 
-REQUIRED_CHECKPOINT_FILES = [
-    "config.json",
-    ["model.safetensors", "pytorch_model.bin"],
-]
+EXPECTED_V17_2_FILE_HASHES = {
+    "config.json": "8175ff688ac72a8aeb00416a323fb536a51f25b3e4b28eea48ab9efaee3047cd",
+    "generation_config.json": "196b3297c73e8b686aa1c3bc1fe99b17362ddd682354a710a6f07c697eb6e273",
+    "model.safetensors": "e2cfed7ba5fd44ea31c67e352985e42072fb6532ce96222769b573530d3b4954",
+    "special_tokens_map.json": "65d84a9271d68f1230ab99518c00f0f7eaef95c7b363001595ba6fa662d434b1",
+    "tokenizer.json": "8c3804f01b141a4f28649b2ff899f7eb3bedad28fd898f8c38b7dbc70db700bf",
+    "tokenizer_config.json": "ebc3fede7a53346b49346d8e8fbb7d664b9b448f559660c36195bb19e2d5eaaa",
+}
 
 DEFAULT_V17_2_PATHS = [
     "backend/ml/models/checkpoints/flan_t5_v17_2/best_model",
     "backend/ml/models/checkpoints/flan_t5_v17_2",
 ]
+
+
+def verify_v17_2_checkpoint(path: str) -> bool:
+    """Verify the exact approved V17.2 checkpoint files and hashes."""
+    checkpoint = Path(path)
+    if not checkpoint.is_dir():
+        return False
+
+    for filename, expected_hash in EXPECTED_V17_2_FILE_HASHES.items():
+        file_path = checkpoint / filename
+        if not file_path.is_file():
+            return False
+
+        digest = hashlib.sha256()
+        try:
+            with file_path.open("rb") as artifact:
+                for chunk in iter(lambda: artifact.read(1024 * 1024), b""):
+                    digest.update(chunk)
+        except OSError:
+            return False
+
+        if digest.hexdigest() != expected_hash:
+            return False
+
+    return True
 
 
 class V17_2InferenceAdapter(BaseAIProvider):
@@ -41,8 +72,7 @@ class V17_2InferenceAdapter(BaseAIProvider):
         env_path = os.getenv("V17_2_MODEL_PATH")
         if env_path:
             abs_env_path = os.path.abspath(env_path)
-            if self._verify_checkpoint_integrity(abs_env_path):
-                return abs_env_path
+            return abs_env_path if self._verify_checkpoint_integrity(abs_env_path) else None
 
         # 1. Try relative to __file__
         file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -63,18 +93,8 @@ class V17_2InferenceAdapter(BaseAIProvider):
         return None
 
     def _verify_checkpoint_integrity(self, path: str) -> bool:
-        """Verify that directory exists and contains complete model files."""
-        if not path or not os.path.exists(path) or not os.path.isdir(path):
-            return False
-
-        for req in REQUIRED_CHECKPOINT_FILES:
-            if isinstance(req, list):
-                if not any(os.path.exists(os.path.join(path, f)) for f in req):
-                    return False
-            else:
-                if not os.path.exists(os.path.join(path, req)):
-                    return False
-        return True
+        """Verify that the exact approved V17.2 checkpoint is present."""
+        return bool(path) and verify_v17_2_checkpoint(path)
 
     def is_available(self) -> bool:
         """Return True only if a valid V17.2 model path with weight files is present."""
@@ -134,7 +154,8 @@ class V17_2InferenceAdapter(BaseAIProvider):
 
         if prompt is not None:
             subj = prompt.subject_name
-            top = prompt.topic_name or prompt.unit_name
+            topics_str = ", ".join(prompt.topics_list) if getattr(prompt, "topics_list", None) else (prompt.topic_name or "")
+            top = f"{prompt.unit_name} - {topics_str}" if topics_str else prompt.unit_name
             diff = prompt.difficulty
             q_type = prompt.question_type
             m = prompt.marks

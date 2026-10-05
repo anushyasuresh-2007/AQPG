@@ -38,6 +38,58 @@ def compute_question_hash(text: str) -> str:
     return hashlib.md5(norm.encode("utf-8")).hexdigest()
 
 
+def compute_structural_hash(text: str) -> str:
+    """Compute structural hash by normalizing numeric constants to placeholders to detect template repetition."""
+    norm = normalize_text_for_comparison(text)
+    struct_norm = re.sub(r"\d+(\.\d+)?", "#NUM", norm)
+    struct_norm = re.sub(r"[²³⁴⁵⁶⁷⁸⁹]", "^#NUM", struct_norm)
+    return hashlib.md5(struct_norm.encode("utf-8")).hexdigest()
+
+
+def validate_unit_relevance(
+    question_text: str,
+    unit_name: str,
+    unit_description: Optional[str] = None,
+    topics_list: Optional[List[str]] = None,
+) -> bool:
+    """Post-generation gate checking whether question text is topically related to assigned unit."""
+    if not question_text or not question_text.strip():
+        return False
+
+    q_lower = question_text.lower()
+    u_lower = unit_name.lower()
+
+    # 1. Conflict Check: Quadratic Solver Questions
+    quad_solver_terms = ["quadratic formula", "nature of roots", "b² - 4ac", "discriminant"]
+    if any(term in q_lower for term in quad_solver_terms):
+        allowed_quad_units = ["quadratic", "algebra", "polynomial", "equation"]
+        if not any(w in u_lower for w in allowed_quad_units):
+            return False
+
+    # 2. Conflict Check: Trigonometric Elevation / Ratio Questions
+    trig_terms = ["angle of elevation", "angle of depression", "sin θ", "cos θ", "tan θ", "height of chimney", "speed of the stream", "motor boat"]
+    if any(term in q_lower for term in trig_terms):
+        allowed_trig_units = ["trigonometry", "height", "distance", "triangle", "application"]
+        if not any(w in u_lower for w in allowed_trig_units):
+            return False
+
+    # 3. Conflict Check: Statistics / Frequency / Probability Questions
+    stats_terms = ["frequency distribution", "mean of", "median of", "probability of", "two-digit number", "die is thrown"]
+    if any(term in q_lower for term in stats_terms):
+        allowed_stats_units = ["statistic", "probability", "data", "frequency"]
+        if not any(w in u_lower for w in allowed_stats_units):
+            return False
+
+    # 4. Conflict Check: Coordinate Geometry
+    coord_terms = ["coordinate", "distance between", "section formula", "collinear", "midpoint"]
+    if any(term in q_lower for term in coord_terms):
+        allowed_coord_units = ["coordinate", "geometry"]
+        if not any(w in u_lower for w in allowed_coord_units):
+            return False
+
+    return True
+
+
 def _find_exact_question_subset(
     questions: List[Question],
     required_marks: int,
@@ -203,8 +255,20 @@ def generate_question_paper(
 
     selected_questions: List[Dict[str, Any]] = []
     used_question_hashes: Set[str] = set()
+    used_structural_hashes: Set[str] = set()
     used_question_ids: Set[int] = set()
     shortages: List[Dict[str, Any]] = []
+
+    # Build curriculum context map for selected units
+    unit_curriculum_context = {}
+    for uid, u in unit_map.items():
+        topics = db.query(Topic).filter(Topic.unit_id == u.id, Topic.active == True).order_by(Topic.topic_number.asc()).all()
+        topic_names = [t.topic_name for t in topics]
+        unit_curriculum_context[uid] = {
+            "unit": u,
+            "description": u.description or "",
+            "topics": topic_names,
+        }
 
     # =========================================================================
     # STEP 1: QUERY APPROVED QUESTION BANK (unless source_mode == 'ai')
@@ -245,6 +309,7 @@ def generate_question_paper(
                 for q in subset:
                     used_question_ids.add(q.id)
                     used_question_hashes.add(compute_question_hash(q.question_text))
+                    used_structural_hashes.add(compute_structural_hash(q.question_text))
                     selected_questions.append({
                         "question_id": q.id,
                         "question": q.question_text,
@@ -270,6 +335,7 @@ def generate_question_paper(
                 for q in partial_qs:
                     used_question_ids.add(q.id)
                     used_question_hashes.add(compute_question_hash(q.question_text))
+                    used_structural_hashes.add(compute_structural_hash(q.question_text))
                     selected_questions.append({
                         "question_id": q.id,
                         "question": q.question_text,
@@ -369,32 +435,101 @@ def generate_question_paper(
                 else:
                     q_type = "MCQ"
 
-                assigned_unit_id = unit_ids_to_use[unit_cycle % len(unit_ids_to_use)]
+                target_unit_id = unit_ids_to_use[unit_cycle % len(unit_ids_to_use)]
                 unit_cycle += 1
-                assigned_unit = unit_map[assigned_unit_id]
+                curr_context = unit_curriculum_context[target_unit_id]
+                target_unit = curr_context["unit"]
+                target_desc = curr_context["description"]
+                target_topics = curr_context["topics"]
 
                 prompt = AIQuestionPrompt(
                     board=resolved_board,
                     class_name=resolved_class,
                     subject_name=subject.subject_name,
-                    unit_name=assigned_unit.unit_name,
-                    topic_name=None,
+                    unit_name=target_unit.unit_name,
+                    topic_name=target_topics[0] if target_topics else None,
                     marks=q_mark,
                     difficulty=difficulty or "medium",
                     bloom_level=bloom_obj.level_name,
                     question_type=q_type,
+                    unit_description=target_desc,
+                    topics_list=target_topics,
                 )
 
-                gen_res = ai_generator.generate_question(prompt)
+                gen_res = None
+                MAX_RETRIES = 4
+                for attempt in range(MAX_RETRIES):
+                    candidate = ai_generator.generate_question(prompt)
+                    if not candidate:
+                        from app.services.ai.generator_factory import OfflineFallbackProvider
+                        candidate = OfflineFallbackProvider().generate_question(prompt)
+
+                    if not candidate or not candidate.question_text:
+                        continue
+
+                    q_text = candidate.question_text.strip()
+                    q_h = compute_question_hash(q_text)
+                    s_h = compute_structural_hash(q_text)
+
+                    # Reject duplicates
+                    if (q_h in used_question_hashes) or (s_h in used_structural_hashes):
+                        continue
+
+                    # Validate unit relevance gate
+                    if not validate_unit_relevance(q_text, target_unit.unit_name, target_desc, target_topics):
+                        continue
+
+                    gen_res = candidate
+                    gen_res.question_text = q_text
+                    used_question_hashes.add(q_h)
+                    used_structural_hashes.add(s_h)
+                    break
+
                 if not gen_res:
-                    from app.services.ai.generator_factory import OfflineFallbackProvider
-                    gen_res = OfflineFallbackProvider().generate_question(prompt)
+                    # Retry with alternate selected units if initial unit template generation failed
+                    for alt_uid in unit_ids_to_use:
+                        if alt_uid == target_unit_id:
+                            continue
+                        alt_context = unit_curriculum_context[alt_uid]
+                        alt_unit = alt_context["unit"]
+                        alt_prompt = AIQuestionPrompt(
+                            board=resolved_board,
+                            class_name=resolved_class,
+                            subject_name=subject.subject_name,
+                            unit_name=alt_unit.unit_name,
+                            topic_name=alt_context["topics"][0] if alt_context["topics"] else None,
+                            marks=q_mark,
+                            difficulty=difficulty or "medium",
+                            bloom_level=bloom_obj.level_name,
+                            question_type=q_type,
+                            unit_description=alt_context["description"],
+                            topics_list=alt_context["topics"],
+                        )
+                        candidate = ai_generator.generate_question(alt_prompt)
+                        if not candidate:
+                            from app.services.ai.generator_factory import OfflineFallbackProvider
+                            candidate = OfflineFallbackProvider().generate_question(alt_prompt)
+                        if candidate and candidate.question_text:
+                            q_text = candidate.question_text.strip()
+                            q_h = compute_question_hash(q_text)
+                            s_h = compute_structural_hash(q_text)
+                            if (q_h not in used_question_hashes) and (s_h not in used_structural_hashes):
+                                if validate_unit_relevance(q_text, alt_unit.unit_name, alt_context["description"], alt_context["topics"]):
+                                    gen_res = candidate
+                                    gen_res.question_text = q_text
+                                    target_unit_id = alt_uid
+                                    target_unit = alt_unit
+                                    used_question_hashes.add(q_h)
+                                    used_structural_hashes.add(s_h)
+                                    break
 
-                q_hash = compute_question_hash(gen_res.question_text)
-                if q_hash in used_question_hashes:
-                    gen_res.question_text += f" (Variation {random.randint(10, 99)})"
+                if not gen_res:
+                    raise ValueError(
+                        f"Unable to generate unit-aligned question for subject '{subject.subject_name}' ({target_unit.unit_name}). "
+                        f"Please ensure valid AI credentials or Question Bank entries are available."
+                    )
 
-                used_question_hashes.add(compute_question_hash(gen_res.question_text))
+                assigned_unit = target_unit
 
                 # Persist new AI question into Question Bank for future reuse!
                 new_q = Question(

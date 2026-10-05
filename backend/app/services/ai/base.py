@@ -16,6 +16,8 @@ class AIQuestionPrompt:
     difficulty: str  # "easy", "medium", "hard"
     bloom_level: str  # "Remember", "Understand", "Apply", "Analyze", "Evaluate", "Create"
     question_type: str  # "MCQ", "Short Answer", "Long Answer", "Numerical", "Application Based", etc.
+    unit_description: Optional[str] = None
+    topics_list: Optional[List[str]] = None
 
 
 @dataclass
