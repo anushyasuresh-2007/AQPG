@@ -127,6 +127,36 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
         res = fallback.generate_question(prompt)
         self.assertIsNone(res, "OfflineFallbackProvider must return None for unmapped math units.")
 
+    def test_11_unit_relevance_uses_description_and_topics_context(self):
+        """TEST 11: validate_unit_relevance uses unit_description and topics_list when unit_name is generic."""
+        q_text = "Find the distance between the points A(2, 3) and B(5, 7) in the coordinate plane."
+        is_valid = validate_unit_relevance(
+            q_text,
+            unit_name="Unit 4",
+            unit_description="Analytical geometry including Cartesian plane calculations",
+            topics_list=["Coordinate Geometry", "Distance Formula"],
+        )
+        self.assertTrue(is_valid, "validate_unit_relevance must accept coordinate questions when topics_list contains Coordinate Geometry.")
+
+    def test_12_generic_geometry_unit_does_not_route_to_coordinate_fallback(self):
+        """TEST 12: Generic Geometry units like 'Geometry of Circles' must not route to Coordinate Geometry fallback templates."""
+        fallback = OfflineFallbackProvider()
+        prompt = AIQuestionPrompt(
+            board="CBSE",
+            class_name="Class 10",
+            subject_name="Mathematics",
+            unit_name="Geometry of Circles",
+            topic_name="Circles",
+            marks=2,
+            difficulty="medium",
+            bloom_level="Understand",
+            question_type="Short Answer",
+        )
+        res = fallback.generate_question(prompt)
+        self.assertIsNotNone(res)
+        self.assertNotIn("coordinate plane", res.question_text.lower())
+        self.assertNotIn("distance between the points", res.question_text.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

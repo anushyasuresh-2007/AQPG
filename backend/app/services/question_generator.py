@@ -18,6 +18,7 @@ from app.models.board import Board
 from app.models.generated_paper import GeneratedPaper
 from app.models.question import Question
 from app.models.subject import Subject
+from app.models.topic import Topic
 from app.models.unit import Unit
 from app.services.ai.base import AIQuestionPrompt
 from app.services.ai.generator_factory import get_ai_generator
@@ -57,34 +58,80 @@ def validate_unit_relevance(
         return False
 
     q_lower = question_text.lower()
-    u_lower = unit_name.lower()
 
-    # 1. Conflict Check: Quadratic Solver Questions
-    quad_solver_terms = ["quadratic formula", "nature of roots", "b² - 4ac", "discriminant"]
+    search_context = [unit_name.lower()]
+    if unit_description:
+        search_context.append(unit_description.lower())
+    if topics_list:
+        search_context.extend([t.lower() for t in topics_list])
+
+    context_str = " ".join(search_context)
+
+    quad_solver_terms = [
+        "quadratic formula",
+        "nature of roots",
+        "b² - 4ac",
+        "discriminant",
+    ]
     if any(term in q_lower for term in quad_solver_terms):
-        allowed_quad_units = ["quadratic", "algebra", "polynomial", "equation"]
-        if not any(w in u_lower for w in allowed_quad_units):
+        allowed_quad_units = [
+            "quadratic",
+            "algebra",
+            "polynomial",
+            "equation",
+        ]
+        if not any(w in context_str for w in allowed_quad_units):
             return False
 
-    # 2. Conflict Check: Trigonometric Elevation / Ratio Questions
-    trig_terms = ["angle of elevation", "angle of depression", "sin θ", "cos θ", "tan θ", "height of chimney", "speed of the stream", "motor boat"]
+    trig_terms = [
+        "angle of elevation",
+        "angle of depression",
+        "sin θ",
+        "cos θ",
+        "tan θ",
+        "height of chimney",
+        "speed of the stream",
+        "motor boat",
+    ]
     if any(term in q_lower for term in trig_terms):
-        allowed_trig_units = ["trigonometry", "height", "distance", "triangle", "application"]
-        if not any(w in u_lower for w in allowed_trig_units):
+        allowed_trig_units = [
+            "trigonometry",
+            "height",
+            "distance",
+            "triangle",
+            "application",
+        ]
+        if not any(w in context_str for w in allowed_trig_units):
             return False
 
-    # 3. Conflict Check: Statistics / Frequency / Probability Questions
-    stats_terms = ["frequency distribution", "mean of", "median of", "probability of", "two-digit number", "die is thrown"]
+    stats_terms = [
+        "frequency distribution",
+        "mean of",
+        "median of",
+        "probability of",
+        "two-digit number",
+        "die is thrown",
+    ]
     if any(term in q_lower for term in stats_terms):
-        allowed_stats_units = ["statistic", "probability", "data", "frequency"]
-        if not any(w in u_lower for w in allowed_stats_units):
+        allowed_stats_units = [
+            "statistic",
+            "probability",
+            "data",
+            "frequency",
+        ]
+        if not any(w in context_str for w in allowed_stats_units):
             return False
 
-    # 4. Conflict Check: Coordinate Geometry
-    coord_terms = ["coordinate", "distance between", "section formula", "collinear", "midpoint"]
+    coord_terms = [
+        "coordinate",
+        "distance between",
+        "section formula",
+        "collinear",
+        "midpoint",
+    ]
     if any(term in q_lower for term in coord_terms):
-        allowed_coord_units = ["coordinate", "geometry"]
-        if not any(w in u_lower for w in allowed_coord_units):
+        allowed_coord_units = ["coordinate"]
+        if not any(w in context_str for w in allowed_coord_units):
             return False
 
     return True

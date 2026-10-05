@@ -26,7 +26,7 @@ class OfflineFallbackProvider(BaseAIProvider):
         # Subject-specific realistic questions
         if "math" in subj:
             # Check unit category for unit-grounded fallback templates
-            if any(w in u_lower for w in ["coordinate", "geometry"]):
+            if "coordinate" in u_lower:
                 if marks <= 2:
                     p1 = (random.randint(1, 5), random.randint(1, 5))
                     p2 = (p1[0] + 3, p1[1] + 4)
