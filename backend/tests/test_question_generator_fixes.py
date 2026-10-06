@@ -158,5 +158,48 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
         self.assertNotIn("distance between the points", res.question_text.lower())
 
 
+    def test_production_failure_cases_A_to_J(self):
+        """Regression test suite covering production failure cases A through J."""
+        quad_q = "Solve x² + 5x + 6 = 0 using quadratic formula."
+        boat_q = "A motor boat whose speed is 15 km/h in still water goes 30 km downstream and returns upstream in 4 hours 30 minutes. Find speed of the stream."
+
+        # A. Trigonometry + quadratic -> REJECT
+        self.assertFalse(validate_unit_relevance(quad_q, "Trigonometry"))
+
+        # B. Coordinate Geometry + quadratic -> REJECT
+        self.assertFalse(validate_unit_relevance(quad_q, "Coordinate Geometry"))
+
+        # C. Statistics and Probability + quadratic -> REJECT
+        self.assertFalse(validate_unit_relevance(quad_q, "Statistics and Probability"))
+
+        # D. Mensuration + quadratic -> REJECT
+        self.assertFalse(validate_unit_relevance(quad_q, "Mensuration"))
+
+        # E. Relations and Functions + quadratic -> REJECT
+        self.assertFalse(validate_unit_relevance(quad_q, "Relations and Functions"))
+
+        # F. Algebra / Quadratics + quadratic -> ACCEPT
+        self.assertTrue(validate_unit_relevance(quad_q, "Quadratic Equations"))
+
+        # G. Mensuration + motor boat problem -> REJECT
+        self.assertFalse(validate_unit_relevance(boat_q, "Mensuration"))
+
+        # H. Correct unit/category question -> ACCEPT
+        mens_q = "Find the volume of a solid cylinder of radius 5 cm and height 10 cm."
+        self.assertTrue(validate_unit_relevance(mens_q, "Mensuration"))
+
+        # I. Same structural quadratic template with different coefficients -> Structural Duplicate
+        q1 = "Solve x² + 5x + 6 = 0 using quadratic formula."
+        q2 = "Solve x² + 3x - 10 = 0 using quadratic formula."
+        q3 = "Solve x² - 8x + 15 = 0 using quadratic formula."
+        self.assertEqual(compute_structural_hash(q1), compute_structural_hash(q2))
+        self.assertEqual(compute_structural_hash(q1), compute_structural_hash(q3))
+
+        # J. Generated text containing "(Variation 49)" must normalize to same hash as base question
+        var_q = "Solve x² + 5x + 6 = 0 using quadratic formula (Variation 49)"
+        self.assertEqual(compute_question_hash(q1), compute_question_hash(var_q))
+        self.assertEqual(compute_structural_hash(q1), compute_structural_hash(var_q))
+
+
 if __name__ == "__main__":
     unittest.main()

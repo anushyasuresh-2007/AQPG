@@ -96,8 +96,9 @@ AGE LEVEL: SECONDARY & SENIOR SECONDARY (Class 9 to 12)
 
 CRITICAL CURRICULUM BOUNDARY CONSTRAINTS:
 1. The question MUST strictly belong to the supplied Unit ('{prompt.unit_name}') and its specific syllabus topics ({topics_str}).
-2. Do not generate a question from another unit merely because the question type or mathematical operation is similar.
-3. Every question must be topically, domain-specifically, and contextually grounded in the concepts of '{prompt.unit_name}'.
+2. Do not generate a quadratic equation / formula question unless the requested unit is explicitly Algebra / Quadratics.
+3. Do not include parenthetical metadata tags such as '(Unit ...)', '(Chapter ...)', or '(Variation XX)' anywhere in the question text.
+4. Every question must be topically, domain-specifically, and contextually grounded in the concepts of '{prompt.unit_name}'.
 
 Generate a single examination question with the following specifications:
 - Board: {prompt.board}

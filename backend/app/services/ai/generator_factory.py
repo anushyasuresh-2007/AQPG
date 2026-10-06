@@ -25,8 +25,11 @@ class OfflineFallbackProvider(BaseAIProvider):
 
         # Subject-specific realistic questions
         if "math" in subj:
+            from app.services.question_generator import classify_unit_category
+            category = classify_unit_category(prompt.unit_name, prompt.unit_description, prompt.topics_list)
+
             # Check unit category for unit-grounded fallback templates
-            if "coordinate" in u_lower:
+            if category == "COORDINATE_GEOMETRY":
                 if marks <= 2:
                     p1 = (random.randint(1, 5), random.randint(1, 5))
                     p2 = (p1[0] + 3, p1[1] + 4)
@@ -39,7 +42,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"Determine the ratio in which the line 2x + y - 4 = 0 divides the line segment joining the points A(2, -2) and B(3, 7)."
                     ans = f"Let ratio be k:1. Point on line is P((3k+2)/(k+1), (7k-2)/(k+1)). Substituting into line equation gives k = 2/9."
 
-            elif any(w in u_lower for w in ["trigonometry", "height", "distance"]):
+            elif category == "TRIGONOMETRY":
                 if marks <= 2:
                     q_text = f"Evaluate the trigonometric expression: 2 tan²(45°) + cos²(30°) - sin²(60°)."
                     ans = f"2(1)² + (√3/2)² - (√3/2)² = 2 + 3/4 - 3/4 = 2."
@@ -50,7 +53,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"Prove the trigonometric identity: (sin θ - 2 sin³ θ) / (2 cos³ θ - cos θ) = tan θ."
                     ans = f"LHS = sin θ(1 - 2 sin² θ) / cos θ(2 cos² θ - 1) = tan θ(cos 2θ / cos 2θ) = tan θ = RHS."
 
-            elif any(w in u_lower for w in ["statistic", "probability", "data"]):
+            elif category == "STATISTICS_PROBABILITY":
                 if marks <= 2:
                     q_text = f"A die is thrown once. Find the probability of getting a prime number."
                     ans = f"Total outcomes = 6. Prime numbers = {{2, 3, 5}} (3 outcomes). P(prime) = 3/6 = 1/2."
@@ -61,7 +64,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"Find the mean of the following frequency distribution: Class intervals 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 5, 8, 15, 12, 10 respectively."
                     ans = f"Using ∑(f*x)/∑f: Midpoints x = 5, 15, 25, 35, 45. ∑(f*x) = 25+120+375+420+450 = 1390. ∑f = 50. Mean = 1390/50 = 27.8."
 
-            elif any(w in u_lower for w in ["quadratic", "algebra", "polynomial", "equation"]):
+            elif category == "ALGEBRA_QUADRATICS":
                 if marks <= 2:
                     val_x = random.randint(2, 9)
                     val_a = random.choice([2, 3, 4, 5])
@@ -82,7 +85,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"The sum of the reciprocals of Rehman's ages 3 years ago and 5 years from now is 1/3. Find his present age."
                     ans = f"Let present age be x. 1/(x-3) + 1/(x+5) = 1/3 => x² - 4x - 21 = 0 => (x-7)(x+3) = 0 => x = 7 years."
 
-            elif any(w in u_lower for w in ["number", "sequence", "progression", "arithmetic", "real"]):
+            elif category == "NUMBERS_SEQUENCES":
                 if marks <= 2:
                     q_text = f"Find the HCF and LCM of 96 and 404 using the prime factorization method."
                     ans = f"96 = 2⁵ * 3, 404 = 2² * 101. HCF = 2² = 4. LCM = (96 * 404) / 4 = 9696."
@@ -93,7 +96,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"Prove that √5 is an irrational number using the method of contradiction."
                     ans = f"Assume √5 = a/b co-prime. 5b² = a² => 5 divides a. Let a = 5c => 5b² = 25c² => b² = 5c² => 5 divides b. Contradicts co-prime assumption. Thus √5 is irrational."
 
-            elif any(w in u_lower for w in ["circle", "similarity", "theorem"]):
+            elif category == "GEOMETRY":
                 if marks <= 2:
                     q_text = f"State the Basic Proportionality Theorem (Thales Theorem) for triangles."
                     ans = f"If a line is drawn parallel to one side of a triangle to intersect the other two sides in distinct points, the other two sides are divided in the same ratio."
@@ -104,7 +107,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"State and prove Pythagoras Theorem for a right-angled triangle."
                     ans = f"Statement: In a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. Proof via similar triangles △ABD ~ △ABC and △CBD ~ △ABC."
 
-            elif any(w in u_lower for w in ["mensuration", "surface area", "volume"]):
+            elif category == "MENSURATION":
                 if marks <= 2:
                     q_text = f"Find the area of a sector of a circle of radius 6 cm if the central angle is 60°."
                     ans = f"Area = (θ/360°) * π * r² = (60/360) * (22/7) * 36 = 18.86 cm²."
@@ -115,7 +118,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     q_text = f"A wooden article was made by scooping out a hemisphere from each end of a solid cylinder of height 10 cm and base radius 3.5 cm. Find the total surface area of the article."
                     ans = f"TSA = CSA of cylinder + 2 * CSA of hemisphere = 2πrh + 2*(2πr²) = 2πr(h + 2r) = 2*(22/7)*3.5*(10 + 7) = 374 cm²."
 
-            elif any(w in u_lower for w in ["relation", "function", "set"]):
+            elif category == "RELATIONS_FUNCTIONS":
                 if marks <= 2:
                     q_text = f"Determine whether the relation R in the set Z of integers defined by R = {{(x,y): x - y is an integer}} is reflexive and symmetric."
                     ans = f"Reflexive: x - x = 0 (integer) => (x,x) ∈ R. Symmetric: if x - y = k, y - x = -k (integer) => (y,x) ∈ R. Both hold."

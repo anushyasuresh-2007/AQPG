@@ -24,10 +24,17 @@ from app.services.ai.base import AIQuestionPrompt
 from app.services.ai.generator_factory import get_ai_generator
 
 
+def clean_generated_question_text(text: str) -> str:
+    """Clean question text by stripping parenthetical metadata like (Unit 1 - AP), (Chapter 3), or (Variation 49)."""
+    if not text:
+        return ""
+    cleaned = re.sub(r"\s*\([^)]*(?:unit|chapter|variation)[^)]*\)", "", text, flags=re.IGNORECASE)
+    return cleaned.strip()
+
+
 def normalize_text_for_comparison(text: str) -> str:
     """Normalize question text for similarity/duplicate checking."""
-    # Strip any ending unit/chapter parenthetical tags e.g. (Unit 1 - Matrices) or (Chapter 3)
-    text = re.sub(r"\s*\([^)]*(?:unit|chapter)[^)]*\)\s*$", "", text, flags=re.IGNORECASE)
+    text = clean_generated_question_text(text)
     text = text.lower()
     text = re.sub(r"[^\w\s]", "", text)
     return " ".join(text.split())
@@ -47,6 +54,146 @@ def compute_structural_hash(text: str) -> str:
     return hashlib.md5(struct_norm.encode("utf-8")).hexdigest()
 
 
+def classify_unit_category(
+    unit_name: str,
+    unit_description: Optional[str] = None,
+    topics_list: Optional[List[str]] = None,
+) -> str:
+    """Classify requested unit context into a canonical mathematics curriculum category."""
+    context_items = [unit_name.lower()]
+    if unit_description:
+        context_items.append(unit_description.lower())
+    if topics_list:
+        context_items.extend([t.lower() for t in topics_list])
+
+    ctx = " ".join(context_items)
+
+    # 1. Coordinate Geometry (check before generic geometry)
+    if any(w in ctx for w in ["coordinate", "cartesian", "section formula", "distance formula", "collinear"]):
+        return "COORDINATE_GEOMETRY"
+
+    # 2. Trigonometry
+    if any(w in ctx for w in ["trigonometry", "trigonometric", "heights and distances", "heights & distances", "elevation", "depression"]):
+        return "TRIGONOMETRY"
+
+    # 3. Statistics & Probability
+    if any(w in ctx for w in ["statistic", "statistics", "probability", "frequency", "mean", "median", "mode", "ogive", "data handling"]):
+        return "STATISTICS_PROBABILITY"
+
+    # 4. Mensuration
+    if any(w in ctx for w in ["mensuration", "surface area", "surface areas", "volume", "volumes", "sector", "segment of a circle", "area related to circles"]):
+        return "MENSURATION"
+
+    # 5. Relations and Functions
+    if any(w in ctx for w in ["relation", "relations", "function", "functions", "set", "sets", "bijective", "equivalence relation"]):
+        return "RELATIONS_FUNCTIONS"
+
+    # 6. Numbers & Sequences / Real Numbers & AP
+    if any(w in ctx for w in ["arithmetic progression", "progression", "ap", "real number", "real numbers", "number system", "number systems", "sequence", "sequences", "hcf", "lcm", "euclid"]):
+        return "NUMBERS_SEQUENCES"
+
+    # 7. Pure Geometry / Circles / Triangles / Theorems
+    if any(w in ctx for w in ["geometry", "circle", "circles", "triangle", "triangles", "similarity", "similar triangles", "theorem", "tangent"]):
+        return "GEOMETRY"
+
+    # 8. Algebra / Quadratics / Polynomials / Linear Equations / Matrices
+    if any(w in ctx for w in ["quadratic", "quadratics", "polynomial", "polynomials", "algebra", "algebraic", "linear equation", "linear equations", "matrix", "matrices", "determinant", "equation"]):
+        return "ALGEBRA_QUADRATICS"
+
+    return "OTHER"
+
+
+def get_question_signatures(question_text: str) -> Set[str]:
+    """Detect domain/category signatures present in the question text."""
+    q_lower = question_text.lower()
+    signatures = set()
+
+    # Quadratic / Pure Algebra signatures
+    quad_terms = [
+        "quadratic formula",
+        "quadratic equation",
+        "nature of roots",
+        "b² - 4ac",
+        "b^2 - 4ac",
+        "b²-4ac",
+        "discriminant",
+        "speed of the stream",
+        "speed of stream",
+        "motor boat",
+        "upstream",
+        "downstream",
+        "zeroes of the polynomial",
+        "zeros of the polynomial",
+    ]
+    if any(term in q_lower for term in quad_terms) or re.search(r"x[²^2]\s*[\+\-]\s*\d+x", q_lower) or re.search(r"solve.*x[²^2]", q_lower) or re.search(r"roots of.*x[²^2]", q_lower):
+        signatures.add("ALGEBRA_QUADRATICS")
+
+    # Trigonometry signatures
+    trig_terms = [
+        "sin θ", "cos θ", "tan θ", "cot θ", "sec θ", "cosec θ",
+        "sin(", "cos(", "tan(", "sin²", "cos²", "tan²",
+        "angle of elevation", "angle of depression",
+        "trigonometric", "height of tower", "height of chimney", "height of building"
+    ]
+    if any(term in q_lower for term in trig_terms):
+        signatures.add("TRIGONOMETRY")
+
+    # Coordinate Geometry signatures
+    coord_terms = [
+        "coordinate", "coordinates", "distance between the points",
+        "section formula", "divides the line segment", "collinear",
+        "midpoint of", "cartesian plane", "x-axis", "y-axis"
+    ]
+    if any(term in q_lower for term in coord_terms):
+        signatures.add("COORDINATE_GEOMETRY")
+
+    # Statistics & Probability signatures
+    stats_terms = [
+        "frequency distribution", "mean of", "median of", "mode of",
+        "probability of", "die is thrown", "dice are thrown",
+        "coin is tossed", "drawn at random", "two-digit number"
+    ]
+    if any(term in q_lower for term in stats_terms):
+        signatures.add("STATISTICS_PROBABILITY")
+
+    # Mensuration signatures
+    mens_terms = [
+        "surface area", "curved surface area", "total surface area",
+        "volume of", "cylinder", "cone", "sphere", "hemisphere",
+        "frustum", "sector of a circle", "segment of a circle",
+        "radius of base", "scooping out"
+    ]
+    if any(term in q_lower for term in mens_terms):
+        signatures.add("MENSURATION")
+
+    # Pure Geometry signatures
+    geom_terms = [
+        "basic proportionality theorem", "thales theorem", "pythagoras theorem",
+        "tangent to a circle", "tangents drawn from", "concentric circles",
+        "similar triangles", "ratio of areas of two similar triangles"
+    ]
+    if any(term in q_lower for term in geom_terms):
+        signatures.add("GEOMETRY")
+
+    # Numbers & Sequences signatures
+    num_terms = [
+        "arithmetic progression", "a.p.", "common difference",
+        "n-th term", "nth term", "hcf and lcm", "prove that √"
+    ]
+    if any(term in q_lower for term in num_terms):
+        signatures.add("NUMBERS_SEQUENCES")
+
+    # Relations & Functions signatures
+    rel_terms = [
+        "relation r in", "function f:", "bijective",
+        "one-one and onto", "reflexive and symmetric", "domain and range"
+    ]
+    if any(term in q_lower for term in rel_terms):
+        signatures.add("RELATIONS_FUNCTIONS")
+
+    return signatures
+
+
 def validate_unit_relevance(
     question_text: str,
     unit_name: str,
@@ -57,82 +204,37 @@ def validate_unit_relevance(
     if not question_text or not question_text.strip():
         return False
 
-    q_lower = question_text.lower()
+    clean_q = clean_generated_question_text(question_text)
+    if not clean_q:
+        return False
 
-    search_context = [unit_name.lower()]
-    if unit_description:
-        search_context.append(unit_description.lower())
-    if topics_list:
-        search_context.extend([t.lower() for t in topics_list])
+    requested_category = classify_unit_category(unit_name, unit_description, topics_list)
+    question_signatures = get_question_signatures(clean_q)
 
-    context_str = " ".join(search_context)
+    # If question exhibits domain-specific signatures:
+    if question_signatures:
+        if requested_category != "OTHER":
+            # The requested unit's category MUST match one of the detected question signatures
+            if requested_category not in question_signatures:
+                return False
+        else:
+            search_context = [unit_name.lower()]
+            if unit_description:
+                search_context.append(unit_description.lower())
+            if topics_list:
+                search_context.extend([t.lower() for t in topics_list])
+            context_str = " ".join(search_context)
 
-    quad_solver_terms = [
-        "quadratic formula",
-        "nature of roots",
-        "b² - 4ac",
-        "discriminant",
-    ]
-    if any(term in q_lower for term in quad_solver_terms):
-        allowed_quad_units = [
-            "quadratic",
-            "algebra",
-            "polynomial",
-            "equation",
-        ]
-        if not any(w in context_str for w in allowed_quad_units):
-            return False
-
-    trig_terms = [
-        "angle of elevation",
-        "angle of depression",
-        "sin θ",
-        "cos θ",
-        "tan θ",
-        "height of chimney",
-        "speed of the stream",
-        "motor boat",
-    ]
-    if any(term in q_lower for term in trig_terms):
-        allowed_trig_units = [
-            "trigonometry",
-            "height",
-            "distance",
-            "triangle",
-            "application",
-        ]
-        if not any(w in context_str for w in allowed_trig_units):
-            return False
-
-    stats_terms = [
-        "frequency distribution",
-        "mean of",
-        "median of",
-        "probability of",
-        "two-digit number",
-        "die is thrown",
-    ]
-    if any(term in q_lower for term in stats_terms):
-        allowed_stats_units = [
-            "statistic",
-            "probability",
-            "data",
-            "frequency",
-        ]
-        if not any(w in context_str for w in allowed_stats_units):
-            return False
-
-    coord_terms = [
-        "coordinate",
-        "distance between",
-        "section formula",
-        "collinear",
-        "midpoint",
-    ]
-    if any(term in q_lower for term in coord_terms):
-        allowed_coord_units = ["coordinate"]
-        if not any(w in context_str for w in allowed_coord_units):
-            return False
+            if "ALGEBRA_QUADRATICS" in question_signatures and not any(w in context_str for w in ["quadratic", "algebra", "polynomial", "equation"]):
+                return False
+            if "TRIGONOMETRY" in question_signatures and not any(w in context_str for w in ["trigonometry", "height", "distance", "triangle"]):
+                return False
+            if "STATISTICS_PROBABILITY" in question_signatures and not any(w in context_str for w in ["statistic", "probability", "data", "frequency"]):
+                return False
+            if "COORDINATE_GEOMETRY" in question_signatures and not any(w in context_str for w in ["coordinate", "cartesian"]):
+                return False
+            if "MENSURATION" in question_signatures and not any(w in context_str for w in ["mensuration", "surface area", "volume"]):
+                return False
 
     return True
 
@@ -504,17 +606,16 @@ def generate_question_paper(
                 )
 
                 gen_res = None
-                MAX_RETRIES = 4
+                MAX_RETRIES = 5
                 for attempt in range(MAX_RETRIES):
                     candidate = ai_generator.generate_question(prompt)
-                    if not candidate:
-                        from app.services.ai.generator_factory import OfflineFallbackProvider
-                        candidate = OfflineFallbackProvider().generate_question(prompt)
-
                     if not candidate or not candidate.question_text:
                         continue
 
-                    q_text = candidate.question_text.strip()
+                    q_text = clean_generated_question_text(candidate.question_text)
+                    if not q_text:
+                        continue
+
                     q_h = compute_question_hash(q_text)
                     s_h = compute_structural_hash(q_text)
 
@@ -531,44 +632,6 @@ def generate_question_paper(
                     used_question_hashes.add(q_h)
                     used_structural_hashes.add(s_h)
                     break
-
-                if not gen_res:
-                    # Retry with alternate selected units if initial unit template generation failed
-                    for alt_uid in unit_ids_to_use:
-                        if alt_uid == target_unit_id:
-                            continue
-                        alt_context = unit_curriculum_context[alt_uid]
-                        alt_unit = alt_context["unit"]
-                        alt_prompt = AIQuestionPrompt(
-                            board=resolved_board,
-                            class_name=resolved_class,
-                            subject_name=subject.subject_name,
-                            unit_name=alt_unit.unit_name,
-                            topic_name=alt_context["topics"][0] if alt_context["topics"] else None,
-                            marks=q_mark,
-                            difficulty=difficulty or "medium",
-                            bloom_level=bloom_obj.level_name,
-                            question_type=q_type,
-                            unit_description=alt_context["description"],
-                            topics_list=alt_context["topics"],
-                        )
-                        candidate = ai_generator.generate_question(alt_prompt)
-                        if not candidate:
-                            from app.services.ai.generator_factory import OfflineFallbackProvider
-                            candidate = OfflineFallbackProvider().generate_question(alt_prompt)
-                        if candidate and candidate.question_text:
-                            q_text = candidate.question_text.strip()
-                            q_h = compute_question_hash(q_text)
-                            s_h = compute_structural_hash(q_text)
-                            if (q_h not in used_question_hashes) and (s_h not in used_structural_hashes):
-                                if validate_unit_relevance(q_text, alt_unit.unit_name, alt_context["description"], alt_context["topics"]):
-                                    gen_res = candidate
-                                    gen_res.question_text = q_text
-                                    target_unit_id = alt_uid
-                                    target_unit = alt_unit
-                                    used_question_hashes.add(q_h)
-                                    used_structural_hashes.add(s_h)
-                                    break
 
                 if not gen_res:
                     raise ValueError(

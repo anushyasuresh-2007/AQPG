@@ -12,7 +12,6 @@ import hashlib
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-import torch
 
 from app.services.ai.base import AIQuestionPrompt, BaseAIProvider, GeneratedQuestionResult
 
@@ -113,6 +112,7 @@ class V17_2InferenceAdapter(BaseAIProvider):
             return True
 
         try:
+            import torch
             from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
             self.tokenizer = AutoTokenizer.from_pretrained(
@@ -180,6 +180,7 @@ class V17_2InferenceAdapter(BaseAIProvider):
 
         inputs = self.tokenizer(prompt_text, return_tensors="pt", max_length=256, truncation=True)
 
+        import torch
         with torch.no_grad():
             outputs = self.model.generate(
                 inputs["input_ids"],
