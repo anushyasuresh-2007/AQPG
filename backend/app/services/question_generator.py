@@ -423,7 +423,7 @@ def generate_question_paper(
     # STEP 1: QUERY APPROVED QUESTION BANK (unless source_mode == 'ai')
     # =========================================================================
     if source_mode != "ai":
-        eligible_questions = (
+        raw_eligible_questions = (
             db.query(Question)
             .filter(Question.subject_id == subject_id)
             .filter(Question.unit_id.in_(unit_ids_to_use))
@@ -432,8 +432,34 @@ def generate_question_paper(
             .all()
         )
 
+        cleaned_bank_text_map: Dict[int, str] = {}
         questions_by_bloom: Dict[int, List[Question]] = {}
-        for q in eligible_questions:
+
+        for q in raw_eligible_questions:
+            q_unit = unit_map.get(q.unit_id)
+            if not q_unit:
+                continue
+
+            u_ctx = unit_curriculum_context.get(q.unit_id, {})
+            u_desc = u_ctx.get("description")
+            u_topics = u_ctx.get("topics")
+
+            clean_text = clean_generated_question_text(q.question_text)
+            if not clean_text:
+                continue
+
+            # Validate that question text actually matches assigned unit's curriculum
+            if not validate_unit_relevance(clean_text, q_unit.unit_name, u_desc, u_topics):
+                continue
+
+            q_h = compute_question_hash(clean_text)
+            s_h = compute_structural_hash(clean_text)
+
+            # Pre-filter structural/exact duplicates within the bank candidate pool
+            if (q_h in used_question_hashes) or (s_h in used_structural_hashes):
+                continue
+
+            cleaned_bank_text_map[q.id] = clean_text
             questions_by_bloom.setdefault(q.bloom_level_id, []).append(q)
 
         for target in targets:
@@ -456,12 +482,15 @@ def generate_question_paper(
 
             if subset is not None:
                 for q in subset:
+                    c_text = cleaned_bank_text_map.get(q.id, clean_generated_question_text(q.question_text))
+                    q_h = compute_question_hash(c_text)
+                    s_h = compute_structural_hash(c_text)
                     used_question_ids.add(q.id)
-                    used_question_hashes.add(compute_question_hash(q.question_text))
-                    used_structural_hashes.add(compute_structural_hash(q.question_text))
+                    used_question_hashes.add(q_h)
+                    used_structural_hashes.add(s_h)
                     selected_questions.append({
                         "question_id": q.id,
-                        "question": q.question_text,
+                        "question": c_text,
                         "marks": q.marks,
                         "bloom": bloom_obj.level_name,
                         "difficulty": q.difficulty,
@@ -482,12 +511,15 @@ def generate_question_paper(
                         partial_qs.append(q)
 
                 for q in partial_qs:
+                    c_text = cleaned_bank_text_map.get(q.id, clean_generated_question_text(q.question_text))
+                    q_h = compute_question_hash(c_text)
+                    s_h = compute_structural_hash(c_text)
                     used_question_ids.add(q.id)
-                    used_question_hashes.add(compute_question_hash(q.question_text))
-                    used_structural_hashes.add(compute_structural_hash(q.question_text))
+                    used_question_hashes.add(q_h)
+                    used_structural_hashes.add(s_h)
                     selected_questions.append({
                         "question_id": q.id,
-                        "question": q.question_text,
+                        "question": c_text,
                         "marks": q.marks,
                         "bloom": bloom_obj.level_name,
                         "difficulty": q.difficulty,

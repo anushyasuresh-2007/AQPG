@@ -195,10 +195,177 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
         self.assertEqual(compute_structural_hash(q1), compute_structural_hash(q2))
         self.assertEqual(compute_structural_hash(q1), compute_structural_hash(q3))
 
-        # J. Generated text containing "(Variation 49)" must normalize to same hash as base question
         var_q = "Solve x² + 5x + 6 = 0 using quadratic formula (Variation 49)"
         self.assertEqual(compute_question_hash(q1), compute_question_hash(var_q))
         self.assertEqual(compute_structural_hash(q1), compute_structural_hash(var_q))
+
+    def test_question_bank_filtering_and_cleaning(self):
+        """TEST 14: Question Bank filtering rejects misplaced/duplicate bank entries and cleans metadata tags."""
+        mock_db = MagicMock()
+
+        mock_subject = MagicMock()
+        mock_subject.id = 1
+        mock_subject.subject_name = "Mathematics"
+        mock_subject.board = "CBSE"
+        mock_subject.class_name = "Class 10"
+        mock_subject.board_id = 1
+        mock_subject.class_id = 1
+
+        mock_unit_coord = MagicMock()
+        mock_unit_coord.id = 10
+        mock_unit_coord.unit_name = "Unit 5 - Coordinate Geometry"
+        mock_unit_coord.description = "Cartesian plane calculations"
+
+        mock_unit_mens = MagicMock()
+        mock_unit_mens.id = 11
+        mock_unit_mens.unit_name = "Unit 7 - Mensuration"
+        mock_unit_mens.description = "Surface area and volume"
+
+        # Mock Bank questions with explicit int/str attributes
+        q101 = MagicMock()  # Bad: quadratic in Coordinate Geometry
+        q101.id = 101; q101.subject_id = 1; q101.unit_id = 10; q101.bloom_level_id = 1; q101.question_text = "Solve x² + 5x + 6 = 0 using quadratic formula."; q101.marks = 3; q101.difficulty = "medium"; q101.question_type = "Short Answer"; q101.status = "approved"; q101.active = True; q101.source = "Bank"; q101.answer = ""; q101.explanation = ""
+
+        q102 = MagicMock()  # Bad: motor boat in Mensuration
+        q102.id = 102; q102.subject_id = 1; q102.unit_id = 11; q102.bloom_level_id = 1; q102.question_text = "A motor boat speed in still water is 15 km/h goes 30 km downstream and upstream. Find speed of stream."; q102.marks = 3; q102.difficulty = "medium"; q102.question_type = "Short Answer"; q102.status = "approved"; q102.active = True; q102.source = "Bank"; q102.answer = ""; q102.explanation = ""
+
+        q103 = MagicMock()  # Valid Mensuration with Variation tag
+        q103.id = 103; q103.subject_id = 1; q103.unit_id = 11; q103.bloom_level_id = 1; q103.question_text = "Find the volume of a solid cylinder of radius 5 cm and height 10 cm. (Variation 49)"; q103.marks = 3; q103.difficulty = "medium"; q103.question_type = "Short Answer"; q103.status = "approved"; q103.active = True; q103.source = "Bank"; q103.answer = ""; q103.explanation = ""
+
+        q104 = MagicMock()  # Structural duplicate of 103
+        q104.id = 104; q104.subject_id = 1; q104.unit_id = 11; q104.bloom_level_id = 1; q104.question_text = "Find the volume of a solid cylinder of radius 8 cm and height 12 cm."; q104.marks = 3; q104.difficulty = "medium"; q104.question_type = "Short Answer"; q104.status = "approved"; q104.active = True; q104.source = "Bank"; q104.answer = ""; q104.explanation = ""
+
+        mock_bloom = MagicMock()
+        mock_bloom.id = 1
+        mock_bloom.level_name = "Apply"
+
+        from app.models.subject import Subject
+        from app.models.unit import Unit
+        from app.models.topic import Topic
+        from app.models.question import Question
+        from app.models.bloom import Bloom
+
+        def query_side_effect(model):
+            m = MagicMock()
+            if model == Subject:
+                m.filter.return_value.first.return_value = mock_subject
+            elif model == Unit:
+                m.filter.return_value.all.return_value = [mock_unit_coord, mock_unit_mens]
+            elif model == Topic:
+                m.filter.return_value.order_by.return_value.all.return_value = []
+            elif model == Question:
+                m.filter.return_value.filter.return_value.filter.return_value.filter.return_value.all.return_value = [q101, q102, q103, q104]
+                m.filter.return_value.all.return_value = [q101, q102, q103, q104]
+            elif model == Bloom:
+                m.all.return_value = [mock_bloom]
+            return m
+
+        mock_db.query.side_effect = query_side_effect
+
+        from app.services.question_generator import generate_question_paper
+        res = generate_question_paper(
+            db=mock_db,
+            subject_id=1,
+            selected_units=[10, 11],
+            total_marks=3,
+            bloom_distribution={"Apply": 100},
+            source_mode="bank",
+            use_ai=False,
+        )
+
+        selected = res["questions"]
+        self.assertEqual(len(selected), 1, "Only the 1 valid non-duplicate bank question must be selected.")
+        self.assertEqual(selected[0]["question_id"], 103)
+        self.assertEqual(selected[0]["question"], "Find the volume of a solid cylinder of radius 5 cm and height 10 cm.")
+        self.assertNotIn("(Variation 49)", selected[0]["question"])
+
+    def test_hybrid_mode_bank_filtering_with_ai_fallback(self):
+        """TEST 15: In hybrid mode, invalid bank questions are filtered and the resulting shortage is synthesized by AI."""
+        mock_db = MagicMock()
+
+        mock_subject = MagicMock()
+        mock_subject.id = 1
+        mock_subject.subject_name = "Mathematics"
+        mock_subject.board = "CBSE"
+        mock_subject.class_name = "Class 10"
+        mock_subject.board_id = 1
+        mock_subject.class_id = 1
+
+        mock_unit_coord = MagicMock()
+        mock_unit_coord.id = 10
+        mock_unit_coord.unit_name = "Unit 5 - Coordinate Geometry"
+        mock_unit_coord.description = "Cartesian plane calculations"
+
+        q201 = MagicMock()  # Bad bank question
+        q201.id = 201; q201.subject_id = 1; q201.unit_id = 10; q201.bloom_level_id = 1; q201.question_text = "Solve x² + 5x + 6 = 0 using quadratic formula."; q201.marks = 3; q201.difficulty = "medium"; q201.question_type = "Short Answer"; q201.status = "approved"; q201.active = True; q201.source = "Bank"; q201.answer = ""; q201.explanation = ""
+
+        mock_bloom = MagicMock()
+        mock_bloom.id = 1
+        mock_bloom.level_name = "Apply"
+
+        from app.models.subject import Subject
+        from app.models.unit import Unit
+        from app.models.topic import Topic
+        from app.models.question import Question
+        from app.models.bloom import Bloom
+
+        def query_side_effect(model):
+            m = MagicMock()
+            if model == Subject:
+                m.filter.return_value.first.return_value = mock_subject
+            elif model == Unit:
+                m.filter.return_value.all.return_value = [mock_unit_coord]
+            elif model == Topic:
+                m.filter.return_value.order_by.return_value.all.return_value = []
+            elif model == Question:
+                m.filter.return_value.filter.return_value.filter.return_value.filter.return_value.all.return_value = [q201]
+                m.filter.return_value.all.return_value = [q201]
+            elif model == Bloom:
+                m.all.return_value = [mock_bloom]
+            return m
+
+        mock_db.query.side_effect = query_side_effect
+
+        mock_ai_gen = MagicMock()
+        mock_ai_gen.generate_question.side_effect = [
+            # Invalid candidate for Coordinate Geometry
+            GeneratedQuestionResult(
+                question_text="Solve 2x² - 5x + 2 = 0 using quadratic formula.",
+                answer="x=2",
+                explanation="",
+                question_type="Numerical",
+                marks=3,
+                difficulty="medium",
+                bloom="Apply",
+                unit_name="Unit 5 - Coordinate Geometry"
+            ),
+            # Valid candidate for Coordinate Geometry
+            GeneratedQuestionResult(
+                question_text="Find the distance between the points A(2, 3) and B(5, 7) in the coordinate plane.",
+                answer="5 units",
+                explanation="",
+                question_type="Numerical",
+                marks=3,
+                difficulty="medium",
+                bloom="Apply",
+                unit_name="Unit 5 - Coordinate Geometry"
+            )
+        ]
+
+        with patch("app.services.question_generator.get_ai_generator", return_value=mock_ai_gen):
+            from app.services.question_generator import generate_question_paper
+            res = generate_question_paper(
+                db=mock_db,
+                subject_id=1,
+                selected_units=[10],
+                total_marks=3,
+                bloom_distribution={"Apply": 100},
+                source_mode="hybrid",
+            )
+
+        selected = res["questions"]
+        self.assertEqual(len(selected), 1)
+        self.assertIn("distance between the points", selected[0]["question"])
+        self.assertNotIn("quadratic formula", selected[0]["question"])
 
 
 if __name__ == "__main__":
