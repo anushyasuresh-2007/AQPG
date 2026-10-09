@@ -72,21 +72,21 @@ def classify_unit_category(
     if any(w in ctx for w in ["coordinate", "cartesian", "section formula", "distance formula", "collinear"]):
         return "COORDINATE_GEOMETRY"
 
-    # 2. Trigonometry
+    # 2. Relations and Functions (check before general trigonometry to properly categorize combined Unit 1 names like "Unit 1 - Relations and Functions & Inverse Trigonometry")
+    if any(w in ctx for w in ["relation", "relations", "function", "functions", "set", "sets", "bijective", "equivalence relation", "injective", "surjective", "domain and range", "inverse trig", "inverse trigonometric"]):
+        return "RELATIONS_FUNCTIONS"
+
+    # 3. Trigonometry
     if any(w in ctx for w in ["trigonometry", "trigonometric", "heights and distances", "heights & distances", "elevation", "depression"]):
         return "TRIGONOMETRY"
 
-    # 3. Statistics & Probability
+    # 4. Statistics & Probability
     if any(w in ctx for w in ["statistic", "statistics", "probability", "frequency", "mean", "median", "mode", "ogive", "data handling"]):
         return "STATISTICS_PROBABILITY"
 
-    # 4. Mensuration
+    # 5. Mensuration
     if any(w in ctx for w in ["mensuration", "surface area", "surface areas", "volume", "volumes", "sector", "segment of a circle", "area related to circles"]):
         return "MENSURATION"
-
-    # 5. Relations and Functions
-    if any(w in ctx for w in ["relation", "relations", "function", "functions", "set", "sets", "bijective", "equivalence relation"]):
-        return "RELATIONS_FUNCTIONS"
 
     # 6. Numbers & Sequences / Real Numbers & AP
     if any(w in ctx for w in ["arithmetic progression", "progression", "ap", "real number", "real numbers", "number system", "number systems", "sequence", "sequences", "hcf", "lcm", "euclid"]):
@@ -211,10 +211,17 @@ def get_question_signatures(question_text: str) -> Set[str]:
 
     # Relations & Functions signatures
     rel_terms = [
-        "relation r in", "function f:", "bijective",
-        "one-one and onto", "reflexive and symmetric", "domain and range"
+        "relation r", "relation on", "relation in", "equivalence relation", "equivalence class",
+        "reflexive", "symmetric", "transitive", "empty relation", "universal relation",
+        "function f:", "function f", "function g", "functions f", "functions g", "f(x)", "g(x)", "h(x)",
+        "injective", "surjective", "bijective", "one-one", "one to one", "many-one", "many to one",
+        "onto", "into function", "one-one and onto", "identity function", "constant function", "mapping",
+        "composition of functions", "composite function", "g o f", "f o g", "(g o f)", "(f o g)",
+        "inverse function", "inverse of f", "f⁻¹", "f^-1", "invertible",
+        "domain and range", "domain of", "codomain", "range of",
+        "inverse trigonometric", "inverse trig", "principal value", "sin⁻¹", "cos⁻¹", "tan⁻¹", "sin^-1", "cos^-1", "tan^-1"
     ]
-    if any(term in q_lower for term in rel_terms):
+    if any(term in q_lower for term in rel_terms) or re.search(r"\bf\s*:\s*[a-z0-9_]+\s*->", q_lower) or re.search(r"\bf\s*\(\s*x\s*\)", q_lower):
         signatures.add("RELATIONS_FUNCTIONS")
 
     return signatures

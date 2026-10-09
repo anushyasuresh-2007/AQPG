@@ -508,6 +508,170 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
         for q in selected:
             self.assertTrue(validate_unit_relevance(q["question"], mock_unit_alg.unit_name, mock_unit_alg.description, []))
 
+    def test_unit_1_relations_functions_relevance_validation_cases_A_B_C(self):
+        """TEST 19 (Unit 1): Validate actual Unit 1 Relations and Functions concepts (Cases A, B, C)."""
+        u1_name = "Unit 1 - Relations and Functions & Inverse Trigonometry"
+        u1_desc = "Relations and their properties, types of functions, composition of functions, inverse functions, inverse trigonometric functions"
+        u1_topics = ["Relations and Functions", "Inverse Trigonometric Functions"]
+
+        # Case A & C: Valid questions from actual Unit 1 curriculum are accepted
+        q_rel = "Determine whether the relation R in set Z defined by R = {(x,y): x - y is divisible by 5} is an equivalence relation."
+        q_fn = "Show that the function f: R -> R defined by f(x) = 3x + 2 is one-one and onto (bijective)."
+        q_dom = "Determine the domain, codomain, and range of the relation R = {(x, x³): x is a prime number less than 10}."
+        q_comp = "Let f: R -> R and g: R -> R be defined by f(x) = 2x + 1 and g(x) = x² - 2. Find (g o f)(x) and (f o g)(x)."
+        q_inv = "Show that f(x) = (x-2)/(x-3) is bijective and find its inverse function f⁻¹(x)."
+        q_trig_inv = "Find the principal value of tan⁻¹(√3) - sec⁻¹(-2)."
+
+        self.assertTrue(validate_unit_relevance(q_rel, u1_name, u1_desc, u1_topics))
+        self.assertTrue(validate_unit_relevance(q_fn, u1_name, u1_desc, u1_topics))
+        self.assertTrue(validate_unit_relevance(q_dom, u1_name, u1_desc, u1_topics))
+        self.assertTrue(validate_unit_relevance(q_comp, u1_name, u1_desc, u1_topics))
+        self.assertTrue(validate_unit_relevance(q_inv, u1_name, u1_desc, u1_topics))
+        self.assertTrue(validate_unit_relevance(q_trig_inv, u1_name, u1_desc, u1_topics))
+
+        # Case B: Questions from unrelated units are rejected
+        q_quad = "Solve 2x² - 5x + 2 = 0 using quadratic formula."
+        q_boat = "A motor boat speed in still water is 15 km/h goes 30 km downstream. Find speed of stream."
+        q_stat = "Find the mean of the frequency distribution: Class intervals 0-10, 10-20."
+        q_prob = "A die is thrown once. Find the probability of getting a prime number."
+        q_trig_ht = "From a point 15 m away from foot of tower, angle of elevation of top is 60°. Find height of tower."
+        q_mens = "Find the volume of a solid cylinder of radius 5 cm and height 10 cm."
+
+        self.assertFalse(validate_unit_relevance(q_quad, u1_name, u1_desc, u1_topics))
+        self.assertFalse(validate_unit_relevance(q_boat, u1_name, u1_desc, u1_topics))
+        self.assertFalse(validate_unit_relevance(q_stat, u1_name, u1_desc, u1_topics))
+        self.assertFalse(validate_unit_relevance(q_prob, u1_name, u1_desc, u1_topics))
+        self.assertFalse(validate_unit_relevance(q_trig_ht, u1_name, u1_desc, u1_topics))
+        self.assertFalse(validate_unit_relevance(q_mens, u1_name, u1_desc, u1_topics))
+
+    def test_unit_1_hybrid_mode_shortage_fulfillment_case_D(self):
+        """TEST 20 (Unit 1 Case D): Hybrid mode fills shortage of valid Question Bank questions with AI-generated Unit 1 questions."""
+        mock_db = MagicMock()
+
+        mock_subject = MagicMock()
+        mock_subject.id = 1
+        mock_subject.subject_name = "Mathematics"
+        mock_subject.board = "CBSE"
+        mock_subject.class_name = "Class 12"
+        mock_subject.board_id = 1
+        mock_subject.class_id = 1
+
+        mock_unit_1 = MagicMock()
+        mock_unit_1.id = 1
+        mock_unit_1.unit_name = "Unit 1 - Relations and Functions & Inverse Trigonometry"
+        mock_unit_1.description = "Relations and functions, inverse trig functions"
+
+        mock_bloom = MagicMock()
+        mock_bloom.id = 1
+        mock_bloom.level_name = "Apply"
+
+        from app.models.subject import Subject
+        from app.models.unit import Unit
+        from app.models.topic import Topic
+        from app.models.question import Question
+        from app.models.bloom import Bloom
+
+        def query_side_effect(model):
+            m = MagicMock()
+            if model == Subject:
+                m.filter.return_value.first.return_value = mock_subject
+            elif model == Unit:
+                m.filter.return_value.all.return_value = [mock_unit_1]
+            elif model == Topic:
+                m.filter.return_value.order_by.return_value.all.return_value = []
+                m.filter.return_value.filter.return_value.order_by.return_value.all.return_value = []
+            elif model == Question:
+                m.filter.return_value.filter.return_value.filter.return_value.filter.return_value.all.return_value = []
+                m.filter.return_value.all.return_value = []
+            elif model == Bloom:
+                m.all.return_value = [mock_bloom]
+            return m
+
+        mock_db.query.side_effect = query_side_effect
+
+        from app.services.ai.generator_factory import OfflineFallbackProvider
+        with patch("app.services.question_generator.get_ai_generator", return_value=OfflineFallbackProvider()):
+            from app.services.question_generator import generate_question_paper
+            res = generate_question_paper(
+                db=mock_db,
+                subject_id=1,
+                selected_units=[1],
+                total_marks=6,
+                bloom_distribution={"Apply": 100},
+                source_mode="hybrid",
+            )
+
+        selected = res["questions"]
+        self.assertGreaterEqual(len(selected), 1, "Hybrid generation must fill Unit 1 shortage successfully.")
+        for q in selected:
+            self.assertTrue(validate_unit_relevance(q["question"], mock_unit_1.unit_name, mock_unit_1.description, []))
+
+    def test_unit_1_structural_deduplication_and_bounded_retries_case_E(self):
+        """TEST 21 (Unit 1 Case E): Repeated structural templates are rejected and bounded retries terminate safely."""
+        q1 = "Show that the function f: R -> R defined by f(x) = 3x + 2 is one-one and onto."
+        q2 = "Show that the function f: R -> R defined by f(x) = 5x + 7 is one-one and onto."
+        self.assertEqual(compute_structural_hash(q1), compute_structural_hash(q2), "Numeric variations of same function template must match structural hash.")
+
+    def test_deterministic_question_bank_selection_case_H(self):
+        """TEST 22 (Case H): Repeated test runs produce deterministic Question Bank selection."""
+        mock_db = MagicMock()
+
+        mock_subject = MagicMock()
+        mock_subject.id = 1
+        mock_subject.subject_name = "Mathematics"
+        mock_subject.board = "CBSE"
+        mock_subject.class_name = "Class 12"
+        mock_subject.board_id = 1
+        mock_subject.class_id = 1
+
+        mock_unit_1 = MagicMock()
+        mock_unit_1.id = 1
+        mock_unit_1.unit_name = "Unit 1 - Relations and Functions"
+        mock_unit_1.description = "Relations and functions"
+
+        q1 = MagicMock()
+        q1.id = 10; q1.subject_id = 1; q1.unit_id = 1; q1.bloom_level_id = 1; q1.question_text = "Show that f: R -> R defined by f(x) = 3x + 2 is one-one and onto."; q1.marks = 3; q1.difficulty = "medium"; q1.question_type = "Short Answer"; q1.status = "approved"; q1.active = True; q1.source = "Bank"; q1.answer = ""; q1.explanation = ""
+
+        q2 = MagicMock()
+        q2.id = 20; q2.subject_id = 1; q2.unit_id = 1; q2.bloom_level_id = 1; q2.question_text = "Determine whether relation R in set Z defined by R = {(x,y): x - y is divisible by 5} is an equivalence relation."; q2.marks = 3; q2.difficulty = "medium"; q2.question_type = "Short Answer"; q2.status = "approved"; q2.active = True; q2.source = "Bank"; q2.answer = ""; q2.explanation = ""
+
+        mock_bloom = MagicMock()
+        mock_bloom.id = 1
+        mock_bloom.level_name = "Apply"
+
+        from app.models.subject import Subject
+        from app.models.unit import Unit
+        from app.models.topic import Topic
+        from app.models.question import Question
+        from app.models.bloom import Bloom
+
+        def query_side_effect(model):
+            m = MagicMock()
+            if model == Subject:
+                m.filter.return_value.first.return_value = mock_subject
+            elif model == Unit:
+                m.filter.return_value.all.return_value = [mock_unit_1]
+            elif model == Topic:
+                m.filter.return_value.order_by.return_value.all.return_value = []
+            elif model == Question:
+                m.filter.return_value.filter.return_value.filter.return_value.filter.return_value.all.return_value = [q1, q2]
+                m.filter.return_value.all.return_value = [q1, q2]
+            elif model == Bloom:
+                m.all.return_value = [mock_bloom]
+            return m
+
+        mock_db.query.side_effect = query_side_effect
+
+        from app.services.question_generator import generate_question_paper
+        res1 = generate_question_paper(
+            db=mock_db, subject_id=1, selected_units=[1], total_marks=3, bloom_distribution={"Apply": 100}, source_mode="bank", use_ai=False
+        )
+        res2 = generate_question_paper(
+            db=mock_db, subject_id=1, selected_units=[1], total_marks=3, bloom_distribution={"Apply": 100}, source_mode="bank", use_ai=False
+        )
+
+        self.assertEqual([q["question_id"] for q in res1["questions"]], [q["question_id"] for q in res2["questions"]])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -145,12 +145,59 @@ class OfflineFallbackProvider(BaseAIProvider):
                     ans = f"TSA = CSA of cylinder + 2 * CSA of hemisphere = 2πrh + 2*(2πr²) = 2πr(h + 2r) = 2*(22/7)*3.5*(10 + 7) = 374 cm²."
 
             elif category == "RELATIONS_FUNCTIONS":
-                if marks <= 2:
-                    q_text = f"Determine whether the relation R in the set Z of integers defined by R = {{(x,y): x - y is an integer}} is reflexive and symmetric."
-                    ans = f"Reflexive: x - x = 0 (integer) => (x,x) ∈ R. Symmetric: if x - y = k, y - x = -k (integer) => (y,x) ∈ R. Both hold."
-                else:
-                    q_text = f"Show that the function f: R -> R defined by f(x) = 3x + 2 is one-one and onto (bijective)."
-                    ans = f"One-one: f(x1)=f(x2) => 3x1+2=3x2+2 => x1=x2. Onto: For any y ∈ R, x = (y-2)/3 ∈ R such that f(x)=y."
+                rel_templates = [
+                    {
+                        "q": "Determine whether the relation R in the set Z of integers defined by R = {(x,y): x - y is divisible by 5} is an equivalence relation.",
+                        "a": "Reflexive: x - x = 0 is divisible by 5. Symmetric: if x - y = 5k, y - x = 5(-k). Transitive: x - y = 5k, y - z = 5m => x - z = 5(k+m). Hence R is an equivalence relation."
+                    },
+                    {
+                        "q": "Let A = {1, 2, 3}. Check whether the relation R = {(1,1), (2,2), (3,3), (1,2), (2,1)} on set A is reflexive, symmetric, and transitive.",
+                        "a": "Reflexive: (1,1),(2,2),(3,3) ∈ R. Symmetric: (1,2) ∈ R and (2,1) ∈ R. Transitive: (2,1) and (1,2) in R => (2,2) ∈ R. Thus R is an equivalence relation."
+                    },
+                    {
+                        "q": "Determine the domain, codomain, and range of the relation R = {(x, x³): x is a prime number less than 10}.",
+                        "a": "Primes less than 10 are {2, 3, 5, 7}. R = {(2,8), (3,27), (5,125), (7,343)}. Domain = {2, 3, 5, 7}, Range = {8, 27, 125, 343}."
+                    },
+                    {
+                        "q": "Find the principal value of the inverse trigonometric expression: tan⁻¹(√3) - sec⁻¹(-2).",
+                        "a": "tan⁻¹(√3) = π/3. sec⁻¹(-2) = π - sec⁻¹(2) = π - π/3 = 2π/3. Value = π/3 - 2π/3 = -π/3."
+                    },
+                    {
+                        "q": "Show that the function f: R -> R defined by f(x) = 3x + 2 is one-one and onto (bijective).",
+                        "a": "One-one: f(x1)=f(x2) => 3x1+2=3x2+2 => x1=x2. Onto: For any y ∈ R, x = (y-2)/3 ∈ R such that f(x)=y."
+                    },
+                    {
+                        "q": "Determine whether the function f: N -> N defined by f(x) = x² is one-one (injective) or onto (surjective).",
+                        "a": "One-one: For x1, x2 ∈ N, x1² = x2² => x1 = x2 (since N > 0). Onto: 2 ∈ N has no pre-image x in N such that x² = 2. Thus f is one-one but not onto."
+                    },
+                    {
+                        "q": "Show that the modulus function f: R -> R given by f(x) = |x| is neither one-one nor onto.",
+                        "a": "f(1) = 1 and f(-1) = 1 => not one-one. Range is [0, ∞), so negative real numbers have no pre-image => not onto."
+                    },
+                    {
+                        "q": "Let f: R -> R and g: R -> R be defined by f(x) = 2x + 1 and g(x) = x² - 2. Find the composite functions (g o f)(x) and (f o g)(x).",
+                        "a": "(g o f)(x) = g(f(x)) = (2x+1)² - 2 = 4x² + 4x - 1. (f o g)(x) = f(g(x)) = 2(x²-2) + 1 = 2x² - 3."
+                    },
+                    {
+                        "q": "If f(x) = 8x³ and g(x) = x^(1/3), find the composition of functions (f o g)(x) and (g o f)(x).",
+                        "a": "(f o g)(x) = f(g(x)) = 8(x^(1/3))³ = 8x. (g o f)(x) = g(f(x)) = (8x³)^(1/3) = 2x."
+                    },
+                    {
+                        "q": "Show that the function f: R - {3} -> R - {1} defined by f(x) = (x - 2) / (x - 3) is bijective. Find its inverse function f⁻¹(x).",
+                        "a": "One-one: (x1-2)/(x1-3) = (x2-2)/(x2-3) => x1 = x2. Onto: y = (x-2)/(x-3) => x = (3y-2)/(y-1) ∈ R-{3} for y ≠ 1. Inverse f⁻¹(x) = (3x-2)/(x-1)."
+                    },
+                    {
+                        "q": "Consider f: [0, ∞) -> [4, ∞) given by f(x) = x² + 4. Show that f is invertible and find the inverse of f.",
+                        "a": "One-one: x1² + 4 = x2² + 4 => x1 = x2 (for x ≥ 0). Onto: y = x² + 4 => x = √(y-4) ∈ [0, ∞) for y ≥ 4. Inverse f⁻¹(y) = √(y-4)."
+                    },
+                    {
+                        "q": "Simplify the inverse trigonometric expression: tan⁻¹[(cos x - sin x) / (cos x + sin x)], for -π/4 < x < 3π/4.",
+                        "a": "Divide numerator and denominator by cos x: tan⁻¹[(1 - tan x) / (1 + tan x)] = tan⁻¹[tan(π/4 - x)] = π/4 - x."
+                    }
+                ]
+                selected = random.choice(rel_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             else:
                 # Unmapped math unit: return Controlled Fallback Failure rather than generating an unrelated quadratic question!
@@ -237,7 +284,15 @@ class OfflineFallbackProvider(BaseAIProvider):
                 f"Analyze the key concepts of {prompt.unit_name} ({prompt.topic_name or 'Core Syllabus'}) and explain their practical implications ({prompt.board} {prompt.class_name}).",
                 f"Critically evaluate the significance of {prompt.unit_name} in modern academic and real-world contexts, illustrating with suitable examples.",
                 f"Discuss the foundational principles and historical evolution of {prompt.unit_name} and describe how it shapes current methodology.",
-                f"Formulate a detailed case study illustrating the core components of {prompt.unit_name} and propose solutions to associated challenges."
+                f"Formulate a detailed case study illustrating the core components of {prompt.unit_name} and propose solutions to associated challenges.",
+                f"Examine the primary methodologies used in {prompt.unit_name} and detail how they are applied in practice.",
+                f"Describe the structural architecture and core mechanisms of {prompt.unit_name} ({prompt.topic_name or 'Main Topics'}).",
+                f"Identify the key constraints, optimization techniques, and best practices associated with {prompt.unit_name}.",
+                f"Compare and contrast different operational models within {prompt.unit_name}, giving real-world examples.",
+                f"Explain how {prompt.unit_name} integrates into broader theoretical systems, highlighting key trade-offs.",
+                f"Construct an analytical summary of the core principles of {prompt.unit_name} for high-level problem solving.",
+                f"Assess the impact of recent developments in {prompt.unit_name} on standard domain frameworks.",
+                f"Synthesize the fundamental theories of {prompt.unit_name} into a comprehensive conceptual outline."
             ]
             q_text = random.choice(templates)
             ans = f"Detailed explanation covering core pedagogical principles of {prompt.unit_name} with relevant real-world illustrations."
