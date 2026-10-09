@@ -367,6 +367,147 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
         self.assertIn("distance between the points", selected[0]["question"])
         self.assertNotIn("quadratic formula", selected[0]["question"])
 
+    def test_unit_3_algebra_relevance_validation_rules_A_to_K(self):
+        """TEST 16: Comprehensive relevance validation for Unit 3 - Algebra (Rules A through K)."""
+        u3_name = "Unit 3 - Algebra (Polynomials, Quadratics & Matrices)"
+        u3_desc = "Polynomials, quadratic equations, linear equations in two variables, matrices and determinants"
+        u3_topics = ["Polynomials", "Quadratic Equations", "Matrices"]
+
+        # A. Unit 3 accepts quadratic equation
+        q_quad = "Solve the quadratic equation 2x² - 5x + 2 = 0 using quadratic formula."
+        self.assertTrue(validate_unit_relevance(q_quad, u3_name, u3_desc, u3_topics))
+
+        # B. Unit 3 accepts polynomial zero question
+        q_poly = "Find the zeroes of the quadratic polynomial x² - 3 and verify the relationship between zeroes and coefficients."
+        self.assertTrue(validate_unit_relevance(q_poly, u3_name, u3_desc, u3_topics))
+
+        # C. Unit 3 accepts two-digit Algebra word problem
+        q_word = "A two-digit number is such that the product of its digits is 14. Find the number."
+        self.assertTrue(validate_unit_relevance(q_word, u3_name, u3_desc, u3_topics))
+
+        # D. Unit 3 accepts matrix question
+        q_mat = "If matrix A = [[1, 2], [3, 4]], calculate the matrix expression A² - 5A + 7I."
+        self.assertTrue(validate_unit_relevance(q_mat, u3_name, u3_desc, u3_topics))
+
+        # E. Unit 3 accepts determinant question
+        q_det = "Find the inverse of the matrix A = [[2, 3], [1, 4]] using determinant methods."
+        self.assertTrue(validate_unit_relevance(q_det, u3_name, u3_desc, u3_topics))
+
+        # F. Unit 3 accepts system of linear equations
+        q_sys = "Solve the system of linear equations 2x + 3y = 5 and 3x - y = 2 using matrix inversion method."
+        self.assertTrue(validate_unit_relevance(q_sys, u3_name, u3_desc, u3_topics))
+
+        # G. Unit 3 rejects motorboat/upstream-downstream question
+        q_boat = "A motor boat whose speed is 15 km/h in still water goes 30 km downstream and returns upstream in 4 hours 30 minutes. Find speed of the stream."
+        self.assertFalse(validate_unit_relevance(q_boat, u3_name, u3_desc, u3_topics))
+
+        # H. Unit 3 rejects Statistics mean/frequency question
+        q_stat = "Find the mean of the following frequency distribution: Class intervals 0-10, 10-20 with frequencies 5, 8."
+        self.assertFalse(validate_unit_relevance(q_stat, u3_name, u3_desc, u3_topics))
+
+        # I. Unit 3 rejects probability question
+        q_prob = "A die is thrown once. Find the probability of getting a prime number."
+        self.assertFalse(validate_unit_relevance(q_prob, u3_name, u3_desc, u3_topics))
+
+        # J. Unit 3 rejects tower/angle-of-elevation question
+        q_trig = "From a point on the ground 15 m away from foot of tower, angle of elevation of top is 60°. Find height of tower."
+        self.assertFalse(validate_unit_relevance(q_trig, u3_name, u3_desc, u3_topics))
+
+        # K. Unit 3 rejects mensuration volume question
+        q_mens = "Find the volume of a solid cylinder of radius 5 cm and height 10 cm."
+        self.assertFalse(validate_unit_relevance(q_mens, u3_name, u3_desc, u3_topics))
+
+    def test_unit_3_fallback_structural_diversity_rule_L(self):
+        """TEST 17: Multiple Algebra fallback generations do not collapse into the same structural hash when genuinely different templates exist."""
+        fallback = OfflineFallbackProvider()
+        prompt = AIQuestionPrompt(
+            board="CBSE",
+            class_name="Class 10",
+            subject_name="Mathematics",
+            unit_name="Unit 3 - Algebra (Polynomials, Quadratics & Matrices)",
+            topic_name="Algebra",
+            marks=3,
+            difficulty="medium",
+            bloom_level="Apply",
+            question_type="Numerical",
+            unit_description="Polynomials, quadratics, matrices",
+            topics_list=["Polynomials", "Matrices"],
+        )
+
+        seen_hashes = set()
+        unique_templates_count = 0
+        for _ in range(30):
+            res = fallback.generate_question(prompt)
+            self.assertIsNotNone(res)
+            sh = compute_structural_hash(res.question_text)
+            if sh not in seen_hashes:
+                seen_hashes.add(sh)
+                unique_templates_count += 1
+
+        self.assertGreaterEqual(unique_templates_count, 5, "OfflineFallbackProvider must produce at least 5 distinct structural hashes across multiple runs.")
+
+    def test_unit_3_hybrid_generation_shortage_fulfillment_rule_M(self):
+        """TEST 18: Hybrid generation fulfills Unit 3 shortage without raising ValueError when valid candidates exist."""
+        mock_db = MagicMock()
+
+        mock_subject = MagicMock()
+        mock_subject.id = 1
+        mock_subject.subject_name = "Mathematics"
+        mock_subject.board = "CBSE"
+        mock_subject.class_name = "Class 10"
+        mock_subject.board_id = 1
+        mock_subject.class_id = 1
+
+        mock_unit_alg = MagicMock()
+        mock_unit_alg.id = 3
+        mock_unit_alg.unit_name = "Unit 3 - Algebra (Polynomials, Quadratics & Matrices)"
+        mock_unit_alg.description = "Polynomials, quadratics, matrices"
+
+        mock_bloom = MagicMock()
+        mock_bloom.id = 1
+        mock_bloom.level_name = "Apply"
+
+        from app.models.subject import Subject
+        from app.models.unit import Unit
+        from app.models.topic import Topic
+        from app.models.question import Question
+        from app.models.bloom import Bloom
+
+        def query_side_effect(model):
+            m = MagicMock()
+            if model == Subject:
+                m.filter.return_value.first.return_value = mock_subject
+            elif model == Unit:
+                m.filter.return_value.all.return_value = [mock_unit_alg]
+            elif model == Topic:
+                m.filter.return_value.order_by.return_value.all.return_value = []
+                m.filter.return_value.filter.return_value.order_by.return_value.all.return_value = []
+            elif model == Question:
+                m.filter.return_value.filter.return_value.filter.return_value.filter.return_value.all.return_value = []
+                m.filter.return_value.all.return_value = []
+            elif model == Bloom:
+                m.all.return_value = [mock_bloom]
+            return m
+
+        mock_db.query.side_effect = query_side_effect
+
+        from app.services.ai.generator_factory import OfflineFallbackProvider
+        with patch("app.services.question_generator.get_ai_generator", return_value=OfflineFallbackProvider()):
+            from app.services.question_generator import generate_question_paper
+            res = generate_question_paper(
+                db=mock_db,
+                subject_id=1,
+                selected_units=[3],
+                total_marks=6,
+                bloom_distribution={"Apply": 100},
+                source_mode="hybrid",
+            )
+
+        selected = res["questions"]
+        self.assertGreaterEqual(len(selected), 1, "Hybrid generation must fill Unit 3 shortage successfully.")
+        for q in selected:
+            self.assertTrue(validate_unit_relevance(q["question"], mock_unit_alg.unit_name, mock_unit_alg.description, []))
+
 
 if __name__ == "__main__":
     unittest.main()

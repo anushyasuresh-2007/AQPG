@@ -65,25 +65,51 @@ class OfflineFallbackProvider(BaseAIProvider):
                     ans = f"Using ∑(f*x)/∑f: Midpoints x = 5, 15, 25, 35, 45. ∑(f*x) = 25+120+375+420+450 = 1390. ∑f = 50. Mean = 1390/50 = 27.8."
 
             elif category == "ALGEBRA_QUADRATICS":
-                if marks <= 2:
-                    val_x = random.randint(2, 9)
-                    val_a = random.choice([2, 3, 4, 5])
-                    val_b = random.randint(1, 12)
-                    q_text = f"Find the zeros of the linear polynomial {val_a}x - {val_b} and verify the result."
-                    ans = f"{val_a}x - {val_b} = 0 => x = {val_b}/{val_a}."
-                elif marks <= 4:
-                    quads = [
-                        {"eq": "x² - 5x + 6 = 0", "ans": "x = 2 or x = 3", "d": "25 - 24 = 1"},
-                        {"eq": "2x² - 5x + 2 = 0", "ans": "x = 2 or x = 1/2", "d": "25 - 16 = 9"},
-                        {"eq": "x² - 7x + 12 = 0", "ans": "x = 3 or x = 4", "d": "49 - 48 = 1"},
-                        {"eq": "x² - 8x + 15 = 0", "ans": "x = 3 or x = 5", "d": "64 - 60 = 4"},
-                    ]
-                    selected = random.choice(quads)
-                    q_text = f"Solve the quadratic equation {selected['eq']} using the quadratic formula and state the nature of roots."
-                    ans = f"Using x = [-b ± √(b² - 4ac)] / 2a, D = {selected['d']} > 0. Roots are real and distinct: {selected['ans']}."
-                else:
-                    q_text = f"The sum of the reciprocals of Rehman's ages 3 years ago and 5 years from now is 1/3. Find his present age."
-                    ans = f"Let present age be x. 1/(x-3) + 1/(x+5) = 1/3 => x² - 4x - 21 = 0 => (x-7)(x+3) = 0 => x = 7 years."
+                algebra_templates = [
+                    # A. Polynomial zeroes
+                    {
+                        "q": "Find the zeroes of the quadratic polynomial x² + 7x + 10.",
+                        "a": "x² + 7x + 10 = (x + 2)(x + 5) = 0 => zeroes are -2 and -5."
+                    },
+                    # B. Quadratic equation solving
+                    {
+                        "q": "Solve the quadratic equation 2x² - 5x + 2 = 0 using the quadratic formula and state the nature of roots.",
+                        "a": "Using x = [-b ± √(b² - 4ac)] / 2a, D = 25 - 16 = 9 > 0. Roots are real and distinct: x = 2 or x = 1/2."
+                    },
+                    # C. Relationship between zeroes and coefficients
+                    {
+                        "q": "Find the zeroes of the polynomial x² - 3 and verify the relationship between the zeroes and coefficients.",
+                        "a": "Zeroes are √3 and -√3. Sum of zeroes = 0 = -b/a, Product of zeroes = -3 = c/a."
+                    },
+                    # D. Equal-root / discriminant problem
+                    {
+                        "q": "Find the value of k for which the quadratic equation kx(x - 2) + 6 = 0 has two equal roots.",
+                        "a": "kx² - 2kx + 6 = 0. For equal roots D = b² - 4ac = 0 => 4k² - 24k = 0 => k = 6 (as k ≠ 0)."
+                    },
+                    # E. Two-digit number Algebra word problem
+                    {
+                        "q": "A two-digit number is such that the product of its digits is 14. When 45 is added to the number, the digits interchange their places. Find the number.",
+                        "a": "Let tens digit be x and units digit be y. xy = 14 and (10x + y) + 45 = 10y + x => y - x = 5. Solving gives x = 2, y = 7. The number is 27."
+                    },
+                    # F. Matrix evaluation
+                    {
+                        "q": "If matrix A = [[1, 2], [3, 4]], calculate the matrix expression A² - 5A + 7I.",
+                        "a": "A² = [[7, 10], [15, 22]], 5A = [[5, 10], [15, 20]], 7I = [[7, 0], [0, 7]]. A² - 5A + 7I = [[9, 0], [0, 9]]."
+                    },
+                    # G. Matrix inverse
+                    {
+                        "q": "Find the inverse of the matrix A = [[2, 3], [1, 4]] using determinant methods.",
+                        "a": "det(A) = 8 - 3 = 5 ≠ 0. adj(A) = [[4, -3], [-1, 2]]. A⁻¹ = (1/5) * [[4, -3], [-1, 2]]."
+                    },
+                    # H. System of linear equations using matrices
+                    {
+                        "q": "Solve the system of linear equations 2x + 3y = 5 and 3x - y = 2 using matrix inversion method.",
+                        "a": "AX = B where A = [[2, 3], [3, -1]], X = [[x], [y]], B = [[5], [2]]. det(A) = -11. X = A⁻¹B => x = 1, y = 1."
+                    }
+                ]
+                selected = random.choice(algebra_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "NUMBERS_SEQUENCES":
                 if marks <= 2:

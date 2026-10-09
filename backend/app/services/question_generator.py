@@ -112,21 +112,47 @@ def get_question_signatures(question_text: str) -> Set[str]:
     quad_terms = [
         "quadratic formula",
         "quadratic equation",
+        "quadratic",
         "nature of roots",
         "b² - 4ac",
         "b^2 - 4ac",
         "b²-4ac",
         "discriminant",
-        "speed of the stream",
-        "speed of stream",
-        "motor boat",
-        "upstream",
-        "downstream",
+        "equal roots",
+        "real and equal roots",
         "zeroes of the polynomial",
         "zeros of the polynomial",
+        "zeroes of polynomial",
+        "zeros of polynomial",
+        "zeroes of a polynomial",
+        "zeros of a polynomial",
+        "polynomial",
+        "polynomials",
+        "linear equation",
+        "linear equations",
+        "system of linear equations",
+        "simultaneous equations",
+        "two-digit number",
+        "two digit number",
+        "matrix",
+        "matrices",
+        "determinant",
+        "determinants",
+        "inverse of matrix",
+        "matrix inversion",
+        "adjoint",
+        "identity matrix",
     ]
     if any(term in q_lower for term in quad_terms) or re.search(r"x[²^2]\s*[\+\-]\s*\d+x", q_lower) or re.search(r"solve.*x[²^2]", q_lower) or re.search(r"roots of.*x[²^2]", q_lower):
         signatures.add("ALGEBRA_QUADRATICS")
+
+    # Speed & Motion / River Boat signatures
+    speed_terms = [
+        "speed of the stream", "speed of stream", "motor boat", "motorboat",
+        "upstream", "downstream", "still water"
+    ]
+    if any(term in q_lower for term in speed_terms):
+        signatures.add("SPEED_DISTANCE")
 
     # Trigonometry signatures
     trig_terms = [
@@ -151,7 +177,7 @@ def get_question_signatures(question_text: str) -> Set[str]:
     stats_terms = [
         "frequency distribution", "mean of", "median of", "mode of",
         "probability of", "die is thrown", "dice are thrown",
-        "coin is tossed", "drawn at random", "two-digit number"
+        "coin is tossed", "drawn at random"
     ]
     if any(term in q_lower for term in stats_terms):
         signatures.add("STATISTICS_PROBABILITY")
@@ -260,7 +286,7 @@ def _find_exact_question_subset(
             diff_score = 2
         elif q.difficulty.lower() == "medium":
             diff_score = 1
-        return (diff_score, -q.marks, random.random())
+        return (diff_score, -q.marks, -q.id)
 
     ordered_questions = sorted(questions, key=question_sort_key, reverse=True)
     memo: Dict[Tuple[int, int], Optional[List[int]]] = {}
