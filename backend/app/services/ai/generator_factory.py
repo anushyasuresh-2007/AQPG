@@ -112,15 +112,59 @@ class OfflineFallbackProvider(BaseAIProvider):
                 ans = selected["a"]
 
             elif category == "NUMBERS_SEQUENCES":
-                if marks <= 2:
-                    q_text = f"Find the HCF and LCM of 96 and 404 using the prime factorization method."
-                    ans = f"96 = 2⁵ * 3, 404 = 2² * 101. HCF = 2² = 4. LCM = (96 * 404) / 4 = 9696."
-                elif marks <= 4:
-                    q_text = f"Find the 20th term of the Arithmetic Progression: 3, 8, 13, 18..."
-                    ans = f"First term a = 3, common difference d = 5. a_20 = a + 19d = 3 + 19(5) = 3 + 95 = 98."
-                else:
-                    q_text = f"Prove that √5 is an irrational number using the method of contradiction."
-                    ans = f"Assume √5 = a/b co-prime. 5b² = a² => 5 divides a. Let a = 5c => 5b² = 25c² => b² = 5c² => 5 divides b. Contradicts co-prime assumption. Thus √5 is irrational."
+                num_templates = [
+                    {
+                        "q": "Find the HCF and LCM of 96 and 404 using the prime factorization method.",
+                        "a": "96 = 2^5 * 3, 404 = 2^2 * 101. HCF = 2^2 = 4. LCM = (96 * 404) / 4 = 9696."
+                    },
+                    {
+                        "q": "Use Euclid's division algorithm to find the HCF of 4052 and 12576.",
+                        "a": "12576 = 4052*3 + 420; 4052 = 420*9 + 272; 420 = 272*1 + 148; 272 = 148*1 + 124; 148 = 124*1 + 24; 124 = 24*5 + 4; 24 = 4*6 + 0. HCF = 4."
+                    },
+                    {
+                        "q": "Prove that sqrt(5) is an irrational number using the method of contradiction.",
+                        "a": "Assume sqrt(5) = a/b co-prime. 5b^2 = a^2 => 5 divides a. Let a = 5c => 5b^2 = 25c^2 => b^2 = 5c^2 => 5 divides b. Contradicts co-prime assumption. Thus sqrt(5) is irrational."
+                    },
+                    {
+                        "q": "Find the 20th term of the Arithmetic Progression: 3, 8, 13, 18...",
+                        "a": "First term a = 3, common difference d = 5. a_20 = a + 19d = 3 + 19(5) = 3 + 95 = 98."
+                    },
+                    {
+                        "q": "Find the sum of the first 20 terms of the Arithmetic Progression: 2, 7, 12, 17...",
+                        "a": "First term a = 2, common difference d = 5, n = 20. S_20 = (n/2)[2a + (n-1)d] = 10[4 + 19(5)] = 10[4 + 95] = 990."
+                    },
+                    {
+                        "q": "Which term of the Arithmetic Progression 21, 18, 15... is -81?",
+                        "a": "a = 21, d = -3. a_n = a + (n-1)d = -81 => 21 + (n-1)(-3) = -81 => -3(n-1) = -102 => n - 1 = 34 => n = 35th term."
+                    },
+                    {
+                        "q": "Find the 10th term of the Geometric Progression (G.P.): 2, 6, 18, 54...",
+                        "a": "First term a = 2, common ratio r = 3. a_10 = a * r^(n-1) = 2 * 3^9 = 2 * 19683 = 39366."
+                    },
+                    {
+                        "q": "Find the sum of the first 6 terms of the Geometric Progression: 3, 6, 12, 24...",
+                        "a": "First term a = 3, common ratio r = 2. S_6 = a(r^n - 1)/(r - 1) = 3(2^6 - 1)/(2 - 1) = 3(64 - 1) = 3 * 63 = 189."
+                    },
+                    {
+                        "q": "Find the remainder when 2^81 is divided by 17 using modular arithmetic.",
+                        "a": "2^4 = 16 == -1 (mod 17) (congruent to -1 modulo 17). 2^81 = (2^4)^20 * 2^1 == (-1)^20 * 2 == 1 * 2 = 2 (mod 17). Remainder is 2."
+                    },
+                    {
+                        "q": "Determine the general term a_n of the sequence defined by a_1 = 2 and a_n = 3 * a_{n-1} + 1 for n > 1.",
+                        "a": "Calculating terms: a1=2, a2=7, a3=22, a4=67. Pattern gives general term a_n = (5 * 3^(n-1) - 1) / 2."
+                    },
+                    {
+                        "q": "If the 3rd and 9th terms of an Arithmetic Progression are 4 and -8 respectively, find its 13th term.",
+                        "a": "a + 2d = 4 and a + 8d = -8 => 6d = -12 => d = -2, a = 8. a_13 = a + 12d = 8 + 12(-2) = 8 - 24 = -16."
+                    },
+                    {
+                        "q": "Prove that 3 + 2sqrt(5) is an irrational number given that sqrt(5) is irrational.",
+                        "a": "Assume 3 + 2sqrt(5) = r (rational). Then sqrt(5) = (r - 3)/2 which is rational, contradicting irrationality of sqrt(5). Thus 3 + 2sqrt(5) is irrational."
+                    }
+                ]
+                selected = random.choice(num_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "GEOMETRY":
                 if marks <= 2:

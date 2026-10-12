@@ -672,6 +672,246 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
 
         self.assertEqual([q["question_id"] for q in res1["questions"]], [q["question_id"] for q in res2["questions"]])
 
+    def test_unit_2_numbers_sequences_relevance_validation(self):
+        """TEST 23 (Unit 2): Correct classification and acceptance of Unit 2 Numbers and Sequences syllabus questions, and rejection of unrelated units."""
+        u2_name = "Unit 2 - Numbers and Sequences"
+        u2_desc = "Euclid's division lemma, fundamental theorem of arithmetic, AP, GP, modular arithmetic, sequences and series"
+        u2_topics = ["Euclid's Division Lemma", "Arithmetic Progression", "Geometric Progression"]
+
+        # Valid Unit 2 questions must be accepted
+        q_hcf = "Find the HCF of 96 and 404 using the prime factorization method."
+        q_euclid = "Use Euclid's division algorithm to find the HCF of 4052 and 12576."
+        q_irrat = "Prove that sqrt(5) is an irrational number using the method of contradiction."
+        q_irrat2 = "Prove that 3 + 2sqrt(5) is an irrational number given that sqrt(5) is irrational."
+        q_ap = "Find the 20th term of the Arithmetic Progression: 3, 8, 13, 18..."
+        q_ap_sum = "Find the sum of the first 20 terms of the Arithmetic Progression: 2, 7, 12, 17..."
+        q_gp = "Find the 10th term of the Geometric Progression (G.P.): 2, 6, 18, 54..."
+        q_mod = "Find the remainder when 2^81 is divided by 17 using modular arithmetic."
+
+        self.assertTrue(validate_unit_relevance(q_hcf, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_euclid, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_irrat, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_irrat2, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_ap, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_ap_sum, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_gp, u2_name, u2_desc, u2_topics))
+        self.assertTrue(validate_unit_relevance(q_mod, u2_name, u2_desc, u2_topics))
+
+        # Questions from unrelated units must be rejected
+        q_quad = "Solve 2x² - 5x + 2 = 0 using quadratic formula."
+        q_boat = "A motor boat speed in still water is 15 km/h goes 30 km downstream. Find speed of stream."
+        q_trig = "From a point 15 m away from foot of tower, angle of elevation of top is 60°. Find height of tower."
+        q_mens = "Find the volume of a solid cylinder of radius 5 cm and height 10 cm."
+        q_rel = "Show that the function f: R -> R defined by f(x) = 3x + 2 is one-one and onto (bijective)."
+        q_coord = "Find the distance between the points A(2, 3) and B(5, 7) in the coordinate plane."
+
+        self.assertFalse(validate_unit_relevance(q_quad, u2_name, u2_desc, u2_topics))
+        self.assertFalse(validate_unit_relevance(q_boat, u2_name, u2_desc, u2_topics))
+        self.assertFalse(validate_unit_relevance(q_trig, u2_name, u2_desc, u2_topics))
+        self.assertFalse(validate_unit_relevance(q_mens, u2_name, u2_desc, u2_topics))
+        self.assertFalse(validate_unit_relevance(q_rel, u2_name, u2_desc, u2_topics))
+        self.assertFalse(validate_unit_relevance(q_coord, u2_name, u2_desc, u2_topics))
+
+    def test_unit_2_hybrid_mode_shortage_fulfillment(self):
+        """TEST 24 (Unit 2): Hybrid generation fills Unit 2 shortage with valid Numbers and Sequences questions."""
+        mock_db = MagicMock()
+
+        mock_subject = MagicMock()
+        mock_subject.id = 1
+        mock_subject.subject_name = "Mathematics"
+        mock_subject.board = "CBSE"
+        mock_subject.class_name = "Class 10"
+        mock_subject.board_id = 1
+        mock_subject.class_id = 1
+
+        mock_unit_2 = MagicMock()
+        mock_unit_2.id = 2
+        mock_unit_2.unit_name = "Unit 2 - Numbers and Sequences"
+        mock_unit_2.description = "Numbers and sequences, AP, GP"
+
+        mock_bloom = MagicMock()
+        mock_bloom.id = 1
+        mock_bloom.level_name = "Apply"
+
+        from app.models.subject import Subject
+        from app.models.unit import Unit
+        from app.models.topic import Topic
+        from app.models.question import Question
+        from app.models.bloom import Bloom
+
+        def query_side_effect(model):
+            m = MagicMock()
+            if model == Subject:
+                m.filter.return_value.first.return_value = mock_subject
+            elif model == Unit:
+                m.filter.return_value.all.return_value = [mock_unit_2]
+            elif model == Topic:
+                m.filter.return_value.order_by.return_value.all.return_value = []
+                m.filter.return_value.filter.return_value.order_by.return_value.all.return_value = []
+            elif model == Question:
+                m.filter.return_value.filter.return_value.filter.return_value.filter.return_value.all.return_value = []
+                m.filter.return_value.all.return_value = []
+            elif model == Bloom:
+                m.all.return_value = [mock_bloom]
+            return m
+
+        mock_db.query.side_effect = query_side_effect
+
+        from app.services.ai.generator_factory import OfflineFallbackProvider
+        with patch("app.services.question_generator.get_ai_generator", return_value=OfflineFallbackProvider()):
+            from app.services.question_generator import generate_question_paper
+            res = generate_question_paper(
+                db=mock_db,
+                subject_id=1,
+                selected_units=[2],
+                total_marks=6,
+                bloom_distribution={"Apply": 100},
+                source_mode="hybrid",
+            )
+
+        selected = res["questions"]
+        self.assertGreaterEqual(len(selected), 1, "Hybrid generation must fill Unit 2 shortage successfully.")
+        for q in selected:
+            self.assertTrue(validate_unit_relevance(q["question"], mock_unit_2.unit_name, mock_unit_2.description, []))
+
+    def test_unit_2_fallback_structural_diversity(self):
+        """TEST 25 (Unit 2): OfflineFallbackProvider produces multiple structurally distinct templates for Unit 2."""
+        fallback = OfflineFallbackProvider()
+        prompt = AIQuestionPrompt(
+            board="CBSE",
+            class_name="Class 10",
+            subject_name="Mathematics",
+            unit_name="Unit 2 - Numbers and Sequences",
+            topic_name="Arithmetic Progression",
+            marks=3,
+            difficulty="medium",
+            bloom_level="Apply",
+            question_type="Numerical",
+            unit_description="Numbers and sequences, AP, GP",
+            topics_list=["Arithmetic Progression", "Geometric Progression"],
+        )
+
+        seen_hashes = set()
+        seen_questions = set()
+        for _ in range(50):
+            res = fallback.generate_question(prompt)
+            self.assertIsNotNone(res)
+            self.assertTrue(res.question_text.isascii(), f"Question must be pure ASCII: {res.question_text}")
+            self.assertTrue(res.answer.isascii(), f"Answer must be pure ASCII: {res.answer}")
+            self.assertTrue(validate_unit_relevance(res.question_text, prompt.unit_name, prompt.unit_description, prompt.topics_list))
+            seen_questions.add(res.question_text)
+            sh = compute_structural_hash(res.question_text)
+            seen_hashes.add(sh)
+
+        self.assertGreaterEqual(len(seen_hashes), 5, "OfflineFallbackProvider must produce at least 5 distinct structural hashes for Unit 2 across multiple runs.")
+        self.assertGreaterEqual(len(seen_questions), 5, "OfflineFallbackProvider must produce distinct questions across multiple runs.")
+
+    def test_unit_2_fallback_templates_correctness_and_readability(self):
+        """TEST 26 (Unit 2): Verify all 12 templates for readability, ASCII notation, and mathematical correctness."""
+        fallback = OfflineFallbackProvider()
+        prompt = AIQuestionPrompt(
+            board="CBSE",
+            class_name="Class 10",
+            subject_name="Mathematics",
+            unit_name="Unit 2 - Numbers and Sequences",
+            topic_name="Arithmetic Progression",
+            marks=3,
+            difficulty="medium",
+            bloom_level="Apply",
+            question_type="Numerical",
+            unit_description="Numbers and sequences, AP, GP",
+            topics_list=["Arithmetic Progression", "Geometric Progression"],
+        )
+
+        captured_templates = []
+        def intercept_choice(seq):
+            if isinstance(seq, list) and len(seq) == 12:
+                captured_templates.extend(seq)
+            return seq[0]
+
+        with patch("random.choice", side_effect=intercept_choice):
+            fallback.generate_question(prompt)
+
+        self.assertEqual(len(captured_templates), 12, "Must preserve all 12 templates for Unit 2.")
+        unique_questions = {t["q"] for t in captured_templates}
+        self.assertEqual(len(unique_questions), 12, "All 12 templates must have unique question texts.")
+
+        # Check corrupted symbols are absent and clean ASCII notation is used
+        corrupted_chars = ["√", "⁵", "²", "¹", "≡"]
+        for idx, t in enumerate(captured_templates):
+            q_text = t["q"]
+            ans_text = t["a"]
+            for bad_char in corrupted_chars:
+                self.assertNotIn(bad_char, q_text, f"Corrupted character '{bad_char}' found in template {idx} question.")
+                self.assertNotIn(bad_char, ans_text, f"Corrupted character '{bad_char}' found in template {idx} answer.")
+            self.assertTrue(q_text.isascii(), f"Template {idx} question must be pure ASCII.")
+            self.assertTrue(ans_text.isascii(), f"Template {idx} answer must be pure ASCII.")
+
+        # Template-specific mathematical verification
+        # 1. HCF and LCM of 96 and 404
+        t1 = next(t for t in captured_templates if "96 and 404" in t["q"])
+        self.assertIn("2^5", t1["a"])
+        self.assertIn("2^2", t1["a"])
+        self.assertIn("HCF = 2^2 = 4", t1["a"])
+        self.assertIn("LCM = (96 * 404) / 4 = 9696", t1["a"])
+
+        # 2. Euclid's division algorithm for 4052 and 12576
+        t2 = next(t for t in captured_templates if "4052 and 12576" in t["q"])
+        self.assertIn("12576 = 4052*3 + 420", t2["a"])
+        self.assertIn("24 = 4*6 + 0", t2["a"])
+        self.assertIn("HCF = 4", t2["a"])
+
+        # 3. Prove sqrt(5) is irrational
+        t3 = next(t for t in captured_templates if "Prove that sqrt(5) is an irrational number" in t["q"])
+        self.assertIn("sqrt(5)", t3["q"])
+        self.assertIn("sqrt(5) = a/b co-prime", t3["a"])
+        self.assertIn("5b^2 = a^2", t3["a"])
+        self.assertIn("Thus sqrt(5) is irrational", t3["a"])
+
+        # 4. 20th term of AP: 3, 8, 13, 18...
+        t4 = next(t for t in captured_templates if "20th term of the Arithmetic Progression: 3, 8, 13, 18" in t["q"])
+        self.assertIn("a_20 = a + 19d = 3 + 19(5) = 3 + 95 = 98", t4["a"])
+
+        # 5. Sum of first 20 terms of AP: 2, 7, 12, 17...
+        t5 = next(t for t in captured_templates if "sum of the first 20 terms of the Arithmetic Progression: 2, 7, 12, 17" in t["q"])
+        self.assertIn("S_20 = (n/2)[2a + (n-1)d] = 10[4 + 19(5)] = 10[4 + 95] = 990", t5["a"])
+
+        # 6. Which term of AP 21, 18, 15... is -81?
+        t6 = next(t for t in captured_templates if "21, 18, 15... is -81" in t["q"])
+        self.assertIn("n = 35th term", t6["a"])
+
+        # 7. 10th term of GP: 2, 6, 18, 54...
+        t7 = next(t for t in captured_templates if "10th term of the Geometric Progression" in t["q"])
+        self.assertIn("a_10 = a * r^(n-1) = 2 * 3^9 = 2 * 19683 = 39366", t7["a"])
+
+        # 8. Sum of first 6 terms of GP: 3, 6, 12, 24...
+        t8 = next(t for t in captured_templates if "sum of the first 6 terms of the Geometric Progression" in t["q"])
+        self.assertIn("S_6 = a(r^n - 1)/(r - 1) = 3(2^6 - 1)/(2 - 1) = 3(64 - 1) = 3 * 63 = 189", t8["a"])
+
+        # 9. Remainder when 2^81 divided by 17 (modular arithmetic)
+        t9 = next(t for t in captured_templates if "remainder when 2^81 is divided by 17" in t["q"])
+        self.assertIn("2^4 = 16 == -1 (mod 17)", t9["a"])
+        self.assertIn("congruent to -1 modulo 17", t9["a"])
+        self.assertIn("2^81 = (2^4)^20 * 2^1", t9["a"])
+        self.assertIn("Remainder is 2", t9["a"])
+
+        # 10. Recurrence general term a_n
+        t10 = next(t for t in captured_templates if "sequence defined by a_1 = 2 and a_n = 3 * a_{n-1} + 1" in t["q"])
+        self.assertIn("a_n = (5 * 3^(n-1) - 1) / 2", t10["a"])
+
+        # 11. 3rd and 9th terms of AP are 4 and -8, find 13th term
+        t11 = next(t for t in captured_templates if "3rd and 9th terms of an Arithmetic Progression are 4 and -8" in t["q"])
+        self.assertIn("d = -2, a = 8", t11["a"])
+        self.assertIn("a_13 = a + 12d = 8 + 12(-2) = 8 - 24 = -16", t11["a"])
+
+        # 12. Prove 3 + 2sqrt(5) is irrational
+        t12 = next(t for t in captured_templates if "Prove that 3 + 2sqrt(5) is an irrational number" in t["q"])
+        self.assertIn("3 + 2sqrt(5)", t12["q"])
+        self.assertIn("sqrt(5) is irrational", t12["q"])
+        self.assertIn("sqrt(5) = (r - 3)/2 which is rational", t12["a"])
+        self.assertIn("Thus 3 + 2sqrt(5) is irrational", t12["a"])
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -88,8 +88,8 @@ def classify_unit_category(
     if any(w in ctx for w in ["mensuration", "surface area", "surface areas", "volume", "volumes", "sector", "segment of a circle", "area related to circles"]):
         return "MENSURATION"
 
-    # 6. Numbers & Sequences / Real Numbers & AP
-    if any(w in ctx for w in ["arithmetic progression", "progression", "ap", "real number", "real numbers", "number system", "number systems", "sequence", "sequences", "hcf", "lcm", "euclid"]):
+    # 6. Numbers & Sequences / Real Numbers & AP & GP
+    if any(w in ctx for w in ["arithmetic progression", "progression", "ap", "real number", "real numbers", "number system", "number systems", "sequence", "sequences", "numbers and sequences", "geometric progression", "series", "hcf", "lcm", "euclid"]):
         return "NUMBERS_SEQUENCES"
 
     # 7. Pure Geometry / Circles / Triangles / Theorems
@@ -204,9 +204,14 @@ def get_question_signatures(question_text: str) -> Set[str]:
     # Numbers & Sequences signatures
     num_terms = [
         "arithmetic progression", "a.p.", "common difference",
-        "n-th term", "nth term", "hcf and lcm", "prove that √"
+        "n-th term", "nth term", "hcf and lcm", "hcf of", "lcm of",
+        "prove that √", "is irrational", "is an irrational number",
+        "geometric progression", "g.p.", "common ratio", "geometric series",
+        "sum of first", "sum of the ap", "sum of an ap", "term of the ap", "term of an ap",
+        "euclid's division", "euclid division", "euclid's lemma", "prime factorization", "prime factors",
+        "modular arithmetic", "congruence", "general term of the sequence", "term of the sequence", "numbers and sequences"
     ]
-    if any(term in q_lower for term in num_terms):
+    if any(term in q_lower for term in num_terms) or re.search(r"\ba_n\b", q_lower) or re.search(r"\bs_n\b", q_lower):
         signatures.add("NUMBERS_SEQUENCES")
 
     # Relations & Functions signatures
