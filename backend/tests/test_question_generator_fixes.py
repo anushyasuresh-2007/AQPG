@@ -911,6 +911,70 @@ class TestQuestionGeneratorFixes(unittest.TestCase):
         self.assertIn("sqrt(5) = (r - 3)/2 which is rational", t12["a"])
         self.assertIn("Thus 3 + 2sqrt(5) is irrational", t12["a"])
 
+    def test_27_geometry_unit_4_substring_immunity_and_fallback_diversity(self):
+        """TEST 27: Geometry classification is immune to 'chapter'/'shapes' matching 'ap', and fallback yields distinct syllabus problems."""
+        from app.services.question_generator import classify_unit_category
+        cat = classify_unit_category("Unit 4 - Triangles", "Chapter 4 geometry covering triangles and shapes", ["Similar Triangles", "Basic Proportionality Theorem"])
+        self.assertEqual(cat, "GEOMETRY", "Unit 4 Triangles must be classified as GEOMETRY, never NUMBERS_SEQUENCES.")
+
+        cat_tnsb = classify_unit_category("Unit 4 - Geometry", "Chapter 4 geometric proofs and circle tangents", ["Tangents to a Circle"])
+        self.assertEqual(cat_tnsb, "GEOMETRY")
+
+        fallback = OfflineFallbackProvider()
+        prompt = AIQuestionPrompt(
+            board="CBSE",
+            class_name="Class 10",
+            subject_name="Mathematics",
+            unit_name="Unit 4 - Triangles",
+            topic_name="Basic Proportionality Theorem",
+            marks=4,
+            difficulty="medium",
+            bloom_level="Apply",
+            question_type="Medium Answer",
+            unit_description="Similarity of triangles, BPT, tangents",
+            topics_list=["Basic Proportionality Theorem", "Similar Triangles"],
+        )
+
+        seen_questions = set()
+        seen_hashes = set()
+        for _ in range(30):
+            res = fallback.generate_question(prompt)
+            self.assertIsNotNone(res)
+            self.assertTrue(validate_unit_relevance(res.question_text, prompt.unit_name, prompt.unit_description, prompt.topics_list))
+            seen_questions.add(res.question_text)
+            seen_hashes.add(compute_structural_hash(res.question_text))
+
+        # Must produce distinct syllabus-relevant problems (not just different numbers)
+        self.assertGreaterEqual(len(seen_questions), 4, "Geometry fallback pool must produce multiple distinct questions.")
+        self.assertGreaterEqual(len(seen_hashes), 4, "Geometry fallback pool must produce structurally distinct problem templates.")
+
+    def test_28_economics_does_not_route_to_computer_science(self):
+        """TEST 28: Subject 'Economics' must not trigger 'cs' substring match and must never return Computer Science / Python questions."""
+        fallback = OfflineFallbackProvider()
+        prompt = AIQuestionPrompt(
+            board="CBSE",
+            class_name="Class 12",
+            subject_name="Economics",
+            unit_name="Unit 1 - National Income and Related Aggregates",
+            topic_name="GDP and Welfare",
+            marks=3,
+            difficulty="medium",
+            bloom_level="Understand",
+            question_type="Short Answer",
+        )
+        res = fallback.generate_question(prompt)
+        self.assertIsNotNone(res)
+        q_lower = res.question_text.lower()
+        cs_terms = ["python", "def ", "class ", "list", "tuple", "dictionary", "loop", "variable", "algorithm"]
+        for term in cs_terms:
+            self.assertNotIn(term, q_lower, f"Economics question must not contain CS term '{term}'.")
+        self.assertTrue(any(term in q_lower for term in ["economic", "demand", "supply", "income", "inflation", "market", "policy", "gdp", "national income"]))
+
+    def test_29_fundamental_theorem_of_arithmetic_not_misclassified_as_geometry(self):
+        """TEST 29: Unit mentioning 'Fundamental Theorem of Arithmetic' must classify as NUMBERS_SEQUENCES, not GEOMETRY."""
+        from app.services.question_generator import classify_unit_category
+        cat = classify_unit_category("Unit 1 - Real Numbers", "Fundamental Theorem of Arithmetic, prime factorization, Euclid division", ["Fundamental Theorem of Arithmetic"])
+        self.assertEqual(cat, "NUMBERS_SEQUENCES", "Fundamental Theorem of Arithmetic must classify as NUMBERS_SEQUENCES.")
 
 
 if __name__ == "__main__":

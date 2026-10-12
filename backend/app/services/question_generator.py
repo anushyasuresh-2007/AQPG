@@ -68,37 +68,55 @@ def classify_unit_category(
 
     ctx = " ".join(context_items)
 
-    # 1. Coordinate Geometry (check before generic geometry)
+    # 1. Vectors & 3D Geometry
+    if any(w in ctx for w in ["vector", "vectors", "three dimensional", "3d geometry", "direction cosines", "direction ratios"]):
+        return "VECTORS_3D"
+
+    # 2. Coordinate Geometry (check before generic geometry)
     if any(w in ctx for w in ["coordinate", "cartesian", "section formula", "distance formula", "collinear"]):
         return "COORDINATE_GEOMETRY"
 
-    # 2. Relations and Functions (check before general trigonometry to properly categorize combined Unit 1 names like "Unit 1 - Relations and Functions & Inverse Trigonometry")
-    if any(w in ctx for w in ["relation", "relations", "function", "functions", "set", "sets", "bijective", "equivalence relation", "injective", "surjective", "domain and range", "inverse trig", "inverse trigonometric"]):
+    # 3. Relations and Functions (check before general trigonometry to properly categorize combined Unit 1 names like "Unit 1 - Relations and Functions & Inverse Trigonometry")
+    if any(w in ctx for w in ["relation", "relations", "function", "functions", "bijective", "equivalence relation", "injective", "surjective", "domain and range", "inverse trig", "inverse trigonometric"]) or re.search(r"\b(sets?)\b", ctx):
         return "RELATIONS_FUNCTIONS"
 
-    # 3. Trigonometry
+    # 4. Trigonometry
     if any(w in ctx for w in ["trigonometry", "trigonometric", "heights and distances", "heights & distances", "elevation", "depression"]):
         return "TRIGONOMETRY"
 
-    # 4. Statistics & Probability
+    # 5. Statistics & Probability
     if any(w in ctx for w in ["statistic", "statistics", "probability", "frequency", "mean", "median", "mode", "ogive", "data handling"]):
         return "STATISTICS_PROBABILITY"
 
-    # 5. Mensuration
+    # 6. Mensuration
     if any(w in ctx for w in ["mensuration", "surface area", "surface areas", "volume", "volumes", "sector", "segment of a circle", "area related to circles"]):
         return "MENSURATION"
 
-    # 6. Numbers & Sequences / Real Numbers & AP & GP
-    if any(w in ctx for w in ["arithmetic progression", "progression", "ap", "real number", "real numbers", "number system", "number systems", "sequence", "sequences", "numbers and sequences", "geometric progression", "series", "hcf", "lcm", "euclid"]):
+    # 7. Numbers & Sequences / Real Numbers & AP & GP (use word boundaries so 'chapter', 'applications', 'shapes' do not trigger 'ap')
+    num_terms = [
+        "arithmetic progression", "real number", "real numbers",
+        "number system", "number systems", "sequence", "sequences",
+        "numbers and sequences", "geometric progression", "series", "hcf", "lcm",
+        "euclid", "modular arithmetic", "prime factorization"
+    ]
+    if any(w in ctx for w in num_terms) or re.search(r"\b(ap|a\.p\.|g\.p\.)\b", ctx):
         return "NUMBERS_SEQUENCES"
 
-    # 7. Pure Geometry / Circles / Triangles / Theorems
-    if any(w in ctx for w in ["geometry", "circle", "circles", "triangle", "triangles", "similarity", "similar triangles", "theorem", "tangent"]):
+    # 8. Pure Geometry / Circles / Triangles / Specific Geometric Theorems
+    if any(w in ctx for w in ["geometry", "circle", "circles", "triangle", "triangles", "similarity", "similar triangles", "tangent", "basic proportionality theorem", "thales theorem", "pythagoras"]):
         return "GEOMETRY"
 
-    # 8. Algebra / Quadratics / Polynomials / Linear Equations / Matrices
+    # 9. Algebra / Quadratics / Polynomials / Linear Equations / Matrices
     if any(w in ctx for w in ["quadratic", "quadratics", "polynomial", "polynomials", "algebra", "algebraic", "linear equation", "linear equations", "matrix", "matrices", "determinant", "equation"]):
         return "ALGEBRA_QUADRATICS"
+
+    # 10. Linear Programming
+    if any(w in ctx for w in ["linear programming", "lpp", "feasible region", "objective function", "constraints", "corner points"]):
+        return "LINEAR_PROGRAMMING"
+
+    # 11. Calculus / Derivatives / Integrals
+    if any(w in ctx for w in ["calculus", "differential", "derivative", "derivatives", "integral", "integrals", "continuity", "differentiability"]):
+        return "CALCULUS"
 
     return "OTHER"
 
@@ -196,10 +214,24 @@ def get_question_signatures(question_text: str) -> Set[str]:
     geom_terms = [
         "basic proportionality theorem", "thales theorem", "pythagoras theorem",
         "tangent to a circle", "tangents drawn from", "concentric circles",
-        "similar triangles", "ratio of areas of two similar triangles"
+        "similar triangles", "ratio of areas of two similar triangles",
+        "lengths of tangents", "chord of a circle", "angle subtended",
+        "cyclic quadrilateral", "radius of the circle", "hypotenuse",
+        "in a right triangle", "rhombus", "subtends an angle", "alternate segment theorem"
     ]
     if any(term in q_lower for term in geom_terms):
         signatures.add("GEOMETRY")
+
+    # Vectors & 3D Geometry signatures
+    vec_terms = [
+        "vector", "vectors", "unit vector", "magnitude of vector",
+        "dot product", "cross product", "scalar product", "vector product",
+        "direction cosines", "direction ratios", "perpendicular vectors",
+        "collinear vectors", "projection of vector", "angle between vectors",
+        "vector equation", "cartesian equation of the line"
+    ]
+    if any(term in q_lower for term in vec_terms) or re.search(r"\bvec\b", q_lower) or re.search(r"\|\s*a\s*×\s*b\s*\|", q_lower):
+        signatures.add("VECTORS_3D")
 
     # Numbers & Sequences signatures
     num_terms = [
@@ -228,6 +260,25 @@ def get_question_signatures(question_text: str) -> Set[str]:
     ]
     if any(term in q_lower for term in rel_terms) or re.search(r"\bf\s*:\s*[a-z0-9_]+\s*->", q_lower) or re.search(r"\bf\s*\(\s*x\s*\)", q_lower):
         signatures.add("RELATIONS_FUNCTIONS")
+
+    # Linear Programming signatures
+    lp_terms = [
+        "linear programming", "feasible region", "objective function",
+        "corner point", "corner points", "maximize z", "minimize z",
+        "bounded feasible", "optimal value", "constraints"
+    ]
+    if any(term in q_lower for term in lp_terms) or re.search(r"z\s*=\s*\d+x\s*\+\s*\d+y", q_lower):
+        signatures.add("LINEAR_PROGRAMMING")
+
+    # Calculus signatures
+    calc_terms = [
+        "dy/dx", "integral", "integrals", "derivative", "derivatives",
+        "differentiate", "differential equation", "rate of change",
+        "maxima and minima", "continuity", "differentiable", "indefinite integral",
+        "definite integral", "evaluating the integral", "∫"
+    ]
+    if any(term in q_lower for term in calc_terms) or re.search(r"\bdy/dx\b", q_lower) or re.search(r"\bf'\s*\(\s*x\s*\)", q_lower):
+        signatures.add("CALCULUS")
 
     return signatures
 
@@ -272,6 +323,12 @@ def validate_unit_relevance(
             if "COORDINATE_GEOMETRY" in question_signatures and not any(w in context_str for w in ["coordinate", "cartesian"]):
                 return False
             if "MENSURATION" in question_signatures and not any(w in context_str for w in ["mensuration", "surface area", "volume"]):
+                return False
+            if "VECTORS_3D" in question_signatures and not any(w in context_str for w in ["vector", "vectors", "three dimensional", "3d"]):
+                return False
+            if "LINEAR_PROGRAMMING" in question_signatures and not any(w in context_str for w in ["linear programming", "lpp", "linear"]):
+                return False
+            if "CALCULUS" in question_signatures and not any(w in context_str for w in ["calculus", "differential", "derivative", "integral"]):
                 return False
 
     return True
@@ -676,7 +733,7 @@ def generate_question_paper(
                 )
 
                 gen_res = None
-                MAX_RETRIES = 5
+                MAX_RETRIES = 15
                 for attempt in range(MAX_RETRIES):
                     candidate = ai_generator.generate_question(prompt)
                     if not candidate or not candidate.question_text:

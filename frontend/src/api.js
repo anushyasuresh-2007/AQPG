@@ -7,6 +7,7 @@ const TOKEN_STORAGE_KEY = 'aqpg_token'
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
+  timeout: 60000,
 })
 
 export const getToken = () => window.localStorage.getItem(TOKEN_STORAGE_KEY)
@@ -26,6 +27,15 @@ export const clearToken = () => {
 export const isAuthenticated = () => Boolean(getToken())
 
 export const formatApiError = (error, fallback = 'An error occurred') => {
+  if (error?.code === 'ECONNABORTED' || error?.message?.toLowerCase().includes('timeout')) {
+    return 'The request timed out. The backend server may be waking up from sleep; please wait a few seconds and try again.'
+  }
+  if (!error?.response) {
+    if (error?.message === 'Network Error' || (typeof navigator !== 'undefined' && !navigator.onLine)) {
+      return 'Network Error: Backend server is unreachable or waking up from sleep. Please wait a moment and retry.'
+    }
+    return error?.message || 'Network error: unable to reach the backend server. Please retry shortly.'
+  }
   const detail = error?.response?.data?.detail
   if (!detail) return error?.message || fallback
   if (typeof detail === 'string') return detail

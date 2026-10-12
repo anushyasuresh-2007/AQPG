@@ -2,6 +2,7 @@
 
 import os
 import random
+import re
 from typing import List, Optional
 
 from app.core.config import settings
@@ -30,39 +31,109 @@ class OfflineFallbackProvider(BaseAIProvider):
 
             # Check unit category for unit-grounded fallback templates
             if category == "COORDINATE_GEOMETRY":
-                if marks <= 2:
-                    p1 = (random.randint(1, 5), random.randint(1, 5))
-                    p2 = (p1[0] + 3, p1[1] + 4)
-                    q_text = f"Find the distance between the points A({p1[0]}, {p1[1]}) and B({p2[0]}, {p2[1]}) in the coordinate plane."
-                    ans = f"Distance d = √[({p2[0]}-{p1[0]})² + ({p2[1]}-{p1[1]})²] = √(3² + 4²) = √25 = 5 units."
-                elif marks <= 4:
-                    q_text = f"Find the coordinates of the point P which divides the line segment joining A(-1, 7) and B(4, -3) in the ratio 2:3 internally."
-                    ans = f"Using Section Formula x = (m1*x2 + m2*x1)/(m1+m2) = (2*4 + 3*-1)/5 = 1, y = (2*-3 + 3*7)/5 = 3. Point P is (1, 3)."
-                else:
-                    q_text = f"Determine the ratio in which the line 2x + y - 4 = 0 divides the line segment joining the points A(2, -2) and B(3, 7)."
-                    ans = f"Let ratio be k:1. Point on line is P((3k+2)/(k+1), (7k-2)/(k+1)). Substituting into line equation gives k = 2/9."
+                coord_templates = [
+                    {
+                        "q": "Find the distance between the points A(2, 3) and B(4, 1) in the Cartesian coordinate plane.",
+                        "a": "Distance d = √[(4-2)² + (1-3)²] = √(2² + (-2)²) = √8 = 2√2 units."
+                    },
+                    {
+                        "q": "Find the coordinates of the point P which divides the line segment joining A(-1, 7) and B(4, -3) in the ratio 2:3 internally.",
+                        "a": "Using Section Formula: x = (2*4 + 3*-1)/5 = 1, y = (2*-3 + 3*7)/5 = 3. Point P is (1, 3)."
+                    },
+                    {
+                        "q": "Determine the ratio in which the line 2x + y - 4 = 0 divides the line segment joining the points A(2, -2) and B(3, 7).",
+                        "a": "Let ratio be k:1. Point on line is P((3k+2)/(k+1), (7k-2)/(k+1)). Substituting into line equation gives k = 2/9."
+                    },
+                    {
+                        "q": "Find the midpoint of the line segment joining the points P(-5, 4) and Q(7, -8).",
+                        "a": "Midpoint M = ((x1+x2)/2, (y1+y2)/2) = ((-5+7)/2, (4-8)/2) = (1, -2)."
+                    },
+                    {
+                        "q": "Check whether the points A(1, 5), B(2, 3), and C(-2, -11) are collinear using distance formula or slopes.",
+                        "a": "Slope AB = (3-5)/(2-1) = -2. Slope BC = (-11-3)/(-2-2) = -14/-4 = 7/2. Since slopes are not equal, points are not collinear."
+                    },
+                    {
+                        "q": "Find the area of the triangle whose vertices are (2, 3), (-1, 0), and (2, -4) using coordinate geometry.",
+                        "a": "Area = 0.5 * |x1(y2 - y3) + x2(y3 - y1) + x3(y1 - y2)| = 0.5 * |2(0 - (-4)) + (-1)(-4 - 3) + 2(3 - 0)| = 0.5 * |8 + 7 + 6| = 10.5 sq units."
+                    },
+                    {
+                        "q": "Find the coordinates of the centroid of triangle ABC with vertices A(3, -5), B(-7, 4), and C(10, -2).",
+                        "a": "Centroid G = ((3 - 7 + 10)/3, (-5 + 4 - 2)/3) = (6/3, -3/3) = (2, -1)."
+                    },
+                ]
+                selected = random.choice(coord_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "TRIGONOMETRY":
-                if marks <= 2:
-                    q_text = f"Evaluate the trigonometric expression: 2 tan²(45°) + cos²(30°) - sin²(60°)."
-                    ans = f"2(1)² + (√3/2)² - (√3/2)² = 2 + 3/4 - 3/4 = 2."
-                elif marks <= 4:
-                    q_text = f"A tower stands vertically on the ground. From a point on the ground 15 m away from the foot of the tower, the angle of elevation of the top of the tower is 60°. Find the height of the tower."
-                    ans = f"tan(60°) = h / 15 => √3 = h / 15 => h = 15√3 m ≈ 25.98 m."
-                else:
-                    q_text = f"Prove the trigonometric identity: (sin θ - 2 sin³ θ) / (2 cos³ θ - cos θ) = tan θ."
-                    ans = f"LHS = sin θ(1 - 2 sin² θ) / cos θ(2 cos² θ - 1) = tan θ(cos 2θ / cos 2θ) = tan θ = RHS."
+                trig_templates = [
+                    {
+                        "q": "Evaluate the trigonometric expression: 2 tan²(45°) + cos²(30°) - sin²(60°).",
+                        "a": "2(1)² + (√3/2)² - (√3/2)² = 2 + 3/4 - 3/4 = 2."
+                    },
+                    {
+                        "q": "A tower stands vertically on the ground. From a point on the ground 15 m away from the foot of the tower, the angle of elevation of the top of the tower is 60°. Find the height of the tower.",
+                        "a": "tan(60°) = h / 15 => √3 = h / 15 => h = 15√3 m ≈ 25.98 m."
+                    },
+                    {
+                        "q": "Prove the trigonometric identity: (sin θ - 2 sin³ θ) / (2 cos³ θ - cos θ) = tan θ.",
+                        "a": "LHS = sin θ(1 - 2 sin² θ) / [cos θ(2 cos² θ - 1)] = (sin θ / cos θ) * (cos 2θ / cos 2θ) = tan θ = RHS."
+                    },
+                    {
+                        "q": "If sin(A - B) = 1/2 and cos(A + B) = 1/2 for 0° < A + B ≤ 90° and A > B, find the angles A and B.",
+                        "a": "sin(A - B) = sin(30°) => A - B = 30°. cos(A + B) = cos(60°) => A + B = 60°. Adding gives 2A = 90° => A = 45°, B = 15°."
+                    },
+                    {
+                        "q": "Prove that (1 + cot θ - cosec θ)(1 + tan θ + sec θ) = 2.",
+                        "a": "Converting to sin and cos: [(sin θ + cos θ - 1)/sin θ] * [(cos θ + sin θ + 1)/cos θ] = [(sin θ + cos θ)² - 1] / (sin θ cos θ) = 2 sin θ cos θ / (sin θ cos θ) = 2."
+                    },
+                    {
+                        "q": "From the top of a 7 m high building, the angle of elevation of the top of a cable tower is 60° and the angle of depression of its foot is 45°. Determine the height of the tower.",
+                        "a": "tan(45°) = 7/d => d = 7 m. tan(60°) = (H - 7)/d => √3 = (H - 7)/7 => H = 7(√3 + 1) m ≈ 19.12 m."
+                    },
+                    {
+                        "q": "If sec θ + tan θ = p, prove that sin θ = (p² - 1) / (p² + 1).",
+                        "a": "sec θ - tan θ = 1/p. Adding gives 2 sec θ = p + 1/p. Subtracting gives 2 tan θ = p - 1/p. Dividing gives sin θ = tan θ / sec θ = (p² - 1)/(p² + 1)."
+                    },
+                ]
+                selected = random.choice(trig_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "STATISTICS_PROBABILITY":
-                if marks <= 2:
-                    q_text = f"A die is thrown once. Find the probability of getting a prime number."
-                    ans = f"Total outcomes = 6. Prime numbers = {{2, 3, 5}} (3 outcomes). P(prime) = 3/6 = 1/2."
-                elif marks <= 4:
-                    q_text = f"A box contains 90 discs numbered 1 to 90. If one disc is drawn at random from the box, find the probability that it bears a two-digit number."
-                    ans = f"Total outcomes = 90. Two-digit numbers = 10 to 90 (81 outcomes). P(two-digit) = 81/90 = 9/10."
-                else:
-                    q_text = f"Find the mean of the following frequency distribution: Class intervals 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 5, 8, 15, 12, 10 respectively."
-                    ans = f"Using ∑(f*x)/∑f: Midpoints x = 5, 15, 25, 35, 45. ∑(f*x) = 25+120+375+420+450 = 1390. ∑f = 50. Mean = 1390/50 = 27.8."
+                stats_templates = [
+                    {
+                        "q": "A die is thrown once. Find the probability of getting a prime number.",
+                        "a": "Total outcomes = 6. Prime numbers = {2, 3, 5} (3 outcomes). P(prime) = 3/6 = 1/2."
+                    },
+                    {
+                        "q": "A box contains 90 discs numbered 1 to 90. If one disc is drawn at random from the box, find the probability that it bears a two-digit number.",
+                        "a": "Total outcomes = 90. Two-digit numbers = 10 to 90 (81 outcomes). P(two-digit) = 81/90 = 9/10."
+                    },
+                    {
+                        "q": "Find the mean of the following frequency distribution: Class intervals 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 5, 8, 15, 12, 10 respectively.",
+                        "a": "Using ∑(f*x)/∑f: Midpoints x = 5, 15, 25, 35, 45. ∑(f*x) = 25+120+375+420+450 = 1390. ∑f = 50. Mean = 1390/50 = 27.8."
+                    },
+                    {
+                        "q": "Two dice are thrown simultaneously. What is the probability that the sum of the numbers appearing on the top is 8?",
+                        "a": "Total possible outcomes = 36. Favorable outcomes for sum 8: (2,6), (3,5), (4,4), (5,3), (6,2) (5 outcomes). P(sum=8) = 5/36."
+                    },
+                    {
+                        "q": "One card is drawn from a well-shuffled deck of 52 cards. Calculate the probability of drawing a red face card.",
+                        "a": "Total cards = 52. Red face cards = Kings, Queens, Jacks of hearts and diamonds = 2 * 3 = 6. P(red face) = 6/52 = 3/26."
+                    },
+                    {
+                        "q": "If the mean of five observations x, x+2, x+4, x+6, x+8 is 11, find the value of x and the median of the observations.",
+                        "a": "Sum = 5x + 20 = 5 * 11 = 55 => 5x = 35 => x = 7. Observations are 7, 9, 11, 13, 15. Median = 11."
+                    },
+                    {
+                        "q": "The median of a frequency distribution is 28.5 and its mean is 27.9. Calculate the mode using the empirical relationship between mean, median, and mode.",
+                        "a": "Empirical formula: Mode = 3 * Median - 2 * Mean = 3(28.5) - 2(27.9) = 85.5 - 55.8 = 29.7."
+                    },
+                ]
+                selected = random.choice(stats_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "ALGEBRA_QUADRATICS":
                 algebra_templates = [
@@ -167,26 +238,159 @@ class OfflineFallbackProvider(BaseAIProvider):
                 ans = selected["a"]
 
             elif category == "GEOMETRY":
-                if marks <= 2:
-                    q_text = f"State the Basic Proportionality Theorem (Thales Theorem) for triangles."
-                    ans = f"If a line is drawn parallel to one side of a triangle to intersect the other two sides in distinct points, the other two sides are divided in the same ratio."
-                elif marks <= 4:
-                    q_text = f"Prove that the lengths of tangents drawn from an external point to a circle are equal."
-                    ans = f"Let PA and PB be tangents from P to circle O. In △OAP and △OBP: OA = OB (radii), OP = OP (common), ∠OAP = ∠OBP = 90°. RHS congruence => PA = PB."
-                else:
-                    q_text = f"State and prove Pythagoras Theorem for a right-angled triangle."
-                    ans = f"Statement: In a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. Proof via similar triangles △ABD ~ △ABC and △CBD ~ △ABC."
+                geom_templates = [
+                    {
+                        "q": "State the Basic Proportionality Theorem (Thales Theorem) for triangles.",
+                        "a": "If a line is drawn parallel to one side of a triangle to intersect the other two sides in distinct points, the other two sides are divided in the same ratio."
+                    },
+                    {
+                        "q": "Prove that the lengths of tangents drawn from an external point to a circle are equal.",
+                        "a": "Let PA and PB be tangents from P to circle O. In △OAP and △OBP: OA = OB (radii), OP = OP (common), ∠OAP = ∠OBP = 90°. RHS congruence => PA = PB."
+                    },
+                    {
+                        "q": "State and prove Pythagoras Theorem for a right-angled triangle.",
+                        "a": "Statement: In a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. Proof via similar triangles △ABD ~ △ABC and △CBD ~ △ABC."
+                    },
+                    {
+                        "q": "In △ABC, DE ∥ BC intersecting AB at D and AC at E. If AD = 1.5 cm, DB = 3 cm, and AE = 1 cm, find the length of EC using Thales Theorem.",
+                        "a": "By Basic Proportionality Theorem (Thales Theorem): AD / DB = AE / EC => 1.5 / 3 = 1 / EC => EC = 3 / 1.5 = 2 cm."
+                    },
+                    {
+                        "q": "Prove that the tangent at any point of a circle is perpendicular to the radius through the point of contact.",
+                        "a": "Let circle have center O and tangent line XY touching at P. For any other point Q on XY outside the circle, OQ > OP (radius). Thus OP is the shortest distance from O to XY, proving OP ⊥ XY."
+                    },
+                    {
+                        "q": "Two concentric circles are of radii 5 cm and 3 cm. Find the length of the chord of the larger circle which touches the smaller circle.",
+                        "a": "Let chord be AB touching inner circle at P. OP ⊥ AB and bisects AB. In right △OPA: OA = 5, OP = 3 => AP = √(5² - 3²) = 4 cm. Length of chord AB = 2 * AP = 8 cm."
+                    },
+                    {
+                        "q": "Prove that the parallelogram circumscribing a circle is a rhombus.",
+                        "a": "Let ABCD be parallelogram circumscribing circle. Opposite sides are equal (AB = CD, BC = DA). Lengths of tangents from external points give AB + CD = AD + BC => 2AB = 2AD => AB = AD. Adjacent sides equal implies ABCD is a rhombus."
+                    },
+                    {
+                        "q": "If two similar triangles have areas in the ratio 64:121, find the ratio of their corresponding sides and perimeters.",
+                        "a": "The ratio of the areas of two similar triangles is equal to the square of the ratio of their corresponding sides: Area1/Area2 = (side1/side2)² => 64/121 = (side1/side2)² => side1/side2 = 8/11. Perimeter ratio is also 8:11."
+                    },
+                ]
+                selected = random.choice(geom_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "MENSURATION":
-                if marks <= 2:
-                    q_text = f"Find the area of a sector of a circle of radius 6 cm if the central angle is 60°."
-                    ans = f"Area = (θ/360°) * π * r² = (60/360) * (22/7) * 36 = 18.86 cm²."
-                elif marks <= 4:
-                    q_text = f"A solid is in the shape of a cone standing on a hemisphere with both their radii being equal to 1 cm and the height of the cone is equal to its radius. Find the volume of the solid in terms of π."
-                    ans = f"Volume = V_cone + V_hemisphere = (1/3)πr²h + (2/3)πr³ = (1/3)π(1)³ + (2/3)π(1)³ = π cm³."
-                else:
-                    q_text = f"A wooden article was made by scooping out a hemisphere from each end of a solid cylinder of height 10 cm and base radius 3.5 cm. Find the total surface area of the article."
-                    ans = f"TSA = CSA of cylinder + 2 * CSA of hemisphere = 2πrh + 2*(2πr²) = 2πr(h + 2r) = 2*(22/7)*3.5*(10 + 7) = 374 cm²."
+                mens_templates = [
+                    {
+                        "q": "Find the area of a sector of a circle of radius 6 cm if the central angle is 60°.",
+                        "a": "Area = (θ/360°) * π * r² = (60/360) * (22/7) * 36 = 18.86 cm²."
+                    },
+                    {
+                        "q": "A solid is in the shape of a cone standing on a hemisphere with both their radii being equal to 1 cm and the height of the cone is equal to its radius. Find the volume of the solid in terms of π.",
+                        "a": "Volume = V_cone + V_hemisphere = (1/3)πr²h + (2/3)πr³ = (1/3)π(1)³ + (2/3)π(1)³ = π cm³."
+                    },
+                    {
+                        "q": "A wooden article was made by scooping out a hemisphere from each end of a solid cylinder of height 10 cm and base radius 3.5 cm. Find the total surface area of the article.",
+                        "a": "TSA = CSA of cylinder + 2 * CSA of hemisphere = 2πrh + 2*(2πr²) = 2πr(h + 2r) = 2*(22/7)*3.5*(10 + 7) = 374 cm²."
+                    },
+                    {
+                        "q": "A metallic sphere of radius 4.2 cm is melted and recast into the shape of a cylinder of radius 6 cm. Find the height of the cylinder.",
+                        "a": "Volume of sphere = Volume of cylinder => (4/3)πr1³ = πr2²h => (4/3)*(4.2)³ = 6² * h => h = (4 * 74.088) / (3 * 36) = 2.74 cm."
+                    },
+                    {
+                        "q": "Find the length of an arc of a circle of radius 21 cm which subtends an angle of 60° at the center.",
+                        "a": "Arc length l = (θ/360°) * 2πr = (60/360) * 2 * (22/7) * 21 = (1/6) * 132 = 22 cm."
+                    },
+                    {
+                        "q": "A conical tent is 10 m high and the radius of its base is 24 m. Find the slant height of the tent and cost of canvas required at ₹70 per m².",
+                        "a": "Slant height l = √(r² + h²) = √(24² + 10²) = √(576 + 100) = √676 = 26 m. Curved surface area = πrl = (22/7) * 24 * 26 = 1961.14 m². Cost = 1961.14 * 70 = ₹137,280."
+                    },
+                ]
+                selected = random.choice(mens_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
+
+            elif category == "VECTORS_3D":
+                vec_templates = [
+                    {
+                        "q": "Find the unit vector in the direction of the vector a = 2i + 3j + k.",
+                        "a": "|a| = √(2² + 3² + 1²) = √(4 + 9 + 1) = √14. Unit vector â = (2i + 3j + k) / √14."
+                    },
+                    {
+                        "q": "Find the angle between two vectors a = i - 2j + 3k and b = 3i - 2j + k using dot product.",
+                        "a": "a · b = (1)(3) + (-2)(-2) + (3)(1) = 3 + 4 + 3 = 10. |a| = √14, |b| = √14. cos θ = (a · b) / (|a||b|) = 10 / 14 = 5/7 => θ = cos⁻¹(5/7)."
+                    },
+                    {
+                        "q": "Find the vector product (cross product) of two vectors a = 2i + j + 3k and b = 3i + 5j - 2k.",
+                        "a": "a × b = det([[i, j, k], [2, 1, 3], [3, 5, -2]]) = i(-2 - 15) - j(-4 - 9) + k(10 - 3) = -17i + 13j + 7k."
+                    },
+                    {
+                        "q": "Find the projection of the vector a = 2i + 3j + 2k on the vector b = i + 2j + k.",
+                        "a": "Projection = (a · b) / |b| = (2*1 + 3*2 + 2*1) / √(1 + 4 + 1) = (2 + 6 + 2) / √6 = 10 / √6 = (5√6) / 3."
+                    },
+                    {
+                        "q": "Find the direction cosines of the vector joining the points A(1, 2, -3) and B(-1, -2, 1) directed from A to B.",
+                        "a": "Vector AB = (-1 - 1)i + (-2 - 2)j + (1 - (-3))k = -2i - 4j + 4k. |AB| = √(4 + 16 + 16) = √36 = 6. Direction cosines: l = -2/6 = -1/3, m = -4/6 = -2/3, n = 4/6 = 2/3."
+                    },
+                    {
+                        "q": "Find the vector equation of the line passing through the point with position vector 2i - j + 4k and in the direction of i + 2j - k.",
+                        "a": "Vector equation: r = a + λb => r = (2i - j + 4k) + λ(i + 2j - k), where λ is a scalar parameter."
+                    },
+                ]
+                selected = random.choice(vec_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
+
+            elif category == "LINEAR_PROGRAMMING":
+                lp_templates = [
+                    {
+                        "q": "Maximize Z = 3x + 4y subject to constraints: x + y ≤ 4, x ≥ 0, y ≥ 0 using the corner point method.",
+                        "a": "Corner points of the feasible region are (0,0), (4,0), and (0,4). Z(0,0)=0, Z(4,0)=12, Z(0,4)=16. Maximum value of Z is 16 at (0,4)."
+                    },
+                    {
+                        "q": "Minimize the objective function Z = 200x + 500y subject to constraints: x + 2y ≥ 10, 3x + 4y ≤ 24, x ≥ 0, y ≥ 0.",
+                        "a": "Plotting lines and finding intersection: (4,3). Corner points: (0,5), (0,6), (4,3). Z(0,5)=2500, Z(0,6)=3000, Z(4,3)=2300. Minimum Z = 2300 at (4,3)."
+                    },
+                    {
+                        "q": "Define feasible region, objective function, and state the Corner Point Theorem for a Linear Programming Problem.",
+                        "a": "Feasible region is the common region determined by all constraints including non-negativity. The Corner Point Theorem states that if a feasible region is bounded, the optimal value of the objective function occurs at a corner point (vertex)."
+                    },
+                    {
+                        "q": "Determine the maximum value of Z = 5x + 3y subject to constraints: 3x + 5y ≤ 15, 5x + 2y ≤ 10, x ≥ 0, y ≥ 0.",
+                        "a": "Corner points: (0,0), (2,0), (0,3), and (20/19, 45/19). Evaluating Z: Z(0,0)=0, Z(2,0)=10, Z(0,3)=9, Z(20/19, 45/19)=235/19 ≈ 12.37. Maximum value is 235/19."
+                    },
+                    {
+                        "q": "Formulate a Linear Programming Problem: A manufacturer produces two products A and B requiring machine time on M1 and M2 with limited capacities.",
+                        "a": "Let x and y be units of A and B. Objective function: Maximize Profit Z = c1*x + c2*y subject to machine constraints a11*x + a12*y ≤ T1, a21*x + a22*y ≤ T2, with non-negativity constraints x ≥ 0, y ≥ 0."
+                    },
+                ]
+                selected = random.choice(lp_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
+
+            elif category == "CALCULUS":
+                calc_templates = [
+                    {
+                        "q": "Evaluate the definite integral: ∫ from 0 to π/2 of (sin² x) dx.",
+                        "a": "Using property I = ∫[0 to π/2] cos² x dx. 2I = ∫[0 to π/2] (sin² x + cos² x) dx = [x][0 to π/2] = π/2 => I = π/4."
+                    },
+                    {
+                        "q": "Find the derivative dy/dx if y = (sin x)^(cos x) using logarithmic differentiation.",
+                        "a": "ln y = cos x * ln(sin x). (1/y)(dy/dx) = -sin x * ln(sin x) + cos x * (cos x / sin x). dy/dx = (sin x)^(cos x) * [cos x * cot x - sin x * ln(sin x)]."
+                    },
+                    {
+                        "q": "Find the general solution of the differential equation: dy/dx + 2y = e^(-x).",
+                        "a": "Integrating factor IF = e^(∫ 2 dx) = e^(2x). y * e^(2x) = ∫ e^(-x)*e^(2x) dx = ∫ e^x dx = e^x + C. Solution: y = e^(-x) + C * e^(-2x)."
+                    },
+                    {
+                        "q": "Determine the intervals in which the function f(x) = 2x³ - 9x² + 12x + 15 is strictly increasing or strictly decreasing.",
+                        "a": "f'(x) = 6x² - 18x + 12 = 6(x - 1)(x - 2). f'(x) > 0 for x ∈ (-∞, 1) ∪ (2, ∞) (strictly increasing), f'(x) < 0 for x ∈ (1, 2) (strictly decreasing)."
+                    },
+                    {
+                        "q": "Evaluate the indefinite integral: ∫ [1 / (x² + 4x + 13)] dx.",
+                        "a": "x² + 4x + 13 = (x + 2)² + 3². Let u = x + 2, du = dx. ∫ [1 / (u² + 3²)] du = (1/3) tan⁻¹(u/3) + C = (1/3) tan⁻¹((x + 2)/3) + C."
+                    },
+                ]
+                selected = random.choice(calc_templates)
+                q_text = selected["q"]
+                ans = selected["a"]
 
             elif category == "RELATIONS_FUNCTIONS":
                 rel_templates = [
@@ -303,7 +507,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                 ]
                 q_text = f"{random.choice(chem_long)} ({prompt.unit_name})."
                 ans = "Detailed description covering industrial parameters, anode/cathode half-reactions, and chemical equations."
-        elif "computer" in subj or "cs" in subj:
+        elif "computer" in subj or re.search(r"\b(cs|ip|it)\b", subj):
             if marks <= 2:
                 cs_shorts = [
                     {"expr": "[x**2 for x in range(5) if x % 2 != 0]", "ans": "[1, 9] (squares of odd numbers 1 and 3)"},

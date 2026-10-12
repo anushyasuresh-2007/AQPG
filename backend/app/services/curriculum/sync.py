@@ -27,6 +27,78 @@ AVAILABLE_IMPORTERS: Dict[str, BaseCurriculumImporter] = {
 }
 
 
+def repair_curriculum_catalog_inconsistencies(db: Session) -> None:
+    """
+    Repair misassigned board_id or class_id links on subjects where board code doesn't match board_id,
+    and cleanly separate units that were mixed between CBSE and TNSB without deleting user data.
+    """
+    cbse_board = db.query(Board).filter(Board.code == "CBSE").first()
+    tnsb_board = db.query(Board).filter(Board.code == "TNSB").first()
+    if not cbse_board or not tnsb_board:
+        return
+
+    cbse_classes = {c.class_number: c for c in db.query(AcademicClass).filter(AcademicClass.board_id == cbse_board.id).all()}
+    tnsb_classes = {c.class_number: c for c in db.query(AcademicClass).filter(AcademicClass.board_id == tnsb_board.id).all()}
+
+    # 1. Fix subjects where board == 'CBSE' but board_id points to another board
+    for sub in db.query(Subject).filter(Subject.board == "CBSE").all():
+        if sub.board_id != cbse_board.id:
+            sub.board_id = cbse_board.id
+        c_num = int(sub.class_name) if sub.class_name.isdigit() else (10 if "x" in sub.class_name.lower() and "xii" not in sub.class_name.lower() else 12)
+        if c_num in cbse_classes and sub.class_id != cbse_classes[c_num].id:
+            sub.class_id = cbse_classes[c_num].id
+
+    # 2. Fix subjects where board == 'TNSB' but board_id points to another board
+    for sub in db.query(Subject).filter(Subject.board == "TNSB").all():
+        if sub.board_id != tnsb_board.id:
+            sub.board_id = tnsb_board.id
+        c_num = int(sub.class_name) if sub.class_name.isdigit() else (10 if "x" in sub.class_name.lower() and "xii" not in sub.class_name.lower() else 12)
+        if c_num in tnsb_classes and sub.class_id != tnsb_classes[c_num].id:
+            sub.class_id = tnsb_classes[c_num].id
+
+    # 3. Cleanly split any TNSB units that were mistakenly attached to CBSE subjects
+    cbse_cat = CBSEImporter().fetch_curriculum()
+    tnsb_cat = TamilNaduBoardImporter().fetch_curriculum()
+
+    tnsb_official = {}
+    for s in tnsb_cat.subjects:
+        tnsb_official[(s.subject_name.lower(), s.class_number)] = {u.unit_name.strip().lower(): u for u in s.units}
+
+    cbse_official = {}
+    for s in cbse_cat.subjects:
+        cbse_official[(s.subject_name.lower(), s.class_number)] = {u.unit_name.strip().lower(): u for u in s.units}
+
+    for sub in db.query(Subject).filter(Subject.board == "CBSE").all():
+        c_num = int(sub.class_name) if sub.class_name.isdigit() else (10 if "x" in sub.class_name.lower() and "xii" not in sub.class_name.lower() else 12)
+        key = (sub.subject_name.lower(), c_num)
+        if key in tnsb_official:
+            tnsb_sub = db.query(Subject).filter(
+                Subject.board == "TNSB",
+                Subject.subject_name == sub.subject_name,
+                Subject.class_name == str(c_num)
+            ).first()
+            if not tnsb_sub:
+                tnsb_class_obj = tnsb_classes.get(c_num)
+                tnsb_sub = Subject(
+                    subject_name=sub.subject_name,
+                    class_name=str(c_num),
+                    board="TNSB",
+                    board_id=tnsb_board.id,
+                    class_id=tnsb_class_obj.id if tnsb_class_obj else None,
+                )
+                db.add(tnsb_sub)
+                db.flush()
+
+            tnsb_unit_names = tnsb_official[key]
+            cbse_unit_names = cbse_official.get(key, {})
+            for u in list(sub.units):
+                norm_u = u.unit_name.strip().lower()
+                if norm_u in tnsb_unit_names and norm_u not in cbse_unit_names:
+                    u.subject_id = tnsb_sub.id
+
+    db.commit()
+
+
 def sync_board_curriculum(
     db: Session,
     board_key: str = "cbse",
@@ -110,7 +182,7 @@ def sync_board_curriculum(
                 db.flush()
             stream_id = stream_obj.id
 
-        # 5. Ensure Subject exists (match on subject_name + class_id + academic_year_id or board)
+        # 5. Ensure Subject exists (match on board_id + class_id + subject_name)
         subject_record = (
             db.query(Subject)
             .filter(
@@ -123,10 +195,11 @@ def sync_board_curriculum(
         )
 
         if not subject_record:
-            # Check legacy matching record without board_id
+            # Check legacy matching record strictly belonging to the SAME board
             legacy = (
                 db.query(Subject)
                 .filter(
+                    Subject.board == board.code,
                     Subject.subject_name == sub_data.subject_name,
                     Subject.class_name == str(sub_data.class_number),
                 )
