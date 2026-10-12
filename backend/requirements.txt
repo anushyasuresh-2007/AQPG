@@ -12,3 +12,4 @@ transformers>=4.36.0
 python-jose
 python-docx
 reportlab
+httpx>=0.27,<1
