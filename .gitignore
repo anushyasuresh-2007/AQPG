@@ -6,11 +6,13 @@ __pycache__/
 *.pyd
 env/
 venv/
+.env
 *.env
 
 # Node
 node_modules/
 dist/
+frontend/dist/
 build/
 
 # Local configuration
@@ -34,4 +36,13 @@ scratch/*.log
 *.onnx
 backend/ml/models/checkpoints/
 
+# Local databases
+*.db
+aqpg.db
+backend/aqpg.db
 
+# Windows Shortcuts, Artifacts, and Scratch
+*.lnk
+scratch/
+backend/scratch/
+artifacts/

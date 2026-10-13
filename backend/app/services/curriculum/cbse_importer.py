@@ -281,6 +281,46 @@ class CBSEImporter(BaseCurriculumImporter):
                     UnitData(unit_number=3, unit_name="Unit 3 - Analysis of Financial Statements (Ratios & Cash Flow)"),
                 ],
             ),
+            SubjectData(
+                subject_name="English Core",
+                class_name="Class XII",
+                class_number=12,
+                subject_code="301",
+                stream_name="General",
+                source_url=source_url,
+                units=[
+                    UnitData(unit_number=1, unit_name="Unit 1 - Reading Skills (Unseen Passages & Case Studies)", topics=[
+                        TopicData(topic_name="Discursive Passage (Inference & Vocabulary)"),
+                        TopicData(topic_name="Case-Based Factual Passage (Data Interpretation)"),
+                    ]),
+                    UnitData(unit_number=2, unit_name="Unit 2 - Creative Writing Skills", topics=[
+                        TopicData(topic_name="Short Writing Tasks: Notice Writing"),
+                        TopicData(topic_name="Formal and Informal Invitations & Replies"),
+                        TopicData(topic_name="Letters: Application for a Job with Bio-Data"),
+                        TopicData(topic_name="Letters: Letter to the Editor"),
+                        TopicData(topic_name="Article and Report Writing"),
+                    ]),
+                    UnitData(unit_number=3, unit_name="Unit 3 - Literature: Flamingo (Prose and Poetry)", topics=[
+                        TopicData(topic_name="The Last Lesson (Alphonse Daudet)"),
+                        TopicData(topic_name="Lost Spring (Anees Jung)"),
+                        TopicData(topic_name="Deep Water (William Douglas)"),
+                        TopicData(topic_name="The Rattrap (Selma Lagerlöf)"),
+                        TopicData(topic_name="Indigo (Louis Fischer)"),
+                        TopicData(topic_name="My Mother at Sixty-Six (Kamala Das)"),
+                        TopicData(topic_name="Keeping Quiet (Pablo Neruda)"),
+                        TopicData(topic_name="A Thing of Beauty (John Keats)"),
+                        TopicData(topic_name="Aunt Jennifer's Tigers (Adrienne Rich)"),
+                    ]),
+                    UnitData(unit_number=4, unit_name="Unit 4 - Supplementary Reader: Vistas", topics=[
+                        TopicData(topic_name="The Third Level (Jack Finney)"),
+                        TopicData(topic_name="The Tiger King (Kalki)"),
+                        TopicData(topic_name="Journey to the End of the Earth (Tishani Doshi)"),
+                        TopicData(topic_name="The Enemy (Pearl S. Buck)"),
+                        TopicData(topic_name="On the Face of It (Susan Hill)"),
+                        TopicData(topic_name="Memories of Childhood (Zitkala-Sa & Bama)"),
+                    ]),
+                ],
+            ),
         ]
 
         if target_classes:

@@ -7,7 +7,7 @@ import random
 import re
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 
 from sqlalchemy.orm import Session
@@ -52,6 +52,55 @@ def compute_structural_hash(text: str) -> str:
     struct_norm = re.sub(r"\d+(\.\d+)?", "#NUM", norm)
     struct_norm = re.sub(r"[²³⁴⁵⁶⁷⁸⁹]", "^#NUM", struct_norm)
     return hashlib.md5(struct_norm.encode("utf-8")).hexdigest()
+
+
+def is_near_duplicate(candidate_text: str, existing_texts: Iterable[str], threshold: float = 0.75) -> bool:
+    """Detect whether candidate_text is identical or a near-duplicate of any existing question text.
+
+    Identifies:
+    1. Exact textual duplicates after normalization.
+    2. Substring inclusions (such as generic contextual suffixes or prefix padding).
+    3. High token-set overlap between candidate and prior questions.
+    """
+    if not candidate_text:
+        return False
+    c_norm = normalize_text_for_comparison(candidate_text)
+    if not c_norm:
+        return False
+
+    STOP_WORDS = {
+        "the", "a", "an", "and", "or", "of", "in", "to", "for", "with", "on", "at",
+        "by", "from", "as", "is", "are", "was", "were", "that", "this", "it", "its",
+        "their", "describe", "explain", "state", "define"
+    }
+    c_words = set(re.findall(r"\b[a-z]{3,}\b", c_norm)) - STOP_WORDS
+    if not c_words:
+        return False
+
+    for existing in existing_texts:
+        if not existing:
+            continue
+        e_norm = normalize_text_for_comparison(existing)
+        if not e_norm:
+            continue
+        if c_norm == e_norm:
+            return True
+        # Direct substring containment for longer strings (detects appended suffixes)
+        if len(c_norm) >= 25 and len(e_norm) >= 25:
+            if c_norm in e_norm or e_norm in c_norm:
+                return True
+        e_words = set(re.findall(r"\b[a-z]{3,}\b", e_norm)) - STOP_WORDS
+        if not e_words:
+            continue
+        common = len(c_words & e_words)
+        min_len = min(len(c_words), len(e_words))
+        if min_len > 0 and (common / min_len) >= threshold:
+            return True
+        union = len(c_words | e_words)
+        if union > 0 and (common / union) >= 0.65:
+            return True
+
+    return False
 
 
 def classify_unit_category(
@@ -288,6 +337,7 @@ def validate_unit_relevance(
     unit_name: str,
     unit_description: Optional[str] = None,
     topics_list: Optional[List[str]] = None,
+    subject_name: Optional[str] = None,
 ) -> bool:
     """Post-generation gate checking whether question text is topically related to assigned unit."""
     if not question_text or not question_text.strip():
@@ -297,39 +347,44 @@ def validate_unit_relevance(
     if not clean_q:
         return False
 
+    search_context = [unit_name.lower()]
+    if subject_name:
+        search_context.append(subject_name.lower())
+    if unit_description:
+        search_context.append(unit_description.lower())
+    if topics_list:
+        search_context.extend([t.lower() for t in topics_list])
+    context_str = " ".join(search_context)
+
     requested_category = classify_unit_category(unit_name, unit_description, topics_list)
     question_signatures = get_question_signatures(clean_q)
 
-    # If question exhibits domain-specific signatures:
+    # If question exhibits domain-specific mathematical signatures:
     if question_signatures:
         if requested_category != "OTHER":
             # The requested unit's category MUST match one of the detected question signatures
             if requested_category not in question_signatures:
                 return False
         else:
-            search_context = [unit_name.lower()]
-            if unit_description:
-                search_context.append(unit_description.lower())
-            if topics_list:
-                search_context.extend([t.lower() for t in topics_list])
-            context_str = " ".join(search_context)
-
-            if "ALGEBRA_QUADRATICS" in question_signatures and not any(w in context_str for w in ["quadratic", "algebra", "polynomial", "equation"]):
-                return False
-            if "TRIGONOMETRY" in question_signatures and not any(w in context_str for w in ["trigonometry", "height", "distance", "triangle"]):
-                return False
-            if "STATISTICS_PROBABILITY" in question_signatures and not any(w in context_str for w in ["statistic", "probability", "data", "frequency"]):
-                return False
-            if "COORDINATE_GEOMETRY" in question_signatures and not any(w in context_str for w in ["coordinate", "cartesian"]):
-                return False
-            if "MENSURATION" in question_signatures and not any(w in context_str for w in ["mensuration", "surface area", "volume"]):
-                return False
-            if "VECTORS_3D" in question_signatures and not any(w in context_str for w in ["vector", "vectors", "three dimensional", "3d"]):
-                return False
-            if "LINEAR_PROGRAMMING" in question_signatures and not any(w in context_str for w in ["linear programming", "lpp", "linear"]):
-                return False
-            if "CALCULUS" in question_signatures and not any(w in context_str for w in ["calculus", "differential", "derivative", "integral"]):
-                return False
+            # For unclassified units (OTHER), only enforce math exclusions if context indicates Mathematics
+            is_math_unit = ("math" in context_str) or (subject_name and "math" in subject_name.lower())
+            if is_math_unit:
+                if "ALGEBRA_QUADRATICS" in question_signatures and not any(w in context_str for w in ["quadratic", "algebra", "polynomial", "equation"]):
+                    return False
+                if "TRIGONOMETRY" in question_signatures and not any(w in context_str for w in ["trigonometry", "height", "distance", "triangle"]):
+                    return False
+                if "STATISTICS_PROBABILITY" in question_signatures and not any(w in context_str for w in ["statistic", "probability", "data", "frequency"]):
+                    return False
+                if "COORDINATE_GEOMETRY" in question_signatures and not any(w in context_str for w in ["coordinate", "cartesian"]):
+                    return False
+                if "MENSURATION" in question_signatures and not any(w in context_str for w in ["mensuration", "surface area", "volume"]):
+                    return False
+                if "VECTORS_3D" in question_signatures and not any(w in context_str for w in ["vector", "vectors", "three dimensional", "3d"]):
+                    return False
+                if "LINEAR_PROGRAMMING" in question_signatures and not any(w in context_str for w in ["linear programming", "lpp", "linear"]):
+                    return False
+                if "CALCULUS" in question_signatures and not any(w in context_str for w in ["calculus", "differential", "derivative", "integral"]):
+                    return False
 
     return True
 
@@ -419,29 +474,73 @@ def generate_question_paper(
     if not subject:
         raise ValueError("Subject not found")
 
-    # Validate board and class if explicitly provided
+    # Determine canonical subject board code
+    subject_board_code = None
+    if subject.board_id:
+        try:
+            from app.models.board import Board
+            b_rec = db.query(Board).filter(Board.id == subject.board_id).first()
+            if b_rec and getattr(b_rec, "board_code", None) and isinstance(b_rec.board_code, str):
+                subject_board_code = b_rec.board_code.upper()
+        except Exception:
+            pass
+    if not subject_board_code and subject.board and isinstance(subject.board, str):
+        subject_board_code = subject.board.upper()
+
+    # Determine requested board code
+    requested_board_code = None
+    if board_id:
+        try:
+            from app.models.board import Board
+            req_b_rec = db.query(Board).filter(Board.id == board_id).first()
+            if req_b_rec and getattr(req_b_rec, "board_code", None) and isinstance(req_b_rec.board_code, str):
+                requested_board_code = req_b_rec.board_code.upper()
+        except Exception:
+            pass
+    if not requested_board_code and board and isinstance(board, str):
+        requested_board_code = board.upper()
+
+    # Validate board compatibility
     if board_id and subject.board_id:
         if subject.board_id != board_id:
             raise ValueError(f"Subject '{subject.subject_name}' does not belong to board ID {board_id}")
-    elif board and subject.board and subject.board.lower() != board.lower():
+    elif requested_board_code and subject_board_code:
+        if requested_board_code != subject_board_code:
+            raise ValueError(f"Subject '{subject.subject_name}' belongs to board '{subject_board_code}', not '{requested_board_code}'")
+    elif board and subject.board and isinstance(subject.board, str) and subject.board.lower() != board.lower():
         raise ValueError(f"Subject '{subject.subject_name}' does not belong to board '{board}'")
+
+    # Determine canonical subject class name
+    subject_class_code = None
+    if subject.class_id:
+        try:
+            from app.models.academic_class import AcademicClass
+            c_rec = db.query(AcademicClass).filter(AcademicClass.id == subject.class_id).first()
+            if c_rec and getattr(c_rec, "class_code", None) and isinstance(c_rec.class_code, str):
+                subject_class_code = c_rec.class_code
+        except Exception:
+            pass
+    if not subject_class_code and subject.class_name and isinstance(subject.class_name, str):
+        subject_class_code = subject.class_name
 
     if class_id and subject.class_id:
         if subject.class_id != class_id:
             raise ValueError(f"Subject '{subject.subject_name}' does not belong to class ID {class_id}")
-    elif class_name and subject.class_name:
+    elif class_name and subject_class_code:
         roman_map = {"i": "1", "ii": "2", "iii": "3", "iv": "4", "v": "5", "vi": "6", "vii": "7", "viii": "8", "ix": "9", "x": "10", "xi": "11", "xii": "12"}
         req_c = class_name.lower().replace("class", "").strip()
-        sub_c = subject.class_name.lower().replace("class", "").strip()
+        sub_c = subject_class_code.lower().replace("class", "").strip()
         req_c = roman_map.get(req_c, req_c)
         sub_c = roman_map.get(sub_c, sub_c)
         if req_c != sub_c:
             raise ValueError(f"Subject '{subject.subject_name}' does not belong to class '{class_name}'")
 
-    resolved_board = board or subject.board or "CBSE"
-    resolved_class = class_name or subject.class_name or "10"
+    resolved_board = requested_board_code or subject_board_code or board or subject.board or "CBSE"
+    resolved_class = class_name or subject_class_code or subject.class_name or "10"
     if not resolved_class.lower().startswith("class"):
         resolved_class = f"Class {resolved_class}"
+    raw_acad = getattr(subject, "academic_year", "2026-27")
+    resolved_academic_year = raw_acad if isinstance(raw_acad, str) and raw_acad else "2026-27"
 
     # Load syllabus units
     available_units = db.query(Unit).filter(Unit.subject_id == subject_id).all()
@@ -500,6 +599,7 @@ def generate_question_paper(
     selected_questions: List[Dict[str, Any]] = []
     used_question_hashes: Set[str] = set()
     used_structural_hashes: Set[str] = set()
+    used_question_texts: Set[str] = set()
     used_question_ids: Set[int] = set()
     shortages: List[Dict[str, Any]] = []
 
@@ -529,6 +629,7 @@ def generate_question_paper(
 
         cleaned_bank_text_map: Dict[int, str] = {}
         questions_by_bloom: Dict[int, List[Question]] = {}
+        seen_bank_hashes: Set[str] = set()
 
         for q in raw_eligible_questions:
             q_unit = unit_map.get(q.unit_id)
@@ -544,16 +645,17 @@ def generate_question_paper(
                 continue
 
             # Validate that question text actually matches assigned unit's curriculum
-            if not validate_unit_relevance(clean_text, q_unit.unit_name, u_desc, u_topics):
+            if not validate_unit_relevance(clean_text, q_unit.unit_name, u_desc, u_topics, subject.subject_name):
                 continue
 
             q_h = compute_question_hash(clean_text)
             s_h = compute_structural_hash(clean_text)
 
-            # Pre-filter structural/exact duplicates within the bank candidate pool
-            if (q_h in used_question_hashes) or (s_h in used_structural_hashes):
+            # Pre-filter exact and near duplicates within the bank candidate pool
+            if (q_h in used_question_hashes) or (s_h in used_structural_hashes) or (q_h in seen_bank_hashes) or is_near_duplicate(clean_text, used_question_texts):
                 continue
 
+            seen_bank_hashes.add(q_h)
             cleaned_bank_text_map[q.id] = clean_text
             questions_by_bloom.setdefault(q.bloom_level_id, []).append(q)
 
@@ -567,6 +669,7 @@ def generate_question_paper(
             available_for_bloom = [
                 q for q in questions_by_bloom.get(bloom_obj.id, [])
                 if q.id not in used_question_ids
+                and compute_question_hash(cleaned_bank_text_map.get(q.id, q.question_text)) not in used_question_hashes
             ]
 
             subset = _find_exact_question_subset(
@@ -583,6 +686,7 @@ def generate_question_paper(
                     used_question_ids.add(q.id)
                     used_question_hashes.add(q_h)
                     used_structural_hashes.add(s_h)
+                    used_question_texts.add(c_text)
                     selected_questions.append({
                         "question_id": q.id,
                         "question": c_text,
@@ -592,9 +696,16 @@ def generate_question_paper(
                         "question_type": q.question_type or "Short Answer",
                         "unit_id": q.unit_id,
                         "unit_name": unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name,
+                        "topic_name": (u_topics[0] if u_topics else unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name),
+                        "board": resolved_board,
+                        "class_name": resolved_class,
+                        "academic_year": resolved_academic_year,
+                        "subject": subject.subject_name,
                         "answer": q.answer,
                         "explanation": q.explanation,
                         "source": q.source or "Question Bank",
+                        "source_reference": f"{resolved_board} Prescribed Curriculum",
+                        "validation_status": "verified",
                     })
             else:
                 # Calculate what subset or partial marks we can take
@@ -612,6 +723,7 @@ def generate_question_paper(
                     used_question_ids.add(q.id)
                     used_question_hashes.add(q_h)
                     used_structural_hashes.add(s_h)
+                    used_question_texts.add(c_text)
                     selected_questions.append({
                         "question_id": q.id,
                         "question": c_text,
@@ -621,9 +733,16 @@ def generate_question_paper(
                         "question_type": q.question_type or "Short Answer",
                         "unit_id": q.unit_id,
                         "unit_name": unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name,
+                        "topic_name": (u_topics[0] if u_topics else unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name),
+                        "board": resolved_board,
+                        "class_name": resolved_class,
+                        "academic_year": resolved_academic_year,
+                        "subject": subject.subject_name,
                         "answer": q.answer,
                         "explanation": q.explanation,
                         "source": q.source or "Question Bank",
+                        "source_reference": f"{resolved_board} Prescribed Curriculum",
+                        "validation_status": "verified",
                     })
 
                 missing_marks = req_marks - partial_sum
@@ -718,6 +837,8 @@ def generate_question_paper(
                 target_desc = curr_context["description"]
                 target_topics = curr_context["topics"]
 
+                attempt_excludes = [q["question"] for q in selected_questions if "question" in q]
+
                 prompt = AIQuestionPrompt(
                     board=resolved_board,
                     class_name=resolved_class,
@@ -730,12 +851,19 @@ def generate_question_paper(
                     question_type=q_type,
                     unit_description=target_desc,
                     topics_list=target_topics,
+                    exclude_texts=attempt_excludes,
                 )
 
                 gen_res = None
                 MAX_RETRIES = 15
                 for attempt in range(MAX_RETRIES):
+                    prompt.exclude_texts = attempt_excludes
                     candidate = ai_generator.generate_question(prompt)
+                    if not candidate or not candidate.question_text:
+                        from app.services.ai.generator_factory import OfflineFallbackProvider
+                        fallback_prov = OfflineFallbackProvider()
+                        candidate = fallback_prov.generate_question(prompt)
+
                     if not candidate or not candidate.question_text:
                         continue
 
@@ -746,24 +874,37 @@ def generate_question_paper(
                     q_h = compute_question_hash(q_text)
                     s_h = compute_structural_hash(q_text)
 
-                    # Reject duplicates
-                    if (q_h in used_question_hashes) or (s_h in used_structural_hashes):
+                    # Reject exact and near duplicates
+                    if (q_h in used_question_hashes) or (s_h in used_structural_hashes) or is_near_duplicate(q_text, used_question_texts):
+                        attempt_excludes.append(q_text)
                         continue
 
                     # Validate unit relevance gate
-                    if not validate_unit_relevance(q_text, target_unit.unit_name, target_desc, target_topics):
+                    if not validate_unit_relevance(q_text, target_unit.unit_name, target_desc, target_topics, subject.subject_name):
+                        attempt_excludes.append(q_text)
+                        continue
+
+                    # Validate Bloom's Taxonomy cognitive level gate
+                    from app.services.bloom_service import validate_bloom_level
+                    is_valid_bloom, detected_level, reason = validate_bloom_level(q_text, bloom_obj.level_name)
+                    if not is_valid_bloom:
+                        attempt_excludes.append(q_text)
                         continue
 
                     gen_res = candidate
                     gen_res.question_text = q_text
                     used_question_hashes.add(q_h)
                     used_structural_hashes.add(s_h)
+                    used_question_texts.add(q_text)
                     break
+
 
                 if not gen_res:
                     raise ValueError(
-                        f"Unable to generate unit-aligned question for subject '{subject.subject_name}' ({target_unit.unit_name}). "
-                        f"Please ensure valid AI credentials or Question Bank entries are available."
+                        f"Unable to generate additional distinct, unit-aligned questions for subject '{subject.subject_name}' "
+                        f"({target_unit.unit_name}) without repetition. The question pool and distinct templates for "
+                        f"cognitive level '{bloom_obj.level_name}' are exhausted. "
+                        f"Please broaden the unit selection, adjust requested marks, or provide external AI credentials."
                     )
 
                 assigned_unit = target_unit
@@ -802,9 +943,16 @@ def generate_question_paper(
                     "question_type": new_q.question_type,
                     "unit_id": assigned_unit.id,
                     "unit_name": assigned_unit.unit_name,
+                    "topic_name": prompt.topic_name or (target_topics[0] if target_topics else assigned_unit.unit_name),
+                    "board": resolved_board,
+                    "class_name": resolved_class,
+                    "academic_year": resolved_academic_year,
+                    "subject": subject.subject_name,
                     "answer": new_q.answer,
                     "explanation": new_q.explanation,
                     "source": "AI Synthesized",
+                    "source_reference": f"{resolved_board} Prescribed Curriculum",
+                    "validation_status": "verified",
                 })
 
 
@@ -840,6 +988,33 @@ def generate_question_paper(
             "generated_questions": gen_c,
         })
 
+    # Resolve examination blueprint (official board pattern or pedagogical custom pattern)
+    from app.services.exam_blueprints import get_exam_blueprint, build_custom_paper_blueprint
+
+    official_bp = get_exam_blueprint(
+        board_code=resolved_board,
+        class_name=resolved_class,
+        subject_name=subject.subject_name,
+        subject_code=getattr(subject, "subject_code", None),
+    )
+    if official_bp and official_bp.total_marks == total_marks:
+        is_official_pattern = True
+        duration_minutes = official_bp.duration_minutes
+        source_ref = official_bp.source_reference
+        general_instructions = official_bp.general_instructions
+    else:
+        is_official_pattern = False
+        custom_bp = build_custom_paper_blueprint(
+            board_code=resolved_board,
+            class_name=resolved_class,
+            subject_name=subject.subject_name,
+            total_marks=total_marks,
+            target_questions_count=len(selected_questions),
+        )
+        duration_minutes = custom_bp.duration_minutes
+        source_ref = custom_bp.source_reference
+        general_instructions = custom_bp.general_instructions
+
     # Create persistent GeneratedPaper record
     paper_uuid = f"QP-{datetime.utcnow().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
     paper_title = f"{resolved_board} {resolved_class} - {subject.subject_name} Examination"
@@ -873,6 +1048,10 @@ def generate_question_paper(
         "title": paper_title,
         "total_marks": total_marks,
         "total_questions": len(selected_questions),
+        "duration_minutes": duration_minutes,
+        "is_official_pattern": is_official_pattern,
+        "source_reference": source_ref,
+        "general_instructions": general_instructions,
         "questions": selected_questions,
         "subject_name": subject.subject_name,
         "board": resolved_board,

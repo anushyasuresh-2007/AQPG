@@ -18,6 +18,7 @@ class AIQuestionPrompt:
     question_type: str  # "MCQ", "Short Answer", "Long Answer", "Numerical", "Application Based", etc.
     unit_description: Optional[str] = None
     topics_list: Optional[List[str]] = None
+    exclude_texts: Optional[List[str]] = None
 
 
 @dataclass

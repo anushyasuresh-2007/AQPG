@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8011'
+const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
 export const API_BASE_URL = rawApiUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '')
 const TOKEN_STORAGE_KEY = 'aqpg_token'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
-  timeout: 60000,
+  timeout: 120000,
 })
 
 export const getToken = () => window.localStorage.getItem(TOKEN_STORAGE_KEY)

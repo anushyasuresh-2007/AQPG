@@ -1,11 +1,26 @@
-from fastapi import FastAPI
+import os
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.api.v1.routes import router as api_router
 from app.core.config import settings
 from app.database.database import Base, engine, SessionLocal
 from app.database.seed import seed_database
 from app.models import Bloom, Question, Subject, Unit, User  # noqa: F401
+
+
+if os.environ.get("AI_PROVIDER", "gemini").lower() in {
+    "v17_2",
+    "v17.2",
+    "flan_t5_v17_2",
+}:
+    from app.services.ai.v17_2_inference_adapter import V17_2InferenceAdapter
+
+    v17_2_adapter = V17_2InferenceAdapter()
+    if not v17_2_adapter.is_available():
+        raise RuntimeError("V17.2 checkpoint integrity verification failed; refusing to start")
 
 app = FastAPI(
     title="Automated Question Paper Generator API",
@@ -20,6 +35,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception):
+    import logging
+    logging.getLogger("uvicorn.error").exception("Unhandled server exception: %s", exc)
+    origin = request.headers.get("origin")
+    headers = {}
+    if origin and (origin in settings.BACKEND_CORS_ORIGINS or "*" in settings.BACKEND_CORS_ORIGINS):
+        headers["Access-Control-Allow-Origin"] = origin
+        headers["Access-Control-Allow-Credentials"] = "true"
+    elif settings.BACKEND_CORS_ORIGINS:
+        headers["Access-Control-Allow-Origin"] = settings.BACKEND_CORS_ORIGINS[0]
+    return JSONResponse(
+        status_code=500,
+        content={"detail": f"Internal server error: {str(exc)}"},
+        headers=headers,
+    )
 
 app.include_router(api_router, prefix="/api/v1")
 
