@@ -25,7 +25,7 @@ if str(backend_path) not in sys.path:
     sys.path.insert(0, str(backend_path))
 
 from app.db.session import SessionLocal
-from app.models import Subject, Unit, AcademicClass, Board, Bloom
+from app.models import Subject, Unit, AcademicClass, Board, Bloom, Question
 from app.services.ai.base import AIQuestionPrompt
 from app.services.ai.generator_factory import OfflineFallbackProvider
 from app.services.ai.curriculum_pools import get_math_curriculum_question, normalize_text_for_comparison
@@ -67,7 +67,9 @@ class TestQuestionQualityRegression(unittest.TestCase):
         target_specs = [
             ("physics", "Physics", "electrostatics"),
             ("chemistry", "Chemistry", "metallurgy"),
+            ("chemistry_biomolecules", "Chemistry", "biomolecule"),
             ("cs_oop", "Computer Science", "object oriented"),
+            ("cs_unit1", "Computer Science", "problem solving"),
             ("math_geometry", "Mathematics Standard", "geometry"),
             ("english", "English Core", "literature"),
             ("social_science", "Social Science", "contemporary world"),
@@ -300,6 +302,31 @@ class TestQuestionQualityRegression(unittest.TestCase):
         )
         self._verify_paper_quality(paper, 25, target["subject"].subject_name, target["unit"].unit_name)
 
+    def test_25_marks_cs_unit1_problem_solving_functions(self):
+        """Computer Science Unit 1 (Problem Solving & Functions in Python): 25-mark paper must have exact marks, zero duplicates, and genuine unit isolation."""
+        target = self.targets["cs_unit1"]
+        self.assertIsNotNone(target["subject"])
+        paper = generate_question_paper(
+            db=self.db,
+            subject_id=target["subject"].id,
+            selected_units=[target["unit"].id],
+            total_marks=25,
+            bloom_distribution=self.DEFAULT_BLOOM_DIST,
+            source_mode="ai",
+            use_ai=True,
+        )
+        self._verify_paper_quality(paper, 25, target["subject"].subject_name, target["unit"].unit_name)
+
+        # Verify that all selected questions strictly belong to Unit 1 and not Unit 2 Core Python
+        disallowed_keywords = ["read()", "readline()", "readlines()", "list comprehension", "append operation", "count_words"]
+        for q in paper["questions"]:
+            for kw in disallowed_keywords:
+                self.assertNotIn(
+                    kw.lower(),
+                    q["question"].lower(),
+                    f"Unit 2 keyword '{kw}' polluted Unit 1 paper: {q['question']}"
+                )
+
     def test_25_marks_mathematics_geometry(self):
         """Mathematics Geometry: 25-mark paper must have exact marks, zero duplicates, and genuine diversity."""
         target = self.targets["math_geometry"]
@@ -436,6 +463,323 @@ class TestQuestionQualityRegression(unittest.TestCase):
             "broaden the unit selection" in err_msg.lower() or "adjust" in err_msg.lower(),
             f"Error message must provide actionable advice: {err_msg}"
         )
+
+    def test_curriculum_matching_cs_unit1_variants(self):
+        """Curriculum pool matching for CS Unit 1 across naming variants, all 5 Bloom levels, and marks."""
+        from app.services.ai.curriculum_pools import match_curriculum_question
+
+        naming_variants = [
+            "Unit 1 - Problem Solving Techniques & Functions in Python",
+            "Problem Solving Techniques & Functions in Python",
+            "Problem Solving Techniques",
+            "Functions in Python",
+            "Unit 1",
+        ]
+        bloom_levels = ["Remember", "Understand", "Apply", "Analyze", "Evaluate"]
+        marks_options = [2, 3, 4, 5]
+
+        # Test each naming variant matches successfully
+        for variant in naming_variants:
+            matched = match_curriculum_question(
+                board="TNSB",
+                class_name="12",
+                subject_name="Computer Science",
+                unit_name=variant,
+                bloom_level="Remember",
+                marks=2,
+            )
+            self.assertIsNotNone(matched, f"Failed to match curriculum question for variant: '{variant}'")
+            self.assertEqual(matched["board"], "TNSB")
+            self.assertEqual(matched["class"], 12)
+            self.assertIn("Problem Solving", matched["unit"])
+
+        # Test all 5 Bloom levels match suitable questions
+        for bl in bloom_levels:
+            matched = match_curriculum_question(
+                board="TNSB",
+                class_name="12",
+                subject_name="Computer Science",
+                unit_name="Unit 1 - Problem Solving Techniques & Functions in Python",
+                bloom_level=bl,
+                marks=3 if bl in ("Understand", "Apply") else (2 if bl == "Remember" else 5),
+            )
+            self.assertIsNotNone(matched, f"Failed to match question for Bloom level: '{bl}'")
+
+        # Test different marks values (2, 3, 4, 5)
+        for m in marks_options:
+            matched = match_curriculum_question(
+                board="TNSB",
+                class_name="12",
+                subject_name="Computer Science",
+                unit_name="Unit 1 - Problem Solving Techniques & Functions in Python",
+                marks=m,
+            )
+            self.assertIsNotNone(matched, f"Failed to match question for marks: {m}")
+
+    def test_25_marks_chemistry_unit10_biomolecules(self):
+        """Chemistry Class 12 Unit 10 Biomolecules: 25-mark paper must have exact marks, zero duplicates, and genuine unit relevance."""
+        target = self.targets["chemistry_biomolecules"]
+        self.assertIsNotNone(target["subject"])
+        paper = generate_question_paper(
+            db=self.db,
+            subject_id=target["subject"].id,
+            selected_units=[target["unit"].id],
+            total_marks=25,
+            bloom_distribution=self.DEFAULT_BLOOM_DIST,
+            source_mode="ai",
+            use_ai=True,
+        )
+        self._verify_paper_quality(paper, 25, target["subject"].subject_name, target["unit"].unit_name)
+
+        # Verify unit relevance: must contain valid biomolecule domain terms
+        biomolecule_keywords = ["glucose", "protein", "peptide", "amino", "dna", "rna", "sugar", "nucleic", "vitamin", "anomer", "zwitterion", "denaturation"]
+        found_relevant = False
+        for q in paper["questions"]:
+            q_text_low = q["question"].lower()
+            if any(kw in q_text_low for kw in biomolecule_keywords):
+                found_relevant = True
+                break
+        self.assertTrue(found_relevant, "Generated Biomolecules paper must contain authentic biomolecule terminology")
+
+        # Disallow cross-unit contamination from unrelated chemistry units (e.g., Solutions, Electrochemistry)
+        disallowed_keywords = ["raoult's law", "colligative property", "osmotic pressure", "nernst equation", "galvanic cell", "molar conductivity"]
+        for q in paper["questions"]:
+            for kw in disallowed_keywords:
+                self.assertNotIn(
+                    kw,
+                    q["question"].lower(),
+                    f"Cross-unit keyword '{kw}' polluted Biomolecules paper: {q['question']}"
+                )
+
+    def test_curriculum_matching_chemistry_biomolecules_variants(self):
+        """Curriculum pool matching for Chemistry Biomolecules across naming variants, all 5 Bloom levels, and marks."""
+        from app.services.ai.curriculum_pools import match_curriculum_question
+
+        naming_variants = [
+            "Unit 10 - Biomolecules",
+            "Biomolecules",
+            "Unit 10",
+            "Unit 8 - Organic Nitrogen Compounds & Biomolecules",
+        ]
+        bloom_levels = ["Remember", "Understand", "Apply", "Analyze", "Evaluate"]
+        marks_options = [1, 2, 3, 4, 5]
+
+        # Test each naming variant matches successfully
+        for variant in naming_variants:
+            matched = match_curriculum_question(
+                board="CBSE",
+                class_name="12",
+                subject_name="Chemistry",
+                unit_name=variant,
+                bloom_level="Understand",
+                marks=3,
+            )
+            self.assertIsNotNone(matched, f"Failed to match curriculum question for variant: '{variant}'")
+            self.assertEqual(matched["unit"], "Biomolecules")
+
+        # Test all 5 Bloom levels match suitable questions
+        for bl in bloom_levels:
+            matched = match_curriculum_question(
+                board="CBSE",
+                class_name="12",
+                subject_name="Chemistry",
+                unit_name="Unit 10 - Biomolecules",
+                bloom_level=bl,
+                marks=3 if bl in ("Understand", "Apply") else (2 if bl == "Remember" else 5),
+            )
+            self.assertIsNotNone(matched, f"Failed to match question for Bloom level: '{bl}'")
+
+        # Test different marks values (1, 2, 3, 4, 5)
+        for m in marks_options:
+            matched = match_curriculum_question(
+                board="CBSE",
+                class_name="12",
+                subject_name="Chemistry",
+                unit_name="Unit 10 - Biomolecules",
+                marks=m,
+            )
+            self.assertIsNotNone(matched, f"Failed to match question for marks: {m}")
+
+    def test_exhausted_pool_biomolecules_actionable_error_on_excessive_marks(self):
+        """When mark target on single-unit Biomolecules exceeds distinct verified questions, must raise an actionable ValueError."""
+        target = self.targets["chemistry_biomolecules"]
+        self.assertIsNotNone(target["subject"])
+        # Requesting a huge 150-mark paper on a single unit with strict bloom distribution exhausts distinct templates
+        with self.assertRaises(ValueError) as ctx:
+            generate_question_paper(
+                db=self.db,
+                subject_id=target["subject"].id,
+                selected_units=[target["unit"].id],
+                total_marks=150,
+                bloom_distribution=self.DEFAULT_BLOOM_DIST,
+                source_mode="ai",
+                use_ai=True,
+            )
+        err_msg = str(ctx.exception)
+        self.assertIn("exhausted", err_msg.lower())
+        self.assertIn("broaden the unit selection", err_msg.lower())
+
+    # =========================================================================
+    # 5. POST-AUDIT TARGETED FIX REGRESSIONS
+    # =========================================================================
+
+    def test_subject_compatibility_collisions_and_aliases(self):
+        """Fix 1 Regression: Prevent 'cs' inside 'mathematics' and 'science' inside 'social science' collisions."""
+        from app.services.exam_blueprints import _are_subjects_compatible, get_exam_blueprint
+
+        # Incompatible subjects must evaluate to False
+        self.assertFalse(_are_subjects_compatible("Mathematics", "Computer Science"), "Math and CS must be incompatible.")
+        self.assertFalse(_are_subjects_compatible("Maths", "CS"), "Maths and CS must be incompatible.")
+        self.assertFalse(_are_subjects_compatible("Science", "Social Science"), "Science and Social Science must be incompatible.")
+        self.assertFalse(_are_subjects_compatible("General Science", "Social Studies"), "Science and Social Studies must be incompatible.")
+
+        # Compatible aliases must evaluate to True
+        self.assertTrue(_are_subjects_compatible("Mathematics", "Maths"), "Mathematics and Maths must be compatible.")
+        self.assertTrue(_are_subjects_compatible("CS", "Computer Science"), "CS and Computer Science must be compatible.")
+        self.assertTrue(_are_subjects_compatible("Computer Science", "CS"), "Computer Science and CS must be compatible.")
+        self.assertTrue(_are_subjects_compatible("Social Science", "Social Studies"), "Social Science and Social Studies must be compatible.")
+
+        # Valid Class 10 and Class 12 blueprint lookups must be preserved
+        bp_cs = get_exam_blueprint("TNSB", 12, "519", "Computer Science")
+        self.assertIsNotNone(bp_cs)
+        self.assertEqual(bp_cs.subject_code, "519")
+
+        bp_phy = get_exam_blueprint("TNSB", 12, "505", "Physics")
+        self.assertIsNotNone(bp_phy)
+        self.assertEqual(bp_phy.subject_code, "505")
+
+        bp_math10 = get_exam_blueprint("TNSB", 10, "003", "Mathematics")
+        self.assertIsNotNone(bp_math10)
+        self.assertEqual(bp_math10.subject_code, "TN-10-MAT")
+
+        bp_eng12 = get_exam_blueprint("TNSB", 12, "003", "English")
+        self.assertIsNotNone(bp_eng12)
+        self.assertEqual(bp_eng12.subject_code, "003")
+
+        # Incompatible code / subject combinations must fail safely
+        bp_conflict = get_exam_blueprint("TNSB", 12, "519", "Mathematics")
+        self.assertIsNone(bp_conflict, "Mathematics requested with CS code 519 must return None.")
+
+        # Class 10 Science lookup must never silently match Social Science
+        bp_sci = get_exam_blueprint("TNSB", 10, None, "Science")
+        if bp_sci is not None:
+            self.assertNotEqual(bp_sci.subject_name, "Social Science")
+
+    def test_ai_generator_fallback_signature_and_no_generic_filler(self):
+        """Fix 2 Regression: _get_mock_question_text does not raise TypeError and returns empty string instead of generic filler."""
+        from app.services.ai_generator import _get_mock_question_text
+
+        # 1. Valid authentic question retrieval with explicit board and class_name
+        q_valid = _get_mock_question_text("Chemistry", "Biomolecules", "Remember", "medium", 2, board="TNSB", class_name="12")
+        self.assertTrue(len(q_valid) > 0, "Must retrieve an authentic question.")
+        self.assertNotIn("foundational definitions", q_valid.lower())
+
+        # 2. Legacy callers without board and class_name must succeed with safe defaults
+        q_legacy = _get_mock_question_text("Chemistry", "Biomolecules", "Remember", "medium", 2)
+        self.assertTrue(len(q_legacy) > 0, "Legacy callers without board/class must succeed.")
+
+        # 3. Non-existent pool question must return empty string rather than generic filler
+        q_empty = _get_mock_question_text("NonExistentSubject", "NonExistentUnit", "Remember", "medium", 2)
+        self.assertEqual(q_empty, "", "Must return empty string when no authentic question is available.")
+        self.assertNotIn("foundational definitions", q_empty.lower())
+        self.assertNotIn("laws and principles", q_empty.lower())
+
+    def test_biomolecules_no_duplicates_and_enzyme_evaluation_distinctness(self):
+        """Fix 3 Regression: Biomolecules has zero duplicate/near-duplicate pairs and distinct 5-mark questions."""
+        from app.services.ai.curriculum_pools import CHEMISTRY_QUESTIONS
+
+        bio_qs = [q for q in CHEMISTRY_QUESTIONS if q.get("unit") == "Biomolecules"]
+        self.assertEqual(len(bio_qs), 22, f"Expected 22 Biomolecules questions, found {len(bio_qs)}")
+
+        # Pairwise near-duplicate check across all 22 questions
+        for i in range(len(bio_qs)):
+            for j in range(i + 1, len(bio_qs)):
+                qi = bio_qs[i]["q"]
+                qj = bio_qs[j]["q"]
+                self.assertFalse(
+                    is_near_duplicate(qi, [qj], threshold=0.60),
+                    f"Near-duplicate found between question {i+1} and {j+1}:\nQ1: {qi}\nQ2: {qj}"
+                )
+
+        # Verify replacement enzyme question exists and is distinct from protein hierarchy
+        q_texts = [q["q"].lower() for q in bio_qs]
+        has_enzyme = any("enzyme catalysis" in qt for qt in q_texts)
+        has_protein_hierarchy = any("structural hierarchy of proteins" in qt for qt in q_texts)
+        self.assertTrue(has_enzyme, "Biomolecules pool must contain the enzyme catalysis evaluation question.")
+        self.assertTrue(has_protein_hierarchy, "Biomolecules pool must contain the protein hierarchy question.")
+
+    def test_offline_fallback_provider_stops_generic_fabrication_on_exhaustion(self):
+        """Fix 4 Regression: OfflineFallbackProvider returns None on pool exhaustion, never fabricates generic templates."""
+        from app.services.ai.generator_factory import OfflineFallbackProvider
+        from app.services.ai.curriculum_pools import CHEMISTRY_QUESTIONS
+
+        prov = OfflineFallbackProvider()
+        bio_q_texts = [q["q"] for q in CHEMISTRY_QUESTIONS if q.get("unit") == "Biomolecules"]
+
+        # When all authentic questions are excluded, provider must return None
+        p_exhausted = AIQuestionPrompt(
+            board="TNSB",
+            class_name="12",
+            subject_name="Chemistry",
+            unit_name="Biomolecules",
+            topic_name="Biomolecules",
+            question_type="Long Answer",
+            bloom_level="Evaluate",
+            marks=5,
+            difficulty="Hard",
+            exclude_texts=bio_q_texts,
+        )
+        res = prov.generate_question(p_exhausted)
+        self.assertIsNone(res, "Provider must return None on pool exhaustion, not generic templates.")
+
+        # When valid questions exist, provider must return authentic result
+        p_valid = AIQuestionPrompt(
+            board="TNSB",
+            class_name="12",
+            subject_name="Chemistry",
+            unit_name="Biomolecules",
+            topic_name="Biomolecules",
+            question_type="Long Answer",
+            bloom_level="Evaluate",
+            marks=5,
+            difficulty="Hard",
+            exclude_texts=[],
+        )
+        res_valid = prov.generate_question(p_valid)
+        self.assertIsNotNone(res_valid)
+        self.assertNotIn("foundational laws and definitions governing", res_valid.question_text.lower())
+
+    def test_ai_generated_questions_not_labelled_verified(self):
+        """Fix 5 Regression: AI-generated questions in draft status must not be labelled validation_status='verified'."""
+        target = self.targets["physics"]
+        self.assertIsNotNone(target["subject"])
+        paper = generate_question_paper(
+            db=self.db,
+            subject_id=target["subject"].id,
+            selected_units=[target["unit"].id],
+            total_marks=25,
+            bloom_distribution=self.DEFAULT_BLOOM_DIST,
+            source_mode="ai",
+            use_ai=True,
+        )
+        ai_questions = [q for q in paper["questions"] if q.get("source") == "AI Synthesized"]
+        self.assertTrue(len(ai_questions) > 0, "Expected at least one AI-synthesized question.")
+        for q in ai_questions:
+            self.assertNotEqual(
+                q.get("validation_status"),
+                "verified",
+                f"AI-generated question {q['question_id']} must not be labelled 'verified': {q}",
+            )
+            self.assertEqual(
+                q.get("validation_status"),
+                "draft",
+                f"AI-generated question {q['question_id']} should have validation_status='draft'",
+            )
+            # Verify persisted question in DB is also approved=False and status='draft'
+            db_q = self.db.query(Question).filter(Question.id == q["question_id"]).first()
+            self.assertIsNotNone(db_q)
+            self.assertFalse(db_q.approved)
+            self.assertEqual(db_q.status, "draft")
 
 
 if __name__ == "__main__":

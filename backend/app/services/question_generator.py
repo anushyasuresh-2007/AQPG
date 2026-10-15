@@ -117,6 +117,10 @@ def classify_unit_category(
 
     ctx = " ".join(context_items)
 
+    # Programming and Computer Science context guard - not a mathematics unit category
+    if any(w in ctx for w in ["python", "computer science", "mysql", "programming", "sql", "code", "software"]):
+        return "OTHER"
+
     # 1. Vectors & 3D Geometry
     if any(w in ctx for w in ["vector", "vectors", "three dimensional", "3d geometry", "direction cosines", "direction ratios"]):
         return "VECTORS_3D"
@@ -356,6 +360,13 @@ def validate_unit_relevance(
         search_context.extend([t.lower() for t in topics_list])
     context_str = " ".join(search_context)
 
+    # Explicit non-mathematics subjects (Computer Science, Physics, Chemistry, etc.) are never gated by math signatures
+    if subject_name and not any(
+        m in subject_name.lower()
+        for m in ["math", "algebra", "geometry", "calculus", "trigonometry", "statistic"]
+    ):
+        return True
+
     requested_category = classify_unit_category(unit_name, unit_description, topics_list)
     question_signatures = get_question_signatures(clean_q)
 
@@ -367,8 +378,6 @@ def validate_unit_relevance(
                 return False
         else:
             # For unclassified units (OTHER), only enforce math exclusions if context indicates Mathematics
-            is_math_unit = ("math" in context_str) or (subject_name and "math" in subject_name.lower())
-            if is_math_unit:
                 if "ALGEBRA_QUADRATICS" in question_signatures and not any(w in context_str for w in ["quadratic", "algebra", "polynomial", "equation"]):
                     return False
                 if "TRIGONOMETRY" in question_signatures and not any(w in context_str for w in ["trigonometry", "height", "distance", "triangle"]):
@@ -927,8 +936,8 @@ def generate_question_paper(
                     source="AI Synthesized",
                     source_type="ai",
                     is_ai_generated=True,
-                    approved=True,
-                    status="approved",
+                    approved=False,
+                    status="draft",
                     active=True,
                 )
                 db.add(new_q)
@@ -952,7 +961,7 @@ def generate_question_paper(
                     "explanation": new_q.explanation,
                     "source": "AI Synthesized",
                     "source_reference": f"{resolved_board} Prescribed Curriculum",
-                    "validation_status": "verified",
+                    "validation_status": "verified" if (new_q.approved and new_q.status == "approved") else (new_q.status or "draft"),
                 })
 
 

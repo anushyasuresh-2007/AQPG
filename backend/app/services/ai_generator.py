@@ -22,56 +22,36 @@ def _get_mock_question_text(
     marks: int,
     index: int = 0,
     textbook_context: Optional[str] = None,
+    board: Optional[str] = None,
+    class_name: Optional[str] = None,
 ) -> str:
-    """Generate high quality contextual mock questions tailored to Bloom level and marks."""
-    bloom_lower = bloom_level.lower()
+    """Generate authentic, curriculum-grounded questions tailored to Bloom level and marks.
     
-    templates_by_bloom = {
-        "remember": [
-            f"Define the key terminology and foundational concepts of '{unit}' in '{subject}'.",
-            f"State the primary principles and laws governing '{unit}' in '{subject}'.",
-            f"List and recall the standard characteristics associated with '{unit}'.",
-            f"Identify the essential components that comprise '{unit}' in '{subject}'."
-        ],
-        "understand": [
-            f"Explain the working principles and significance of '{unit}' within the study of '{subject}'.",
-            f"Describe how '{unit}' functions and illustrate its role in '{subject}' with clear examples.",
-            f"Summarize the core concepts of '{unit}' and explain their relevance to practical scenarios.",
-            f"Compare and contrast the key mechanisms found in '{unit}' with adjacent topics in '{subject}'."
-        ],
-        "apply": [
-            f"Demonstrate how to apply the techniques of '{unit}' to solve standard problems in '{subject}'.",
-            f"Given a real-world scenario, illustrate the implementation of '{unit}' concepts in '{subject}'.",
-            f"Apply the analytical methods taught in '{unit}' to calculate and derive key outcomes.",
-            f"Construct a step-by-step practical procedure using the principles of '{unit}'."
-        ],
-        "analyze": [
-            f"Critically analyze the performance advantages and trade-offs of '{unit}' in '{subject}'.",
-            f"Examine the relationships between the various sub-components of '{unit}' under different constraints.",
-            f"Deconstruct a complex problem in '{subject}' and analyze how '{unit}' provides an optimal solution.",
-            f"Distinguish between theoretical expectations and practical challenges encountered in '{unit}'."
-        ],
-        "evaluate": [
-            f"Evaluate the effectiveness and efficiency of methods used in '{unit}' for '{subject}'.",
-            f"Assess the validity of common hypotheses regarding '{unit}' and justify your reasoning.",
-            f"Critique the standard approaches in '{unit}' and recommend potential improvements."
-        ],
-        "create": [
-            f"Design a novel architecture or solution leveraging the principles of '{unit}' in '{subject}'.",
-            f"Formulate an integrated workflow combining '{unit}' with broader systems in '{subject}'.",
-            f"Develop a structured proposal to address open challenges in '{unit}'."
-        ]
-    }
+    Queries the verified curriculum pool using explicit board and class context.
+    If no authentic question is available, returns an empty string rather than
+    fabricating generic filler.
+    """
+    if not subject or not unit:
+        return ""
 
-    # Default to understand if unknown bloom
-    pool = templates_by_bloom.get(bloom_lower, templates_by_bloom["understand"])
-    selected_template = pool[index % len(pool)]
+    from app.services.ai.curriculum_pools import match_curriculum_question
+    b_val = (board or "CBSE").strip()
+    c_val = str(class_name or "12").strip()
 
-    if textbook_context:
-        snippet = textbook_context[:60] + "..." if len(textbook_context) > 60 else textbook_context
-        selected_template = f"Based on reference context '{snippet}': " + selected_template
+    pool_q = match_curriculum_question(
+        board=b_val,
+        class_name=c_val,
+        subject_name=subject,
+        unit_name=unit,
+        bloom_level=bloom_level,
+        marks=marks,
+    )
+    if pool_q and pool_q.get("q"):
+        return pool_q["q"]
 
-    return selected_template
+    # When no authentic curriculum question exists in the verified pool,
+    # do not silently generate generic filler.
+    return ""
 
 
 def generate_questions_via_ai(
@@ -85,7 +65,7 @@ def generate_questions_via_ai(
 ) -> list[dict]:
     """
     Generate questions based on criteria. If GEMINI_API_KEY is not set,
-    falls back to generating mock placeholder questions.
+    falls back to generating mock placeholder questions for testing.
     """
     if not settings.GEMINI_API_KEY:
         questions = []
@@ -246,6 +226,8 @@ def generate_full_paper_via_ai(
                                 difficulty=bp["difficulty"],
                                 marks=bp["marks"],
                                 index=idx + 10,
+                                board=board,
+                                class_name=class_name,
                             )
                             norm = normalize_text(q_text)
 
@@ -276,6 +258,8 @@ def generate_full_paper_via_ai(
                 difficulty=bp["difficulty"],
                 marks=bp["marks"],
                 index=idx + attempt,
+                board=board,
+                class_name=class_name,
             )
             norm = normalize_text(candidate)
             if norm not in seen_normalized_texts:
@@ -307,13 +291,35 @@ def fetch_syllabus_units(board: str, class_name: str, subject_name: str) -> list
     """
     if not settings.GEMINI_API_KEY:
         if "english" in subject_name.lower():
-            return ["The Last Lesson", "Lost Spring", "Deep Water", "The Rattrap", "Indigo", "Poets and Pancakes", "The Interview", "Going Places", "Abdul and Zarina"]
+            return ["The Last Lesson", "Lost Spring", "Deep Water", "The Rattrap", "Indigo", "Poets and Pancakes", "The Interview", "Going Places", "A Roadside Stand", "Aunt Jennifer's Tigers"]
         elif "math" in subject_name.lower():
             return ["Real Numbers", "Polynomials", "Pair of Linear Equations", "Quadratic Equations", "Arithmetic Progressions", "Triangles", "Coordinate Geometry", "Introduction to Trigonometry"]
         elif "science" in subject_name.lower():
             return ["Chemical Reactions and Equations", "Acids, Bases and Salts", "Metals and Non-metals", "Carbon and its Compounds", "Life Processes", "Control and Coordination"]
+
+        b_upper = (board or "").upper()
+        if "TN" in b_upper:
+            try:
+                from app.services.curriculum.tn_board_importer import TamilNaduBoardImporter
+                c_num = 12 if ("12" in str(class_name) or "xii" in str(class_name).lower()) else 10
+                curriculum = TamilNaduBoardImporter().fetch_curriculum(target_classes=[c_num])
+                for sub in curriculum.subjects:
+                    if sub.subject_name.lower() in subject_name.lower() or subject_name.lower() in sub.subject_name.lower():
+                        return [u.unit_name for u in sub.units]
+            except Exception:
+                pass
         else:
-            return [f"Chapter 1: Intro to {subject_name}", f"Chapter 2: Core {subject_name}", f"Chapter 3: Advanced {subject_name}", f"Chapter 4: Practical Applications"]
+            try:
+                from app.services.curriculum.cbse_importer import CBSEImporter
+                c_num = 12 if ("12" in str(class_name) or "xii" in str(class_name).lower()) else 10
+                curriculum = CBSEImporter().fetch_curriculum(target_classes=[c_num])
+                for sub in curriculum.subjects:
+                    if sub.subject_name.lower() in subject_name.lower() or subject_name.lower() in sub.subject_name.lower():
+                        return [u.unit_name for u in sub.units]
+            except Exception:
+                pass
+
+        return [f"Unit 1 - Foundational Principles of {subject_name}", f"Unit 2 - Theoretical Analysis of {subject_name}", f"Unit 3 - Advanced Applications of {subject_name}"]
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={settings.GEMINI_API_KEY}"
     

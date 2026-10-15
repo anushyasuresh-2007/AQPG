@@ -328,6 +328,134 @@ BIOLOGY_QUESTIONS = [
         "q": "Describe the three major steps of the Polymerase Chain Reaction (PCR) and state the role of Taq polymerase.",
         "a": "1. Denaturation (heating DNA to 94°C to separate strands). 2. Annealing (primers bind to complementary sequences at 50-60°C). 3. Extension (Taq polymerase synthesizes new strands at 72°C using dNTPs). Taq polymerase is thermostable and survives repeated thermal cycles."
     },
+    {'a': 'Parthenocarpy is the formation and development of fruit without prior fertilization of ovules, resulting in '
+      'seedless fruits. Natural example: Banana. Commercially induced example: Grapes or watermelon treated with '
+      'gibberellins.',
+ 'bloom': 'Remember',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 2,
+ 'q': 'Define parthenocarpy. Give one natural and one commercially induced example.',
+ 'type': 'Short Answer',
+ 'unit': 'Reproduction in Organisms'},
+    {'a': 'Double fertilization involves syngamy (fertilization of egg cell to form diploid zygote) and triple fusion '
+      '(fusion of second male gamete with two polar nuclei to form triploid primary endosperm nucleus). The PEN '
+      'undergoes repeated mitotic divisions to form nutritive endosperm tissue that nourishes the developing embryo.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Explain the significance of double fertilization in angiosperms and describe the fate of the triploid primary '
+      'endosperm nucleus (PEN).',
+ 'type': 'Short Answer',
+ 'unit': 'Reproduction in Organisms'},
+    {'a': 'Sertoli cells provide nutritional support and regulation to developing spermatozoa during spermatogenesis. '
+      'Leydig (interstitial) cells synthesize and secrete male steroid hormones called androgens, primarily '
+      'testosterone.',
+ 'bloom': 'Remember',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 2,
+ 'q': 'State the functions of Sertoli cells and Leydig cells in the human male reproductive system.',
+ 'type': 'Short Answer',
+ 'unit': 'Human Reproduction'},
+    {'a': '1. Follicular phase: Pituitary FSH stimulates growth of ovarian follicles, which secrete Estrogen. Estrogen '
+      'repairs and thickens uterine endometrium. 2. Ovulatory phase: Mid-cycle LH surge triggers ovulation (release of '
+      'ovum from Graafian follicle). 3. Luteal phase: Ruptured follicle transforms into corpus luteum, secreting '
+      'Progesterone to maintain secretory endometrium for implantation. 4. Menstrual phase: If fertilization does not '
+      'occur, corpus luteum degenerates, progesterone drops, and endometrial lining sheds.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 5,
+ 'q': 'Describe the hormonal regulation of the human menstrual cycle, detailing the roles of FSH, LH, Estrogen, and '
+      'Progesterone.',
+ 'type': 'Long Answer',
+ 'unit': 'Human Reproduction'},
+    {'a': "Mother's genotype: X_H X_h (carrier, since her father was X_h Y). Father's genotype: X_H Y. Offspring: 25% X_H "
+      'X_H (normal daughter), 25% X_H X_h (carrier daughter), 25% X_H Y (normal son), 25% X_h Y (hemophilic son). '
+      'Probability of hemophilia among sons = 50%; among daughters = 0%.',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'In humans, normal blood clotting is dominant over hemophilia (X-linked recessive). A normal woman whose father '
+      'was hemophilic marries a normal man. Determine the probability of hemophilia among their sons and daughters.',
+ 'type': 'Numerical',
+ 'unit': 'Principles of Inheritance'},
+    {'a': 'Homologous organs share common anatomical structure and embryonic origin but perform different functions (e.g. '
+      'forelimbs of human, cheetah, bat, and whale); they reflect divergent evolution. Analogous organs perform '
+      'similar functions but have different anatomical structures and origins (e.g. wings of butterfly and wings of '
+      'bird); they reflect convergent evolution.',
+ 'bloom': 'Analyze',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Distinguish between homologous and analogous organs with one example each. What type of evolution does each '
+      'reflect?',
+ 'type': 'Short Answer',
+ 'unit': 'Evolution'},
+    {'a': '1. In human host: Infected female Anopheles injects sporozoites during bite -> sporozoites reach liver cells '
+      'via blood -> asexual reproduction in hepatocytes releases merozoites -> merozoites invade RBCs, reproduce '
+      'asexually, and burst RBCs, releasing hemozoin toxic granules that cause periodic chills and fever -> some '
+      'merozoites differentiate into gametocytes. 2. In mosquito vector: Mosquito ingests gametocytes during blood '
+      'meal -> fertilization and development occur in mosquito gut -> mature infective sporozoites escape gut and '
+      'migrate to salivary glands, ready for transmission.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 5,
+ 'q': 'Explain the life cycle of Plasmodium vivax in the human host and the female Anopheles mosquito vector.',
+ 'type': 'Long Answer',
+ 'unit': 'Human Health and Diseases'},
+    {'a': 'Restriction endonucleases act as molecular scissors, cutting double-stranded DNA at specific palindromic '
+      "recognition sequences. EcoRI recognizes 5'-GAATTC-3' and cuts between G and A on both strands, leaving "
+      'single-stranded overhanging sticky ends (AATT) that facilitate base-pairing and ligation with vector DNA via '
+      'DNA ligase.',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Explain the role of restriction endonucleases in recombinant DNA technology and describe how EcoRI produces '
+      'sticky ends.',
+ 'type': 'Short Answer',
+ 'unit': 'Biotechnology'},
+    {'a': 'RNAi silences specific mRNA translation through complementary double-stranded RNA (dsRNA). In tobacco plants, '
+      'nematode-specific genes were introduced via Agrobacterium vectors such that both sense and antisense RNA were '
+      'produced, forming dsRNA. This triggered the host RNAi machinery to cleave nematode-specific mRNA, preventing '
+      'the parasite from surviving.',
+ 'bloom': 'Analyze',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Explain how RNA interference (RNAi) operates as a cellular defense mechanism and how it was used to confer '
+      'resistance against Meloidogyne incognita in tobacco plants.',
+ 'type': 'Short Answer',
+ 'unit': 'Biotechnology'},
+    {'a': "Lindeman's 10% Law states that only about 10% of the energy entering a trophic level is assimilated and "
+      'transferred to the next higher trophic level; the remaining 90% is dissipated as metabolic heat and '
+      'respiration. Because energy declines exponentially across successive levels, insufficient energy remains after '
+      '4 or 5 levels to sustain a viable higher carnivore population.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': "Explain Lindeman's 10% law of energy transfer in an ecosystem and state why food chains rarely exceed four or "
+      'five trophic levels.',
+ 'type': 'Short Answer',
+ 'unit': 'Ecosystem and Environment'},
+    {'a': 'The Evil Quartet encompasses: 1. Habitat loss and fragmentation, 2. Over-exploitation, 3. Alien species '
+      'invasions, and 4. Co-extinctions. Habitat loss and fragmentation poses the single greatest threat (e.g. '
+      'clearing of Amazonian tropical rainforests), because organisms deprived of their primary ecological niche '
+      'cannot survive or reproduce, leading directly to species extirpation.',
+ 'bloom': 'Evaluate',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': "Critically evaluate the 'Evil Quartet' causes of biodiversity loss and assess which factor poses the greatest "
+      'threat to modern biodiversity.',
+ 'type': 'Short Answer',
+ 'unit': 'Ecosystem and Environment'},
 ]
 
 
@@ -361,6 +489,98 @@ ECONOMICS_CLASS_12_QUESTIONS = [
         "q": "Distinguish between autonomous transactions and accommodating transactions in the Balance of Payments.",
         "a": "Autonomous transactions: International economic transactions undertaken for economic motives (profit), independent of the BoP position. Accommodating transactions: Transactions undertaken by monetary authorities to cover the deficit or surplus in autonomous transactions."
     },
+    {'a': 'GVA at Basic Prices is the value of output minus the value of intermediate consumption, including net '
+      'production taxes (production taxes minus production subsidies). GVA at Basic Prices = GVA at Factor Cost + '
+      'Production Taxes - Production Subsidies.',
+ 'bloom': 'Remember',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 2,
+ 'q': 'Define Gross Value Added at Basic Prices and state how it relates to Gross Value Added at Factor Cost.',
+ 'type': 'Short Answer',
+ 'unit': 'National Income'},
+    {'a': 'Households supply factor services (land, labor, capital, enterprise) to firms (real flow), and firms reward '
+      'households with factor payments (rent, wages, interest, profit) (money flow). In turn, firms produce goods and '
+      'services for households (real flow), and households spend their factor income on consumption expenditure buying '
+      'these goods (money flow). Total factor payments = Total consumption spending.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Explain the circular flow of income in a simple two-sector economy with households and producer firms, '
+      'illustrating real flows and money flows.',
+ 'type': 'Short Answer',
+ 'unit': 'National Income'},
+    {'a': 'Multiplier formula: k = 1 / (1 - MPC) = 1 / (1 - 0.75) = 1 / 0.25 = 4. Increase in income: Delta Y = k * Delta '
+      'I = 4 * 500 = Rs 2,000 crores.',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'In an economy, the Marginal Propensity to Consume (MPC) is 0.75. If investment increases by Rs 500 crores, '
+      'calculate the resulting increase in total national income and the investment multiplier (k).',
+ 'type': 'Numerical',
+ 'unit': 'Theories of Employment and Income'},
+    {'a': 'Deficient demand occurs when Aggregate Demand (AD) falls short of Aggregate Supply (AS) at full employment '
+      'level, creating an output-employment gap and deflationary downward pressure. Fiscal remedy: Increase government '
+      'capital expenditure and reduce direct taxes to boost disposable income. Monetary remedy: Central Bank reduces '
+      'the Repo Rate and purchases government securities in open market operations (OMO) to expand commercial credit.',
+ 'bloom': 'Analyze',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 5,
+ 'q': "Explain the concept of 'Deficient Demand' (Deflationary Gap) in Keynesian macroeconomics. Describe one fiscal "
+      'and one monetary measure to correct it.',
+ 'type': 'Long Answer',
+ 'unit': 'Theories of Employment and Income'},
+    {'a': '1. Cash Reserve Ratio (CRR): When RBI increases the CRR, commercial banks must keep a larger fraction of their '
+      'net demand and time liabilities with the central bank as non-lendable cash reserves, directly reducing credit '
+      'availability. 2. Reverse Repo Rate: Raising the reverse repo rate incentivizes banks to park excess liquidity '
+      'with the RBI, siphoning active lending funds out of the banking system.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Explain how the Reserve Bank of India (RBI) utilizes the Cash Reserve Ratio (CRR) and Reverse Repo Rate to '
+      'control inflationary credit expansion.',
+ 'type': 'Short Answer',
+ 'unit': 'Monetary Economics, Banking and Inflation'},
+    {'a': 'Revenue receipts neither create a liability nor cause a reduction in government assets (e.g. Income Tax '
+      'receipts, GST, dividend from PSUs). Capital receipts either create a liability or cause a reduction in '
+      'government assets (e.g. market borrowing from public/RBI, disinvestment proceeds from selling PSU equity, '
+      'recovery of loans).',
+ 'bloom': 'Analyze',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Distinguish between Capital Receipts and Revenue Receipts in a government budget with two examples of each.',
+ 'type': 'Short Answer',
+ 'unit': 'Fiscal Economics & Public Finance'},
+    {'a': 'Depreciation refers to the decrease in the value of the domestic currency relative to foreign currencies driven '
+      'by market demand and supply forces without government intervention. Devaluation is the deliberate, official '
+      'downward revision in the value of the domestic currency enacted by the government or central bank under a fixed '
+      'exchange rate system.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Distinguish between Currency Depreciation under a flexible exchange rate regime and Currency Devaluation under '
+      'a fixed exchange rate regime.',
+ 'type': 'Short Answer',
+ 'unit': 'International Economics & Trade'},
+    {'a': 'The 1991 NEP dismantled the License-Permit Raj, abolishing industrial licensing across most sectors, removing '
+      'quantitative trade restrictions, allowing Foreign Direct Investment (FDI), and instituting PSU disinvestment. '
+      'Positive outcomes: High economic growth rates (reaching 7-9%), surging foreign exchange reserves, and robust '
+      'expansion in service exports (IT/BPO). Structural drawbacks: Relative stagnation and distress in the '
+      'agricultural sector, uneven regional industrial growth, and rising economic inequality.',
+ 'bloom': 'Evaluate',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 5,
+ 'q': 'Critically assess the structural transformation brought about by the New Economic Policy (NEP) of 1991 in India '
+      'through Liberalisation, Privatisation, and Globalisation (LPG).',
+ 'type': 'Long Answer',
+ 'unit': 'Fiscal Planning and Development Economics in India'},
 ]
 
 
@@ -389,6 +609,123 @@ COMMERCE_ACCOUNTANCY_QUESTIONS = [
         "q": "Explain the '4 Ps' of the Marketing Mix in Business Studies.",
         "a": "1. Product (goods or services satisfying consumer needs). 2. Price (monetary value charged for the product). 3. Place (distribution channels ensuring product availability). 4. Promotion (advertising, personal selling, sales promotion communicating product benefits)."
     },
+    {'a': 'Scalar chain is the formal line of authority and communication running from the highest executive to the lowest '
+      'subordinate in an unbroken chain. Gang Plank is an exception allowing direct communication between two '
+      'employees of equal rank across departments to prevent communication delays during emergencies.',
+ 'bloom': 'Remember',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 2,
+ 'q': "What is the 'Scalar Chain' principle formulated by Henri Fayol? What is 'Gang Plank'?",
+ 'type': 'Short Answer',
+ 'unit': 'Principles and Functions of Management'},
+    {'a': '1. Focus: Taylor focused on shop floor productivity and efficiency; Fayol focused on top-level management '
+      'functions. 2. Perspective: Taylor worked from bottom to top; Fayol worked from top to bottom. 3. Applicability: '
+      "Taylor's principles apply specifically to manufacturing/production; Fayol's principles are universally "
+      'applicable to all organizations. 4. Wage system: Taylor advocated differential piece-wage systems; Fayol '
+      'advocated fair remuneration with profit sharing.',
+ 'bloom': 'Analyze',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 5,
+ 'q': "Compare F.W. Taylor's Scientific Management with Henri Fayol's Administrative Theory on basis of focus, "
+      'perspective, applicability, and wage payment system.',
+ 'type': 'Long Answer',
+ 'unit': 'Principles and Functions of Management'},
+    {'a': '1. Nature of securities: Primary market deals with new issue of shares and debentures for initial capital '
+      'formation; Secondary market provides liquidity by trading existing securities. 2. Capital flow: Primary market '
+      'channels funds directly from investors to enterprise; Secondary market transfers ownership between investors '
+      'without direct capital inflow to the company. 3. Price determination: Primary issue price is set by '
+      'management/SEBI guidelines; Secondary market prices fluctuate based on real-time market demand and supply.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'Distinguish between the Primary Market and Secondary Market in the Indian financial system.',
+ 'type': 'Short Answer',
+ 'unit': 'Financial Markets & Capital Market'},
+    {'a': '1. Regulatory functions: Registration of brokers, collective investment schemes, and stock exchanges. 2. '
+      'Developmental functions: Training of intermediaries, promoting investor education and electronic trading. 3. '
+      'Protective functions: Prohibiting insider trading, checking fraudulent market manipulations, and protecting '
+      'investor rights.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'State the three main categories of functions performed by the Securities and Exchange Board of India (SEBI).',
+ 'type': 'Short Answer',
+ 'unit': 'Financial Markets & Capital Market'},
+    {'a': 'Formula: Profit = Closing Capital + Drawings - Additional Capital - Opening Capital.\n'
+      'Calculation: Profit = 2,10,000 + 30,000 - 20,000 - 1,50,000 = Rs 70,000 profit.',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 4,
+ 'q': 'A trader maintains books on Single Entry. Capital on 1st April 2025 was Rs 1,50,000. Capital on 31st March 2026 '
+      'was Rs 2,10,000. During the year, he withdrew Rs 30,000 for domestic use and introduced Rs 20,000 fresh '
+      'capital. Calculate his Profit or Loss for the year.',
+ 'type': 'Numerical',
+ 'unit': 'Accounts from Incomplete Records'},
+    {'a': 'Subscription Income = Subscriptions Received (50,000) - Outstanding at beginning (4,000) + Outstanding at end '
+      '(6,000) + Advance at beginning (2,000) - Advance at end (3,000) = Rs 51,000.',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'A club received Rs 50,000 as subscription during 2025-26. Subscriptions outstanding on 31st March 2025: Rs '
+      '4,000. Subscriptions outstanding on 31st March 2026: Rs 6,000. Subscriptions received in advance on 31st March '
+      '2025: Rs 2,000. Subscriptions received in advance on 31st March 2026: Rs 3,000. Calculate subscription income '
+      'to be credited to Income & Expenditure Account.',
+ 'type': 'Numerical',
+ 'unit': 'Accounts of Not-for-Profit Organisation'},
+    {'a': 'Under the Indian Partnership Act, 1932: (i) Profits and losses are shared equally among all partners. (ii) '
+      "Interest on partner's loan is allowed at the rate of 6% per annum, irrespective of profits or losses.",
+ 'bloom': 'Remember',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 2,
+ 'q': 'State the accounting rules applicable in a partnership firm when there is no Partnership Deed regarding: (i) '
+      "Profit sharing ratio, (ii) Interest on Partner's Loan.",
+ 'type': 'Short Answer',
+ 'unit': 'Accounts of Partnership Firms - Fundamentals'},
+    {'a': 'Normal Profit = Capital Employed * Normal Rate of Return = 4,00,000 * 10% = Rs 40,000.\n'
+      'Super Profit = Average Profit - Normal Profit = 55,000 - 40,000 = Rs 15,000.\n'
+      'Goodwill = Super Profit * Number of Years Purchase = 15,000 * 3 = Rs 45,000.',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'The capital of a firm is Rs 4,00,000 and the normal rate of return is 10%. The average profit for the last 4 '
+      "years is Rs 55,000. Calculate the value of Goodwill using 3 years' purchase of Super Profit.",
+ 'type': 'Numerical',
+ 'unit': 'Goodwill in Partnership Accounts'},
+    {'a': 'Let total profit = 1. Remaining share for A and B = 1 - 1/5 = 4/5.\n'
+      "A's new share = 3/5 * 4/5 = 12/25.\n"
+      "B's new share = 2/5 * 4/5 = 8/25.\n"
+      "C's share = 1/5 = 5/25.\n"
+      'New Ratio = 12 : 8 : 5.\n'
+      'Sacrificing Ratio between A and B = Old Share - New Share = 3:2 (remains same since incoming partner takes '
+      'share proportionately).',
+ 'bloom': 'Apply',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 4,
+ 'q': 'A and B are partners sharing profits in ratio of 3:2. They admit C into partnership for 1/5th share. Calculate '
+      'the New Profit Sharing Ratio and the Sacrificing Ratio.',
+ 'type': 'Numerical',
+ 'unit': 'Admission of a Partner'},
+    {'a': 'Ratio analysis is the quantitative analysis of financial information contained in financial statements. Current '
+      'Ratio (Current Assets / Current Liabilities) assesses short-term liquidity and ability to meet immediate debt '
+      "obligations (standard 2:1). Debt-Equity Ratio (Long-term Debt / Shareholders' Funds) evaluates long-term "
+      'financial solvency and the margin of safety available to external creditors.',
+ 'bloom': 'Understand',
+ 'board': 'COMMON',
+ 'class': 12,
+ 'marks': 3,
+ 'q': 'What is Ratio Analysis? Explain the significance of Current Ratio and Debt-Equity Ratio to a prospective '
+      'lender.',
+ 'type': 'Short Answer',
+ 'unit': 'Financial Statement Analysis'},
 ]
 
 
@@ -402,120 +739,140 @@ COMPUTER_SCIENCE_QUESTIONS = [
     # -------------------------------------------------------------------------
     # Chapter 1: Function
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "Define a pure function in Python. State the primary condition for a function to be considered pure.",
         "a": "A pure function is a function that returns the same result whenever called with the same arguments and has no side effects, meaning it does not modify any external state, global variables, or input arguments."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "What is an impure function in Python? Give an example.",
         "a": "An impure function is a function whose return value may vary for identical arguments or which causes side effects such as modifying a global variable or performing I/O. For example, a function that returns a random number or alters an external list."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "State the difference between formal parameters and actual arguments in a Python function definition.",
         "a": "Parameters are the variable names specified in the function definition header that receive values, whereas arguments are the actual values, variables, or expressions passed to the function when it is invoked."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Differentiate between pure functions and impure functions with suitable Python code examples.",
         "a": "Pure functions (e.g. `def square(x): return x * x`) have no side effects and always produce the exact same output for the same input. Impure functions (e.g. `def get_random(): return random.randint(1, 10)` or modifying a global list) produce side effects or non-deterministic outputs."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Explain the difference between an Interface and an Implementation in the context of functions.",
         "a": "An interface is a set of declarations of the operations that an object or function can perform (specifying what it does). The implementation provides the internal code that carries out the operations defined in the interface (specifying how it does it)."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Apply", "type": "Short Answer", "marks": 3,
         "q": "Write a Python function `def is_pure_hypot(a, b):` that computes the hypotenuse math.sqrt(a**2 + b**2) demonstrating the concept of a pure function without side effects.",
         "a": "import math\ndef is_pure_hypot(a, b):\n    return math.sqrt(a**2 + b**2)"
     },
 
     # Chapter 2: Data Abstraction
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "What is an Abstract Data Type (ADT)? State the roles of constructors and selectors.",
         "a": "An Abstract Data Type is a specification of a set of data and the set of operations that can be performed on the data, independent of implementation. Constructors build the data type, while selectors retrieve parts of the information."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Describe how pairs, tuples, or lists can be used to construct a Point ADT with coordinates (x, y) in Python using constructors and selectors.",
         "a": "A Point ADT can be constructed using a pair: `def make_point(x, y): return [x, y]`. The selectors `def get_x(p): return p[0]` and `def get_y(p): return p[1]` retrieve the x and y coordinates respectively without exposing internal data representation."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Apply", "type": "Short Answer", "marks": 3,
         "q": "Write Python constructor `make_rational(n, d)` and selectors `numer(r)` and `denom(r)` implementing a Rational Number Abstract Data Type.",
         "a": "def make_rational(n, d):\n    return [n, d]\ndef numer(r):\n    return r[0]\ndef denom(r):\n    return r[1]"
     },
 
     # Chapter 3: Scoping
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "State the LEGB rule for variable scope resolution in Python programs.",
         "a": "The LEGB rule determines the order of scope resolution: Local scope (inside current function), Enclosing scope (inside outer/enclosing functions), Global scope (module level), and Built-in scope (predefined Python names)."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Explain how the `global` keyword affects variable scope and modification inside a Python function.",
         "a": "By default, assigning a variable inside a function creates a local variable. Declaring `global var_name` inside the function informs Python that the identifier refers to the module-level global variable, permitting modification of the global state."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Apply", "type": "Short Answer", "marks": 3,
         "q": "Write a Python program demonstrating the LEGB scoping rule where a local variable shadows an enclosing and a global variable of the same name.",
         "a": "val = 'global'\ndef outer():\n    val = 'enclosed'\n    def inner():\n        val = 'local'\n        return val\n    return inner()"
     },
 
     # Chapter 4: Algorithmic Strategies
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "Define the asymptotic notation Big-O (O) in the context of algorithm analysis.",
         "a": "Big-O notation describes the upper bound or worst-case execution time of an algorithm, indicating the maximum amount of time an algorithm takes to complete as a function of input size n."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "List any four essential characteristics of an algorithm according to the TNSB curriculum.",
         "a": "1. Input (zero or more inputs supplied), 2. Output (at least one output produced), 3. Finiteness (must terminate after a finite number of steps), and 4. Definiteness (all steps must be clearly defined and unambiguous)."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Remember", "type": "Short Answer", "marks": 2,
         "q": "What is memoization in dynamic programming algorithmic design?",
         "a": "Memoization is an optimization technique used in dynamic programming where the results of expensive function calls are cached and returned when the identical inputs occur again, eliminating redundant calculations."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Explain the step-by-step working and time complexity of the Binary Search algorithm compared to Linear Search.",
         "a": "Binary Search requires a sorted collection and repeatedly divides the search interval in half. In each step, the middle element is compared with the key. If unequal, half the list is eliminated, giving O(log n) worst-case time compared to O(n) for Linear Search."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Apply", "type": "Short Answer", "marks": 3,
         "q": "Write a Python function to perform Binary Search on a sorted list of numbers `arr` for a target value `key` returning the index or -1.",
         "a": "def binary_search(arr, key):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == key: return mid\n        elif arr[mid] < key: low = mid + 1\n        else: high = mid - 1\n    return -1"
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Apply", "type": "Short Answer", "marks": 3,
         "q": "Write a Python function `fib_memo(n, memo=None)` implementing dynamic programming with memoization to compute the n-th Fibonacci number efficiently.",
         "a": "def fib_memo(n, memo=None):\n    if memo is None: memo = {}\n    if n in memo: return memo[n]\n    if n <= 1: return n\n    memo[n] = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)\n    return memo[n]"
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
         "q": "Compare and contrast Linear Search and Binary Search algorithms regarding data prerequisites, best-case, average-case, and worst-case asymptotic time complexity.",
         "a": "Linear search requires no specific ordering of elements and checks each element sequentially, yielding O(1) best-case and O(n) worst-case time complexity. Binary search requires pre-sorted elements and repeatedly halves the search space, giving O(1) best-case and O(log n) worst-case time complexity, making it exponentially more efficient for large sorted datasets."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
         "q": "Analyze the time complexity and memory overhead of calculating the n-th Fibonacci number using naive recursion versus dynamic programming with memoization.",
         "a": "Naive recursion exhibits exponential time complexity O(2^n) because it repeatedly recalculates identical subproblems across branches, leading to stack overflow for larger n. Dynamic programming with memoization stores intermediate results in a dictionary or array, reducing time complexity to linear O(n) with auxiliary space complexity O(n)."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Analyze", "type": "Long Answer", "marks": 4,
+        "q": "Analyze the execution differences and variable lifetimes between Local, Enclosed, Global, and Built-in namespaces during nested function calls in Python.",
+        "a": "Local namespaces are created upon function invocation and destroyed upon return. Enclosed namespaces persist for the lifetime of outer functions, allowing closures to capture outer bindings. Global namespaces persist across the module execution lifetime, while Built-in namespaces remain active throughout interpreter execution."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Analyze", "type": "Long Answer", "marks": 4,
+        "q": "Compare and contrast iterative algorithms versus recursive algorithmic strategies regarding call stack overhead, execution speed, and space complexity.",
+        "a": "Iterative algorithms use explicit loop structures with constant O(1) auxiliary space complexity and lower overhead. Recursive algorithms repeatedly push activation records onto the call stack, incurring O(n) call stack memory overhead and risk of RecursionError/stack overflow for deep recursions, though they provide concise solutions for divide-and-conquer structures."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
         "q": "Critically evaluate the advantages of pure functions and modular interface-implementation separation in developing reliable, concurrent software.",
         "a": "Pure functions provide referential transparency and eliminate side effects, making concurrent execution thread-safe and predictable. Interface-implementation separation guarantees that changes to internal data structures (e.g. replacing a tuple with a linked list in an ADT) do not break external client code relying on constructor and selector contracts."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Unit 1", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Assess the computational efficiency and practical trade-offs of using Abstract Data Types (ADTs) with constructors and selectors versus direct data structure manipulation in Python.",
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the computational efficiency and practical trade-offs of using Abstract Data Types (ADTs) with constructors and selectors versus direct data structure manipulation in Python.",
         "a": "While direct manipulation of data structures (like indexing raw lists or tuples) may reduce function call overhead slightly, using ADTs with constructors and selectors provides encapsulation, data hiding, and modularity. This abstraction shields programs from internal implementation modifications and simplifies debugging and system scaling."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Evaluate", "type": "Long Answer", "marks": 4,
+        "q": "Critically evaluate the trade-offs of using dynamic programming with memoization versus divide-and-conquer strategy for overlapping subproblems.",
+        "a": "Divide-and-conquer solves independent subproblems recursively, but leads to exponential O(2^n) time when subproblems overlap. Dynamic programming with memoization stores solutions to overlapping subproblems in memory, reducing time complexity to polynomial or linear O(n) at the cost of O(n) auxiliary memory."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Problem Solving Techniques & Functions in Python", "bloom": "Evaluate", "type": "Long Answer", "marks": 4,
+        "q": "Justify why encapsulation and information hiding through Abstract Data Types (ADTs) are essential for large-scale software maintenance.",
+        "a": "Encapsulation bundles data and the functions that manipulate it while hiding internal representation via constructors and selectors. This prevents external client code from directly accessing or corrupting internal state, allowing developers to change internal structures without breaking external contracts."
     },
 
 
@@ -2281,19 +2638,196 @@ CHEMISTRY_QUESTIONS = [{'a': "Raoult's Law states that for a solution of volatil
        'atoms and reaction products.',
   'type': 'Long Answer',
   'unit': 'Haloalkanes'},
- {'a': 'Primary structure is the specific amino acid sequence linked by peptide bonds. Secondary structure involves '
-       'alpha-helices and beta-pleated sheets via hydrogen bonding. Tertiary structure involves 3D folding stabilized '
-       'by disulfide, hydrophobic, and ionic bonds. Quaternary structure is the spatial assembly of multiple '
-       'polypeptide subunits. Denaturation disrupts secondary and tertiary folding without breaking primary peptide '
-       'bonds, causing irreversible loss of biological activity.',
-  'bloom': 'Evaluate',
-  'board': 'COMMON',
-  'class': 12,
-  'marks': 5,
-  'q': 'Critically evaluate the significance of protein structure levels (primary, secondary, tertiary) and assess the '
-       'consequences of protein denaturation on biological function.',
-  'type': 'Long Answer',
-  'unit': 'Haloalkanes'}]
+  {'a': 'Enzymes are highly specific globular protein biocatalysts that lower activation energy by stabilizing '
+        'the transition state through precise substrate binding at active sites (induced fit/lock-and-key models). '
+        'Unlike non-specific inorganic catalysts requiring harsh temperature and pressure, enzymes exhibit immense '
+        'catalytic acceleration (up to 10^8-fold) under mild physiological conditions. Enzyme activity displays optimum '
+        'temperature (~37 deg C) and optimum pH, outside of which tertiary conformation denatures. Competitive inhibitors '
+        'structurally resemble natural substrates and reversibly bind active sites (e.g. malonate inhibiting succinate '
+        'dehydrogenase). A coenzyme is a loosely bound, dialyzable non-protein organic cofactor (e.g. NAD+, coenzyme A), '
+        'whereas a prosthetic group is tightly and permanently covalently bound to the apoenzyme (e.g. haem in '
+        'catalase/peroxidase).',
+   'bloom': 'Evaluate',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 5,
+   'q': 'Critically evaluate the mechanism of enzyme catalysis and explain the factors responsible for their exceptional '
+        'catalytic efficiency and specificity compared to inorganic catalysts. Assess the influence of temperature, pH, '
+        'and competitive inhibitors on enzyme action, and differentiate between a coenzyme and a prosthetic group with '
+        'representative examples.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'},
+  # -------------------------------------------------------------------------
+  # Class 12 Chemistry Unit 10: Biomolecules (CBSE & TNSB Aligned)
+  # -------------------------------------------------------------------------
+  {'a': 'B) Uracil. In RNA, uracil forms base pairs with adenine, replacing thymine which is exclusively found in DNA.',
+   'bloom': 'Remember',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 1,
+   'q': 'Which of the following nitrogenous bases is found only in RNA and is absent in DNA? (A) Thymine (B) Uracil (C) Adenine (D) Guanine',
+   'type': 'MCQ',
+   'unit': 'Biomolecules'},
+  {'a': 'B) Glycosidic linkage. An oxide linkage formed by condensation between the cyclic hemiacetal hydroxyl group of one monosaccharide and a hydroxyl group of another.',
+   'bloom': 'Remember',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 1,
+   'q': 'The covalent bond that holds two monosaccharide units together through an oxygen atom in oligosaccharides and polysaccharides is called: (A) Peptide linkage (B) Glycosidic linkage (C) Phosphodiester linkage (D) Ester bond',
+   'type': 'MCQ',
+   'unit': 'Biomolecules'},
+  {'a': 'Reducing sugars reduce Fehling solution and Tollens reagent due to free or potential aldehydic or ketonic hemiacetal groups (e.g. D-glucose, maltose, lactose). Non-reducing sugars have reducing groups involved in glycosidic bond formation and cannot reduce these reagents (e.g. sucrose).',
+   'bloom': 'Remember',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 2,
+   'q': 'State what is meant by reducing and non-reducing sugars. Give one example of each.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'A peptide linkage is an amide bond (-CO-NH-) formed between the alpha-carboxyl group of one amino acid and the alpha-amino group of an adjacent amino acid with elimination of a water molecule.',
+   'bloom': 'Remember',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 2,
+   'q': 'Define a peptide linkage and write its characteristic structural representation.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Essential amino acids cannot be synthesized by the human body and must be supplied through diet (e.g. valine, leucine, lysine). Non-essential amino acids are synthesized internally by metabolic pathways and are not mandatory in diet (e.g. glycine, alanine).',
+   'bloom': 'Remember',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 2,
+   'q': 'Distinguish between essential and non-essential amino acids. Give one representative example of each.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'In neutral aqueous solution, the carboxyl group (-COOH) of an amino acid loses a proton while the amino group (-NH2) gains a proton, forming an internal dipolar ion called a Zwitterion: R-CH(NH3+)-COO-. It exhibits both positive and negative formal charges with zero net charge at its isoelectric point.',
+   'bloom': 'Remember',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 2,
+   'q': 'What is a Zwitterion? Illustrate the dipolar structure of an alpha-amino acid in aqueous medium.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Anomers are cyclic diastereomers of monosaccharides that differ in spatial configuration exclusively around the hemiacetal or hemiketal carbonyl carbon atom (C-1 in aldoses such as D-glucose, C-2 in ketoses such as D-fructose). The C-1 carbon in D-glucose is the anomeric carbon.',
+   'bloom': 'Understand',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 2,
+   'q': 'What are anomers? Identify the anomeric carbon atom in D-glucose.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Denaturation is the process where a native protein loses its higher-order tertiary and secondary folded conformations due to physical changes (temperature) or chemical changes (pH), leading to loss of biological activity. The covalent primary peptide sequence remains intact.',
+   'bloom': 'Understand',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'Explain the phenomenon of protein denaturation. Which levels of structural organization are disrupted, and which remains intact?',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Fibrous proteins consist of linear polypeptide chains running parallel held together by hydrogen and disulfide bonds; they are insoluble in water (e.g. keratin in hair, myosin in muscle). Globular proteins have chains folded into compact spherical conformations; they are soluble in water (e.g. insulin, albumin).',
+   'bloom': 'Understand',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'Differentiate between fibrous proteins and globular proteins with respect to molecular shape, intermolecular forces, and aqueous solubility.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'A nucleoside contains a nitrogenous base (purine or pyrimidine) attached to the C-1 position of a pentose sugar via an N-beta-glycosidic bond. A nucleotide contains a nucleoside esterified with a phosphate group at the C-5 position of the pentose sugar via a phosphoester linkage.',
+   'bloom': 'Understand',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'Explain the structural differences between a nucleoside and a nucleotide, specifying the positions and types of chemical linkages involved.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Water-soluble vitamins (Vitamin B-complex, Vitamin C) cannot be stored in the body and are excreted regularly in urine, requiring daily dietary supply. Fat-soluble vitamins (Vitamins A, D, E, K) are stored in the liver and adipose tissue, so excessive intake can accumulate and cause hypervitaminosis.',
+   'bloom': 'Understand',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'Explain why water-soluble vitamins must be supplied regularly in the diet whereas fat-soluble vitamins should not be taken in excessive amounts.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': '(i) D-glucose + NH2OH -> Glucose oxime (HO-CH2-(CHOH)4-CH=N-OH), confirming carbonyl group. (ii) D-glucose + Br2 water -> Gluconic acid (HO-CH2-(CHOH)4-COOH), confirming aldehydic -CHO group. (iii) D-glucose + conc. HNO3 -> Saccharic acid (HOOC-(CHOH)4-COOH), confirming presence of primary alcohol (-CH2OH).',
+   'bloom': 'Apply',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'Write the balanced chemical equations for the reaction of D-glucose with: (i) Hydroxylamine (NH2OH), (ii) Bromine water (Br2/H2O), and (iii) Concentrated nitric acid (HNO3).',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': '(i) Prolonged heating with HI reduces D-glucose to n-hexane (CH3-CH2-CH2-CH2-CH2-CH3), confirming that all six carbon atoms are linked in an unbranched chain. (ii) Reaction with excess acetic anhydride yields Glucose pentaacetate, confirming the presence of five -OH groups on distinct carbon atoms.',
+   'bloom': 'Apply',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'State the products formed and write chemical equations when D-glucose is treated with: (i) Prolonged heating with HI in the presence of red phosphorus, and (ii) Acetic anhydride in pyridine.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'According to Chargaff rules for double-stranded DNA: %G = %C and %A = %T. Given Cytosine = 28%, Guanine = 28%. Total G + C = 56%. Remaining A + T = 100% - 56% = 44%. Since Adenine equals Thymine: Adenine = 22% and Thymine = 22%.',
+   'bloom': 'Apply',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'A sample of double-stranded DNA contains 28% cytosine bases. Applying Chargaff rules of base equivalence, calculate the percentages of guanine, adenine, and thymine in this sample.',
+   'type': 'Numerical',
+   'unit': 'Biomolecules'},
+  {'a': 'Open-chain D-glucose fails to explain: 1. It does not react with NaHSO3 or give 2,4-DNP test despite having a formal -CHO group. 2. Glucose pentaacetate does not react with NH2OH, indicating absence of free -CHO. 3. Glucose exists in two crystalline alpha and beta anomeric forms having different melting points and optical rotations, proving it exists predominantly as a cyclic hemiacetal pyranose ring.',
+   'bloom': 'Apply',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 4,
+   'q': 'Demonstrate why the open-chain structure of D-glucose was inadequate to explain its chemical behavior, citing three experimental observations.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'In an alpha-helix, the polypeptide chain coils into a right-handed spiral stabilized by intramolecular hydrogen bonds between the -NH group of each amino acid residue and the >C=O group of the fourth preceding residue (i+4). In a beta-pleated sheet, polypeptide chains lie side-by-side in extended conformation stabilized by intermolecular hydrogen bonds between adjacent chains.',
+   'bloom': 'Analyze',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 3,
+   'q': 'Analyze the structural differences between alpha-helix and beta-pleated sheet secondary structures of proteins with respect to polypeptide arrangement and hydrogen bonding orientation.',
+   'type': 'Short Answer',
+   'unit': 'Biomolecules'},
+  {'a': '(i) Sugar: DNA has beta-D-2-deoxyribose; RNA has beta-D-ribose. (ii) Bases: DNA contains adenine, guanine, cytosine, and thymine; RNA contains adenine, guanine, cytosine, and uracil. (iii) Helical structure: DNA is a double-stranded antiparallel double helix; RNA is typically single-stranded. (iv) Biological role: DNA stores genetic information; RNA directs protein biosynthesis.',
+   'bloom': 'Analyze',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 4,
+   'q': 'Compare and contrast DNA and RNA regarding: (i) Pentose sugar structure, (ii) Pyrimidine base pairing, (iii) Higher-order secondary structure, and (iv) Primary biological role.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Pure alpha-D-glucopyranose has specific rotation of +112 degrees while beta-D-glucopyranose has +19 degrees. When either anomer is dissolved in water, the hemiacetal ring opens reversibly to the open-chain aldehyde form and re-closes, establishing a dynamic equilibrium containing 36% alpha and 64% beta anomers with a constant optical rotation of +52.7 degrees. This spontaneous change in optical rotation is mutarotation.',
+   'bloom': 'Analyze',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 4,
+   'q': 'Analyze the molecular mechanism of mutarotation observed in aqueous solutions of alpha-D-glucose and beta-D-glucose, explaining the dynamic equilibrium established.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Sucrose is dextrorotatory (+66.5 degrees). On hydrolysis with dilute acid or invertase enzyme, the glycosidic bond between alpha-D-glucose and beta-D-fructose is cleaved, producing equimolar D-glucose (+52.7 degrees) and D-fructose (-92.4 degrees). Because the levorotation of fructose exceeds the dextrorotation of glucose, the resulting mixture is net levorotatory (-39.7 degrees), inverting the optical sign.',
+   'bloom': 'Evaluate',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 4,
+   'q': 'Critically evaluate why sucrose is dextrorotatory, but undergoes inversion upon hydrolysis to yield a levorotatory mixture (invert sugar). State the enzyme involved.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'},
+  {'a': 'Proteins are organized hierarchically: primary (amino acid sequence), secondary (alpha-helices and beta-sheets), tertiary (3D folding via disulfide, ionic, and hydrophobic interactions), and quaternary (multimeric subunit assembly). Denaturation disrupts quaternary, tertiary, and secondary conformations through thermal or chemical disruption of non-covalent interactions, exposing hydrophobic interiors that aggregate irreversibly (coagulation of egg albumin), while primary covalent peptide bonds remain completely unbroken.',
+   'bloom': 'Evaluate',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 5,
+   'q': 'Critically evaluate the structural hierarchy of proteins from primary to quaternary levels. Assess the biochemical consequences of denaturation on each structural level and explain why boiling an egg is an irreversible denaturation process.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'},
+  {'a': '(i) Heating with HI/red P gives n-hexane, proving a continuous 6-carbon unbranched chain. (ii) Reaction with NH2OH gives an oxime and with HCN gives a cyanohydrin, proving presence of a carbonyl group. (iii) Mild oxidation with Br2 water gives gluconic acid, proving the carbonyl group is an aldehyde (-CHO). (iv) Acetylation with acetic anhydride gives glucose pentaacetate, proving presence of five -OH groups on distinct carbons. (v) Oxidation with conc. HNO3 yields saccharic acid, proving one of the -OH groups is a primary alcohol (-CH2OH).',
+   'bloom': 'Evaluate',
+   'board': 'COMMON',
+   'class': 12,
+   'marks': 5,
+   'q': 'Evaluate how sequential chemical evidence established the structural formula of D-glucose. Formulate the reactions that proved: (i) 6-carbon straight chain, (ii) Carbonyl group, (iii) Aldehyde group, (iv) Five hydroxyl groups, and (v) One primary alcohol.',
+   'type': 'Long Answer',
+   'unit': 'Biomolecules'}]
 
 
 def normalize_text_for_comparison(text: str) -> str:
@@ -2335,13 +2869,15 @@ def match_curriculum_question(
 
     # 1. English
     if "english" in s_lower:
-        if any(w in u_lower for w in ["poem", "poet"]):
+        if any(w in u_lower for w in ["prose", "first flight", "letter to god", "mandela", "buddha"]):
+            pool = ENGLISH_PROSE_QUESTIONS
+        elif any(w in u_lower for w in ["poem", "poet"]):
             pool = ENGLISH_POETRY_QUESTIONS
-        elif any(w in u_lower for w in ["supplementary", "reader", "story", "stories"]):
+        elif any(w in u_lower for w in ["supplementary", "reader", "story", "stories", "footprints", "vistas"]):
             pool = ENGLISH_SUPPLEMENTARY_QUESTIONS
         elif any(w in u_lower for w in ["grammar", "vocabulary", "language"]):
             pool = ENGLISH_GRAMMAR_QUESTIONS
-        elif any(w in u_lower for w in ["writing", "composition", "letter", "notice", "article"]):
+        elif any(w in u_lower for w in ["writing", "composition", "notice", "article"]) or ("letter" in u_lower and "letter to god" not in u_lower):
             pool = ENGLISH_WRITING_QUESTIONS
         else:
             # General or prose
@@ -2411,12 +2947,29 @@ def match_curriculum_question(
         return None
 
     # Filter candidates by board, class, and unit relevance
-    STOP_WORDS = {"unit", "chapter", "part", "class", "term", "section", "elements", "principles", "concepts", "theory", "studies", "skills"}
+    STOP_WORDS = {
+        "unit", "chapter", "part", "class", "term", "section", "elements",
+        "principles", "concepts", "theory", "studies", "skills", "python", "with", "into", "from",
+        "compounds", "compound", "organic", "inorganic"
+    }
     unit_matched_candidates = []
     for q in available_candidates:
         cand_unit = q.get("unit", "").lower()
         cand_kws = [w for w in cand_unit.split() if len(w) > 3 and w not in STOP_WORDS]
-        is_u_match = (cand_unit in u_lower) or (any(w in u_lower for w in cand_kws) if cand_kws else False)
+        is_cs = "computer" in s_lower or "programming" in s_lower or bool(re.search(r"\b(cs|ip|it)\b", s_lower))
+        is_chem = "chem" in s_lower
+        is_u_match = (
+            (cand_unit in u_lower)
+            or (u_lower in cand_unit)
+            or (any(w in u_lower for w in cand_kws) if cand_kws else False)
+            or (is_cs and "unit 1" in u_lower and "problem solving" in cand_unit)
+            or (is_cs and "unit 2" in u_lower and "core" in cand_unit)
+            or (is_cs and "unit 3" in u_lower and "object oriented" in cand_unit)
+            or (is_cs and "unit 4" in u_lower and "database" in cand_unit)
+            or (is_cs and "unit 5" in u_lower and "mysql" in cand_unit)
+            or (is_chem and "biomolecule" in u_lower and "biomolecule" in cand_unit)
+            or (is_chem and ("unit 10" in u_lower or "unit 8" in u_lower) and "biomolecule" in cand_unit)
+        )
         if cand_unit and is_u_match:
             unit_matched_candidates.append(q)
 
@@ -2459,8 +3012,21 @@ def match_curriculum_question(
 
         cand_unit = item.get("unit", "").lower()
         cand_kws = [w for w in cand_unit.split() if len(w) > 3 and w not in STOP_WORDS]
-        is_u_match = (cand_unit in u_lower) or (any(w in u_lower for w in cand_kws) if cand_kws else False)
-        if cand_unit and is_u_match:
+        is_exact_u = (cand_unit in u_lower) or (u_lower in cand_unit)
+        is_u_match = (
+            is_exact_u
+            or (any(w in u_lower for w in cand_kws) if cand_kws else False)
+            or (is_cs and "unit 1" in u_lower and "problem solving" in cand_unit)
+            or (is_cs and "unit 2" in u_lower and "core" in cand_unit)
+            or (is_cs and "unit 3" in u_lower and "object oriented" in cand_unit)
+            or (is_cs and "unit 4" in u_lower and "database" in cand_unit)
+            or (is_cs and "unit 5" in u_lower and "mysql" in cand_unit)
+            or (is_chem and "biomolecule" in u_lower and "biomolecule" in cand_unit)
+            or (is_chem and ("unit 10" in u_lower or "unit 8" in u_lower) and "biomolecule" in cand_unit)
+        )
+        if cand_unit and is_exact_u:
+            score += 25
+        elif cand_unit and is_u_match:
             score += 15
 
         return score
@@ -2505,7 +3071,11 @@ MATH_CURRICULUM_TEMPLATES = {   'ALGEBRA_QUADRATICS': {   'Analyze': [   {   'a'
                                                     'A^2 - 5A + 7I.'},
                                            {   'a': 'det(A) = -11. X = A^-1B => x = 1, y = 1.',
                                                'q': 'Solve the system of linear equations 2x + 3y = 5 and 3x - y = 2 '
-                                                    'using matrix inversion method.'}],
+                                                    'using matrix inversion method.'},
+                                           {   'a': 'x^2 - (sum)x + product = 0 => x^2 - 4x + 1 = 0.',
+                                               'q': 'Form the quadratic polynomial whose zeroes are 2 + sqrt(3) and 2 - sqrt(3).'},
+                                           {   'a': '3x - 5y = 4 and 9x - 2y = 7 => x = 9/13, y = -5/13.',
+                                               'q': 'Solve the pair of linear equations 3x - 5y - 4 = 0 and 9x = 2y + 7 using the elimination method.'}],
                               'Evaluate': [   {   'a': 'x^2 + 2x + 1 = 2x - 6 => x^2 + 7 = 0. It is quadratic, but has '
                                                        'no real roots since D = -28 < 0.',
                                                   'q': 'Evaluate whether the equation (x + 1)^2 = 2(x - 3) is a '
