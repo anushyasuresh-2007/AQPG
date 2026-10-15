@@ -4,8 +4,12 @@ Comprehensive regression tests for curriculum alignment, board-class isolation,
 Bloom's taxonomy validation, subject-specific question formats, and examination blueprints.
 """
 
+import os
+import sys
 import unittest
 from unittest.mock import MagicMock, patch
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app.services.ai.base import AIQuestionPrompt
 from app.services.ai.generator_factory import OfflineFallbackProvider
@@ -314,6 +318,162 @@ class TestCurriculumAlignmentE2E(unittest.TestCase):
         self.assertTrue(custom_bp.duration_minutes > 0)
         self.assertEqual(sum(s.total_marks for s in custom_bp.sections), 50)
 
+    # =========================================================================
+    # 8. TNSB SUBJECT CODES & BACKWARD COMPATIBILITY
+    # =========================================================================
+    def test_tnsb_subject_code_resolution_official_and_legacy(self):
+        """Verify resolve_tnsb_subject_code maps both official DGE codes and legacy aliases to canonical codes."""
+        from app.services.curriculum.tn_board_importer import resolve_tnsb_subject_code
+
+        # Class 12 Science & Mathematics: Official 500-series vs Shorthand vs Legacy Prefix
+        test_cases = [
+            ("519", 12, "519"), ("019", 12, "519"), ("TN-12-CS", 12, "519"),
+            ("541", 12, "541"), ("041", 12, "541"), ("TN-12-MAT", 12, "541"),
+            ("505", 12, "505"), ("005", 12, "505"), ("TN-12-PHY", 12, "505"),
+            ("507", 12, "507"), ("007", 12, "507"), ("TN-12-CHEM", 12, "507"),
+            ("509", 12, "509"), ("009", 12, "509"), ("TN-12-BIO", 12, "509"),
+            ("549", 12, "549"), ("TN-12-ECO", 12, "549"),
+            ("555", 12, "555"), ("TN-12-COM", 12, "555"),
+            ("557", 12, "557"), ("TN-12-ACC", 12, "557"),
+            ("003", 12, "003"), ("TN-12-ENG", 12, "003"),
+            ("002", 10, "002"), ("TN-10-ENG", 10, "002"),
+            ("003", 10, "003"), ("TN-10-MAT", 10, "003"),
+            ("004", 10, "004"), ("TN-10-SCI", 10, "004"),
+            ("005", 10, "005"), ("TN-10-SOC", 10, "005"),
+        ]
+        for input_code, c_num, expected_official in test_cases:
+            resolved = resolve_tnsb_subject_code(input_code, class_number=c_num)
+            self.assertEqual(
+                resolved,
+                expected_official,
+                f"Expected '{input_code}' (Class {c_num}) to resolve to '{expected_official}', got '{resolved}'"
+            )
+
+    def test_tnsb_class_12_blueprint_resolution_official_and_legacy(self):
+        """Verify get_exam_blueprint resolves blueprints for TNSB Class 12 across official DGE codes and legacy codes."""
+        # Computer Science: official 519, shorthand 019, legacy TN-12-CS
+        bp_cs_official = get_exam_blueprint("TNSB", 12, subject_code="519")
+        bp_cs_short = get_exam_blueprint("TNSB", 12, subject_code="019")
+        bp_cs_legacy = get_exam_blueprint("TNSB", 12, subject_code="TN-12-CS")
+        self.assertIsNotNone(bp_cs_official)
+        self.assertIsNotNone(bp_cs_short)
+        self.assertIsNotNone(bp_cs_legacy)
+        self.assertEqual(bp_cs_official.total_marks, 70)
+        self.assertEqual(bp_cs_short.total_marks, 70)
+        self.assertEqual(bp_cs_legacy.total_marks, 70)
+        self.assertTrue(bp_cs_official.validate_totals())
+
+        # Mathematics: official 541, shorthand 041, legacy TN-12-MAT
+        bp_mat_official = get_exam_blueprint("TNSB", 12, subject_code="541")
+        bp_mat_short = get_exam_blueprint("TNSB", 12, subject_code="041")
+        bp_mat_legacy = get_exam_blueprint("TNSB", 12, subject_code="TN-12-MAT")
+        self.assertIsNotNone(bp_mat_official)
+        self.assertIsNotNone(bp_mat_short)
+        self.assertIsNotNone(bp_mat_legacy)
+        self.assertEqual(bp_mat_official.total_marks, 90)
+        self.assertEqual(bp_mat_short.total_marks, 90)
+        self.assertEqual(bp_mat_legacy.total_marks, 90)
+        self.assertTrue(bp_mat_official.validate_totals())
+
+        # Accountancy: official 557, legacy TN-12-ACC
+        bp_acc_official = get_exam_blueprint("TNSB", 12, subject_code="557")
+        bp_acc_legacy = get_exam_blueprint("TNSB", 12, subject_code="TN-12-ACC")
+        self.assertIsNotNone(bp_acc_official)
+        self.assertIsNotNone(bp_acc_legacy)
+        self.assertEqual(bp_acc_official.total_marks, 90)
+        self.assertTrue(bp_acc_official.validate_totals())
+
+        # Physics: official 505, shorthand 005, legacy TN-12-PHY
+        bp_phy_official = get_exam_blueprint("TNSB", 12, subject_code="505")
+        bp_phy_short = get_exam_blueprint("TNSB", 12, subject_code="005")
+        self.assertIsNotNone(bp_phy_official)
+        self.assertIsNotNone(bp_phy_short)
+        self.assertEqual(bp_phy_official.total_marks, 70)
+        self.assertTrue(bp_phy_official.validate_totals())
+
+    def test_tnsb_importer_official_dge_subject_codes(self):
+        """Verify TamilNaduBoardImporter returns authoritative DGE subject codes."""
+        from app.services.curriculum.tn_board_importer import TamilNaduBoardImporter
+
+        cat = TamilNaduBoardImporter().fetch_curriculum()
+        code_map = {(s.class_number, s.subject_name): s.subject_code for s in cat.subjects}
+
+        # Class 10 (SSLC) DGE codes
+        self.assertEqual(code_map.get((10, "Science")), "004")
+        self.assertEqual(code_map.get((10, "Mathematics")), "003")
+        self.assertEqual(code_map.get((10, "Social Science")), "005")
+        self.assertEqual(code_map.get((10, "English")), "002")
+
+        # Class 12 (+2) DGE codes
+        self.assertEqual(code_map.get((12, "Computer Science")), "519")
+        self.assertEqual(code_map.get((12, "Mathematics")), "541")
+        self.assertEqual(code_map.get((12, "Physics")), "505")
+        self.assertEqual(code_map.get((12, "Chemistry")), "507")
+        self.assertEqual(code_map.get((12, "Biology")), "509")
+        self.assertEqual(code_map.get((12, "Economics")), "549")
+        self.assertEqual(code_map.get((12, "Commerce")), "555")
+        self.assertEqual(code_map.get((12, "Accountancy")), "557")
+        self.assertEqual(code_map.get((12, "English")), "003")
+
+    def test_ambiguous_and_conflicting_context_resolution(self):
+        """Verify get_exam_blueprint and resolve_tnsb_subject_code reject ambiguous and conflicting contexts."""
+        from app.services.curriculum.tn_board_importer import resolve_tnsb_subject_code
+        from app.services.exam_blueprints import get_exam_blueprint
+
+        # 1. Ambiguous code 003 without class or subject context must NOT default or resolve
+        self.assertEqual(resolve_tnsb_subject_code("003", class_number=None, subject_name=None), "")
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=None, subject_code="003"))
+
+        # 2. Ambiguous code 005 without class or subject context must NOT default or resolve
+        self.assertEqual(resolve_tnsb_subject_code("005", class_number=None, subject_name=None), "")
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=None, subject_code="005"))
+
+        # 3. Disambiguation when class is provided
+        self.assertEqual(resolve_tnsb_subject_code("003", class_number=10), "003")
+        self.assertEqual(resolve_tnsb_subject_code("003", class_number=12), "003")
+        bp_10_003 = get_exam_blueprint("TNSB", class_number=10, subject_code="003")
+        bp_12_003 = get_exam_blueprint("TNSB", class_number=12, subject_code="003")
+        self.assertIsNotNone(bp_10_003)
+        self.assertIsNotNone(bp_12_003)
+        self.assertEqual(bp_10_003.subject_name, "Mathematics")
+        self.assertEqual(bp_12_003.subject_name, "English")
+
+        self.assertEqual(resolve_tnsb_subject_code("005", class_number=10), "005")
+        self.assertEqual(resolve_tnsb_subject_code("005", class_number=12), "505")
+        bp_10_005 = get_exam_blueprint("TNSB", class_number=10, subject_code="005")
+        bp_12_005 = get_exam_blueprint("TNSB", class_number=12, subject_code="005")
+        self.assertIsNotNone(bp_10_005)
+        self.assertIsNotNone(bp_12_005)
+        self.assertEqual(bp_10_005.subject_name, "Social Science")
+        self.assertEqual(bp_12_005.subject_name, "Physics")
+
+        # 4. Conflicting subject code and subject name must be rejected (return None / "")
+        self.assertEqual(resolve_tnsb_subject_code("005", class_number=12, subject_name="Mathematics"), "")
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=12, subject_code="005", subject_name="Mathematics"))
+
+        self.assertEqual(resolve_tnsb_subject_code("505", class_number=12, subject_name="English"), "")
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=12, subject_code="505", subject_name="English"))
+
+        self.assertEqual(resolve_tnsb_subject_code("003", class_number=10, subject_name="English"), "")
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=10, subject_code="003", subject_name="English"))
+
+        self.assertEqual(resolve_tnsb_subject_code("003", class_number=12, subject_name="Mathematics"), "")
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=12, subject_code="003", subject_name="Mathematics"))
+
+        # 5. Missing class with unambiguous code deduces class cleanly
+        bp_519 = get_exam_blueprint("TNSB", class_number=None, subject_code="519")
+        self.assertIsNotNone(bp_519)
+        self.assertEqual(bp_519.class_number, 12)
+        self.assertEqual(bp_519.subject_name, "Computer Science")
+
+        # 6. Missing class with ambiguous subject name returns None
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=None, subject_name="Mathematics"))
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=None, subject_name="English"))
+
+        # 7. Invalid code returns None
+        self.assertIsNone(get_exam_blueprint("TNSB", class_number=12, subject_code="INVALID", subject_name="Astronomy"))
+
 
 if __name__ == "__main__":
     unittest.main()
+

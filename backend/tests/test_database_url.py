@@ -51,6 +51,38 @@ class TestDatabaseURLValidation(unittest.TestCase):
         routes = [route.path for route in app.routes]
         self.assertIn("/health", routes)
 
+    def test_production_environment_missing_database_url_raises_value_error(self):
+        """When ENVIRONMENT=production, missing or default SQLite database URL must fail startup clearly."""
+        from app.core.config import Settings
+        with self.assertRaises(ValueError) as ctx:
+            # ENVIRONMENT=production without providing an external DATABASE_URL falls back to default SQLite
+            Settings(ENVIRONMENT="production")
+        self.assertIn("Production environment requires an external DATABASE_URL", str(ctx.exception))
+
+    def test_production_environment_sqlite_database_url_raises_value_error(self):
+        """When ENVIRONMENT=production, an explicit SQLite URL must fail startup clearly."""
+        from app.core.config import Settings
+        with self.assertRaises(ValueError) as ctx:
+            Settings(ENVIRONMENT="production", DATABASE_URL="sqlite:///./aqpg.db")
+        self.assertIn("SQLite database is not permitted in production", str(ctx.exception))
+
+    def test_production_environment_valid_external_database_url_succeeds(self):
+        """When ENVIRONMENT=production, a valid external database URL must be accepted and preserved."""
+        from app.core.config import Settings
+        valid_url = "mysql+mysqlconnector://prod_user:SuperSecret123!@db.render.internal:3306/aqpg_prod"
+        prod_settings = Settings(ENVIRONMENT="production", DATABASE_URL=valid_url)
+        self.assertEqual(prod_settings.DATABASE_URL, valid_url)
+        self.assertEqual(prod_settings.ENVIRONMENT, "production")
+
+    def test_development_environment_preserves_local_sqlite_database_url(self):
+        """When ENVIRONMENT=development, local SQLite canonical URL must be preserved."""
+        from app.core.config import Settings
+        dev_settings = Settings(ENVIRONMENT="development", DATABASE_URL="sqlite:///./aqpg.db")
+        self.assertEqual(dev_settings.ENVIRONMENT, "development")
+        self.assertTrue(dev_settings.DATABASE_URL.startswith("sqlite:///"))
+        self.assertIn("aqpg.db", dev_settings.DATABASE_URL)
+
 
 if __name__ == "__main__":
     unittest.main()
+

@@ -1,6 +1,6 @@
 """Official Tamil Nadu State Board Curriculum Importer for Academic Sessions (e.g. 2026-27)."""
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from app.services.curriculum.base import (
     BaseCurriculumImporter,
@@ -9,6 +9,134 @@ from app.services.curriculum.base import (
     TopicData,
     UnitData,
 )
+
+# Authoritative DGE Tamil Nadu Subject Code Mapping & Compatibility Aliases
+TNSB_ALIAS_TO_OFFICIAL_MAP: Dict[str, str] = {
+    # Class 12 Higher Secondary (+2) Official DGE 500-Series
+    "TN-12-CS": "519",
+    "019": "519",
+    "519": "519",
+    "TN-12-MAT": "541",
+    "041": "541",
+    "541": "541",
+    "TN-12-PHY": "505",
+    "505": "505",
+    "TN-12-CHEM": "507",
+    "007": "507",
+    "507": "507",
+    "TN-12-BIO": "509",
+    "009": "509",
+    "509": "509",
+    "TN-12-ECO": "549",
+    "549": "549",
+    "TN-12-COM": "555",
+    "555": "555",
+    "TN-12-ACC": "557",
+    "557": "557",
+    "TN-12-ENG": "003",
+    # Class 10 SSLC Official DGE Codes
+    "TN-10-ENG": "002",
+    "002": "002",
+    "TN-10-MAT": "003",
+    "TN-10-SCI": "004",
+    "004": "004",
+    "TN-10-SOC": "005",
+}
+
+
+def resolve_tnsb_subject_code(
+    code: str,
+    class_number: Optional[int] = None,
+    subject_name: Optional[str] = None,
+) -> str:
+    """Resolve any legacy or shorthand TNSB subject code to its verified official DGE code."""
+    if not code:
+        return ""
+    clean = code.strip().upper()
+
+    # Conflicting check if both code and subject_name are provided
+    if subject_name:
+        s_low = subject_name.lower().strip()
+        code_to_expected = {
+            "505": "physic",
+            "PHY": "physic",
+            "507": "chem",
+            "CHE": "chem",
+            "CHEM": "chem",
+            "509": "bio",
+            "BIO": "bio",
+            "519": "computer",
+            "CS": "computer",
+            "019": "computer",
+            "541": "math",
+            "MAT": "math",
+            "041": "math",
+            "549": "econom",
+            "ECO": "econom",
+            "555": "commerc",
+            "COM": "commerc",
+            "557": "account",
+            "ACC": "account",
+            "002": "eng",
+            "ENG": "eng",
+            "004": "sci",
+            "SCI": "sci",
+            "SOC": "social",
+        }
+        for prefix, expected_sub in code_to_expected.items():
+            if clean in (prefix, f"TN-12-{prefix}", f"TN-10-{prefix}"):
+                if not any(w in s_low for w in [expected_sub, "general", "core"]):
+                    return ""  # Reject conflict
+
+    # Handle dual-use codes with class_number disambiguation
+    if clean in ("005", "5"):
+        # In Class 12 shorthand, 005 was Physics (official 505). In Class 10, 005 is Social Science.
+        if class_number == 12:
+            if subject_name and not any(w in subject_name.lower() for w in ["physic", "phy"]):
+                return ""  # Conflict: 005 in Class 12 is Physics, but given subject is not Physics
+            return "505"
+        if class_number == 10:
+            if subject_name and not any(w in subject_name.lower() for w in ["social", "soc"]):
+                return ""  # Conflict: 005 in Class 10 is Social Science
+            return "005"
+        if subject_name:
+            sn_lower = subject_name.lower()
+            if any(w in sn_lower for w in ["physic", "phy"]):
+                return "505"
+            if any(w in sn_lower for w in ["social", "soc"]):
+                return "005"
+        # If class_number is missing and subject_name does not disambiguate, it is ambiguous
+        return ""
+
+    if clean in ("003", "3", "03"):
+        # 003 is official for both Class 10 Mathematics and Class 12 English
+        if class_number == 10:
+            if subject_name and not any(w in subject_name.lower() for w in ["math", "mat"]):
+                return ""  # Conflict: 003 in Class 10 is Mathematics
+            return "003"
+        if class_number == 12:
+            if subject_name and not any(w in subject_name.lower() for w in ["english", "eng"]):
+                return ""  # Conflict: 003 in Class 12 is English
+            return "003"
+        if subject_name:
+            sn_lower = subject_name.lower()
+            if any(w in sn_lower for w in ["math", "mat"]):
+                return "003"
+            if any(w in sn_lower for w in ["english", "eng"]):
+                return "003"
+        # If neither class nor subject is provided, code 003 is ambiguous between Math and English
+        return ""
+
+    if clean in TNSB_ALIAS_TO_OFFICIAL_MAP:
+        resolved = TNSB_ALIAS_TO_OFFICIAL_MAP[clean]
+        # Class mismatch check (e.g. TN-10-MAT with class_number=12)
+        if "TN-10-" in clean and class_number == 12:
+            return ""
+        if "TN-12-" in clean and class_number == 10:
+            return ""
+        return resolved
+
+    return clean
 
 
 class TamilNaduBoardImporter(BaseCurriculumImporter):
@@ -28,7 +156,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
         academic_year: str = "2026-27",
         target_classes: Optional[List[int]] = None,
     ) -> BoardCurriculumData:
-        source_url = f"https://www.tnscert.org/curriculum_{academic_year.replace('-', '_')}"
+        source_url = f"https://scert.tnschools.gov.in/curriculum_{academic_year.replace('-', '_')}"
 
         all_subjects: List[SubjectData] = [
             # =================================================================
@@ -38,7 +166,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Science",
                 class_name="Class X",
                 class_number=10,
-                subject_code="TN-10-SCI",
+                subject_code="004",
                 stream_name="General",
                 source_url=source_url,
                 units=[
@@ -58,7 +186,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Mathematics",
                 class_name="Class X",
                 class_number=10,
-                subject_code="TN-10-MAT",
+                subject_code="003",
                 stream_name="General",
                 source_url=source_url,
                 units=[
@@ -76,7 +204,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Social Science",
                 class_name="Class X",
                 class_number=10,
-                subject_code="TN-10-SOC",
+                subject_code="005",
                 stream_name="General",
                 source_url=source_url,
                 units=[
@@ -119,7 +247,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="English",
                 class_name="Class X",
                 class_number=10,
-                subject_code="TN-10-ENG",
+                subject_code="002",
                 stream_name="General",
                 source_url=source_url,
                 units=[
@@ -167,7 +295,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="English",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-ENG",
+                subject_code="003",
                 stream_name="General",
                 source_url=source_url,
                 units=[
@@ -209,7 +337,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Physics",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-PHY",
+                subject_code="505",
                 stream_name="Science",
                 source_url=source_url,
                 units=[
@@ -228,7 +356,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Chemistry",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-CHE",
+                subject_code="507",
                 stream_name="Science",
                 source_url=source_url,
                 units=[
@@ -246,7 +374,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Mathematics",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-MAT",
+                subject_code="541",
                 stream_name="Science",
                 source_url=source_url,
                 units=[
@@ -262,7 +390,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Computer Science",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-CS",
+                subject_code="519",
                 stream_name="Science",
                 source_url=source_url,
                 units=[
@@ -277,7 +405,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Biology",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-BIO",
+                subject_code="509",
                 stream_name="Science",
                 source_url=source_url,
                 units=[
@@ -293,7 +421,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Economics",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-ECO",
+                subject_code="549",
                 stream_name="Commerce",
                 source_url=source_url,
                 units=[
@@ -309,7 +437,7 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                 subject_name="Commerce",
                 class_name="Class XII",
                 class_number=12,
-                subject_code="TN-12-COM",
+                subject_code="555",
                 stream_name="Commerce",
                 source_url=source_url,
                 units=[
@@ -318,6 +446,67 @@ class TamilNaduBoardImporter(BaseCurriculumImporter):
                     UnitData(unit_number=3, unit_name="Unit 3 - Human Resource Management (Recruitment & Training)"),
                     UnitData(unit_number=4, unit_name="Unit 4 - Marketing & Consumer Protection Act"),
                     UnitData(unit_number=5, unit_name="Unit 5 - Company Law, Secretarial Practice & Business Ethics"),
+                ],
+            ),
+            SubjectData(
+                subject_name="Accountancy",
+                class_name="Class XII",
+                class_number=12,
+                subject_code="557",
+                stream_name="Commerce",
+                source_url=source_url,
+                units=[
+                    UnitData(unit_number=1, unit_name="Unit 1 - Accounts from Incomplete Records", topics=[
+                        TopicData(topic_name="Meaning and Features of Incomplete Records"),
+                        TopicData(topic_name="Statement of Affairs Method"),
+                        TopicData(topic_name="Ascertaining Missing Figures through Total Debtors and Creditors"),
+                    ]),
+                    UnitData(unit_number=2, unit_name="Unit 2 - Accounts of Not-for-Profit Organisation", topics=[
+                        TopicData(topic_name="Receipts and Payments Account"),
+                        TopicData(topic_name="Income and Expenditure Account"),
+                        TopicData(topic_name="Preparation of Balance Sheet for Not-for-Profit Entities"),
+                    ]),
+                    UnitData(unit_number=3, unit_name="Unit 3 - Accounts of Partnership Firms - Fundamentals", topics=[
+                        TopicData(topic_name="Partnership Deed and Rules Applicable in Absence of Deed"),
+                        TopicData(topic_name="Fixed and Fluctuating Capital Methods"),
+                        TopicData(topic_name="Interest on Capital, Drawings and P&L Appropriation Account"),
+                    ]),
+                    UnitData(unit_number=4, unit_name="Unit 4 - Goodwill in Partnership Accounts", topics=[
+                        TopicData(topic_name="Nature and Factors Determining Goodwill"),
+                        TopicData(topic_name="Average Profit and Super Profit Methods"),
+                        TopicData(topic_name="Capitalisation Method"),
+                    ]),
+                    UnitData(unit_number=5, unit_name="Unit 5 - Admission of a Partner", topics=[
+                        TopicData(topic_name="Revaluation of Assets and Liabilities"),
+                        TopicData(topic_name="Distribution of Accumulated Profits, Losses and Reserves"),
+                        TopicData(topic_name="New Profit Sharing Ratio and Sacrificing Ratio"),
+                        TopicData(topic_name="Adjustment of Goodwill on Admission"),
+                    ]),
+                    UnitData(unit_number=6, unit_name="Unit 6 - Retirement and Death of a Partner", topics=[
+                        TopicData(topic_name="Gaining Ratio and New Profit Sharing Ratio"),
+                        TopicData(topic_name="Revaluation and Settlement of Account of Retiring Partner"),
+                        TopicData(topic_name="Settlement of Deceased Partner's Dues"),
+                    ]),
+                    UnitData(unit_number=7, unit_name="Unit 7 - Company Accounts (Issue of Shares)", topics=[
+                        TopicData(topic_name="Share Capital and Issue of Shares at Par and Premium"),
+                        TopicData(topic_name="Calls in Arrears, Calls in Advance and Pro-rata Allotment"),
+                        TopicData(topic_name="Forfeiture and Re-issue of Shares"),
+                    ]),
+                    UnitData(unit_number=8, unit_name="Unit 8 - Financial Statement Analysis", topics=[
+                        TopicData(topic_name="Significance and Limitations of Financial Statements"),
+                        TopicData(topic_name="Comparative Statements Preparation"),
+                        TopicData(topic_name="Common Size Statements Preparation"),
+                    ]),
+                    UnitData(unit_number=9, unit_name="Unit 9 - Ratio Analysis", topics=[
+                        TopicData(topic_name="Liquidity Ratios (Current and Quick Ratio)"),
+                        TopicData(topic_name="Solvency and Turnover Ratios"),
+                        TopicData(topic_name="Profitability Ratios (Gross and Net Profit)"),
+                    ]),
+                    UnitData(unit_number=10, unit_name="Unit 10 - Computerised Accounting System - Tally", topics=[
+                        TopicData(topic_name="Applications of Computers in Accounting and CAS Architecture"),
+                        TopicData(topic_name="Creating Company, Groups and Ledgers in Tally"),
+                        TopicData(topic_name="Voucher Entry and Generating Financial Reports"),
+                    ]),
                 ],
             ),
         ]

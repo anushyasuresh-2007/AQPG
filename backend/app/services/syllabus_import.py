@@ -302,9 +302,35 @@ def generate_standard_curriculum_catalog() -> List[Dict[str, Any]]:
     ]
     catalog.extend(cbse_entries)
 
-    # 2. State Boards: Tamil Nadu, Kerala, Karnataka, Maharashtra, AP, Telangana (Classes 10 & 12)
+    # 2. Tamil Nadu State Board (TNSB) - Sourced directly from authoritative TamilNaduBoardImporter
+    from app.services.curriculum.tn_board_importer import TamilNaduBoardImporter
+    tnsb_curriculum = TamilNaduBoardImporter().fetch_curriculum()
+    tnsb_by_class: Dict[int, Dict[str, Any]] = {}
+    for sub in tnsb_curriculum.subjects:
+        c_num = sub.class_number
+        if c_num not in tnsb_by_class:
+            tnsb_by_class[c_num] = {
+                "board": "TNSB",
+                "class": c_num,
+                "subjects": [],
+            }
+        tnsb_by_class[c_num]["subjects"].append({
+            "name": sub.subject_name,
+            "code": sub.subject_code,
+            "stream": sub.stream_name,
+            "units": [
+                {
+                    "number": u.unit_number,
+                    "name": u.unit_name,
+                    "topics": [t.topic_name for t in u.topics],
+                }
+                for u in sub.units
+            ],
+        })
+    catalog.extend(tnsb_by_class.values())
+
+    # 3. Other State Boards: Kerala, Karnataka, Maharashtra, AP, Telangana (Classes 10 & 12)
     state_board_configs = [
-        ("TNSB", "Tamil Nadu State Board"),
         ("KBPE", "Kerala Board of Public Examinations"),
         ("KSEEB", "Karnataka School Examination Board"),
         ("MSBSHSE", "Maharashtra State Board"),

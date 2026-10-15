@@ -437,9 +437,9 @@ def inspect_rollback_safety(db: Session, audit_filepath: str) -> Dict[str, any]:
         if s.academic_year_id != acad_year.id:
             raise SyncSafetyError(f"Database mismatch: Subject ID {sid} academic_year_id {s.academic_year_id} does not match {acad_year.id}.")
 
-        if s.subject_name == "Computer Science" and s.subject_code == "TN-12-CS" and s.class_id == c12.id:
+        if s.subject_name == "Computer Science" and s.subject_code in ("TN-12-CS", "019", "519") and s.class_id == c12.id:
             found_cs = True
-        elif s.subject_name == "Social Science" and s.subject_code == "TN-10-SOC" and s.class_id == c10.id:
+        elif s.subject_name == "Social Science" and s.subject_code in ("TN-10-SOC", "005") and s.class_id == c10.id:
             found_soc = True
         else:
             raise SyncSafetyError(
