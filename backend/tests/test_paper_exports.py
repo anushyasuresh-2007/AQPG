@@ -142,3 +142,77 @@ def test_generated_papers_flow(client_and_db):
     sol_res = client.get(f"/api/v1/generated-papers/{paper_id}/solutions-pdf")
     assert sol_res.status_code == 200
     assert sol_res.content.startswith(b"%PDF")
+    assert sol_res.headers["content-type"] == "application/pdf"
+    assert f"{paper_id}_AnswerKey_Solutions.pdf" in sol_res.headers["content-disposition"]
+
+
+def test_solutions_pdf_with_special_xml_characters(client_and_db):
+    """Test that questions and answers with <, >, &, and linebreaks render valid PDF bytes without ReportLab errors."""
+    client, TestingSessionLocal = client_and_db
+    import json
+    from app.models.generated_paper import GeneratedPaper
+
+    db = TestingSessionLocal()
+    special_paper = GeneratedPaper(
+        paper_id="QP-TEST-XML-999",
+        title="Physics & Mathematics Examination",
+        board_name="TNSB & CBSE",
+        class_name="Class 12",
+        subject_name="Physics & Chemistry",
+        unit_names="Unit 1 - Electrostatics & Kinetics <Advanced>",
+        total_marks=20,
+        total_questions=2,
+        difficulty="medium",
+        source="ai",
+        status="generated",
+        questions_data=json.dumps([
+            {
+                "question_id": 991,
+                "question": "For a charge where q1 * q2 < 0 and r > 0, calculate the force F & vector direction.",
+                "marks": 5,
+                "bloom": "Apply",
+                "difficulty": "medium",
+                "answer": "Since q1 * q2 < 0, the force is attractive.\nStep 1: F = (1 / 4πε) * |q1 * q2| / r^2.\nStep 2: Vector points along r_hat if r > 0 & charges differ.",
+            },
+            {
+                "question_id": 992,
+                "question": "Discuss the relationship between energy & momentum when v << c versus v ~ c.",
+                "marks": 5,
+                "bloom": "Analyze",
+                "difficulty": "hard",
+                "answer": "For v << c, kinetic energy E_k = (1/2)mv^2 & p = mv.\nFor v -> c, E^2 = (pc)^2 + (m0 c^2)^2.",
+            },
+        ]),
+        blueprint_summary=json.dumps([]),
+    )
+    db.add(special_paper)
+    db.commit()
+    db.close()
+
+    # Test Solutions PDF with special characters
+    sol_res = client.get("/api/v1/generated-papers/QP-TEST-XML-999/solutions-pdf")
+    assert sol_res.status_code == 200
+    assert sol_res.headers["content-type"] == "application/pdf"
+    assert "QP-TEST-XML-999_AnswerKey_Solutions.pdf" in sol_res.headers["content-disposition"]
+    assert sol_res.content.startswith(b"%PDF")
+    assert len(sol_res.content) > 1000
+
+    # Test Student PDF with special characters
+    pdf_res = client.get("/api/v1/generated-papers/QP-TEST-XML-999/pdf")
+    assert pdf_res.status_code == 200
+    assert pdf_res.headers["content-type"] == "application/pdf"
+    assert "QP-TEST-XML-999_QuestionPaper.pdf" in pdf_res.headers["content-disposition"]
+    assert pdf_res.content.startswith(b"%PDF")
+    assert len(pdf_res.content) > 1000
+
+    # Test Word document with special characters
+    docx_res = client.get("/api/v1/generated-papers/QP-TEST-XML-999/docx?include_answers=true")
+    assert docx_res.status_code == 200
+    assert len(docx_res.content) > 1000
+
+
+def test_download_endpoints_reject_unauthenticated():
+    """Download endpoints must return 401 or 403 when no auth credentials are provided."""
+    with TestClient(app) as unauth_client:
+        res = unauth_client.get("/api/v1/generated-papers/QP-123/solutions-pdf")
+        assert res.status_code in (401, 403)

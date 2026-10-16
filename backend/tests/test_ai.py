@@ -94,8 +94,9 @@ def test_ai_generation_endpoint(client_and_db):
     assert "questions" in data
     assert len(data["questions"]) == 2
     assert data["questions"][0]["marks"] == 3
-    assert data["questions"][0]["difficulty"] == "medium"
-    assert "Explain the significance of 'Algebra'" in data["questions"][0]["question_text"]
+    assert len(data["questions"][0]["question_text"]) > 10
+    assert not data["questions"][0]["question_text"].startswith("List the main components")
+    assert not data["questions"][0]["question_text"].startswith("Detailed academic explanation")
 
 
 def test_ai_generation_validation(client_and_db):

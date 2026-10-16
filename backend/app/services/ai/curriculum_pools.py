@@ -72,14 +72,129 @@ ENGLISH_PROSE_QUESTIONS = [
         "a": "The peddler views the world as a giant rattrap offering riches and joy as bait. Edla treats him with unconditional kindness, respect, and dignity, which awakens his self-worth and leads him to return the stolen thirty kronor."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "In A.J. Cronin's 'Two Gentlemen of Verona', justify the title with reference to the self-sacrificing nature of Nicola and Jacopo.",
-        "a": "Despite their tender age and devastation caused by war, Nicola and Jacopo take on various odd jobs—selling fruit, shining shoes, hawking newspapers—without complaint to fund the medical treatment for their sister Lucia suffering from tuberculosis of the spine."
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "What words did M. Hamel write on the blackboard at the end of the last French lesson in Alphonse Daudet's 'The Last Lesson'?",
+        "a": "M. Hamel wrote 'Vive La France!' ('Long Live France!') as large as he could on the blackboard before dismissing the class."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Prose", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Remember", "type": "Very Short Answer", "marks": 2,
+        "q": "Who was Saheb-e-Alam in 'Lost Spring' and what is the ironic meaning of his name?",
+        "a": "Saheb-e-Alam was a young ragpicker from Seemapuri who fled Bangladesh. The name Saheb-e-Alam means 'Lord of the Universe', which is deeply ironic given his utter poverty, barefoot state, and daily struggle for survival in garbage dumps."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Remember", "type": "Very Short Answer", "marks": 2,
+        "q": "Where did the author William Douglas experience his near-drowning misadventure in 'Deep Water'?",
+        "a": "At the YMCA swimming pool in Yakima, where an eighteen-year-old big boy tossed him into the nine-foot deep end."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Why was the crofter so hospitable and talkative when the peddler knocked at his cottage in 'The Rattrap'?",
+        "a": "The crofter was an old man living alone without wife or child. He was happy to get someone to talk to in his loneliness, so he generously shared his porridge, tobacco, and played 'mjölis' with the peddler."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Explain why Mahatma Gandhi agreed to a 25 percent refund from the British indigo planters in Champaran.",
+        "a": "Gandhiji explained that the amount of the refund was less important than the fact that the landlords had been obliged to surrender part of their money and, with it, part of their prestige. This shattered the myth of planter invulnerability and taught the peasants courage."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Describe the atmosphere of the makeup room at Gemini Studios as narrated by Asokamitran in 'Poets and Pancakes'.",
+        "a": "The makeup room resembled a hair-cutting salon with mirrors and incandescent lights at all angles, emitting intense fiery heat. An elaborate hierarchy existed, ranging from chief makeup artist for main actors to the office boy for crowd players."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "How does William Douglas apply systematic training and breathing techniques to overcome his deep-rooted hydrophobia in 'Deep Water'?",
+        "a": "Douglas engaged an instructor who put a belt around him attached to a rope via a pulley. For months, Douglas practiced putting his face underwater to exhale and raising his nose to inhale, swam miles across Lake Wentworth, and challenged his residual fear until he conquered it completely."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Apply", "type": "Long Answer", "marks": 5,
+        "q": "Demonstrate how Mahatma Gandhi's method of civil disobedience and legal persistence succeeded in resolving the Champaran sharecroppers' crisis in 'Indigo'.",
+        "a": "Gandhiji collected documented statements from thousands of sharecroppers, disobeyed an expulsion order peacefully, and attended inquiry commissions with concrete evidence. His non-violent persistence forced the lieutenant governor to appoint an official inquiry, resulting in legal protection for tenant farmers and landmark success for civil disobedience in India."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Evaluate", "type": "Short Answer", "marks": 3,
+        "q": "Evaluate Umberto Eco's perspective on utilizing interstitial spaces ('empty spaces') in his academic and literary work in 'The Interview'.",
+        "a": "Umberto Eco asserts that our lives contain immense empty spaces (interstices). By utilizing these idle minutes—such as waiting in an elevator or for a guest to arrive—to write essays and chapters, he achieved extraordinary scholarly and novelistic productivity."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "Two Gentlemen of Verona", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Who was the author of the story 'Two Gentlemen of Verona'?",
+        "a": "A.J. Cronin (Archibald Joseph Cronin)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "Two Gentlemen of Verona", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "What various odd jobs did Nicola and Jacopo perform in the city of Verona?",
+        "a": "The two boys shined shoes, sold wild strawberries and fruit, hawked newspapers, guided tourists to historical spots, and ran general errands."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "Two Gentlemen of Verona", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Why did Nicola and Jacopo keep their personal grief and sacrifices a secret from the narrator in 'Two Gentlemen of Verona'?",
+        "a": "The boys had immense pride and dignity; they did not seek pity or charity from strangers, choosing instead to bear their family burden of funding their sister Lucia's medical treatment through hard, honest labor."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "Two Gentlemen of Verona", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "How does the narrator's respect for Nicola and Jacopo evolve after his visit to the hospital at Poleta?",
+        "a": "The narrator's initial curiosity turns into profound admiration and respect when he observes their selflessness, courage, and mature devotion to their sister, viewing them as true gentlemen who embody noble human values in a post-war ruined world."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "Two Gentlemen of Verona", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "In A.J. Cronin's 'Two Gentlemen of Verona', justify the title with reference to the self-sacrificing nature of Nicola and Jacopo.",
+        "a": "Despite their tender age and devastation caused by war, Nicola and Jacopo take on various odd jobs—selling fruit, shining shoes, hawking newspapers—without complaint to fund the medical treatment for their sister Lucia suffering from tuberculosis of the spine. Their dignity, unwavering devotion, and moral nobility redefine true gentility, making the title entirely justified."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "A Nice Cup of Tea", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "According to George Orwell, should sugar be added to tea?",
+        "a": "No, Orwell argues tea should be drunk without sugar, as adding sugar destroys the authentic, bitter flavor of tea."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "A Nice Cup of Tea", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "State any four golden rules George Orwell prescribes for making the perfect cup of tea in 'A Nice Cup of Tea'.",
         "a": "1. Use Indian or Ceylonese tea. 2. Make tea in a teapot (earthenware or china). 3. The pot should be warmed beforehand. 4. Pour water while it is still boiling and stir well."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "A Nice Cup of Tea", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Explain the fierce debate between 'milk-first' and 'tea-first' schools of thought described by George Orwell.",
+        "a": "Orwell explains that while one school claims pouring milk first regulates exact quantities and avoids scalding, he firmly advocates pouring tea first because one can gauge the exact amount of milk needed to complement the brew without over-diluting it."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "In Celebration of Being Alive", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Who were the two children that taught Dr. Christiaan Barnard a profound lesson on the celebration of life?",
+        "a": "A blind mechanic (a boy who had suffered severe facial burns) and a crippled driver with a hole in his bone."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "In Celebration of Being Alive", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "How did the Grand Prix at the Cape Town Red Cross Children's Hospital begin?",
+        "a": "A nurse had left a breakfast trolley unattended, and the two disabled children seized the opportunity to commandeer it as a racing car, one steering blindly and the other propelling it."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "In Celebration of Being Alive", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "How did Dr. Barnard's perspective on human suffering transform after watching the children's trolley race?",
+        "a": "Dr. Barnard realized that the business of living is not to bewail what one has lost, but to celebrate and experience joy with what one still possesses; the children showed him that suffering ennobles human spirit rather than diminishing it."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "In Celebration of Being Alive", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically analyze Dr. Christiaan Barnard's essay 'In Celebration of Being Alive' as a testament to human courage and optimism.",
+        "a": "Dr. Barnard reflects on his agonizing road accident and initially questions why innocent mortals must suffer pain. However, watching two severely disabled boys find ecstasy by driving a meal trolley reshapes his medical philosophy. He discovers that suffering helps mortals gain empathy, appreciate life's beauty, and celebrate existence despite physical adversity."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "The Chair", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Why was the arrival of a chair such a major event in the narrator's village in Ki. Rajanarayanan's story 'The Chair'?",
+        "a": "No household in the village had a chair at the time; chairs were associated exclusively with prestige, authority, and urban visitors, making its fabrication a village-wide spectacle."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "The Chair", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Describe how the family's prized wooden chair ended up being used for funerary rituals in 'The Chair'.",
+        "a": "When an elderly relative in the village died, the villagers needed a sturdy chair to seat the corpse in state, and requisitioned the family's chair; after that incident, the family found it unsettling and taboo to sit on it casually."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "On the Rule of the Road", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "What incident does A.G. Gardiner describe involving the fat lady walking down the middle of a street in Petrograd?",
+        "a": "A fat lady insisted on walking down the middle of the roadway, claiming she had personal liberty, which caused severe traffic disruption and demonstrated the danger of confusing personal liberty with social license."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "On the Rule of the Road", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "How does A.G. Gardiner distinguish between individual liberty and social responsibility in 'On the Rule of the Road'?",
+        "a": "Gardiner emphasizes that true personal liberty can only be preserved through reasonable curtailment of absolute individual freedom. If everyone exercised unrestricted personal rights, it would result in universal chaos. Personal liberty applies to private habits (food, dress, religion), whereas social behavior requires mutual accommodation and adherence to rules."
     },
 ]
 
@@ -120,9 +235,179 @@ ENGLISH_POETRY_QUESTIONS = [
         "a": "Aunt Jennifer's needlework tigers are fierce, proud, and unafraid of men, moving with chivalric certainty. They embody the inner freedom, vitality, and defiance that Aunt Jennifer herself is denied due to the crushing weight of her marriage band."
     },
     {
-        "board": "TNSB", "class": 12, "unit": "Poetry", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Which poet authored the poem 'A Thing of Beauty'?",
+        "a": "John Keats."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Remember", "type": "Very Short Answer", "marks": 2,
+        "q": "State the central metaphor used by Robert Frost to portray the plea of the rural poor in 'A Roadside Stand'.",
+        "a": "The roadside stand itself is personified as pathetically pleading for a little city money to support rural livelihoods, contrasting with the self-centered urban motorists speeding by."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "According to John Keats in 'A Thing of Beauty', how does a thing of beauty provide an endless source of joy?",
+        "a": "Its loveliness increases over time and it will never pass into nothingness. It provides a quiet bower, restful sleep full of sweet dreams, health, and quiet breathing despite earthly suffering."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "What does Pablo Neruda ask humankind to do while counting up to twelve in 'Keeping Quiet'?",
+        "a": "Neruda asks all humans to remain completely still, not speak in any language for one second, and not move their arms so much. This collective pause halts wars, ecological damage, and mindless hustle, fostering fraternity and mutual understanding."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "How can the message of Robert Frost's 'A Roadside Stand' be applied to bridge the socio-economic disparity between urban consumers and rural producers?",
+        "a": "Frost advocates meaningful economic support and fair compensation for rural enterprise rather than superficial political promises or charity. Urban consumers must actively support rural markets to foster genuine dignity, self-reliance, and balanced regional prosperity."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "The Castle", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Identify the figure of speech in the line from Edwin Muir's 'The Castle': 'Oh then our maze of tunneled stone / Grew thin and treacherous as air.'",
+        "a": "Simile ('treacherous as air')."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "The Castle", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "What made the defenders of the castle confident that their stronghold was invincible in Edwin Muir's 'The Castle'?",
+        "a": "The defenders were confident because the castle had thick stone walls, high battlements, a loyal company of soldiers, abundant food provisions, and friendly allies stationed nearby."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "The Castle", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Explain the irony expressed in the line: 'Our only enemy was gold' from Edwin Muir's 'The Castle'.",
+        "a": "The soldiers were equipped and vigilant against armed invasion with weapons, yet the citadel fell without a fight because gold bribed an aged warder to open the wicket gate, demonstrating that moral weakness is deadlier than military force."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "The Castle", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
         "q": "How was the impregnable castle captured in Edwin Muir's poem 'The Castle'?",
         "a": "The castle had thick walls, brave soldiers, and plentiful provisions, but an aged, treacherous warder let the enemy through a little wicked wicket gate in exchange for a bribe of gold."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "The Castle", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Discuss how Edwin Muir's poem 'The Castle' portrays the themes of betrayal and the vulnerability of human pride.",
+        "a": "The poem demonstrates that external impregnability is futile when integrity fails internally. The soldiers lived in complacency, believing their physical defenses and provisions could never be breached. However, greed tempted the withered warder to open the secret wicket gate for gold, proving that betrayal from within is deadlier than armed assault from outside."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Our Casuarina Tree", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Identify the poetic device in the line: 'A creeper climbs, in whose embraces bound / No other tree could live.' from Toru Dutt's 'Our Casuarina Tree'.",
+        "a": "Personification (the creeper is described as embracing the trunk of the tree)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Our Casuarina Tree", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Describe how the giant Casuarina tree wears the scarf in Toru Dutt's poem 'Our Casuarina Tree'.",
+        "a": "The winding creeper with crimson flowers clusters like a scarf around the rugged, scarred trunk of the tree, worn gallantly as a crest of beauty."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Our Casuarina Tree", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Explain the significance of the 'eerie speech' and the 'dirge-like murmur' of the Casuarina tree heard by the poet in distant lands.",
+        "a": "The eerie sound is the tree's lament for the poet's deceased brother Abju and sister Aru. Even when Toru Dutt resides far away on the coasts of France and Italy, the tree's mourned whisper reaches her inner ear, transcending physical space through memory and love."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Our Casuarina Tree", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Why does Toru Dutt hold the Casuarina tree dearer than all other trees in her garden?",
+        "a": "The tree is treasured not merely for its majestic appearance, but because beneath its boughs she spent her golden childhood playing with her beloved siblings who are now departed, making the tree an enduring monument of affection and sacred memory."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Our Casuarina Tree", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Toru Dutt's 'Our Casuarina Tree' as a poem of nostalgic remembrance, grief, and poetic immortality.",
+        "a": "Toru Dutt immortalizes the Casuarina tree as a living repository of childhood innocence shared with her departed siblings. Drawing inspiration from Wordsworth's Borrowdale yew-trees, she consecrates the tree in verse with prayer and devotion so that love may defend it from Time's oblivion."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "All the World's a Stage", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Identify the figure of speech in the line: 'All the world's a stage, and all the men and women merely players.'",
+        "a": "Metaphor (comparing the world directly to a stage and human life to theatrical playacting)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "All the World's a Stage", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Describe the characteristics of the whining schoolboy in Shakespeare's 'All the World's a Stage'.",
+        "a": "The schoolboy carries his satchel, has a shining morning face, and creeps unwillingly like a snail towards school."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "All the World's a Stage", "bloom": "Apply", "type": "Very Short Answer", "marks": 2,
+        "q": "Identify the poetic devices in the description of the soldier: 'bearded like the pard' and 'seeking the bubble reputation'.",
+        "a": "'Bearded like the pard' is a Simile; 'bubble reputation' is a Metaphor illustrating the transient and hollow nature of military fame."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "All the World's a Stage", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the fifth and sixth stages of human life as portrayed in Shakespeare's 'Seven Ages of Man'.",
+        "a": "The fifth stage is the Justice, characterized by a round belly lined with capon, severe eyes, a formal beard, and pompous wisdom. The sixth stage shifts to the lean and slippered pantaloon with spectacles, loose stockings, and a manly voice shrinking into a childish treble."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "All the World's a Stage", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Examine Shakespeare's philosophy of human existence in 'All the World's a Stage' leading to the final stage of 'second childishness and mere oblivion'.",
+        "a": "Jaques in 'As You Like It' portrays life as a predetermined sequence of seven stages. Each human passes through helplessness, reckless ambition, social respectability, and physical decline, concluding in second childishness—sans teeth, sans eyes, sans taste, sans everything—underscoring universal transience and mortality."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Ulysses", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Quote the famous climactic line that summarizes Ulysses' unwavering resolve in Tennyson's poem.",
+        "a": "'To strive, to seek, to find, and not to yield.'"
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Ulysses", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Why does Ulysses consider it idle and unfulfilling to remain as king in Ithaca in Tennyson's 'Ulysses'?",
+        "a": "Ulysses feels stagnant and unrewarded staying by a still hearth with an aged wife, enforcing unequal laws for a populace that only hoards, feeds, and sleeps without understanding higher intellectual pursuits."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Ulysses", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Explain what Ulysses means by: 'I am a part of all that I have met; yet all experience is an arch wherethrough gleams that untravelled world.'",
+        "a": "Ulysses recognizes that every journey has shaped his character, yet every completed experience merely frames an expansive horizon of untravelled knowledge, inspiring him to venture forward rather than rust in unburnished retirement."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Ulysses", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Contrast the character and role of Telemachus with that of Ulysses in Tennyson's dramatic monologue.",
+        "a": "Telemachus possesses patience, civil prudence, and domestic dedication suited for slow, methodical governance of the island. Ulysses possesses an insatiable, daring spirit that cannot be bound by routine administrative duties."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Ulysses", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Evaluate Tennyson's 'Ulysses' as a celebration of human ambition and the Victorian quest for knowledge.",
+        "a": "Ulysses embodies the restless human spirit that refuses to surrender to age or adversity. Despite physical decline caused by time and fate, his heroic will remains unbroken as he rallies his mariners to sail beyond the sunset and western stars in search of newer horizons."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "A Father to his Son", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "What metaphor does the father use in Carl Sandburg's poem to convey that gentle patience outlasts brute hardness?",
+        "a": "'Soft loam hath outlasted granite' (gentle, fertile soil endures longer than hard stone)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "A Father to his Son", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Why does the father advise his son that 'life is hard; be steel, be a rock' in Carl Sandburg's poem?",
+        "a": "To build inner fortitude, emotional resilience, and courage necessary to face life's inevitable storms, defeats, and deceptions without breaking."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "A Father to his Son", "bloom": "Apply", "type": "Very Short Answer", "marks": 2,
+        "q": "What warning does the father give regarding the pursuit of money in 'A Father to his Son'?",
+        "a": "The father warns that money has broken good men and twisted noble aims; riches should never become an end in themselves that compromises integrity."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "A Father to his Son", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "How does Carl Sandburg highlight the value of solitude and mistakes in cultivating wisdom?",
+        "a": "The father encourages his son not to fear being solitary or making mistakes, as quiet solitude allows a youth to know his own mind, understand his failures, and allow genuine creative genius to emerge."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "A Father to his Son", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically assess the contrasting advice given by the father in Carl Sandburg's 'A Father to his Son'.",
+        "a": "The father balances stern realism with humane wisdom: urging toughness like steel and rock to survive life's harshness, yet emphasizing flexibility like soft loam to outlast rigid brute force. He counsels avoiding greed, learning from folly, and nurturing creative white-flower desires."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Incident of the French Camp", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "At which historical battle did the events in Robert Browning's 'Incident of the French Camp' take place?",
+        "a": "The storming of Ratisbon (Regensburg) by Napoleon's army."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Incident of the French Camp", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Describe Napoleon's posture on the mound while awaiting the outcome of the battle at Ratisbon.",
+        "a": "Napoleon stood on a little mound with neck out-thrust, legs wide apart, and arms folded across his chest, brooding anxiously over the fate of Marshal Lannes' assault."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Incident of the French Camp", "bloom": "Apply", "type": "Very Short Answer", "marks": 2,
+        "q": "How does the young messenger demonstrate extreme loyalty and courage upon reaching Napoleon?",
+        "a": "Mortally wounded with his breast shot through, the young soldier held himself upright by his horse's mane, smiled proudly, and delivered the message of victory without showing fear or pain."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Incident of the French Camp", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Explain the significance of the soldier's final words: 'Nay, I'm killed, Sire!' in Robert Browning's poem.",
+        "a": "When Napoleon sorrowfully remarks that the boy is wounded, the soldier proudly corrects his chief, expressing joy that he lived long enough to plant the French flag at Ratisbon, dying happily in the service of his Emperor."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Incident of the French Camp", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Analyze the themes of heroism, patriotic sacrifice, and emotional contrast in Robert Browning's 'Incident of the French Camp'.",
+        "a": "Browning highlights the sublime courage of a young soldier whose devotion to Napoleon elevates him above personal survival. Napoleon's calculating imperial ambitions are momentarily pierced by genuine sorrow as tears spring to his eyes, celebrating the supreme nobility of youthful self-sacrifice."
     },
 ]
 
@@ -146,6 +431,81 @@ ENGLISH_SUPPLEMENTARY_QUESTIONS = [
         "board": "CBSE", "class": 12, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
         "q": "Discuss the conflict Dr. Sadao Hoki faces between his duty as a doctor and his patriotism as a Japanese citizen in Pearl S. Buck's 'The Enemy'.",
         "a": "When an injured American prisoner of war washes ashore, Sadao faces the dilemma of saving his enemy or turning him in. Upholding medical ethics and universal human compassion, he operates on the soldier, conceals him in his home, and eventually aids his escape."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Who wrote the short story 'God Sees the Truth, but Waits'?",
+        "a": "Leo Tolstoy."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Why was Ivan Dmitrich Aksionov convicted and exiled to Siberia?",
+        "a": "Aksionov was falsely accused of murdering a fellow merchant from Ryazan after a blood-stained knife was found planted in his luggage at the inn."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Why did Aksionov refuse to inform the prison Governor about Makar Semyonich's escape tunnel?",
+        "a": "Aksionov remembered Christ's teaching on forgiveness and mercy; he felt God alone was the judge and refused to avenge himself by having Makar flogged to death."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "How does Makar Semyonich experience moral repentance upon seeing Aksionov's saintly mercy?",
+        "a": "Makar is overcome with guilt and remorse when Aksionov conceals his guilt from the authorities; weeping bitterly, Makar confesses to the murder and begs Aksionov's forgiveness, though by the time his release order arrives, Aksionov has peacefully passed away."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Analyze the moral journey of Ivan Dmitrich Aksionov in Leo Tolstoy's 'God Sees the Truth, but Waits'.",
+        "a": "Aksionov evolves from a prosperous, carefree merchant to an enlightened, saintly figure through twenty-six years of wrongful imprisonment in Siberia. He surrenders earthly desires, placing complete trust in God's will. His supreme triumph occurs when he forgives Makar Semyonich, the real murderer, illustrating Tolstoy's message that true justice and inner peace transcend human law."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "Life of Pi", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "What was the name of the Royal Bengal Tiger stranded on the lifeboat with Pi Patel?",
+        "a": "Richard Parker."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "Life of Pi", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "How did Pi Patel manage to survive alongside a fierce predator like Richard Parker on the lifeboat?",
+        "a": "Pi established his dominance through animal conditioning using a whistle and turtle meat rewards, keeping the tiger fed and watered while maintaining his own separate raft."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "Life of Pi", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Why does Pi Patel acknowledge that Richard Parker actually saved his life during the ordeal in the Pacific Ocean?",
+        "a": "Richard Parker's presence gave Pi a purposeful routine and kept him mentally alert; coping with the immediate danger of the tiger prevented Pi from succumbing to despair, loneliness, and passive death."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "Life of Pi", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Examine Yann Martel's 'Life of Pi' as a story of faith, resilience, and coexistence in the face of mortal peril.",
+        "a": "The narrative explores how human spirit adapts under extreme isolation following the shipwreck of the Tsimtsum. Pi's multifaceted faith, practical knowledge of zoology, and willpower allow him to tame fear and coexist with Richard Parker for 227 days, demonstrating the indomitable instinct of survival."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "The Hour of Truth", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "In Percival Wilde's drama 'The Hour of Truth', how much money did John Gresham offer Robert Baldwin as a bribe?",
+        "a": "One hundred thousand dollars ($100,000)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "The Hour of Truth", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "What simple phrase did Gresham want Baldwin to say during the bank trial?",
+        "a": "'I don't remember.'"
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "The Hour of Truth", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "How does Robert Baldwin's family react when they hear about Gresham's bribe in 'The Hour of Truth'?",
+        "a": "Although the family previously prided themselves on Baldwin's spotless honesty, the prospect of possessing a fortune tempts them to justify the lie, rationalizing that Gresham was a family benefactor and that repeating three words would harm no one."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "The Hour of Truth", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Discuss how 'The Hour of Truth' dramatizes the conflict between financial temptation and uncompromising moral integrity.",
+        "a": "Percival Wilde exposes human hypocrisy when Baldwin's wife and children pressure him to compromise his honesty for $100,000. Baldwin stands firm against his own loved ones, choosing absolute truth over greed. His unyielding virtue is vindicated when Gresham confesses and Mr. Marshall of the Third National Bank rewards Baldwin's integrity with a prestigious position."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "The Midnight Visitor", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "How did the secret agent Ausable outwit Max without using any physical weapons?",
+        "a": "Ausable used calm presence of mind and fabricated a convincing story about a non-existent balcony beneath the window; when the waiter knocked, Max panicked and jumped out into the empty courtyard to his death."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "A Man Who Had No Eyes", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Contrast the attitudes of Mr. Parsons and the beggar Markwardt toward their blindness in Mackinlay Kantor's story.",
+        "a": "Markwardt exploited his disability to beg and harbor bitter grievances against fate, whereas Mr. Parsons overcame blindness through perseverance, education, and hard work to become a successful and respected insurance gentleman."
     },
 ]
 
@@ -175,6 +535,36 @@ ENGLISH_GRAMMAR_QUESTIONS = [
         "q": "Transform the following compound sentence into a complex sentence: 'Work hard and you will pass the examination with distinction.'",
         "a": "If you work hard, you will pass the examination with distinction."
     },
+    {
+        "board": "COMMON", "class": 12, "unit": "Grammar", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Identify the type of conditional clause in the sentence: 'If he had started earlier, he would have caught the train.'",
+        "a": "Third Conditional (Unfulfilled past condition: If + past perfect, would + have + past participle)."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Grammar", "bloom": "Understand", "type": "Very Short Answer", "marks": 2,
+        "q": "Explain the difference between transitive and intransitive verbs with an example of each.",
+        "a": "A transitive verb requires a direct object to complete its meaning (e.g., 'He wrote a letter'). An intransitive verb does not take a direct object (e.g., 'The baby slept soundly')."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Grammar", "bloom": "Apply", "type": "Short Answer", "marks": 2,
+        "q": "Change into Reported Speech: 'The doctor said to the patient, \"Take these medicines twice a day and avoid oily food.\"'",
+        "a": "The doctor advised the patient to take those medicines twice a day and to avoid oily food."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Grammar", "bloom": "Apply", "type": "Short Answer", "marks": 2,
+        "q": "Change into Passive Voice: 'The environmental committee will inaugurate the solar rooftop project next Monday.'",
+        "a": "The solar rooftop project will be inaugurated by the environmental committee next Monday."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Grammar", "bloom": "Apply", "type": "Very Short Answer", "marks": 1,
+        "q": "Fill in the blank with the appropriate prepositional phrase: The match was postponed _______ heavy torrential rain. (due to / in spite of / in front of)",
+        "a": "due to"
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Grammar", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze and correct the errors in the sentence: 'Neither of the two candidates have submitted their original certificates to the principal.'",
+        "a": "Correction: 'Neither of the two candidates has submitted his (or her) original certificate to the principal.' (Reason: 'Neither' is singular and takes a singular verb 'has' and singular possessive pronoun)."
+    },
 ]
 
 ENGLISH_WRITING_QUESTIONS = [
@@ -198,6 +588,26 @@ ENGLISH_WRITING_QUESTIONS = [
         "q": "Draft a formal Job Application with a comprehensive Bio-data for the post of Post-Graduate Teacher (PGT) in Computer Science advertised by Sunrise Public School, Chennai.",
         "a": "Covering letter with reference to advertisement, qualification summary, followed by structured Bio-data: Personal details, Educational qualifications (tabular), Experience, References."
     },
+    {
+        "board": "TNSB", "class": 12, "unit": "Advanced Writing", "topic": "Letter Writing", "bloom": "Create", "type": "Long Answer", "marks": 5,
+        "q": "Write a formal letter to the Editor of a prominent newspaper highlighting the urgent need to preserve groundwater and implement rainwater harvesting across urban residential colonies in Tamil Nadu. (120-150 words)",
+        "a": "Format: Sender address, Date, The Editor with newspaper name and city, Subject, Salutation, Body in 3 paragraphs (Current depletion of water table, consequences on citizens, actionable remedies like mandatory rainwater harvesting structures), Subscription, and Signature."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Advanced Writing", "topic": "Report Writing", "bloom": "Create", "type": "Long Answer", "marks": 5,
+        "q": "As the Student Secretary of your School Youth Red Cross, write an official Report on the Blood Donation Camp organized on World Health Day in your school premises. (120-150 words)",
+        "a": "Format: Title/Headline, Byline (Name and Designation), Place and Date of reporting, Introductory paragraph (occasion, date, venue, chief guest), Body paragraph (number of voluntary donors, medical team from Government Hospital, refreshment and donor certificates), and Conclusion (appreciation and vote of thanks)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Advanced Writing", "topic": "Notice Writing", "bloom": "Create", "type": "Short Answer", "marks": 3,
+        "q": "Draft a formal Notice for your school notice board inviting students of Classes 11 and 12 to enroll in the Annual Career Guidance Seminar conducted by DGE experts. (50 words)",
+        "a": "Notice format: School Name, Word 'NOTICE' in bold caps, Date of issue, Relevant heading, Body containing Date, Time, Venue, and Target audience, and Issuing authority signature with designation."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Advanced Writing", "topic": "Job Application", "bloom": "Create", "type": "Long Answer", "marks": 5,
+        "q": "Respond to an advertisement for the post of Junior Accountant at Apex Commercial Logistics, Chennai. Draft an application letter accompanied by your Curriculum Vitae.",
+        "a": "Application letter mentioning source of advertisement, expressing suitability with B.Com degree and Tally certification, followed by formatted CV with Personal Details, Academic Qualifications table, Technical Skills, Languages Known, and two References."
+    },
 ]
 
 
@@ -215,6 +625,56 @@ SOCIAL_SCIENCE_HISTORY_QUESTIONS = [
         "board": "CBSE", "class": 10, "unit": "History", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Explain how the Treaty of Vienna of 1815 sought to restore conservative order across Europe.",
         "a": "The Bourbon dynasty was restored to power in France. A series of buffer states were set up around France's borders (e.g. Kingdom of Netherlands including Belgium in north, Genoa added to Piedmont in south) to prevent future French expansion."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Who was the architect of German unification under King William I?",
+        "a": "Otto von Bismarck, the Chief Minister of Prussia."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Remember", "type": "Very Short Answer", "marks": 2,
+        "q": "State any two key provisions of the Civil Code of 1804 (Napoleonic Code) in France.",
+        "a": "1. It abolished all privileges based on birth. 2. It established equality before the law and secured the right to private property."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Remember", "type": "Very Short Answer", "marks": 2,
+        "q": "When and where was the historic resolution for 'Purna Swaraj' (Complete Independence) adopted by the Indian National Congress?",
+        "a": "In December 1929, at the Lahore Session of the Indian National Congress under the presidency of Jawaharlal Nehru."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Explain the significance of the Salt March (Dandi March) launched by Mahatma Gandhi in 1930.",
+        "a": "Gandhiji walked 240 miles from Sabarmati Ashram to Dandi with 78 volunteers and manufactured salt by boiling sea water, breaking the British salt monopoly. Salt was an essential item consumed by rich and poor alike, making it a universal symbol of defiance that ignited the nationwide Civil Disobedience Movement."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Describe how the print revolution transformed European society and contributed to the Protestant Reformation.",
+        "a": "The print revolution drastically reduced the cost and labour of producing books, enabling rapid circulation of ideas. Martin Luther's Ninety-Five Theses criticizing Church practices was printed and widely read, leading to religious debates and the emergence of Protestantism."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Demonstrate how visual allegories like 'Marianne' in France and 'Germania' in Germany were utilized to personify the nation in 19th-century Europe.",
+        "a": "Artists personified nations as female figures to give concrete form to abstract ideas of liberty and nationhood. In France, Marianne represented liberty and the Republic through the red cap, tricolour, and cockade. In Germany, Germania wore an oak crown symbolizing heroism and carried a sword ready for defense."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Apply", "type": "Long Answer", "marks": 5,
+        "q": "Examine how the First World War created new economic and political hardships across India, paving the way for mass nationalist struggles.",
+        "a": "The war led to enormous increases in British defense expenditure financed by war loans and heavy taxes (income tax introduced, custom duties raised). Prices doubled between 1913 and 1918, causing acute hardship. Forced recruitment into the colonial army angered rural populations, and post-war crop failures combined with the influenza epidemic caused millions of famine deaths, mobilizing mass support for Mahatma Gandhi's Satyagraha."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the reasons why the Non-Cooperation Movement slowed down in urban cities across India.",
+        "a": "1. Khadi cloth was often much more expensive than mass-produced British mill cloth, making it unaffordable for the poor. 2. The boycott of British institutions (schools, colleges, courts) faltered because alternative indigenous Indian institutions were slow to be established."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Evaluate", "type": "Short Answer", "marks": 3,
+        "q": "Evaluate the terms and historical impact of the Poona Pact signed between Mahatma Gandhi and Dr. B.R. Ambedkar in September 1932.",
+        "a": "The Poona Pact replaced separate electorates for Dalits (Depressed Classes) with reserved seats in provincial and central legislative councils, voted for by the general electorate. It preserved national unity while ensuring institutional political representation for oppressed classes within the democratic framework."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "History", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically assess the impact of the Great Depression of 1929 on Indian agriculture and foreign trade.",
+        "a": "Between 1928 and 1934, India's exports and imports halved as world prices crashed. Wheat prices fell by 50%. Peasants producing cash crops (like Bengal jute cultivators) suffered catastrophic losses while the colonial government refused to lower revenue demands. Peasants fell deeply into indebtedness and were forced to sell gold reserves, turning India into an exporter of precious metal."
     },
     {
         "board": "TNSB", "class": 10, "unit": "History", "bloom": "Understand", "type": "Short Answer", "marks": 2,
@@ -893,6 +1353,81 @@ COMPUTER_SCIENCE_QUESTIONS = [
         "board": "CBSE", "class": 12, "unit": "Computational Thinking", "bloom": "Apply", "type": "Short Answer", "marks": 3,
         "q": "Write a Python function `push_element(stack, item)` and `pop_element(stack)` to implement stack operations using a Python list.",
         "a": "def push_element(stack, item):\n    stack.append(item)\ndef pop_element(stack):\n    return stack.pop() if stack else None"
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Arrays", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "q": "Define an array data structure. Explain the difference between Row-Major Order and Column-Major Order in 2D array memory representation.",
+        "a": "An array is a linear collection of elements of identical data type stored in contiguous memory locations. In Row-Major Order, all elements of a row are stored consecutively before moving to the next row. In Column-Major Order, all elements of a column are stored consecutively before moving to the next column."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Arrays", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Explain how an element at index `i` of a 1D array is accessed in constant O(1) time using base address and element size.",
+        "a": "Direct addressing calculates the physical memory address using the formula: `Address(A[i]) = Base_Address + (i - Lower_Bound) * Size_of_Element`. Since arithmetic operations (multiplication, addition) run in constant CPU cycles, accessing any element requires exactly O(1) time."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Arrays", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Write a Python function `insert_at_index(arr, item, index)` that inserts an item at the specified index without using the built-in `.insert()` method.",
+        "a": "def insert_at_index(arr, item, index):\n    arr.append(None)\n    for i in range(len(arr) - 1, index, -1):\n        arr[i] = arr[i - 1]\n    arr[index] = item\n    return arr"
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Arrays", "bloom": "Analyze", "type": "Short Answer", "marks": 4,
+        "q": "Analyze the time complexity of searching an element in an unsorted array versus a sorted array using linear search and binary search.",
+        "a": "In an unsorted array, linear search checks elements sequentially with worst-case and average-case time complexity O(n). In a sorted array, binary search repeatedly divides the search interval in half by comparing with the middle element, achieving logarithmic time complexity O(log n) in the worst case."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Arrays", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Evaluate the trade-offs of using contiguous dynamic arrays versus singly linked lists regarding random access, memory fragmentation, and insertion efficiency.",
+        "a": "Arrays provide O(1) random access via index arithmetic and superior cache locality, but insertions and deletions at arbitrary positions require O(n) element shifting, and resizing causes reallocation overhead. Linked lists allow O(1) insertions/deletions once a node pointer is obtained without reallocating existing nodes, but require O(n) sequential traversal to access elements and incur extra memory overhead per node for pointers."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Linked Lists", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "q": "What is a singly linked list? State the two primary components of a linked list node.",
+        "a": "A singly linked list is a linear data structure consisting of dynamically allocated nodes connected by pointers. Each node contains two components: 1. Data field (storing the actual value), and 2. Next pointer (storing the memory address of the subsequent node, or null/None if it is the terminal node)."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Linked Lists", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Explain the step-by-step procedure for deleting a target node from the middle of a singly linked list.",
+        "a": "1. Traverse the linked list using two pointers (current and previous) until current points to the target node. 2. Set previous.next = current.next, effectively bypassing the target node. 3. Deallocate or garbage collect the target node. 4. Handle edge cases: if the target is the head, update head = head.next."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Linked Lists", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Write a Python class `Node` and a function `prepend(head, data)` that adds a new node at the beginning of a singly linked list.",
+        "a": "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\ndef prepend(head, data):\n    new_node = Node(data)\n    new_node.next = head\n    return new_node"
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Linked Lists", "bloom": "Analyze", "type": "Short Answer", "marks": 4,
+        "q": "Compare singly linked lists with doubly linked lists in terms of bidirectional traversal capability, deletion complexity, and memory overhead.",
+        "a": "Doubly linked lists store both 'next' and 'prev' pointers, enabling O(1) deletion of a given node pointer without traversing from head and allowing bidirectional traversal. However, they incur double the pointer memory overhead per node and require updating twice as many link references during insertions and deletions."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Linked Lists", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate circular linked lists for round-robin CPU scheduling compared to standard linear arrays and linked lists.",
+        "a": "In a circular linked list, the last node points back to the head node, forming a continuous ring without null terminators. For round-robin CPU scheduling, this allows processes to be cyclically allotted time slices indefinitely without restarting pointers from the beginning, providing seamless transition and O(1) process rotation. Standard arrays require modulo index calculations or queue shifts that cause O(n) reallocations."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Trees", "bloom": "Remember", "type": "Short Answer", "marks": 2,
+        "q": "Define a Binary Search Tree (BST) and state its ordering property.",
+        "a": "A Binary Search Tree is a binary tree where each node has at most two children, satisfying the property that all keys in the left subtree are strictly smaller than the node's key, and all keys in the right subtree are strictly greater than the node's key."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Trees", "bloom": "Understand", "type": "Short Answer", "marks": 3,
+        "q": "Explain the difference between Pre-Order, In-Order, and Post-Order tree traversal algorithms.",
+        "a": "Pre-Order traverses Root -> Left Subtree -> Right Subtree. In-Order traverses Left Subtree -> Root -> Right Subtree (yielding keys in ascending sorted order for a BST). Post-Order traverses Left Subtree -> Right Subtree -> Root (useful for node deletion and evaluating postfix expressions)."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Trees", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Given the sequence of keys [45, 15, 60, 10, 30, 50, 75], trace the construction of the resulting Binary Search Tree.",
+        "a": "1. 45 is root.\n2. 15 < 45 -> left child of 45.\n3. 60 > 45 -> right child of 45.\n4. 10 < 45, 10 < 15 -> left child of 15.\n5. 30 < 45, 30 > 15 -> right child of 15.\n6. 50 > 45, 50 < 60 -> left child of 60.\n7. 75 > 45, 75 > 60 -> right child of 60."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Trees", "bloom": "Analyze", "type": "Short Answer", "marks": 4,
+        "q": "Analyze the worst-case time complexity of searching in a degenerate (skewed) binary tree versus a balanced binary search tree.",
+        "a": "In a degenerate binary tree where each node has only one child (resembling a linked list), height h = n, leading to worst-case search time O(n). In a balanced BST (e.g. AVL or Red-Black tree), the height is bounded by O(log n), ensuring that search, insertion, and deletion operations always complete in guaranteed O(log n) time."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Trees", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Compare Breadth-First Search (BFS) and Depth-First Search (DFS) for tree and graph traversal with respect to data structures used, memory complexity, and suitability for finding shortest paths.",
+        "a": "BFS uses a Queue (FIFO) and traverses nodes level by level, ensuring that the shortest path in an unweighted graph is discovered first. However, BFS requires O(V) auxiliary memory to hold entire frontiers. DFS uses a Stack (LIFO) or recursion to explore paths deeply before backtracking, consuming O(h) memory (tree height). While DFS is memory-efficient for deep graphs and ideal for topological sorting or cycle detection, it may explore deep dead-ends before discovering closer targets."
     },
 
     # -------------------------------------------------------------------------
@@ -2869,12 +3404,16 @@ def match_curriculum_question(
 
     # 1. English
     if "english" in s_lower:
-        if any(w in u_lower for w in ["prose", "first flight", "letter to god", "mandela", "buddha"]):
+        if any(w in u_lower for w in ["flamingo", "literature"]) or (any(w in u_lower for w in ["prose", "first flight"]) and any(w in u_lower for w in ["poem", "poet"])):
+            pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_POETRY_QUESTIONS
+        elif any(w in u_lower for w in ["prose", "first flight", "letter to god", "mandela", "buddha"]):
             pool = ENGLISH_PROSE_QUESTIONS
         elif any(w in u_lower for w in ["poem", "poet"]):
             pool = ENGLISH_POETRY_QUESTIONS
         elif any(w in u_lower for w in ["supplementary", "reader", "story", "stories", "footprints", "vistas"]):
             pool = ENGLISH_SUPPLEMENTARY_QUESTIONS
+        elif any(w in u_lower for w in ["grammar", "vocabulary", "language"]) and any(w in u_lower for w in ["writing", "composition"]):
+            pool = ENGLISH_GRAMMAR_QUESTIONS + ENGLISH_WRITING_QUESTIONS
         elif any(w in u_lower for w in ["grammar", "vocabulary", "language"]):
             pool = ENGLISH_GRAMMAR_QUESTIONS
         elif any(w in u_lower for w in ["writing", "composition", "notice", "article"]) or ("letter" in u_lower and "letter to god" not in u_lower):
@@ -2917,7 +3456,7 @@ def match_curriculum_question(
         pool = COMMERCE_ACCOUNTANCY_QUESTIONS
 
     # 6. Computer Science / IT / Programming
-    elif "computer" in s_lower or "information technology" in s_lower or re.search(r"\b(cs|ip|it)\b", s_lower):
+    elif any(w in s_lower for w in ["computer", "information technology", "data structure", "programming", "coding", "software", "informatics"]) or re.search(r"\b(cs|ip|it)\b", s_lower):
         pool = COMPUTER_SCIENCE_QUESTIONS
 
     # 7. Physics
@@ -2927,6 +3466,23 @@ def match_curriculum_question(
     # 8. Chemistry
     elif "chem" in s_lower:
         pool = CHEMISTRY_QUESTIONS
+
+    # 9. Mathematics
+    elif any(w in s_lower for w in ["math", "algebra", "geometry", "calculus", "trigonometry", "statistic"]):
+        from app.services.question_generator import classify_unit_category
+        cat = classify_unit_category(unit_name, None, None)
+        math_q = get_math_curriculum_question(cat, bloom_level, exclude_texts)
+        if math_q:
+            return {
+                "board": b_norm,
+                "class": c_num,
+                "unit": unit_name,
+                "bloom": bloom_level or "Understand",
+                "type": "Short Answer",
+                "marks": marks or 3,
+                "q": math_q["q"],
+                "a": math_q.get("a", f"Step-by-step mathematical solution and analytical derivation for {math_q['q']}"),
+            }
 
     if not pool:
         return None
@@ -2956,12 +3512,23 @@ def match_curriculum_question(
     for q in available_candidates:
         cand_unit = q.get("unit", "").lower()
         cand_kws = [w for w in cand_unit.split() if len(w) > 3 and w not in STOP_WORDS]
-        is_cs = "computer" in s_lower or "programming" in s_lower or bool(re.search(r"\b(cs|ip|it)\b", s_lower))
+        is_cs = any(w in s_lower for w in ["computer", "information technology", "data structure", "programming", "coding", "software", "informatics"]) or bool(re.search(r"\b(cs|ip|it)\b", s_lower))
         is_chem = "chem" in s_lower
+        is_poetry_match = (
+            ("poet" in cand_unit or "poem" in cand_unit)
+            and ("poet" in u_lower or "poem" in u_lower)
+        )
+        is_prose_match = (
+            ("prose" in cand_unit or "literature" in cand_unit or "first flight" in cand_unit or "flamingo" in cand_unit)
+            and ("prose" in u_lower or "literature" in u_lower or "first flight" in u_lower or "flamingo" in u_lower)
+        )
         is_u_match = (
             (cand_unit in u_lower)
             or (u_lower in cand_unit)
             or (any(w in u_lower for w in cand_kws) if cand_kws else False)
+            or is_poetry_match
+            or is_prose_match
+            or (is_cs and any(w in u_lower for w in ["array", "list", "tree", "graph", "stack", "queue", "data structure", "oop", "computational thinking"]))
             or (is_cs and "unit 1" in u_lower and "problem solving" in cand_unit)
             or (is_cs and "unit 2" in u_lower and "core" in cand_unit)
             or (is_cs and "unit 3" in u_lower and "object oriented" in cand_unit)
@@ -3007,8 +3574,17 @@ def match_curriculum_question(
                     return -100
             else:
                 score += 2
-        if marks and abs(item.get("marks", 3) - marks) <= 1:
-            score += 3
+
+        if marks:
+            cand_m = item.get("marks", 3)
+            if cand_m == marks:
+                score += 12
+            elif abs(cand_m - marks) <= 1:
+                score += 4
+
+        cand_topic = item.get("topic", "").lower()
+        if cand_topic and (cand_topic in u_lower or any(w in u_lower for w in cand_topic.split() if len(w) > 3)):
+            score += 25
 
         cand_unit = item.get("unit", "").lower()
         cand_kws = [w for w in cand_unit.split() if len(w) > 3 and w not in STOP_WORDS]

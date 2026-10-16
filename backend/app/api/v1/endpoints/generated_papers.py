@@ -112,7 +112,13 @@ def download_paper_docx(
     if not paper:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Question paper not found")
 
-    buf = generate_paper_docx(paper, include_answers=include_answers)
+    try:
+        buf = generate_paper_docx(paper, include_answers=include_answers)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate Word document: {str(exc)}",
+        )
     filename = f"{paper.paper_id}_{'Solutions' if include_answers else 'Paper'}.docx"
     return StreamingResponse(
         buf,
@@ -136,7 +142,13 @@ def download_paper_pdf(
     if not paper:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Question paper not found")
 
-    buf = generate_paper_pdf(paper, include_answers=False)
+    try:
+        buf = generate_paper_pdf(paper, include_answers=False)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate Student PDF: {str(exc)}",
+        )
     filename = f"{paper.paper_id}_QuestionPaper.pdf"
     return StreamingResponse(
         buf,
@@ -160,7 +172,13 @@ def download_solutions_pdf(
     if not paper:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Question paper not found")
 
-    buf = generate_paper_pdf(paper, include_answers=True)
+    try:
+        buf = generate_paper_pdf(paper, include_answers=True)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to generate Solutions PDF: {str(exc)}",
+        )
     filename = f"{paper.paper_id}_AnswerKey_Solutions.pdf"
     return StreamingResponse(
         buf,

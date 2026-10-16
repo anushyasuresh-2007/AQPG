@@ -781,6 +781,88 @@ class TestQuestionQualityRegression(unittest.TestCase):
             self.assertFalse(db_q.approved)
             self.assertEqual(db_q.status, "draft")
 
+    def test_generic_placeholder_questions_rejected_by_validator(self):
+        """Fix Regression: Generic placeholder questions must be rejected by validate_unit_relevance."""
+        from app.services.question_generator import validate_unit_relevance
+
+        generic_questions = [
+            "List the main components and key terms associated with Unit 2 - Poetry Appreciation.",
+            "State the foundational definitions and rules governing Unit 2 - Poetry Appreciation.",
+            "Explain the core principles and concepts of Unit 2 - Poetry Appreciation.",
+            "Describe the main processes and features associated with Unit 2 - Poetry Appreciation.",
+            "Detailed academic explanation covering key terms, foundational definitions, and attributes of Unit 2 - Poetry Appreciation.",
+            "Demonstrate how the grammatical rules and stylistic structures in Unit 2 - Poetry Appreciation apply to transform the given context.",
+        ]
+        for gq in generic_questions:
+            is_valid = validate_unit_relevance(
+                question_text=gq,
+                unit_name="Unit 2 - Poetry Appreciation",
+                subject_name="English",
+            )
+            self.assertFalse(is_valid, f"Validator must reject generic placeholder question: '{gq}'")
+
+    def test_tnsb_class_12_english_poetry_appreciation_authentic_generation(self):
+        """Fix Regression: TNSB Class 12 Unit 2 Poetry Appreciation must generate authentic poem-grounded questions across Bloom levels."""
+        from app.services.ai.generator_factory import OfflineFallbackProvider
+
+        prov = OfflineFallbackProvider()
+        bloom_levels = ["Remember", "Understand", "Apply", "Analyze", "Evaluate"]
+        valid_poem_keywords = [
+            "castle", "edwin muir", "casuarina", "toru dutt", "stage",
+            "shakespeare", "seven ages", "ulysses", "tennyson", "father to his son",
+            "carl sandburg", "french camp", "ratisbon", "browning", "napoleon",
+        ]
+
+        for bl in bloom_levels:
+            p = AIQuestionPrompt(
+                board="TNSB",
+                class_name="Class 12",
+                subject_name="English",
+                unit_name="Unit 2 - Poetry Appreciation",
+                topic_name="Poetry Appreciation",
+                question_type="Short Answer" if bl != "Remember" else "Objective",
+                bloom_level=bl,
+                marks=3 if bl in ("Apply", "Analyze") else (5 if bl == "Evaluate" else (1 if bl == "Remember" else 2)),
+                difficulty="medium",
+                exclude_texts=[],
+            )
+            res = prov.generate_question(p)
+            self.assertIsNotNone(res, f"Failed to generate question for Bloom level: {bl}")
+            q_lower = res.question_text.lower()
+            a_lower = res.answer.lower()
+
+            # Must contain authentic poem content
+            has_poem_term = any(kw in q_lower or kw in a_lower for kw in valid_poem_keywords)
+            self.assertTrue(has_poem_term, f"Generated question must reference prescribed poem: {res.question_text}")
+
+            # Must NEVER contain generic template strings
+            self.assertNotIn("list the main components and key terms", q_lower)
+            self.assertNotIn("detailed academic explanation covering key terms", a_lower)
+            self.assertNotIn("detailed academic explanation covering key concepts", a_lower)
+
+    def test_tnsb_class_12_english_poetry_exhaustion_returns_none(self):
+        """Fix Regression: When all authentic poetry questions are excluded, provider returns None instead of fabricating generic filler."""
+        from app.services.ai.generator_factory import OfflineFallbackProvider
+        from app.services.ai.curriculum_pools import ENGLISH_POETRY_QUESTIONS
+
+        prov = OfflineFallbackProvider()
+        all_poetry_q_texts = [q["q"] for q in ENGLISH_POETRY_QUESTIONS if q.get("board") == "TNSB" and q.get("class") == 12]
+
+        p = AIQuestionPrompt(
+            board="TNSB",
+            class_name="Class 12",
+            subject_name="English",
+            unit_name="Unit 2 - Poetry Appreciation",
+            topic_name="Poetry Appreciation",
+            question_type="Short Answer",
+            bloom_level="Analyze",
+            marks=3,
+            difficulty="medium",
+            exclude_texts=all_poetry_q_texts,
+        )
+        res = prov.generate_question(p)
+        self.assertIsNone(res, "Provider must return None on authentic pool exhaustion, never fabricate generic filler.")
+
 
 if __name__ == "__main__":
     unittest.main()

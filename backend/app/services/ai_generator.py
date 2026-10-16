@@ -69,26 +69,22 @@ def generate_questions_via_ai(
     """
     if not settings.GEMINI_API_KEY:
         questions = []
-        mock_templates = [
-            f"Explain the significance of '{unit}' in context of '{subject}' (Bloom Level: {bloom_level}, Difficulty: {difficulty}, Marks: {marks}).",
-            f"Describe a real-world scenario where the concepts of '{unit}' are applied under the subject '{subject}' ({difficulty} difficulty).",
-            f"How does the structure of '{unit}' support overall understanding of '{subject}'? (Bloom level: {bloom_level}, Marks: {marks}).",
-            f"Compare and contrast '{unit}' with adjacent topics in '{subject}'.",
-            f"Analyze the relationship between key elements of '{unit}' (Bloom Level: {bloom_level}, Marks: {marks}).",
-            f"Formulate a summary describing the core functions in '{unit}' ({difficulty} difficulty).",
-            f"Identify the primary arguments presented in '{unit}' regarding '{subject}'.",
-            f"Illustrate how '{unit}' functions under varying parameters in '{subject}'."
-        ]
         for i in range(count):
-            template = mock_templates[i % len(mock_templates)]
-            if textbook_context:
-                snippet = textbook_context[:50] + "..." if len(textbook_context) > 50 else textbook_context
-                template = f"Based on textbook text '{snippet}': " + template
-            questions.append({
-                "question_text": template,
-                "difficulty": difficulty,
-                "marks": marks
-            })
+            q_text = _get_mock_question_text(
+                subject=subject,
+                unit=unit,
+                bloom_level=bloom_level,
+                difficulty=difficulty,
+                marks=marks,
+                index=i,
+                textbook_context=textbook_context,
+            )
+            if q_text:
+                questions.append({
+                    "question_text": q_text,
+                    "difficulty": difficulty,
+                    "marks": marks,
+                })
         return questions
 
 
@@ -268,18 +264,16 @@ def generate_full_paper_via_ai(
                 break
             attempt += 1
 
-        if not q_text:
-            q_text = f"Analyze the key principles of '{bp['unit_name']}' in '{subject_name}' (Question {idx+1})."
-
-        generated_results.append({
-            "unit_id": bp["unit_id"],
-            "unit_name": bp["unit_name"],
-            "bloom_id": bp["bloom_id"],
-            "bloom_name": bp["bloom_name"],
-            "marks": bp["marks"],
-            "difficulty": bp["difficulty"],
-            "question_text": q_text,
-        })
+        if q_text:
+            generated_results.append({
+                "unit_id": bp["unit_id"],
+                "unit_name": bp["unit_name"],
+                "bloom_id": bp["bloom_id"],
+                "bloom_name": bp["bloom_name"],
+                "marks": bp["marks"],
+                "difficulty": bp["difficulty"],
+                "question_text": q_text,
+            })
 
     return generated_results
 

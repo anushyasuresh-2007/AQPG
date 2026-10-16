@@ -12,7 +12,17 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
+import html
+
 from app.models.generated_paper import GeneratedPaper
+
+
+def _safe_xml(text: Optional[str]) -> str:
+    """Escapes XML entities (&, <, >) while preserving line breaks for ReportLab."""
+    if not text:
+        return ""
+    escaped = html.escape(str(text), quote=False)
+    return escaped.replace("\r\n", "<br/>").replace("\n", "<br/>")
 
 
 def generate_paper_docx(paper: GeneratedPaper, include_answers: bool = False) -> io.BytesIO:
@@ -115,10 +125,12 @@ def generate_paper_docx(paper: GeneratedPaper, include_answers: bool = False) ->
             q_num_run.bold = True
             q_num_run.font.size = Pt(10.5)
 
-            q_txt_run = q_p.add_run(f"{q['question']} ")
+            q_txt = q.get("question") or q.get("question_text", "")
+            q_txt_run = q_p.add_run(f"{q_txt} ")
             q_txt_run.font.size = Pt(10.5)
 
-            m_run = q_p.add_run(f"[{q['marks']} Mark{'s' if q['marks'] > 1 else ''}]")
+            q_m = q.get("marks", 1)
+            m_run = q_p.add_run(f"[{q_m} Mark{'s' if q_m > 1 else ''}]")
             m_run.bold = True
             m_run.font.size = Pt(10)
 
@@ -126,7 +138,7 @@ def generate_paper_docx(paper: GeneratedPaper, include_answers: bool = False) ->
                 ans_p = doc.add_paragraph()
                 ans_p.paragraph_format.left_indent = Inches(0.4)
                 ans_p.paragraph_format.space_after = Pt(6)
-                a_run = ans_p.add_run(f"Model Answer / Solution:\n{q['answer']}\n")
+                a_run = ans_p.add_run(f"Model Answer / Solution:\n{q.get('answer', '')}\n")
                 a_run.italic = True
                 a_run.font.size = Pt(9.5)
                 a_run.font.color.rgb = RGBColor(0, 100, 0)
@@ -137,7 +149,8 @@ def generate_paper_docx(paper: GeneratedPaper, include_answers: bool = False) ->
     end_p = doc.add_paragraph()
     end_p.paragraph_format.space_before = Pt(14)
     end_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    end_run = end_p.add_run("--- END OF QUESTION PAPER ---")
+    footer_text = "--- END OF EXAMINATION PAPER ---" if not include_answers else "--- END OF SOLUTIONS & ANSWER KEY ---"
+    end_run = end_p.add_run(footer_text)
     end_run.bold = True
     end_run.font.size = Pt(10)
 
@@ -220,10 +233,13 @@ def generate_paper_pdf(paper: GeneratedPaper, include_answers: bool = False) -> 
     story = []
 
     # Title & Subtitle
-    story.append(Paragraph(f"{paper.board_name.upper()} EXAMINATION", title_style))
-    story.append(Paragraph(f"{paper.class_name.upper()} · SUBJECT: {paper.subject_name.upper()}", subtitle_style))
+    if include_answers:
+        story.append(Paragraph(f"{_safe_xml(paper.board_name.upper())} EXAMINATION — SOLUTIONS &amp; ANSWER KEY", title_style))
+    else:
+        story.append(Paragraph(f"{_safe_xml(paper.board_name.upper())} EXAMINATION", title_style))
+    story.append(Paragraph(f"{_safe_xml(paper.class_name.upper())} · SUBJECT: {_safe_xml(paper.subject_name.upper())}", subtitle_style))
     if paper.unit_names:
-        story.append(Paragraph(f"Units Covered: {paper.unit_names}", meta_style))
+        story.append(Paragraph(f"Units Covered: {_safe_xml(paper.unit_names)}", meta_style))
 
     # Time & Maximum Marks Bar
     t_data = [
@@ -243,14 +259,18 @@ def generate_paper_pdf(paper: GeneratedPaper, include_answers: bool = False) -> 
     story.append(Spacer(1, 8))
 
     # General instructions
-    story.append(Paragraph("<b>General Instructions:</b> All questions are compulsory. Questions carry marks indicated on the right. Write clear, legible, and step-by-step solutions where appropriate.", ParagraphStyle("Inst", parent=styles["Normal"], fontName="Helvetica", fontSize=8, leading=11, spaceAfter=8, textColor=colors.HexColor("#334155"))))
+    if include_answers:
+        inst_text = "<b>Solutions &amp; Marking Scheme:</b> Detailed academic answers, step-by-step reasoning, and marking criteria for each question."
+    else:
+        inst_text = "<b>General Instructions:</b> All questions are compulsory. Questions carry marks indicated on the right. Write clear, legible, and step-by-step solutions where appropriate."
+    story.append(Paragraph(inst_text, ParagraphStyle("Inst", parent=styles["Normal"], fontName="Helvetica", fontSize=8, leading=11, spaceAfter=8, textColor=colors.HexColor("#334155"))))
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#cbd5e1"), spaceAfter=8))
 
     questions_list = json.loads(paper.questions_data)
-    section_a = [q for q in questions_list if q["marks"] <= 1]
-    section_b = [q for q in questions_list if q["marks"] == 2]
-    section_c = [q for q in questions_list if 3 <= q["marks"] <= 4]
-    section_d = [q for q in questions_list if q["marks"] >= 5]
+    section_a = [q for q in questions_list if q.get("marks", 1) <= 1]
+    section_b = [q for q in questions_list if q.get("marks", 1) == 2]
+    section_c = [q for q in questions_list if 3 <= q.get("marks", 1) <= 4]
+    section_d = [q for q in questions_list if q.get("marks", 1) >= 5]
 
     overall_num = 1
     sections_def = [
@@ -264,20 +284,24 @@ def generate_paper_pdf(paper: GeneratedPaper, include_answers: bool = False) -> 
         if not q_group:
             continue
 
-        story.append(Paragraph(sec_title, section_style))
+        story.append(Paragraph(_safe_xml(sec_title), section_style))
 
         for q in q_group:
-            q_html = f"<b>Q{overall_num}.</b> {q['question']} &nbsp;&nbsp;<b>[{q['marks']} Mark{'s' if q['marks'] > 1 else ''}]</b>"
+            q_txt = _safe_xml(q.get("question") or q.get("question_text", ""))
+            q_m = q.get("marks", 1)
+            q_html = f"<b>Q{overall_num}.</b> {q_txt} &nbsp;&nbsp;<b>[{q_m} Mark{'s' if q_m > 1 else ''}]</b>"
             story.append(Paragraph(q_html, q_style))
 
             if include_answers and q.get("answer"):
-                story.append(Paragraph(f"<b>Answer Key / Solution:</b><br/>{q['answer']}", ans_style))
+                ans_txt = _safe_xml(q.get("answer", ""))
+                story.append(Paragraph(f"<b>Answer Key / Model Solution:</b><br/>{ans_txt}", ans_style))
 
             overall_num += 1
 
     story.append(Spacer(1, 12))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.black, spaceAfter=6))
-    story.append(Paragraph("<b>END OF QUESTION PAPER</b>", ParagraphStyle("End", parent=title_style, fontSize=9, alignment=1)))
+    end_text = "<b>END OF EXAMINATION PAPER</b>" if not include_answers else "<b>END OF SOLUTIONS &amp; ANSWER KEY</b>"
+    story.append(Paragraph(end_text, ParagraphStyle("End", parent=title_style, fontSize=9, alignment=1)))
 
     doc.build(story)
     buf.seek(0)

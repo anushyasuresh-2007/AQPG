@@ -351,6 +351,41 @@ def validate_unit_relevance(
     if not clean_q:
         return False
 
+    # Gate against generic placeholder question templates derived only from unit titles
+    clean_q_lower = clean_q.lower()
+    FORBIDDEN_GENERIC_PATTERNS = [
+        r"\blist the main components and key terms\b",
+        r"\bstate the foundational .*? governing\b",
+        r"\bstate the foundational\b",
+        r"\bdetailed academic explanation covering key\b",
+        r"\bstate the central theme, poetic devices, or textual context\b",
+        r"\bidentify the literary techniques and narrative perspectives\b",
+        r"\bdefine the key vocabulary and grammatical rules\b",
+        r"\bdefine\s+unit\s+\d+\b",
+        r"\bmention any three key attributes or factors\b",
+        r"\bname the primary classifications or categories\b",
+        r"\bapply the core literary themes and character values\b",
+        r"\bdemonstrate how the grammatical rules and stylistic structures\b",
+        r"\bapply the learned methods of\b",
+        r"\bshow how the theoretical rules of\b",
+        r"\bformulate a practical implementation plan applying the techniques\b",
+        r"\banalyze the psychological development, emotional conflicts\b",
+        r"\bcompare and contrast the contrasting perspectives or cultural contexts\b",
+        r"\bdeconstruct the symbolism, imagery, and structural motifs\b",
+        r"\banalyze the advantages, limitations, and operational trade-offs\b",
+        r"\bcritically evaluate the moral message and universal relevance\b",
+        r"\bassess the effectiveness of the narrative resolution\b",
+        r"\bevaluate the effectiveness and practical significance\b",
+        r"\bexplain the central themes, character motivations, and narrative progression\b",
+        r"\bdescribe how key conflicts in unit\b",
+        r"\bexplain the core principles and concepts\b",
+        r"\bdescribe the main processes and features associated with\b",
+        r"\bdiscuss the operational principles and theoretical foundations\b",
+        r"\boutline the functional lifecycle and primary behaviors\b",
+    ]
+    if any(re.search(pat, clean_q_lower) for pat in FORBIDDEN_GENERIC_PATTERNS):
+        return False
+
     search_context = [unit_name.lower()]
     if subject_name:
         search_context.append(subject_name.lower())
@@ -874,6 +909,28 @@ def generate_question_paper(
                         candidate = fallback_prov.generate_question(prompt)
 
                     if not candidate or not candidate.question_text:
+                        continue
+
+                    # Validate model answer is present, non-empty, and not a generic placeholder
+                    cand_ans = str(candidate.answer or "").strip()
+                    if not cand_ans:
+                        continue
+                    ans_lower = cand_ans.lower()
+                    if any(p in ans_lower for p in [
+                        "detailed academic explanation covering key terms",
+                        "detailed academic explanation covering key concepts",
+                        "factual recall of authorial intent, textual characters",
+                        "authoritative historical dates, constitutional articles",
+                        "detailed literary and linguistic application addressing key themes",
+                        "comprehensive social science analysis applying institutional mechanisms",
+                        "detailed solution applying the foundational rules",
+                        "in-depth literary analysis examining character arcs",
+                        "critical evaluation of literary themes, moral dilemmas",
+                        "evaluative assessment of policy outcomes",
+                        "evaluative assessment or constructive framework",
+                        "comprehensive literary explanation detailing character development",
+                        "comprehensive social science explanation detailing institutional mechanisms",
+                    ]):
                         continue
 
                     q_text = clean_generated_question_text(candidate.question_text)

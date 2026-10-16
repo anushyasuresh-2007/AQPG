@@ -260,26 +260,34 @@ export default function GeneratePaper() {
     }
   };
 
-  const downloadFile = (url, filename) => {
-    const token = getToken();
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Export failed");
-        return res.blob();
-      })
-      .then((blob) => {
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      })
-      .catch((e) => alert("Failed to download file: " + e.message));
+  const downloadFile = async (url, filename) => {
+    try {
+      const token = getToken();
+      const res = await fetch(url, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!res.ok) {
+        let errorMsg = "Export failed";
+        try {
+          const errData = await res.json();
+          errorMsg = errData.detail || errorMsg;
+        } catch {
+          errorMsg = `Export failed with status ${res.status}`;
+        }
+        throw new Error(errorMsg);
+      }
+      const blob = await res.blob();
+      const objectUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(objectUrl);
+    } catch (e) {
+      alert("Failed to download file: " + e.message);
+    }
   };
 
   return (

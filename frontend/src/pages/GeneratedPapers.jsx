@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api, { API_BASE_URL } from "../api";
+import api, { API_BASE_URL, getToken } from "../api";
 
 
 export default function GeneratedPapers() {
@@ -52,26 +52,34 @@ export default function GeneratedPapers() {
     }
   };
 
-  const downloadFile = (url, filename) => {
-    const token = localStorage.getItem("token");
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Export failed");
-        return res.blob();
-      })
-      .then((blob) => {
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      })
-      .catch((e) => alert("Failed to download file: " + e.message));
+  const downloadFile = async (url, filename) => {
+    try {
+      const token = getToken();
+      const res = await fetch(url, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!res.ok) {
+        let errorMsg = "Export failed";
+        try {
+          const errData = await res.json();
+          errorMsg = errData.detail || errorMsg;
+        } catch {
+          errorMsg = `Export failed with status ${res.status}`;
+        }
+        throw new Error(errorMsg);
+      }
+      const blob = await res.blob();
+      const objectUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(objectUrl);
+    } catch (e) {
+      alert("Failed to download file: " + e.message);
+    }
   };
 
   const filteredPapers = papers.filter((p) => {
@@ -233,6 +241,18 @@ export default function GeneratedPapers() {
                         title="Download Student PDF"
                       >
                         📥 PDF
+                      </button>
+                      <button
+                        onClick={() =>
+                          downloadFile(
+                            `${API_BASE_URL}/api/v1/generated-papers/${p.paper_id}/solutions-pdf`,
+                            `${p.paper_id}_Solutions.pdf`
+                          )
+                        }
+                        className="px-2.5 py-1.5 bg-purple-700/80 hover:bg-purple-600 text-white rounded text-xs font-medium transition"
+                        title="Download Solutions PDF"
+                      >
+                        🔑 Solutions
                       </button>
                       <button
                         onClick={() => handleDelete(p.paper_id)}
