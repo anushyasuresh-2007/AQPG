@@ -159,8 +159,13 @@ def classify_unit_category(
     if any(w in ctx for w in ["geometry", "circle", "circles", "triangle", "triangles", "similarity", "similar triangles", "tangent", "basic proportionality theorem", "thales theorem", "pythagoras"]):
         return "GEOMETRY"
 
-    # 9. Algebra / Quadratics / Polynomials / Linear Equations / Matrices
-    if any(w in ctx for w in ["quadratic", "quadratics", "polynomial", "polynomials", "algebra", "algebraic", "linear equation", "linear equations", "matrix", "matrices", "determinant", "equation"]):
+    # 8b. Matrices and Determinants
+    if any(w in ctx for w in ["matrix", "matrices", "determinant", "determinants", "cramer", "rank of a matrix", "rank of matrix"]):
+        if not any(w in ctx for w in ["quadratic", "quadratics", "polynomial", "polynomials"]):
+            return "MATRICES_DETERMINANTS"
+
+    # 9. Algebra / Quadratics / Polynomials / Linear Equations
+    if any(w in ctx for w in ["quadratic", "quadratics", "polynomial", "polynomials", "algebra", "algebraic", "linear equation", "linear equations", "equation", "matrix", "matrices"]):
         return "ALGEBRA_QUADRATICS"
 
     # 10. Linear Programming
@@ -205,17 +210,19 @@ def get_question_signatures(question_text: str) -> Set[str]:
         "simultaneous equations",
         "two-digit number",
         "two digit number",
-        "matrix",
-        "matrices",
-        "determinant",
-        "determinants",
-        "inverse of matrix",
-        "matrix inversion",
-        "adjoint",
-        "identity matrix",
     ]
     if any(term in q_lower for term in quad_terms) or re.search(r"x[²^2]\s*[\+\-]\s*\d+x", q_lower) or re.search(r"solve.*x[²^2]", q_lower) or re.search(r"roots of.*x[²^2]", q_lower):
         signatures.add("ALGEBRA_QUADRATICS")
+
+    # Matrices and Determinants signatures
+    mat_terms = [
+        "matrix", "matrices", "determinant", "determinants", "inverse of matrix",
+        "matrix inversion", "adjoint", "identity matrix", "rank of a matrix", "rank of matrix",
+        "row echelon", "cramer's rule", "singular matrix", "symmetric matrix", "skew-symmetric",
+        "square matrices", "matrix multiplication", "elementary row operations"
+    ]
+    if any(term in q_lower for term in mat_terms) or re.search(r"\bdet\s*\(", q_lower) or re.search(r"\badj\s*\(", q_lower):
+        signatures.add("MATRICES_DETERMINANTS")
 
     # Speed & Motion / River Boat signatures
     speed_terms = [
@@ -382,6 +389,20 @@ def validate_unit_relevance(
         r"\bdescribe the main processes and features associated with\b",
         r"\bdiscuss the operational principles and theoretical foundations\b",
         r"\boutline the functional lifecycle and primary behaviors\b",
+        r"\bstructural architecture\b",
+        r"\boptimization techniques\b",
+        r"\bbroader theoretical systems\b",
+        r"\btheoretical systems\b",
+        r"\bhyperparameter optimization\b",
+        r"\bgradient descent\b",
+        r"\bturbofan\b",
+        r"\baerodynamic performance\b",
+        r"\bpropulsion systems?\b",
+        r"\bvehicle routing\b",
+        r"\bsystemic architecture\b",
+        r"\barchitectural paradigms\b",
+        r"\bunderlying theoretical frameworks\b",
+        r"\bfoundational theoretical systems\b",
     ]
     if any(re.search(pat, clean_q_lower) for pat in FORBIDDEN_GENERIC_PATTERNS):
         return False
@@ -395,9 +416,45 @@ def validate_unit_relevance(
         search_context.extend([t.lower() for t in topics_list])
     context_str = " ".join(search_context)
 
+    s_clean = (subject_name or "").lower()
+
+    # Cross-domain leak prevention:
+    # 1. Computer science / ML terminology leaking into non-CS subjects
+    if not any(cs in s_clean for cs in ["computer", "informatics", "information technology", "programming", "python", "data"]):
+        if any(term in clean_q_lower for term in [
+            "hyperparameter", "gradient descent", "neural network", "backpropagation",
+            "sql query", "select * from", "binary search tree", "sorting algorithm",
+            "convolutional neural", "random forest", "support vector machine", "cross-entropy",
+            "route optimization algorithms", "fleet management"
+        ]):
+            return False
+
+    # 2. Aerospace / advanced mechanical engineering leaking into standard school subjects
+    if any(term in clean_q_lower for term in [
+        "turbofan", "aerodynamic performance", "propulsion system", "airfoil",
+        "thrust-to-weight", "mach number", "computational fluid dynamics", "wind tunnel testing"
+    ]):
+        return False
+
+    # 3. If subject is Language (English, Tamil, Hindi), reject mathematical formulas / chemistry / CS
+    if any(lang in s_clean for lang in ["english", "tamil", "hindi", "language"]):
+        if any(term in clean_q_lower for term in [
+            "dy/dx", "matrix", "determinant", "sin θ", "cos θ", "tan θ",
+            "quadratic equation", "polynomial", "stoichiometry", "titration",
+            "newton's second law", "resistors in parallel"
+        ]):
+            return False
+
+    # 4. If subject is Humanities (History, Political Science, Geography), reject pure math / coding
+    if any(hum in s_clean for hum in ["history", "political", "geography"]):
+        if any(term in clean_q_lower for term in [
+            "dy/dx", "integral", "derivative", "algorithm", "python", "sql"
+        ]):
+            return False
+
     # Explicit non-mathematics subjects (Computer Science, Physics, Chemistry, etc.) are never gated by math signatures
     if subject_name and not any(
-        m in subject_name.lower()
+        m in s_clean
         for m in ["math", "algebra", "geometry", "calculus", "trigonometry", "statistic"]
     ):
         return True
@@ -409,7 +466,13 @@ def validate_unit_relevance(
     if question_signatures:
         if requested_category != "OTHER":
             # The requested unit's category MUST match one of the detected question signatures
-            if requested_category not in question_signatures:
+            is_matched = requested_category in question_signatures
+            if not is_matched:
+                if requested_category == "ALGEBRA_QUADRATICS" and "MATRICES_DETERMINANTS" in question_signatures and any(w in context_str for w in ["matrix", "matrices", "determinant"]):
+                    is_matched = True
+                elif requested_category == "MATRICES_DETERMINANTS" and "ALGEBRA_QUADRATICS" in question_signatures and any(w in context_str for w in ["algebra", "quadratic", "polynomial"]):
+                    is_matched = True
+            if not is_matched:
                 return False
         else:
             # For unclassified units (OTHER), only enforce math exclusions if context indicates Mathematics
@@ -422,6 +485,8 @@ def validate_unit_relevance(
                 if "COORDINATE_GEOMETRY" in question_signatures and not any(w in context_str for w in ["coordinate", "cartesian"]):
                     return False
                 if "MENSURATION" in question_signatures and not any(w in context_str for w in ["mensuration", "surface area", "volume"]):
+                    return False
+                if "MATRICES_DETERMINANTS" in question_signatures and not any(w in context_str for w in ["matrix", "matrices", "determinant", "rank"]):
                     return False
                 if "VECTORS_3D" in question_signatures and not any(w in context_str for w in ["vector", "vectors", "three dimensional", "3d"]):
                     return False
@@ -975,38 +1040,62 @@ def generate_question_paper(
 
                 assigned_unit = target_unit
 
-                # Persist new AI question into Question Bank for future reuse!
-                new_q = Question(
-                    subject_id=subject.id,
-                    unit_id=assigned_unit.id,
-                    bloom_level_id=bloom_obj.id,
-                    board_id=subject.board_id or board_id,
-                    class_id=subject.class_id or class_id,
-                    question_text=gen_res.question_text,
-                    question_type=gen_res.question_type or q_type,
-                    marks=q_mark,
-                    difficulty=gen_res.difficulty or difficulty or "medium",
-                    answer=gen_res.answer,
-                    explanation=gen_res.explanation,
-                    numerical_data=gen_res.numerical_data,
-                    application_context=gen_res.application_context,
-                    source="AI Synthesized",
-                    source_type="ai",
-                    is_ai_generated=True,
-                    approved=False,
-                    status="draft",
-                    active=True,
-                )
-                db.add(new_q)
-                db.flush()
+                # Persist new AI question into Question Bank with deduplication to prevent DB bloat
+                existing_q = None
+                try:
+                    cand_q = (
+                        db.query(Question)
+                        .filter(
+                            Question.subject_id == subject.id,
+                            Question.question_text == gen_res.question_text,
+                            Question.status == "draft",
+                        )
+                        .first()
+                    )
+                    if isinstance(cand_q, Question):
+                        existing_q = cand_q
+                except Exception:
+                    existing_q = None
+
+                if existing_q:
+                    final_q = existing_q
+                    if not final_q.answer and gen_res.answer:
+                        final_q.answer = gen_res.answer
+                    if not final_q.explanation and gen_res.explanation:
+                        final_q.explanation = gen_res.explanation
+                else:
+                    new_q = Question(
+                        subject_id=subject.id,
+                        unit_id=assigned_unit.id,
+                        bloom_level_id=bloom_obj.id,
+                        board_id=subject.board_id or board_id,
+                        class_id=subject.class_id or class_id,
+                        question_text=gen_res.question_text,
+                        question_type=gen_res.question_type or q_type,
+                        marks=q_mark,
+                        difficulty=gen_res.difficulty or difficulty or "medium",
+                        answer=gen_res.answer,
+                        explanation=gen_res.explanation,
+                        numerical_data=gen_res.numerical_data,
+                        application_context=gen_res.application_context,
+                        source="AI Synthesized",
+                        source_type="ai",
+                        is_ai_generated=True,
+                        approved=False,
+                        status="draft",
+                        active=True,
+                    )
+                    db.add(new_q)
+                    db.flush()
+                    final_q = new_q
 
                 selected_questions.append({
-                    "question_id": new_q.id,
-                    "question": new_q.question_text,
-                    "marks": new_q.marks,
+                    "question_id": final_q.id,
+                    "question": final_q.question_text,
+                    "marks": q_mark,
                     "bloom": bloom_obj.level_name,
-                    "difficulty": new_q.difficulty,
-                    "question_type": new_q.question_type,
+                    "difficulty": final_q.difficulty or difficulty or "medium",
+                    "question_type": final_q.question_type or q_type,
                     "unit_id": assigned_unit.id,
                     "unit_name": assigned_unit.unit_name,
                     "topic_name": prompt.topic_name or (target_topics[0] if target_topics else assigned_unit.unit_name),
@@ -1014,11 +1103,11 @@ def generate_question_paper(
                     "class_name": resolved_class,
                     "academic_year": resolved_academic_year,
                     "subject": subject.subject_name,
-                    "answer": new_q.answer,
-                    "explanation": new_q.explanation,
+                    "answer": final_q.answer or gen_res.answer,
+                    "explanation": final_q.explanation or gen_res.explanation,
                     "source": "AI Synthesized",
                     "source_reference": f"{resolved_board} Prescribed Curriculum",
-                    "validation_status": "verified" if (new_q.approved and new_q.status == "approved") else (new_q.status or "draft"),
+                    "validation_status": "draft",
                 })
 
 

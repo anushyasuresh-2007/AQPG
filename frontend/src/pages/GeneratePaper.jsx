@@ -84,9 +84,11 @@ export default function GeneratePaper() {
   // 2. Load Classes when Board changes
   useEffect(() => {
     if (!selectedBoardObj) return;
+    let cancelled = false;
     const fetchClasses = async () => {
       try {
         const res = await api.get(`/api/v1/classes?board_id=${selectedBoardObj.id}`);
+        if (cancelled) return;
         const classList = res.data || [];
         setClasses(classList);
         if (classList.length > 0) {
@@ -103,18 +105,27 @@ export default function GeneratePaper() {
           setSelectedUnits([]);
         }
       } catch (err) {
-        console.error("Failed to fetch classes", err);
+        if (!cancelled) console.error("Failed to fetch classes", err);
       }
     };
     fetchClasses();
+    return () => {
+      cancelled = true;
+    };
   }, [selectedBoardObj]);
 
   // 3. Load Subjects when Board or Class changes
   useEffect(() => {
     if (!selectedBoardObj || !selectedClassObj) return;
+    // Guard against stale class selection belonging to a different board
+    if (selectedClassObj.board_id && selectedBoardObj.id && selectedClassObj.board_id !== selectedBoardObj.id) {
+      return;
+    }
+    let cancelled = false;
     const fetchSubjects = async () => {
       try {
         const res = await api.get(`/api/v1/subjects?board_id=${selectedBoardObj.id}&class_id=${selectedClassObj.id}`);
+        if (cancelled) return;
         const subList = res.data || [];
         setSubjects(subList);
         if (subList.length > 0) {
@@ -127,26 +138,34 @@ export default function GeneratePaper() {
           setSelectedUnits([]);
         }
       } catch (err) {
-        console.error("Failed to fetch subjects", err);
+        if (!cancelled) console.error("Failed to fetch subjects", err);
       }
     };
     fetchSubjects();
+    return () => {
+      cancelled = true;
+    };
   }, [selectedBoardObj, selectedClassObj]);
 
   // 4. Load Units when Subject changes
   useEffect(() => {
     if (!selectedSubject) return;
+    let cancelled = false;
     const fetchUnits = async () => {
       try {
         const res = await api.get(`/api/v1/units?subject_id=${selectedSubject}`);
+        if (cancelled) return;
         const uList = res.data || [];
         setUnits(uList);
         setSelectedUnits(uList.map((u) => u.id));
       } catch (err) {
-        console.error("Failed to fetch units", err);
+        if (!cancelled) console.error("Failed to fetch units", err);
       }
     };
     fetchUnits();
+    return () => {
+      cancelled = true;
+    };
   }, [selectedSubject]);
 
   const handleBoardChange = (e) => {
@@ -154,6 +173,13 @@ export default function GeneratePaper() {
     setSelectedBoard(bCode);
     const bObj = boards.find((b) => b.code === bCode);
     setSelectedBoardObj(bObj || null);
+    setSelectedClass("");
+    setSelectedClassObj(null);
+    setSubjects([]);
+    setSelectedSubject("");
+    setSelectedSubjectObj(null);
+    setUnits([]);
+    setSelectedUnits([]);
   };
 
   const handleClassChange = (e) => {
@@ -161,6 +187,11 @@ export default function GeneratePaper() {
     setSelectedClass(cCode);
     const cObj = classes.find((c) => c.class_code === cCode);
     setSelectedClassObj(cObj || null);
+    setSubjects([]);
+    setSelectedSubject("");
+    setSelectedSubjectObj(null);
+    setUnits([]);
+    setSelectedUnits([]);
   };
 
   const handleSubjectChange = (e) => {
@@ -168,6 +199,8 @@ export default function GeneratePaper() {
     setSelectedSubject(sId);
     const sObj = subjects.find((s) => String(s.id) === sId);
     setSelectedSubjectObj(sObj || null);
+    setUnits([]);
+    setSelectedUnits([]);
   };
 
   const handleSelectAllUnits = () => {
@@ -204,6 +237,11 @@ export default function GeneratePaper() {
   const handleGenerate = async (overrideSourceMode = null) => {
     if (!selectedSubject) {
       setError("Please select a valid subject.");
+      return;
+    }
+
+    if (units.length === 0) {
+      setError("This subject has no syllabus units configured yet. Please synchronize official curriculum via Curriculum Management before generating a paper.");
       return;
     }
 
@@ -412,8 +450,13 @@ export default function GeneratePaper() {
               </div>
 
               {units.length === 0 ? (
-                <div className="p-4 bg-slate-900 rounded-xl text-center text-slate-500 text-xs">
-                  No syllabus units found for this subject. Ingest syllabus via Curriculum page.
+                <div className="p-4 bg-amber-950/40 border border-amber-800/60 rounded-xl text-amber-300 text-xs space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-amber-200">
+                    <span>⚠️</span> Curriculum units pending synchronization
+                  </div>
+                  <p className="text-amber-400/80 leading-relaxed">
+                    This subject is validly configured in the registry, but official syllabus units have not been loaded into the database yet. You can synchronize them via the <a href="/curriculum" className="underline font-bold hover:text-amber-100">Curriculum Management</a> page.
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-2 max-h-56 overflow-y-auto pr-1">

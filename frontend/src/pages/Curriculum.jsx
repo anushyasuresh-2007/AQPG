@@ -42,9 +42,11 @@ const Curriculum = () => {
   // When Board changes in explorer
   useEffect(() => {
     if (!selectedBoardId) return
+    let cancelled = false
     const fetchClasses = async () => {
       try {
         const res = await api.get(`/api/v1/classes?board_id=${selectedBoardId}`)
+        if (cancelled) return
         setClasses(res.data)
         if (res.data.length > 0) {
           setSelectedClassId(String(res.data[0].id))
@@ -58,15 +60,25 @@ const Curriculum = () => {
       }
     }
     fetchClasses()
+    return () => {
+      cancelled = true
+    }
   }, [selectedBoardId])
 
   // When Class changes in explorer
   useEffect(() => {
     if (!selectedBoardId || !selectedClassId) return
+    // Guard against stale class belonging to different board
+    const currentClass = classes.find((c) => String(c.id) === String(selectedClassId))
+    if (currentClass && currentClass.board_id && String(currentClass.board_id) !== String(selectedBoardId)) {
+      return
+    }
+    let cancelled = false
     const fetchSubjects = async () => {
       setLoadingCatalog(true)
       try {
         const res = await api.get(`/api/v1/subjects?board_id=${selectedBoardId}&class_id=${selectedClassId}`)
+        if (cancelled) return
         setSubjects(res.data)
         if (res.data.length > 0) {
           setSelectedSubjectId(String(res.data[0].id))
@@ -77,11 +89,14 @@ const Curriculum = () => {
       } catch (err) {
         // Handled
       } finally {
-        setLoadingCatalog(false)
+        if (!cancelled) setLoadingCatalog(false)
       }
     }
     fetchSubjects()
-  }, [selectedBoardId, selectedClassId])
+    return () => {
+      cancelled = true
+    }
+  }, [selectedBoardId, selectedClassId, classes])
 
   // When Subject changes in explorer
   useEffect(() => {

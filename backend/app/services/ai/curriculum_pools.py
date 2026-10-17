@@ -3365,6 +3365,82 @@ CHEMISTRY_QUESTIONS = [{'a': "Raoult's Law states that for a solution of volatil
    'unit': 'Biomolecules'}]
 
 
+
+
+# =============================================================================
+# TAMIL AND HINDI CURRICULUM QUESTION POOLS
+# =============================================================================
+
+TAMIL_CURRICULUM_QUESTIONS = [
+    # Class 10 TNSB Tamil
+    {
+        "board": "TNSB", "class": 10, "unit": "Iyal 1", "bloom": "Understand", "type": "Short Answer", "marks": 2,
+        "q": "அன்னை மொழியே கவிதையில் பெருஞ்சித்திரனார் தமிழின் தொன்மை மற்றும் சிறப்பினை எவ்வாறு போற்றுகிறார்?",
+        "a": "அன்னை மொழியே, அழகார்ந்த செந்தமிழே, பழமைக்கு பழமையாய் நறுங்கனியாய் விளங்கும் முத்தமிழே, சங்க இலக்கியங்களான நற்கணக்கு, பாப்பத்து, எட்டுத்தொகை ஆகியவற்றைத் தன்னுள் தாங்கி நிலைபெற்ற பெருமைக்குரியவள் என்று போற்றுகிறார்."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Iyal 2", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "காற்றே வா கவிதையில் பாரதியார் காற்றின் வருகையையும் அதன் பயன்களையும் எவ்வாறு சித்தரிக்கிறார்?",
+        "a": "காற்றே, பூக்களின் மகரந்தத் தூளைச் சுமந்துகொண்டு மனத்தை மயக்குகின்ற இனிய வாசனை கொண்டு வா; இலைகளின் மீதும் அலைகளின் மீதும் உரசி எங்கள் உயிர்வளியைப் பாதுகாத்து நீண்ட ஆயுளைத் தா என்று பாரதியார் வேண்டுகிறார்."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Iyal 3", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "'விருந்தோம்பல் தமிழரின் பண்பாட்டு அடையாளம்' என்பதை முல்லைப்பாட்டு மற்றும் சங்க இலக்கியப் பதிவுகளின் வழியே நிறுவுக.",
+        "a": "சங்க காலத்தில் இல்லறத்தின் தலையாய கடமையாக விருந்தோம்பல் கருதப்பட்டது. இரவிலும் விருந்தினர் வந்தால் முகம் மலர்ந்து உபசரித்தனர். அல்லில் ஆயினும் விருந்து வரின் உவக்கும் என நற்றிணையும், விருந்தினரின் வழிநடப்புக்கு ஏழடி நடந்து விடைபெறும் மரபையும் சங்க இலக்கியங்கள் பதிவு செய்துள்ளன."
+    },
+    # Class 12 TNSB Tamil
+    {
+        "board": "TNSB", "class": 12, "unit": "Iyal 1", "bloom": "Understand", "type": "Short Answer", "marks": 2,
+        "q": "'இளந்தமிழே' கவிதையில் சிற்பி பாலசுப்பிரமணியம் தமிழ் புத்துயிர் பெற வேண்டும் என எவற்றை நினைவுகூர்கிறார்?",
+        "a": "செம்பருதி மலைமேட்டில் தலையை சாய்க்கும் மாலைப் பொழுதில் உழைக்கும் மக்களின் வியர்வை வெள்ளம் போல தமிழ் பூத்த வரலாற்றையும், பாண்டியரின் சங்கத்தில் கொலுவிருந்த புகழையும் பாரி முதலிய வள்ளல்களை ஈன்ற வரலாற்றையும் நினைவுகூர்கிறார்."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Iyal 2", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "நெடுநல்வாடையில் நக்கீரர் விவரிக்கும் கூதிர்காலப் பின்னணியும் விலங்குகளின் நிலையும் யாவை?",
+        "a": "மழை மேகம் வலமாக எழுந்து பெய்த பெருமழையால் உலகம் குளிர்கிறது. மாடுகள் மேய்ச்சல் மறந்து நடுக்கமுற்றன; குரங்குகள் நடுங்கின; மரங்களில் இருந்த பறவைகள் குளிர்தாளாமல் தரையில் வீழ்ந்தன; கன்றுகள் தாய்மடியின் பாலை அருந்த மறுத்து நடுங்கின என கூதிர்காலம் விவரிக்கப்படுகிறது."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Iyal 3", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "கம்பராமாயணத்தில் குகனின் தூய அன்பையும் ராமனின் நட்பையும் கம்பன் எவ்வாறு படம்பிடித்துக் காட்டுகிறார்?",
+        "a": "கங்கை வேடனாகிய குகன் ராமனிடம் காட்டிய அன்பு அளப்பரியது. மீனும் தேனும் கொண்டு வந்து ராமனின் பாதங்களில் சமர்ப்பித்தான். ராமன் அதனை அன்போடு ஏற்றுக்கொண்டு, 'ஆயிரத்தில் ஒருவனாக அல்ல, உன்னோடு சேர்த்து நாம் ஐவரானோம்' என்று குகனை தன் தம்பியாக ஏற்று மானுட சமத்துவத்தையும் மாசற்ற நட்பையும் கம்பன் போற்றுகிறார்."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Iyal 5", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "திருக்குறளில் 'அறிவுடைமை' அதிகாரம் கூறும் வாழ்வியல் நெறிமுறைகளைத் தற்காலச் சூழலோடு பொருத்துக.",
+        "a": "எப்பொருள் யார்யார்வாய்க் கேட்பினும் அப்பொருள் மெய்ப்பொருள் காண்பதறிவு என்ற குறள், நவீன கால போலித் தகவல்கள் மற்றும் வதந்திகளை ஆராய்ந்து உண்மை அறிவதற்கு வழிகாட்டுகிறது. அறிவற்ற செயல்களிலிருந்து தம்மைக் காப்பதே அறிவுடைமை ஆகும்."
+    },
+]
+
+HINDI_CURRICULUM_QUESTIONS = [
+    # Class 10 CBSE Hindi
+    {
+        "board": "CBSE", "class": 10, "unit": "Kshitij", "bloom": "Understand", "type": "Short Answer", "marks": 2,
+        "q": "सूरदास के पद के आधार पर गोपियों के वाक्चातुर्य की प्रमुख विशेषताएँ लिखिए।",
+        "a": "गोपियाँ अपने वाक्चातुर्य से ज्ञानी उद्धव को निरुत्तर कर देती हैं। वे व्यंग्य, उपालंभ और सहज तर्कों का प्रयोग करके यह सिद्ध करती हैं कि योग का शुष्क मार्ग उनके अनन्य कृष्ण-प्रेम के समक्ष व्यर्थ और कड़वी ककड़ी के समान है।"
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Kshitij", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "लक्ष्मण-परशुराम संवाद में लक्ष्मण के चरित्र की कौन-सी विशेषताएँ उभरकर सामने आती हैं?",
+        "a": "लक्ष्मण निर्भीक, वाक्पटु और स्वाभिमानी हैं। वे परशुराम के क्रोध और डींगों से भयभीत नहीं होते, अपितु तर्कसंगत और व्यंग्यात्मक उत्तर देकर अन्याय का विरोध करते हैं। साथ ही वे बड़े भाई राम के प्रति अत्यंत समर्पित हैं।"
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Kshitij", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "'नेताजी का चश्मा' पाठ के आधार पर स्पष्ट कीजिए कि देश-प्रेम केवल सीमाओं पर लड़ने से ही नहीं, अपितु दैनिक आचरण से भी प्रकट होता है।",
+        "a": "कैप्टन चश्मेवाला कोई सैनिक नहीं था, किंतु नेताजी की बिना चश्मे वाली मूर्ति उसे आहत करती थी। वह अपने सीमित साधनों में से मूर्ति पर चश्मा लगाता था। लेखक के अनुसार देश-प्रेम किसी भूभाग से नहीं, देश के नागरिकों, प्रकृति और महापुरुषों के प्रति आदरभाव तथा कर्तव्यों के निष्ठापूर्वक पालन से सिद्ध होता है।"
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Sparsh", "bloom": "Understand", "type": "Short Answer", "marks": 2,
+        "q": "कबीर की साखी 'मीठी वाणी बोलिए, मन का आपा खोइ' में वाणी की महत्ता पर क्या प्रकाश डाला गया है?",
+        "a": "कबीरदास जी कहते हैं कि अहंकार का त्याग करके मधुर और विनम्र वाणी बोलनी चाहिए। इससे स्वयं के मन को शीतलता और शांति मिलती है तथा सुनने वाले को भी अपार सुख की अनुभूति होती है।"
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Sparsh", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "'बड़े भाई साहब' पाठ में लेखक ने तत्कालीन शिक्षा प्रणाली की किन कमियों पर व्यंग्य किया है?",
+        "a": "लेखक ने केवल रटंत विद्या, जीवन के व्यावहारिक अनुभवों की उपेक्षा, तथा बिना समझे परीक्षा उत्तीर्ण करने की व्यवस्था पर तीखा व्यंग्य किया है। शिक्षा का वास्तविक उद्देश्य जीवन की समझ विकसित करना होना चाहिए, न कि केवल पुस्तकीय ज्ञान रटना।"
+    },
+]
+
+
 def normalize_text_for_comparison(text: str) -> str:
     """Normalize question text for deduplication matching."""
     if not text:
@@ -3402,8 +3478,16 @@ def match_curriculum_question(
 
     pool: List[Dict[str, Any]] = []
 
+    # Language: Tamil
+    if "tamil" in s_lower:
+        pool = TAMIL_CURRICULUM_QUESTIONS
+
+    # Language: Hindi
+    elif "hindi" in s_lower:
+        pool = HINDI_CURRICULUM_QUESTIONS
+
     # 1. English
-    if "english" in s_lower:
+    elif "english" in s_lower:
         if any(w in u_lower for w in ["flamingo", "literature"]) or (any(w in u_lower for w in ["prose", "first flight"]) and any(w in u_lower for w in ["poem", "poet"])):
             pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_POETRY_QUESTIONS
         elif any(w in u_lower for w in ["prose", "first flight", "letter to god", "mandela", "buddha"]):
@@ -3418,6 +3502,8 @@ def match_curriculum_question(
             pool = ENGLISH_GRAMMAR_QUESTIONS
         elif any(w in u_lower for w in ["writing", "composition", "notice", "article"]) or ("letter" in u_lower and "letter to god" not in u_lower):
             pool = ENGLISH_WRITING_QUESTIONS
+        elif any(w in u_lower for w in ["reading", "comprehension", "inference", "passage"]):
+            pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_GRAMMAR_QUESTIONS
         else:
             # General or prose
             pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_POETRY_QUESTIONS + ENGLISH_GRAMMAR_QUESTIONS
@@ -3440,8 +3526,8 @@ def match_curriculum_question(
                 + SOCIAL_SCIENCE_ECONOMICS_QUESTIONS
             )
 
-    # 3. Biology / Science
-    elif "bio" in s_lower or ("science" in s_lower and any(w in u_lower for w in ["life", "cell", "reproduction", "heredity", "plant", "organism", "bio"])):
+    # 3. Biology / Science (Biology units) / Botany / Zoology
+    elif any(w in s_lower for w in ["bio", "botany", "zoology"]) or ("science" in s_lower and any(w in u_lower for w in ["life", "cell", "reproduction", "heredity", "plant", "organism", "bio", "ecol", "environ", "nephron", "circulat", "human", "animal", "physiol"])):
         pool = BIOLOGY_QUESTIONS
 
     # 4. Economics
@@ -3455,17 +3541,21 @@ def match_curriculum_question(
     elif any(w in s_lower for w in ["account", "commerc", "business"]):
         pool = COMMERCE_ACCOUNTANCY_QUESTIONS
 
-    # 6. Computer Science / IT / Programming
-    elif any(w in s_lower for w in ["computer", "information technology", "data structure", "programming", "coding", "software", "informatics"]) or re.search(r"\b(cs|ip|it)\b", s_lower):
+    # 6. Computer Science / IT / Programming / Computer Applications / IP
+    elif any(w in s_lower for w in ["computer", "information technology", "data structure", "programming", "coding", "software", "informatics", "application"]) or re.search(r"\b(cs|ip|it)\b", s_lower):
         pool = COMPUTER_SCIENCE_QUESTIONS
 
-    # 7. Physics
-    elif "physic" in s_lower:
+    # 7. Physics / Science (Physics units)
+    elif "physic" in s_lower or ("science" in s_lower and any(w in u_lower for w in ["physic", "motion", "optic", "light", "electri", "magnet", "sound", "force", "energy", "wave", "thermal", "acoustic"])):
         pool = PHYSICS_QUESTIONS
 
-    # 8. Chemistry
-    elif "chem" in s_lower:
+    # 8. Chemistry / Science (Chemistry units)
+    elif "chem" in s_lower or ("science" in s_lower and any(w in u_lower for w in ["chem", "reaction", "acid", "base", "salt", "metal", "carbon", "compound", "periodic", "solution"])):
         pool = CHEMISTRY_QUESTIONS
+
+    # 8b. General Science (fallback)
+    elif "science" in s_lower:
+        pool = PHYSICS_QUESTIONS + CHEMISTRY_QUESTIONS + BIOLOGY_QUESTIONS
 
     # 9. Mathematics
     elif any(w in s_lower for w in ["math", "algebra", "geometry", "calculus", "trigonometry", "statistic"]):
@@ -3520,14 +3610,21 @@ def match_curriculum_question(
         )
         is_prose_match = (
             ("prose" in cand_unit or "literature" in cand_unit or "first flight" in cand_unit or "flamingo" in cand_unit)
-            and ("prose" in u_lower or "literature" in u_lower or "first flight" in u_lower or "flamingo" in u_lower)
+            and ("prose" in u_lower or "literature" in u_lower or "first flight" in u_lower or "flamingo" in u_lower or "reading" in u_lower or "comprehension" in u_lower)
         )
+        is_science = "science" in s_lower
+        is_sci_physics_match = is_science and any(w in u_lower for w in ["physic", "motion", "optic", "light", "electri", "magnet", "sound"]) and any(w in cand_unit for w in ["optic", "light", "ray", "wave", "electr", "magnet", "current", "potential", "charge", "motion", "force"])
+        is_sci_chem_match = is_science and any(w in u_lower for w in ["chem", "reaction", "acid", "base", "salt", "metal", "carbon", "compound", "periodic", "solution"]) and any(w in cand_unit for w in ["chem", "reaction", "solution", "electrochem", "kinetic", "organic", "halo", "acid", "amine", "carbon"])
+        is_sci_bio_match = is_science and any(w in u_lower for w in ["bio", "life", "cell", "reproduction", "heredity", "plant", "organism", "ecol", "environ"]) and any(w in cand_unit for w in ["reproduction", "genetics", "inherit", "evolut", "health", "biotech", "organism", "population", "ecosystem"])
         is_u_match = (
             (cand_unit in u_lower)
             or (u_lower in cand_unit)
             or (any(w in u_lower for w in cand_kws) if cand_kws else False)
             or is_poetry_match
             or is_prose_match
+            or is_sci_physics_match
+            or is_sci_chem_match
+            or is_sci_bio_match
             or (is_cs and any(w in u_lower for w in ["array", "list", "tree", "graph", "stack", "queue", "data structure", "oop", "computational thinking"]))
             or (is_cs and "unit 1" in u_lower and "problem solving" in cand_unit)
             or (is_cs and "unit 2" in u_lower and "core" in cand_unit)
@@ -3622,7 +3719,63 @@ def match_curriculum_question(
 # 6. MATHEMATICS CURRICULUM TEMPLATES (All 11 Categories, All 5 Bloom Levels)
 # =============================================================================
 
-MATH_CURRICULUM_TEMPLATES = {   'ALGEBRA_QUADRATICS': {   'Analyze': [   {   'a': 'When p^2 = 4q, roots are equal real numbers -p/2. When p^2 < '
+MATH_CURRICULUM_TEMPLATES = {
+    'MATRICES_DETERMINANTS': {
+        'Remember': [
+            {
+                'q': 'State the conditions under which a square matrix A has an inverse, and state the formula for A^-1 in terms of adjoint and determinant.',
+                'a': 'A matrix A has an inverse if and only if it is non-singular, meaning det(A) != 0. The inverse formula is A^-1 = (1 / det(A)) * adj(A).'
+            },
+            {
+                'q': 'Define the rank of a matrix and state what it means for a matrix to be in row echelon form.',
+                'a': 'The rank of a matrix is the maximum number of linearly independent row or column vectors. In row echelon form, all non-zero rows are above zero rows, and the leading entry of each non-zero row is strictly to the right of the leading entry of the row above.'
+            }
+        ],
+        'Understand': [
+            {
+                'q': 'Explain why matrix multiplication is not commutative in general, and state the condition required for two square matrices A and B to commute.',
+                'a': 'Matrix multiplication is not commutative (AB != BA in general) because matrices represent composition of linear transformations where order matters. Two square matrices A and B commute if and only if AB = BA.'
+            },
+            {
+                'q': 'Describe how the determinant of a matrix changes when elementary row operations are performed: row interchange, scaling by scalar k, and adding a multiple of one row to another.',
+                'a': 'Interchanging two rows multiplies det by -1. Scaling a row by scalar k multiplies det by k. Adding a scalar multiple of one row to another leaves the determinant completely unchanged.'
+            }
+        ],
+        'Apply': [
+            {
+                'q': 'If matrix A = [[1, 2], [3, 4]], calculate the matrix expression A^2 - 5A + 7I.',
+                'a': 'A^2 = [[7, 10], [15, 22]], 5A = [[5, 10], [15, 20]], 7I = [[7, 0], [0, 7]]. Result is [[9, 0], [0, 9]].'
+            },
+            {
+                'q': 'Solve the system of linear equations 2x + 3y = 5 and 3x - y = 2 using matrix inversion method.',
+                'a': 'det(A) = 2(-1) - 3(3) = -11 != 0. A^-1 = (-1/11)*[[-1, -3], [-3, 2]]. X = A^-1 * [[5], [2]] gives x = 1, y = 1.'
+            },
+            {
+                'q': 'Find the adjoint and inverse of the matrix A = [[2, -1], [4, 3]] and verify that A * adj(A) = det(A) * I.',
+                'a': 'det(A) = 6 - (-4) = 10. adj(A) = [[3, 1], [-4, 2]]. A^-1 = (1/10)*[[3, 1], [-4, 2]]. A * adj(A) = [[10, 0], [0, 10]] = 10 * I.'
+            }
+        ],
+        'Analyze': [
+            {
+                'q': 'Analyze the consistency of the system of linear equations x + y + z = 6, x + 2y + 3z = 14, and x + 4y + 7z = 30 using Rouche-Capelli theorem and rank of augmented matrix.',
+                'a': 'The coefficient matrix A and augmented matrix [A|B] both have rank 2, which is less than the number of unknowns (3). By Rouche-Capelli theorem, the system is consistent and possesses infinitely many solutions.'
+            },
+            {
+                'q': 'Examine the properties of symmetric and skew-symmetric matrices, and prove that any square matrix can be uniquely expressed as the sum of a symmetric and a skew-symmetric matrix.',
+                'a': 'For square matrix A, A = (A + A^T)/2 + (A - A^T)/2, where (A + A^T)/2 is symmetric since its transpose equals itself, and (A - A^T)/2 is skew-symmetric since its transpose equals its negative.'
+            }
+        ],
+        'Evaluate': [
+            {
+                'q': 'Assess whether a given system of linear equations has a unique solution, infinitely many solutions, or no solution using determinant rank criteria.',
+                'a': 'A system AX = B has a unique solution if det(A) != 0 (rank(A) = rank([A|B]) = n). It has infinitely many solutions if rank(A) = rank([A|B]) < n. It is inconsistent (no solution) if rank(A) < rank([A|B]).'
+            },
+            {
+                'q': 'Evaluate the rank and invertibility of a 3x3 matrix whose determinant is zero, discussing the geometrical implication on the volume transformation.',
+                'a': 'If det(A) = 0, the matrix is singular and non-invertible. Its rank is strictly less than 3, meaning the linear transformation collapses 3D space onto a plane, line, or origin, resulting in zero transformed volume.'
+            }
+        ]
+    },   'ALGEBRA_QUADRATICS': {   'Analyze': [   {   'a': 'When p^2 = 4q, roots are equal real numbers -p/2. When p^2 < '
                                                       '4q, roots are complex conjugates.',
                                                  'q': 'Analyze the nature of the roots of the quadratic equation x^2 + '
                                                       'px + q = 0 when p^2 - 4q = 0 versus p^2 - 4q < 0.'},
