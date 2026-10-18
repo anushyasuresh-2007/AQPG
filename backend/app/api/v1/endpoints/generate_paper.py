@@ -50,6 +50,9 @@ def generate_paper(
             source_mode=resolved_source_mode,
             use_ai=payload.use_ai,
             user_id=user_id,
+            max_marks_per_question=payload.max_marks_per_question,
+            assessment_mode=payload.assessment_mode,
+            is_custom_assessment=payload.custom_mode_enabled,
         )
 
     except ValueError as exc:

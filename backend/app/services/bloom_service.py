@@ -64,35 +64,48 @@ def infer_bloom_level(question_text: str) -> str:
     q = question_text.strip().lower()
 
     # High-order: Create (Synthesis, drafting, writing formats, designing solutions)
-    create_patterns = [
-        r"\bwrite\s+(an?\s+)?(formal\s+|informal\s+|application\s+)?(letter|notice|report|speech|article|summary|analytical paragraph|dialogue|composition)\b",
-        r"\bdraft\s+(an?\s+)?(notice|poster|advertisement|invitation|reply)\b",
-        r"\b(compose|create)\s+(an?\s+)?(poem|paragraph|essay|story|dialogue)\b",
-        r"\b(design|construct|formulate|devise|propose)\s+(an?\s+)?(new\s+)?(solution|model|system|circuit|experiment|algorithm|framework|plan)\b",
-    ]
-    if any(re.search(pat, q) for pat in create_patterns):
-        return "Create"
+    is_narrative_question = bool(re.search(r"\b(why|how|when|who|where)\s+(did|was|were|has|have|had)?\s*.*?\bwrite\b", q))
+    if not is_narrative_question:
+        create_patterns = [
+            r"^(you are to\s+|please\s+)?write\s+(an?\s+)?(formal\s+|informal\s+|application\s+)?(letter|notice|report|speech|article|summary|analytical paragraph|dialogue|composition)\b",
+            r"\bwrite\s+(an?\s+)?(formal\s+|informal\s+|application\s+)?(letter|notice|report|speech|article|summary|analytical paragraph|dialogue|composition)\s+(to|about|for|on|highlighting|complaining|inviting)\b",
+            r"\bdraft\s+(an?\s+)?(notice|poster|advertisement|invitation|reply)\b",
+            r"\b(compose|create)\s+(an?\s+)?(poem|paragraph|essay|story|dialogue)\b",
+            r"\b(design|construct|formulate|devise|propose)\s+(an?\s+)?(new\s+)?(solution|model|system|circuit|experiment|algorithm|framework|plan)\b",
+        ]
+        if any(re.search(pat, q) for pat in create_patterns):
+            return "Create"
+
+    # Mathematical expression / integral / limit evaluation is procedural (Apply)
+    if re.search(r"\bevaluate\s*(:|the\s+(trigonometric|definite|indefinite|matrix)?\s*(expression|integral|limit|derivative|determinant))\b", q):
+        return "Apply"
 
     # High-order: Evaluate (Critique, justification, assessing trade-offs, defending stand)
     eval_patterns = [
-        r"\bcritically\s+(evaluate|assess|examine|analyze)\b",
-        r"\bevaluate\s+(whether|how|the\s+claim|the\s+statement|the\s+validity|the\s+effectiveness|the\s+truth|the\s+importance|the\s+merits|the\s+significance|the\s+role|the\s+impact|the\s+advantages|if)\b",
+        r"\bcritically\s+(evaluate|assess|examine|analyze|discuss)\b",
+        r"\bevaluate\b",
+        r"\bassess\b",
         r"\bjustify\s+(your|this|the|whether|why)\b",
         r"\bdo you agree\b",
-        r"\bassess\s+(the\s+)?(validity|impact|extent|effectiveness|consequences?|significance|truth|advantages|merits|trade-offs)\b",
-        r"\bassess\s+whether\b",
+        r"\bdiscuss\b.*\b(conflict|moral|dilemma|implications|vulnerability|trade-offs|themes?)\b",
         r"\b(critique|appraise|judge the merits|evaluate the advantages)\b",
     ]
     if any(re.search(pat, q) for pat in eval_patterns):
         return "Evaluate"
 
-    # High-order: Analyze (Breaking down, comparative analysis, causes, inference)
+    # High-order: Analyze (Breaking down, comparative analysis, causes, inference, mechanisms)
     analyze_patterns = [
         r"\b(compare|contrast|examine|investigate)\b",
         r"\banalyze\b",
         r"\bwhat\s+(factors?|causes?)\s+led\s+to\b",
         r"\bwhat\s+(inference|conclusion)\s+can\s+be\s+drawn\b",
         r"\binfer\s+the\s+(author's|poet's|character's)\b",
+        r"\b(distinguish|differentiate)\s+between\b.*\b(evolution|mechanism|principle|consequences?|significance|implications?|functions?|difference|operational)\b",
+        r"\bexplain\s+(the\s+)?(operational\s+|underlying\s+|molecular\s+)?(mechanism|process of credit creation|working principle|how power sharing)\b",
+        r"\bexplain\s+(the\s+)?(significance|symbolism|metaphor|irony|imagery|implications?)\b",
+        r"\bhow\s+does\s+.*(function|operate|mechanism|differ)\b",
+        r"\bhow\s+(did|does)\s+.*(change|transform|shift|react|evolve)\b",
+        r"\bwhat\s+(does|do)\s+.*(indicate|imply|reflect|signify)\b",
     ]
     if any(re.search(pat, q) for pat in analyze_patterns):
         return "Analyze"
@@ -144,30 +157,123 @@ def infer_bloom_level(question_text: str) -> str:
     return "Understand"
 
 
-def validate_bloom_level(question_text: str, target_bloom: str) -> Tuple[bool, str, str]:
+def infer_bloom_level_hindi(question_text: str) -> str:
+    """
+    Infer Bloom's Taxonomy cognitive level for Hindi questions based on Devanagari action verbs and phrasing.
+    """
+    if not question_text or not question_text.strip():
+        return "Understand"
+    q = question_text.strip()
+
+    # Create (Synthesis, letter/essay writing, dialogue creation, proposing plans)
+    if any(re.search(p, q) for p in [
+        r"(पत्र|निबंध|अनुच्छेद|प्रारूप|संवाद|कहानी|कविता)\s*(लिखिए|लिखें|रचना|तैयार\s*कीजिए)",
+        r"(रचना\s*कीजिए|परिकल्पना\s*कीजिए|प्रारूप\s*तैयार)",
+        r"नई\s*(योजना|समाधान)\s*(प्रस्तुत|बनाइए)",
+    ]):
+        return "Create"
+
+    # Evaluate (Critique, justification, assessing claims, discussing significance)
+    if any(re.search(p, q) for p in [
+        r"(समीक्षा|मूल्यांकन|औचित्य|विवेचना)\s*(कीजिए|करें|लिखिए)",
+        r"आलोचनात्मक\s*(समीक्षा|मूल्यांकन|व्याख्या)",
+        r"(सार्थकता|महत्व)\s*सिद्ध\s*कीजिए",
+        r"क्या\s*आप\s*सहमत\s*हैं",
+        r"स्पष्ट\s*कीजिए\s*कि.*(केवल|नहीं)",
+        r"(उचित|अनुचित)\s*ठहराइए",
+    ]):
+        return "Evaluate"
+
+    # Analyze (Breaking down, comparative analysis, causes, inference, satirical purpose)
+    if any(re.search(p, q) for p in [
+        r"(विश्लेषण|तुलना|अंतर\s*स्पष्ट|तर्क\s*सहित)\s*(कीजिए|करें|लिखिए)",
+        r"(किन\s*कमियों|व्यंग्य|विशेषताएँ\s*उभरकर|चरित्र\s*की\s*विशेषताएँ)",
+        r"(कारण\s*बताइए|प्रभाव\s*स्पष्ट|निष्कर्ष\s*निकालिए)",
+    ]):
+        return "Analyze"
+
+    # Apply (Calculations, solving, applying grammatical rules, sentence transformation)
+    if any(re.search(p, q) for p in [
+        r"(गणना\s*कीजिए|हल\s*कीजिए|वाक्य\s*बनाइए|रूपांतरण\s*कीजिए|परिवर्तन\s*कीजिए)",
+        r"(प्रयोग\s*करके\s*दिखाइए|संधि\s*विच्छेद|समास\s*विग्रह)",
+    ]):
+        return "Apply"
+
+    # Remember (Factual recall, listing, definitions, naming, who/when/where)
+    if any(re.search(p, q) for p in [
+        r"(परिभाषा\s*दीजिए|परिभाषित\s*कीजिए|नाम\s*लिखिए|सूची\s*बनाइए)",
+        r"\b(कब|कहाँ|किसने|किसे)\b",
+        r"(उल्लेख\s*कीजिए|नाम\s*बताइए|दो\s*उदाहरण\s*दीजिए)",
+    ]):
+        return "Remember"
+
+    # Understand (Explanation, descriptions, summaries, illustrations)
+    if any(re.search(p, q) for p in [
+        r"(व्याख्या\s*कीजिए|स्पष्ट\s*कीजिए|वर्णन\s*कीजिए|भाव\s*स्पष्ट|आशय\s*स्पष्ट|प्रकाश\s*डालिए|विशेषताएँ\s*लिखिए|संक्षेप\s*में)",
+        r"से\s*क्या\s*(तात्पर्य|अभिप्राय)\s*है",
+    ]):
+        return "Understand"
+
+    return "Understand"
+
+
+def validate_bloom_level(
+    question_text: str,
+    target_bloom: str,
+    language: Optional[str] = None,
+) -> Tuple[bool, str, str]:
     """
     Validate whether the cognitive demand of a question matches the target Bloom's level.
     Rejects questions whose cognitive task operation severely contradicts the target Bloom level.
     Returns: (is_valid, inferred_level, reason)
     """
-    inferred = infer_bloom_level(question_text)
     target_clean = target_bloom.strip().title()
+
+    # Tamil script range (\u0B80-\u0BFF) is outside the current project scope
+    if bool(re.search(r"[\u0B80-\u0BFF]", question_text)):
+        return False, "Unsupported", (
+            "Tamil script is outside the current project scope and cannot be validated for Bloom cognitive level."
+        )
+
+    # Devanagari script range (\u0900-\u097F)
+    has_devanagari = bool(re.search(r"[\u0900-\u097F]", question_text))
+    if has_devanagari:
+        lang_clean = (language or "").strip().lower()
+        if lang_clean not in ("hindi", "hi"):
+            return False, "Unsupported", (
+                "Devanagari script requires explicit Hindi language context for Bloom validation; "
+                "unconditional Indic bypass is disabled."
+            )
+        inferred = infer_bloom_level_hindi(question_text)
+    else:
+        inferred = infer_bloom_level(question_text)
 
     if target_clean not in BLOOM_HIERARCHY:
         return True, inferred, "Target Bloom level is non-standard; accepting."
 
     if inferred == target_clean:
-        return True, inferred, f"Exact match for cognitive level '{target_clean}'."
+        context_str = " (Hindi language context)" if has_devanagari else ""
+        return True, inferred, f"Exact match for cognitive level '{target_clean}'{context_str}."
 
     t_val = BLOOM_HIERARCHY[target_clean]
     i_val = BLOOM_HIERARCHY[inferred]
+
+    # Comparative distinctions ("distinguish between", "differentiate") are valid across Understand and Analyze
+    q_low = question_text.lower()
+    if target_clean in ("Understand", "Analyze"):
+        if any(re.search(p, q_low) for p in [r"\bdistinguish\s+between\b", r"\bdifferentiate\s+between\b", r"\bdifference\s+between\b"]):
+            return True, inferred, f"Comparative distinction is valid for '{target_clean}' in secondary curricula."
+        if any(re.search(p, q_low) for p in [r"\bexplain\s+(the\s+)?(operational\s+|working\s+)?mechanism\b", r"\bhow\s+does\s+.*(operate|work|function)\b"]):
+            return True, inferred, f"Mechanistic explanation is valid for '{target_clean}' in secondary curricula."
+        if any(re.search(p, q_low) for p in [r"\bexplain\s+(the\s+)?(significance|importance|role|consequences?)\b"]):
+            return True, inferred, f"Explaining significance or role is valid for '{target_clean}' in secondary curricula."
 
     # Adjacent levels (distance <= 1) are pedagogically acceptable in classroom contexts
     # EXCEPTION: "Remember" must NEVER accept high-order cognitive requests (Analyze, Evaluate, Create)
     if target_clean == "Remember" and i_val >= 4:
         return False, inferred, f"Question requires {inferred} (cognitive level {i_val}), which severely exceeds target Remember (level 1)."
 
-    if target_clean in ("Evaluate", "Create") and i_val <= 2:
+    if target_clean in ("Evaluate", "Create") and i_val < t_val:
         return False, inferred, f"Question requires only {inferred} (cognitive level {i_val}), which is insufficient for target {target_clean} (level {t_val})."
 
     if abs(t_val - i_val) <= 1:

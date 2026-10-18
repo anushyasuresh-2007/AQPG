@@ -27,6 +27,41 @@ class QuestionPaperRequest(BaseModel):
     source_mode: Optional[str] = Field(default=None)  # "hybrid", "bank", "ai"
     use_ai: Optional[bool] = Field(default=None)
     allow_ai_fallback: Optional[bool] = Field(default=False)
+    max_marks_per_question: Optional[int] = Field(default=None, ge=1)
+    assessment_mode: Optional[str] = Field(default=None)  # Authoritative: "board" (compliant) or "custom"
+    is_custom_assessment: Optional[bool] = Field(default=None)
+
+    @model_validator(mode="after")
+    def resolve_and_validate_assessment_mode(self):
+        b_custom = bool(self.board and self.board.strip().upper() in ("CUSTOM", "OTHER"))
+
+        if self.assessment_mode is not None:
+            clean_mode = self.assessment_mode.strip().lower()
+            if clean_mode not in ("board", "custom"):
+                raise ValueError("assessment_mode must be either 'board' or 'custom'")
+
+            if clean_mode == "board" and self.is_custom_assessment is True:
+                raise ValueError("Conflicting assessment settings: assessment_mode is 'board' but is_custom_assessment is True")
+
+            if clean_mode == "custom" and self.is_custom_assessment is False:
+                raise ValueError("Conflicting assessment settings: assessment_mode is 'custom' but is_custom_assessment is False")
+
+            self.assessment_mode = clean_mode
+            self.is_custom_assessment = (clean_mode == "custom")
+        elif self.is_custom_assessment is not None:
+            self.assessment_mode = "custom" if self.is_custom_assessment else "board"
+        elif b_custom:
+            self.assessment_mode = "custom"
+            self.is_custom_assessment = True
+        else:
+            self.assessment_mode = "board"
+            self.is_custom_assessment = False
+
+        return self
+
+    @property
+    def custom_mode_enabled(self) -> bool:
+        return self.assessment_mode == "custom"
 
 
 

@@ -569,6 +569,9 @@ def generate_question_paper(
     board_id: Optional[int] = None,
     class_id: Optional[int] = None,
     stream_id: Optional[int] = None,
+    max_marks_per_question: Optional[int] = None,
+    assessment_mode: Optional[str] = "board",
+    is_custom_assessment: bool = False,
 ) -> Dict[str, Any]:
     """
     Generate an examination paper combining approved Question Bank content, AI hybrid synthesis,
@@ -704,6 +707,34 @@ def generate_question_paper(
         targets_by_remainder = sorted(targets, key=lambda x: x["remainder"], reverse=True)
         for i in range(marks_shortage):
             targets_by_remainder[i % len(targets_by_remainder)]["allocated_marks"] += 1
+
+    # Authoritative paper-format rules and marks allocation validation
+    from app.services.exam_blueprints import (
+        get_allowed_marks_for_format,
+        validate_paper_allocation_feasibility,
+    )
+    is_custom = bool(
+        is_custom_assessment
+        or (assessment_mode and assessment_mode.strip().lower() == "custom")
+        or (resolved_board and resolved_board.strip().upper() in ("CUSTOM", "OTHER"))
+    )
+    min_allowed_mark, max_allowed_mark, allowed_marks = get_allowed_marks_for_format(
+        board=resolved_board,
+        class_name=resolved_class,
+        subject_name=subject.subject_name,
+        subject_code=getattr(subject, "subject_code", None),
+        max_marks_limit=max_marks_per_question,
+        is_custom_assessment=is_custom,
+    )
+    format_desc = f"{'Custom' if is_custom else resolved_board} {resolved_class} {subject.subject_name} format"
+    validate_paper_allocation_feasibility(
+        total_marks=total_marks,
+        bloom_distribution=bloom_distribution,
+        number_of_questions=number_of_questions,
+        min_allowed_mark=min_allowed_mark,
+        max_allowed_mark=max_allowed_mark,
+        format_description=format_desc,
+    )
 
     selected_questions: List[Dict[str, Any]] = []
     used_question_hashes: Set[str] = set()
@@ -892,44 +923,110 @@ def generate_question_paper(
             if remaining_q_count <= 0:
                 remaining_q_count = len(shortage_targets)
             
-            # Distribute remaining_q_count among shortage targets
+            # Distribute remaining_q_count among shortage targets respecting min and max question bounds
+            import math
+            min_q_per_target = {
+                s["bloom_obj"].level_name: max(1, math.ceil(s["missing_marks"] / max_allowed_mark))
+                for s in shortages
+            }
+            max_q_per_target = {
+                s["bloom_obj"].level_name: max(1, s["missing_marks"] // min_allowed_mark)
+                for s in shortages
+            }
+
             total_short_marks = sum(s["missing_marks"] for s in shortages)
             q_items = []
             for s in shortages:
+                b_name = s["bloom_obj"].level_name
                 pct = (s["missing_marks"] / max(1, total_short_marks))
                 raw_q = pct * remaining_q_count
                 int_q = int(raw_q)
                 rem_q = raw_q - int_q
-                q_items.append({"bloom_name": s["bloom_obj"].level_name, "int_q": max(1, int_q), "rem_q": rem_q})
+                clamped_q = max(min_q_per_target[b_name], min(max_q_per_target[b_name], int_q))
+                q_items.append({
+                    "bloom_name": b_name,
+                    "int_q": clamped_q,
+                    "rem_q": rem_q,
+                    "min_q": min_q_per_target[b_name],
+                    "max_q": max_q_per_target[b_name],
+                })
             
             curr_q = sum(qi["int_q"] for qi in q_items)
             diff_q = remaining_q_count - curr_q
             if diff_q > 0:
                 q_items.sort(key=lambda x: x["rem_q"], reverse=True)
-                for i in range(diff_q):
-                    q_items[i % len(q_items)]["int_q"] += 1
+                for _ in range(diff_q):
+                    eligible = [qi for qi in q_items if qi["int_q"] < qi["max_q"]]
+                    if eligible:
+                        eligible[0]["int_q"] += 1
+                        q_items.remove(eligible[0])
+                        q_items.append(eligible[0])
+                    else:
+                        q_items[0]["int_q"] += 1
             elif diff_q < 0:
                 q_items.sort(key=lambda x: x["rem_q"])
-                for i in range(abs(diff_q)):
-                    if q_items[i % len(q_items)]["int_q"] > 1:
-                        q_items[i % len(q_items)]["int_q"] -= 1
+                for _ in range(abs(diff_q)):
+                    eligible = [qi for qi in q_items if qi["int_q"] > qi["min_q"]]
+                    if eligible:
+                        eligible[0]["int_q"] -= 1
+                        q_items.remove(eligible[0])
+                        q_items.append(eligible[0])
+                    else:
+                        if q_items[0]["int_q"] > 1:
+                            q_items[0]["int_q"] -= 1
 
             q_alloc_map = {qi["bloom_name"]: qi["int_q"] for qi in q_items}
 
         for s in shortages:
             bloom_obj = s["bloom_obj"]
             rem_marks = s["missing_marks"]
-            target_bloom_q = q_alloc_map.get(bloom_obj.level_name, max(1, round(rem_marks / 5)))
-
-            if target_bloom_q <= 1:
-                mark_splits = [rem_marks]
-            else:
+            target_bloom_q = q_alloc_map.get(bloom_obj.level_name)
+            if target_bloom_q and target_bloom_q >= 1:
                 base_m = rem_marks // target_bloom_q
                 rem_m = rem_marks % target_bloom_q
                 mark_splits = [base_m + (1 if i < rem_m else 0) for i in range(target_bloom_q)]
-                mark_splits = [m for m in mark_splits if m > 0]
+            else:
+                # Standard secondary board decomposition (marks strictly 1 to 5)
+                mark_splits = []
+                curr_rem = rem_marks
+                while curr_rem > 0:
+                    if curr_rem >= 5:
+                        if curr_rem == 6:
+                            mark_splits.extend([3, 3])
+                            curr_rem -= 6
+                        elif curr_rem == 7:
+                            mark_splits.extend([4, 3])
+                            curr_rem -= 7
+                        elif curr_rem == 8:
+                            mark_splits.extend([5, 3])
+                            curr_rem -= 8
+                        elif curr_rem == 9:
+                            mark_splits.extend([5, 4])
+                            curr_rem -= 9
+                        else:
+                            mark_splits.append(5)
+                            curr_rem -= 5
+                    elif curr_rem == 4:
+                        mark_splits.append(4)
+                        curr_rem -= 4
+                    elif curr_rem == 3:
+                        mark_splits.append(3)
+                        curr_rem -= 3
+                    elif curr_rem == 2:
+                        mark_splits.append(2)
+                        curr_rem -= 2
+                    elif curr_rem == 1:
+                        mark_splits.append(1)
+                        curr_rem -= 1
+            mark_splits = [m for m in mark_splits if m > 0]
 
             for q_mark in mark_splits:
+                if q_mark < min_allowed_mark or q_mark > max_allowed_mark:
+                    raise ValueError(
+                        f"Unsupported marks-per-question value ({q_mark} marks) for {resolved_board} "
+                        f"{resolved_class} {subject.subject_name}. Supported marks range is "
+                        f"{min_allowed_mark} to {max_allowed_mark} marks."
+                    )
                 if q_mark >= 5:
                     q_type = "Long Answer" if "math" not in subject.subject_name.lower() else "Numerical"
                 elif q_mark >= 3:
@@ -939,106 +1036,121 @@ def generate_question_paper(
                 else:
                     q_type = "MCQ"
 
-                target_unit_id = unit_ids_to_use[unit_cycle % len(unit_ids_to_use)]
-                unit_cycle += 1
-                curr_context = unit_curriculum_context[target_unit_id]
-                target_unit = curr_context["unit"]
-                target_desc = curr_context["description"]
-                target_topics = curr_context["topics"]
+                # Dynamic candidate units starting from unit_cycle
+                candidate_unit_ids = [
+                    unit_ids_to_use[(unit_cycle + offset) % len(unit_ids_to_use)]
+                    for offset in range(len(unit_ids_to_use))
+                ]
 
-                attempt_excludes = [q["question"] for q in selected_questions if "question" in q]
-
-                prompt = AIQuestionPrompt(
-                    board=resolved_board,
-                    class_name=resolved_class,
-                    subject_name=subject.subject_name,
-                    unit_name=target_unit.unit_name,
-                    topic_name=target_topics[0] if target_topics else None,
-                    marks=q_mark,
-                    difficulty=difficulty or "medium",
-                    bloom_level=bloom_obj.level_name,
-                    question_type=q_type,
-                    unit_description=target_desc,
-                    topics_list=target_topics,
-                    exclude_texts=attempt_excludes,
-                )
+                # Candidate Bloom levels: requested level first, then adjacent compatible fallback levels
+                # Target Bloom level for this slot
+                bloom_candidates = [bloom_obj.level_name]
 
                 gen_res = None
-                MAX_RETRIES = 15
-                for attempt in range(MAX_RETRIES):
-                    prompt.exclude_texts = attempt_excludes
-                    candidate = ai_generator.generate_question(prompt)
-                    if not candidate or not candidate.question_text:
-                        from app.services.ai.generator_factory import OfflineFallbackProvider
-                        fallback_prov = OfflineFallbackProvider()
-                        candidate = fallback_prov.generate_question(prompt)
+                assigned_unit = None
+                attempt_excludes = [q["question"] for q in selected_questions if "question" in q]
 
-                    if not candidate or not candidate.question_text:
-                        continue
+                for try_bloom in bloom_candidates:
+                    if gen_res:
+                        break
+                    for cand_unit_id in candidate_unit_ids:
+                        if gen_res:
+                            break
+                        curr_context = unit_curriculum_context[cand_unit_id]
+                        cand_unit = curr_context["unit"]
+                        cand_desc = curr_context["description"]
+                        cand_topics = curr_context["topics"]
 
-                    # Validate model answer is present, non-empty, and not a generic placeholder
-                    cand_ans = str(candidate.answer or "").strip()
-                    if not cand_ans:
-                        continue
-                    ans_lower = cand_ans.lower()
-                    if any(p in ans_lower for p in [
-                        "detailed academic explanation covering key terms",
-                        "detailed academic explanation covering key concepts",
-                        "factual recall of authorial intent, textual characters",
-                        "authoritative historical dates, constitutional articles",
-                        "detailed literary and linguistic application addressing key themes",
-                        "comprehensive social science analysis applying institutional mechanisms",
-                        "detailed solution applying the foundational rules",
-                        "in-depth literary analysis examining character arcs",
-                        "critical evaluation of literary themes, moral dilemmas",
-                        "evaluative assessment of policy outcomes",
-                        "evaluative assessment or constructive framework",
-                        "comprehensive literary explanation detailing character development",
-                        "comprehensive social science explanation detailing institutional mechanisms",
-                    ]):
-                        continue
+                        prompt = AIQuestionPrompt(
+                            board=resolved_board,
+                            class_name=resolved_class,
+                            subject_name=subject.subject_name,
+                            unit_name=cand_unit.unit_name,
+                            topic_name=cand_topics[0] if cand_topics else None,
+                            marks=q_mark,
+                            difficulty=difficulty or "medium",
+                            bloom_level=try_bloom,
+                            question_type=q_type,
+                            unit_description=cand_desc,
+                            topics_list=cand_topics,
+                            exclude_texts=attempt_excludes,
+                        )
 
-                    q_text = clean_generated_question_text(candidate.question_text)
-                    if not q_text:
-                        continue
+                        for attempt in range(12):
+                            prompt.exclude_texts = attempt_excludes
+                            candidate = ai_generator.generate_question(prompt)
+                            if not candidate or not candidate.question_text:
+                                from app.services.ai.generator_factory import OfflineFallbackProvider
+                                fallback_prov = OfflineFallbackProvider()
+                                candidate = fallback_prov.generate_question(prompt)
 
-                    q_h = compute_question_hash(q_text)
-                    s_h = compute_structural_hash(q_text)
+                            if not candidate or not candidate.question_text:
+                                break  # Advance to next candidate unit if pool is exhausted for this unit and bloom
 
-                    # Reject exact and near duplicates
-                    if (q_h in used_question_hashes) or (s_h in used_structural_hashes) or is_near_duplicate(q_text, used_question_texts):
-                        attempt_excludes.append(q_text)
-                        continue
+                            # Validate model answer is present, non-empty, and not a generic placeholder
+                            cand_ans = str(candidate.answer or "").strip()
+                            if not cand_ans:
+                                continue
+                            ans_lower = cand_ans.lower()
+                            if any(p in ans_lower for p in [
+                                "detailed academic explanation covering key terms",
+                                "detailed academic explanation covering key concepts",
+                                "factual recall of authorial intent, textual characters",
+                                "authoritative historical dates, constitutional articles",
+                                "detailed literary and linguistic application addressing key themes",
+                                "comprehensive social science analysis applying institutional mechanisms",
+                                "detailed solution applying the foundational rules",
+                                "in-depth literary analysis examining character arcs",
+                                "critical evaluation of literary themes, moral dilemmas",
+                                "evaluative assessment of policy outcomes",
+                                "evaluative assessment or constructive framework",
+                                "comprehensive literary explanation detailing character development",
+                                "comprehensive social science explanation detailing institutional mechanisms",
+                            ]):
+                                continue
 
-                    # Validate unit relevance gate
-                    if not validate_unit_relevance(q_text, target_unit.unit_name, target_desc, target_topics, subject.subject_name):
-                        attempt_excludes.append(q_text)
-                        continue
+                            q_text = clean_generated_question_text(candidate.question_text)
+                            if not q_text:
+                                continue
 
-                    # Validate Bloom's Taxonomy cognitive level gate
-                    from app.services.bloom_service import validate_bloom_level
-                    is_valid_bloom, detected_level, reason = validate_bloom_level(q_text, bloom_obj.level_name)
-                    if not is_valid_bloom:
-                        attempt_excludes.append(q_text)
-                        continue
+                            q_h = compute_question_hash(q_text)
+                            s_h = compute_structural_hash(q_text)
 
-                    gen_res = candidate
-                    gen_res.question_text = q_text
-                    used_question_hashes.add(q_h)
-                    used_structural_hashes.add(s_h)
-                    used_question_texts.add(q_text)
-                    break
+                            # Reject exact and near duplicates
+                            if (q_h in used_question_hashes) or (s_h in used_structural_hashes) or is_near_duplicate(q_text, used_question_texts):
+                                attempt_excludes.append(q_text)
+                                continue
 
+                            # Validate unit relevance gate
+                            if not validate_unit_relevance(q_text, cand_unit.unit_name, cand_desc, cand_topics, subject.subject_name):
+                                attempt_excludes.append(q_text)
+                                continue
+
+                            # Validate Bloom's Taxonomy cognitive level gate
+                            from app.services.bloom_service import validate_bloom_level
+                            lang_ctx = "hindi" if "hindi" in subject.subject_name.lower() else None
+                            is_valid_bloom, detected_level, reason = validate_bloom_level(q_text, bloom_obj.level_name, language=lang_ctx)
+
+                            if not is_valid_bloom:
+                                attempt_excludes.append(q_text)
+                                continue
+
+                            gen_res = candidate
+                            gen_res.question_text = q_text
+                            used_question_hashes.add(q_h)
+                            used_structural_hashes.add(s_h)
+                            used_question_texts.add(q_text)
+                            assigned_unit = cand_unit
+                            unit_cycle += 1
+                            break
 
                 if not gen_res:
                     raise ValueError(
                         f"Unable to generate additional distinct, unit-aligned questions for subject '{subject.subject_name}' "
-                        f"({target_unit.unit_name}) without repetition. The question pool and distinct templates for "
+                        f"without repetition. The question pool and distinct templates for "
                         f"cognitive level '{bloom_obj.level_name}' are exhausted. "
                         f"Please broaden the unit selection, adjust requested marks, or provide external AI credentials."
                     )
-
-                assigned_unit = target_unit
 
                 # Persist new AI question into Question Bank with deduplication to prevent DB bloat
                 existing_q = None
@@ -1098,7 +1210,7 @@ def generate_question_paper(
                     "question_type": final_q.question_type or q_type,
                     "unit_id": assigned_unit.id,
                     "unit_name": assigned_unit.unit_name,
-                    "topic_name": prompt.topic_name or (target_topics[0] if target_topics else assigned_unit.unit_name),
+                    "topic_name": prompt.topic_name or ((unit_curriculum_context.get(assigned_unit.id, {}).get("topics") or [assigned_unit.unit_name])[0]),
                     "board": resolved_board,
                     "class_name": resolved_class,
                     "academic_year": resolved_academic_year,

@@ -36,8 +36,13 @@ ENGLISH_PROSE_QUESTIONS = [
     },
     {
         "board": "CBSE", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "What lesson does the Buddha convey to Kisa Gotami in 'The Sermon at Benares'? How did the mustard seed signify universal grief?",
+        "q": "Critically evaluate the lesson that the Buddha conveys to Kisa Gotami in 'The Sermon at Benares' and assess how the mustard seed signifies universal grief.",
         "a": "The Buddha asked Kisa Gotami to procure mustard seeds from a house where no one had died. When she could find no such house, she realized that death is common to all mortals and that grief and lamentation only increase pain rather than bringing peace of mind."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Name the author of the autobiographical short story 'The Night the Ghost Got In'.",
+        "a": "James Grover Thurber."
     },
     {
         "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Understand", "type": "Short Answer", "marks": 3,
@@ -45,8 +50,13 @@ ENGLISH_PROSE_QUESTIONS = [
         "a": "The parents scolded him, threatened to let him starve on his ledge, and ultimately his mother tempted him with a piece of fish just out of reach, forcing him to dive in desperation and discover his natural ability to fly."
     },
     {
+        "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Illustrate how assistive technology serves as a boon for differently-abled students with reference to Alisha and David in 'Tech Bloomers'.",
+        "a": "Technology enables differently-abled individuals to communicate and live independently. Alisha uses dragon dictate software to type with her voice, while David uses an eye-gaze ECO2 device to communicate effectively with the outside world."
+    },
+    {
         "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
-        "q": "Why did Aditya decide to visit the attic in his ancestral house in Satyajit Ray's story 'The Attic'?",
+        "q": "Analyze the underlying motives and sense of guilt that prompted Aditya to visit the attic in his ancestral house in Satyajit Ray's story 'The Attic'.",
         "a": "Aditya wished to retrieve the antique silver medal won by Sasanka Sanyal twenty-nine years earlier, which Aditya had taken and never returned, in order to relieve his lingering sense of guilt and restore justice."
     },
     {
@@ -193,7 +203,7 @@ ENGLISH_PROSE_QUESTIONS = [
     },
     {
         "board": "TNSB", "class": 12, "unit": "Prose Analysis", "topic": "On the Rule of the Road", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "How does A.G. Gardiner distinguish between individual liberty and social responsibility in 'On the Rule of the Road'?",
+        "q": "Critically evaluate how A.G. Gardiner balances individual liberty with social responsibility in 'On the Rule of the Road'.",
         "a": "Gardiner emphasizes that true personal liberty can only be preserved through reasonable curtailment of absolute individual freedom. If everyone exercised unrestricted personal rights, it would result in universal chaos. Personal liberty applies to private habits (food, dress, religion), whereas social behavior requires mutual accommodation and adherence to rules."
     },
 ]
@@ -210,9 +220,19 @@ ENGLISH_POETRY_QUESTIONS = [
         "a": "Alliteration ('Has given my heart'). It signifies a sudden psychological shift from melancholy and regret to renewed optimism brought about by the gentle touch of nature."
     },
     {
+        "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Remember", "type": "Objective", "marks": 1,
+        "q": "Who wrote the inspirational poem 'Life' featuring the lines 'Let me but live my life from year to year'?",
+        "a": "Henry Van Dyke."
+    },
+    {
         "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "What attitude towards life does Henry Van Dyke advocate in his poem 'Life'?",
         "a": "The poet advocates living life with courage, forward-looking determination, and an unreluctant soul—neither hurrying towards nor turning back from one's goal, trusting that youth and age will both bring adventure and joy."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Apply", "type": "Short Answer", "marks": 3,
+        "q": "Using the imagery of travel in Henry Van Dyke's 'Life', illustrate how an individual should face personal challenges.",
+        "a": "The poet uses the metaphor of travelling with a whole and happy heart, whether the road runs rough or smooth, maintaining forward momentum with cheerfulness and looking forward to the best crown at journey's end."
     },
     {
         "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
@@ -226,7 +246,7 @@ ENGLISH_POETRY_QUESTIONS = [
     },
     {
         "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Evaluate", "type": "Short Answer", "marks": 3,
-        "q": "In Pablo Neruda's 'Keeping Quiet', what does the poet mean by 'huge silence' and how can it heal human suffering?",
+        "q": "In Pablo Neruda's 'Keeping Quiet', critically evaluate what the poet means by 'huge silence' and assess how it can heal human suffering.",
         "a": "The 'huge silence' represents a collective pause for introspection. It halts destructive activities (war, environmental exploitation) and allows humans to overcome the sadness of never understanding themselves and threatening themselves with death."
     },
     {
@@ -758,6 +778,110 @@ SOCIAL_SCIENCE_ECONOMICS_QUESTIONS = [
 # =============================================================================
 
 BIOLOGY_QUESTIONS = [
+{   'a': 'Apomixis is a form of asexual reproduction that mimics sexual reproduction by producing seeds without '
+             'fertilization of ovules (e.g. Asteraceae grasses). Polyembryony is the occurrence of more than one '
+             'embryo in a single seed (e.g. Citrus, Mango).',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': 'Define apomixis and polyembryony. Give one botanical example of each phenomenon.',
+        'type': 'Short Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'Layers from outside: Epidermis, Endothecium, Middle layers, and Tapetum. Tapetum functions: 1. Provides '
+             'nourishment to developing microspore mother cells and pollen grains. 2. Secretes sporopollenin '
+             'precursors (ubisch granules) and pollenkitt.',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': 'Name the four concentric wall layers of an angiosperm microsporangium and state the dual function of the '
+             'tapetum.',
+        'type': 'Short Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'Anatropous ovule consists of: 1. Funiculus attaching ovule to placenta at hilum. 2. Integuments (outer '
+             'and inner protective coats) leaving a small apical opening called micropyle. 3. Chalaza (basal region '
+             'opposite micropyle). 4. Nutritive nucellus tissue enclosing the central female gametophyte (embryo sac).',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Explain the structure of a mature anatropous ovule with reference to integuments, micropyle, nucellus, '
+             'and chalaza.',
+        'type': 'Short Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'A single functional megaspore undergoes three successive free-nuclear mitotic divisions producing 8 '
+             'nuclei. Cell wall formation organizes 3 cells at the micropylar end (egg apparatus: 1 egg cell + 2 '
+             'synergids), 3 cells at the chalazal end (antipodals), and a large central cell containing 2 polar '
+             'nuclei.',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Describe the monosporic development of a 7-celled, 8-nucleate female gametophyte (embryo sac) in '
+             'flowering plants.',
+        'type': 'Short Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'Root tip cells are diploid (2n = 24), so haploid n = 12. (i) Generative nucleus is haploid: n = 12. (ii) '
+             'Endosperm is triploid (formed by triple fusion 3n): 3 * 12 = 36. (iii) Synergid is a haploid cell of the '
+             'embryo sac: n = 12.',
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'If an angiospermic plant has 24 chromosomes in its root tip cells, calculate the chromosome number in: '
+             '(i) pollen grain generative nucleus, (ii) endosperm tissue cell, (iii) synergid cell.',
+        'type': 'Numerical',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': '1. Dichogamy: Pollen release and stigma receptivity are non-synchronized (Protandry or Protogyny). 2. '
+             'Herkogamy: Stigma and anther are positioned at different physical heights preventing contact. 3. '
+             'Self-incompatibility: Genetic mechanism preventing self-pollen from germinating or growing pollen tubes '
+             'in the pistil.',
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': 'Explain three outbreeding devices adapted by angiosperms to discourage self-pollination (autogamy) and '
+             'promote cross-pollination (xenogamy).',
+        'type': 'Short Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'Anemophilous flowers have small, non-scented, nectarless petals, light non-sticky pollen produced in '
+             'vast quantities, and large feathery stigmas to catch airborne grains (e.g. corn cob). Entomophilous '
+             'flowers are large, brightly colored, fragrant, nectar-rich, with sticky pollen coated with pollenkitt to '
+             'adhere to insects.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Analyze the structural differences between wind-pollinated (anemophilous) and insect-pollinated '
+             '(entomophilous) flowers.',
+        'type': 'Short Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'Post-fertilization: 1. Ovary develops into fruit; ovary wall becomes pericarp. 2. Ovule matures into '
+             'seed; integuments become seed coats (testa and tegmen). 3. Diploid zygote divides mitotically to form '
+             'embryo (proembryo -> globular -> heart-shaped -> mature embryo). 4. Triploid PEN undergoes nuclear '
+             'divisions to form nutritive endosperm.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': 'Trace the post-fertilization changes in an angiosperm flower, detailing the fate of ovary, ovule, '
+             'zygote, and primary endosperm nucleus (PEN).',
+        'type': 'Long Answer',
+        'unit': 'Reproduction in Organisms'},
+    {   'a': 'Seed dormancy enables plant embryos to suspend metabolic activity and survive adverse environmental '
+             'extremes (drought, winter). Specialized dispersal adaptations (wings, hooks, buoyancy) transport progeny '
+             'away from parent plants, reducing intraspecific competition for light, water, and soil minerals, and '
+             'enabling colonization of diverse ecological niches.',
+        'bloom': 'Evaluate',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 5,
+        'q': 'Evaluate the evolutionary significance of seed dormancy and dispersal mechanisms in the survival and '
+             'colonizing success of spermatophytes.',
+        'type': 'Long Answer',
+        'unit': 'Reproduction in Organisms'},
+
     {
         "board": "COMMON", "class": 10, "unit": "Life Processes", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Explain the pathway of double circulation in human beings with the help of a schematic flow chart.",
@@ -924,6 +1048,113 @@ BIOLOGY_QUESTIONS = [
 # =============================================================================
 
 ECONOMICS_CLASS_12_QUESTIONS = [
+{   'a': 'GDP_MP is the market value of all final goods and services produced within the domestic territory of a '
+             'country during an accounting year, inclusive of depreciation and net indirect taxes. NDP_FC = GDP_MP - '
+             'Consumption of Fixed Capital (Depreciation) - Net Indirect Taxes (NIT).',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': 'Define Gross Domestic Product at Market Price (GDP_MP) and state how it differs from Net Domestic '
+             'Product at Factor Cost (NDP_FC).',
+        'type': 'Short Answer',
+        'unit': 'National Income'},
+    {   'a': 'Intermediate consumption refers to the expenditure incurred by production units on non-durable goods and '
+             'primary services used up in the production process during an accounting year. Examples: Raw cotton '
+             'purchased by a spinning mill, and synthetic dyes used by a fabric processing factory.',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': "What is meant by 'Intermediate Consumption'? Give two examples of intermediate goods in the textile "
+             'manufacturing industry.',
+        'type': 'Short Answer',
+        'unit': 'National Income'},
+    {   'a': '1. Generation phase: Production firms produce goods and services using factor services, generating Value '
+             'Added. 2. Distribution phase: Value added is distributed to factor owners as factor incomes (wages, '
+             'rent, interest, profit). 3. Disposition phase: Households spend factor income on consumption goods and '
+             'investment goods produced by firms.',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Explain the three phases of the circular flow of income: Generation, Distribution, and Disposition.',
+        'type': 'Short Answer',
+        'unit': 'National Income'},
+    {   'a': 'Externalities are benefits or harms caused by economic activities for which no payment or penalty is '
+             'made. Positive externalities (e.g. public parks, green belts) enhance welfare without being recorded in '
+             'GDP, underestimating welfare. Negative externalities (e.g. industrial pollution, toxic effluent) harm '
+             'welfare without deducting from GDP, overestimating welfare.',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Explain why externalities (positive and negative) make GDP an imperfect indicator of social economic '
+             'welfare.',
+        'type': 'Short Answer',
+        'unit': 'National Income'},
+    {   'a': 'Value of Output = Sales + (Closing Stock - Opening Stock) = 1000 + (100 - 50) = Rs 1050 cr. Gross Value '
+             'Added at Market Price (GVA_MP) = Value of Output - Intermediate Goods = 1050 - 500 = Rs 550 cr. NVA_FC = '
+             'GVA_MP - Depreciation - Net Indirect Tax = 550 - 30 - 40 = Rs 480 crores.',
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Calculate Net Value Added at Factor Cost (NVA_FC) given: Sales = Rs 1000 cr, Closing Stock = Rs 100 cr, '
+             'Opening Stock = Rs 50 cr, Intermediate Goods = Rs 500 cr, Net Indirect Tax = Rs 40 cr, Depreciation = Rs '
+             '30 cr.',
+        'type': 'Numerical',
+        'unit': 'National Income'},
+    {   'a': 'Domestic Income (NDP_FC) = Compensation of Employees + Operating Surplus (Rent + Interest + Profit) + '
+             'Mixed Income = 1500 + (300 + 400 + 500) + 700 = Rs 3,400 cr. National Income (NNP_FC) = NDP_FC + NFIA = '
+             '3400 + (-50) = Rs 3,350 crores.',
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': 'From the following data, calculate National Income (NNP_FC) using the Income Method: Compensation of '
+             'Employees = Rs 1,500 cr, Rent and Royalty = Rs 300 cr, Interest = Rs 400 cr, Profit = Rs 500 cr, Mixed '
+             'Income = Rs 700 cr, Net Factor Income from Abroad = Rs -50 cr.',
+        'type': 'Numerical',
+        'unit': 'National Income'},
+    {   'a': 'Double counting arises when the value of intermediate goods is counted multiple times across successive '
+             'production stages, artificially inflating national output. The Value Added method eliminates double '
+             'counting by deducting intermediate consumption at each stage of production: Value Added = Value of '
+             'Output - Intermediate Consumption.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': "Analyze the problem of 'Double Counting' in national income measurement and explain how the Value Added "
+             'method avoids it.',
+        'type': 'Short Answer',
+        'unit': 'National Income'},
+    {   'a': 'Factor incomes represent payments for factor services rendered in production (wages, rent, interest, '
+             'profit) and are included in national income. Transfer payments (scholarships, old-age pensions) are '
+             'unearned unilateral payments without productive service and are excluded. Retirement pensions are '
+             'deferred factor payments for past employment service and are included.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': 'Compare the treatment of Transfer Payments and Factor Incomes in national income estimation, justifying '
+             'why old-age pensions are treated differently from retirement pensions.',
+        'type': 'Long Answer',
+        'unit': 'National Income'},
+    {   'a': 'Real GDP measures physical output growth adjusted for inflation, but fails as a sole measure of human '
+             'welfare because: 1. It ignores income distribution; wealth may concentrate among top percentiles. 2. It '
+             'excludes non-monetary household care labor and informal trade. 3. It counts defensive expenditures '
+             'caused by environmental degradation. Sustainable development requires tracking HDI (literacy, '
+             'healthcare, infant mortality) alongside GDP.',
+        'bloom': 'Evaluate',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 5,
+        'q': 'Evaluate whether Real GDP growth is an adequate guarantee of equitable human development in a developing '
+             'economy like India.',
+        'type': 'Long Answer',
+        'unit': 'National Income'},
+
     {
         "board": "COMMON", "class": 12, "unit": "National Income", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Explain the difference between Real GDP and Nominal GDP. Which of the two is considered a better indicator of economic welfare and why?",
@@ -1049,6 +1280,184 @@ ECONOMICS_CLASS_12_QUESTIONS = [
 # =============================================================================
 
 COMMERCE_ACCOUNTANCY_QUESTIONS = [
+{   'a': 'Management is the process of getting things done with the aim of achieving organizational goals '
+             'effectively and efficiently. Characteristics: 1. Continuous process: Its functions (planning, '
+             'organizing, staffing, directing, controlling) are performed simultaneously on an ongoing basis. 2. '
+             'Goal-oriented: Integrates human efforts and physical resources to accomplish predetermined '
+             'organizational objectives.',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': 'Define Management. State the two essential characteristics of management as a continuous, goal-oriented '
+             'process.',
+        'type': 'Short Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'Division of Work involves dividing total work into compact, specialized activities assigned to '
+             'individuals according to their capability and training. Repetitive performance of the same task produces '
+             'speed, precision, and operational specialization, minimizing waste of time and effort.',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': "What is meant by 'Division of Work' according to Henri Fayol? How does it lead to specialization in an "
+             'enterprise?',
+        'type': 'Short Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'Esprit de Corps states that management should foster team spirit, harmony, and mutual trust among '
+             "employees. Managers should replace 'I' with 'We' in workplace communication to cultivate camaraderie, "
+             'elevate morale, and eliminate the need for harsh penalties.',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': "Explain the principle of 'Esprit de Corps' and discuss why team spirit is essential in modern business "
+             'organizations.',
+        'type': 'Short Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'Span of Management (span of control) refers to the number of subordinates that can be effectively '
+             'supervised by a single manager. A narrow span produces a tall organizational structure with many '
+             'hierarchical levels; a wide span produces a flat structure with fewer levels and faster communication.',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': "Explain the concept of 'Span of Management' and how it determines the levels of organizational "
+             'hierarchy.',
+        'type': 'Short Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'The enterprise should delegate authority by transferring operational decision-making power from the '
+             'director to departmental managers along with commensurate responsibility, while retaining ultimate '
+             'accountability. This expedites daily operations, lightens executive workload, and boosts subordinate '
+             'motivation.',
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'An enterprise faces persistent operational delays because all daily decisions require the managing '
+             "director's personal approval. Recommend how Delegation of Authority can resolve this problem.",
+        'type': 'Short Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': '1. Scope: Delegation is limited between superior and subordinate; Decentralization is enterprise-wide '
+             'dispersal of authority. 2. Freedom: Subordinates have limited autonomy in delegation; substantial '
+             'operational autonomy in decentralization. 3. Status: Delegation is an unavoidable administrative '
+             'necessity; Decentralization is an optional strategic policy decision. 4. Purpose: Delegation lightens '
+             'executive burden; Decentralization empowers lower management levels.',
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': 'Differentiate between Delegation of Authority and Decentralization on the basis of scope, freedom of '
+             'action, status, and purpose.',
+        'type': 'Long Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'Planning without controlling is meaningless because controlling assesses whether planned targets are '
+             'achieved. Controlling without planning is blind because planning establishes the quantitative standards '
+             'against which actual performance is measured. Both functions are forward-looking and backward-looking.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Analyze the mutual interdependence between the Planning and Controlling functions in management.',
+        'type': 'Short Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': '1. Meaning: Time study determines standard time taken by a qualified worker to perform a specified task; '
+             'Motion study observes bodily movements to eliminate wasteful motions. 2. Technique: Uses a stopwatch; '
+             "Uses photographic/video observation. 3. Purpose: Determines fair day's work and standard workforce size; "
+             'Eliminates unproductive movements. 4. Outcome: Fixes differential piece wage rates; Optimizes physical '
+             'workflow efficiency.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': "Compare 'Time Study' and 'Motion Study' developed by F.W. Taylor with respect to meaning, purpose, "
+             'technique, and outcome.',
+        'type': 'Long Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'Management is an Art because it requires personal skill, creativity, and practical application. It is an '
+             'inexact or Social Science because while it possesses systematic principles, they govern unpredictable '
+             'human behavior and lack universal precision. It is an emerging Profession because it possesses '
+             'specialized knowledge, but lacks a mandatory statutory licensing body or compulsory code of conduct.',
+        'bloom': 'Evaluate',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 5,
+        'q': 'Critically evaluate whether Management can be classified as a pure Science, an Art, or an emerging '
+             'Profession in the contemporary business world.',
+        'type': 'Long Answer',
+        'unit': 'Principles and Functions of Management'},
+    {   'a': 'A Partnership Deed is a written agreement containing terms and conditions agreed upon by partners '
+             'governing their business relationship. Absence consequences: 1. Profits and losses must be shared '
+             'equally regardless of capital contribution. 2. No interest is allowed on capital or charged on drawings.',
+        'bloom': 'Remember',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 2,
+        'q': 'What is a Partnership Deed? Mention any two consequences of not having a partnership deed under the '
+             'Indian Partnership Act, 1932.',
+        'type': 'Short Answer',
+        'unit': 'Accounts of Partnership Firms - Fundamentals'},
+    {   'a': '1. Accounts maintained: Fixed method maintains two accounts per partner (Capital A/c and Current A/c); '
+             'Fluctuating method maintains only one Capital A/c. 2. Balance consistency: Capital account balance '
+             'remains fixed unless fresh capital is introduced or withdrawn; in Fluctuating method, balance changes '
+             'constantly due to interest, salary, drawings, and profits.',
+        'bloom': 'Understand',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'Explain the distinction between the Fixed Capital Method and Fluctuating Capital Method of maintaining '
+             "partners' capital accounts.",
+        'type': 'Short Answer',
+        'unit': 'Accounts of Partnership Firms - Fundamentals'},
+    {   'a': 'Interest on Capital: Partner A = 1,00,000 * 6% = Rs 6,000; Partner B = 80,000 * 6% = Rs 4,800; Partner C '
+             "= 60,000 * 6% = Rs 3,600. Total interest credited to partners' current/capital accounts = Rs 14,400.",
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': 'A, B, and C are partners with capital balances of Rs 1,00,000, Rs 80,000, and Rs 60,000. Interest on '
+             'capital is provided at 6% p.a. Calculate the interest on capital for each partner for the year ended '
+             '31st March.',
+        'type': 'Numerical',
+        'unit': 'Accounts of Partnership Firms - Fundamentals'},
+    {   'a': 'Net Profit = Rs 45,000. Less: Salary to X = Rs 5,000. Less: Interest on Capital: X (5% of 2,00,000 = Rs '
+             '10,000), Y (5% of 1,50,000 = Rs 7,500) = Rs 17,500. Divisible Profit = 45,000 - 5,000 - 17,500 = Rs '
+             "22,500. Distribution: X's share (3/5) = Rs 13,500; Y's share (2/5) = Rs 9,000.",
+        'bloom': 'Apply',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 4,
+        'q': 'X and Y are partners sharing profits in the ratio of 3:2 with capitals of Rs 2,00,000 and Rs 1,50,000. '
+             'Net profit for the year is Rs 45,000. Prepare Profit & Loss Appropriation Account allowing 5% p.a. '
+             'interest on capital and an annual salary of Rs 5,000 to X.',
+        'type': 'Numerical',
+        'unit': 'Accounts of Partnership Firms - Fundamentals'},
+    {   'a': 'Past adjustments rectify errors or omissions (such as omitted interest on capital/drawings, or incorrect '
+             'profit distribution) discovered after final accounts are closed. Instead of reopening closed books, net '
+             "debit/credit effects on each partner's capital are calculated in an adjustment table, and a single "
+             'rectifying journal entry is passed.',
+        'bloom': 'Analyze',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 3,
+        'q': "Analyze the accounting procedure for 'Past Adjustments' in partnership accounts and state when a single "
+             'adjustment journal entry is passed.',
+        'type': 'Short Answer',
+        'unit': 'Accounts of Partnership Firms - Fundamentals'},
+    {   'a': 'Initial profit distribution: P (2/5 * 80,000) = Rs 32,000; Q (2/5 * 80,000) = Rs 32,000; R (1/5 * '
+             '80,000) = Rs 16,000. Deficiency for R = Guaranteed (20,000) - Actual (16,000) = Rs 4,000. Since P '
+             'guaranteed R personally, P bears entire deficiency: Final P = 32,000 - 4,000 = Rs 28,000; Final Q = Rs '
+             '32,000; Final R = 16,000 + 4,000 = Rs 20,000.',
+        'bloom': 'Evaluate',
+        'board': 'COMMON',
+        'class': 12,
+        'marks': 5,
+        'q': 'P, Q, and R share profits in ratio of 2:2:1. R is guaranteed a minimum profit of Rs 20,000 by P '
+             'personally. The firm earned a net profit of Rs 80,000 for the year. Evaluate the deficiency adjustment '
+             "for guarantee and determine each partner's final share of profit.",
+        'type': 'Long Answer',
+        'unit': 'Accounts of Partnership Firms - Fundamentals'},
+
     {
         "board": "COMMON", "class": 12, "unit": "Accounting for Share Capital", "bloom": "Apply", "type": "Numerical", "marks": 4,
         "q": "Pass the necessary journal entry for the forfeiture of 500 equity shares of Rs 10 each, Rs 8 called up, on which application and allotment money of Rs 5 per share has been paid.",
@@ -3503,7 +3912,7 @@ def match_curriculum_question(
         elif any(w in u_lower for w in ["writing", "composition", "notice", "article"]) or ("letter" in u_lower and "letter to god" not in u_lower):
             pool = ENGLISH_WRITING_QUESTIONS
         elif any(w in u_lower for w in ["reading", "comprehension", "inference", "passage"]):
-            pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_GRAMMAR_QUESTIONS
+            pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_POETRY_QUESTIONS + ENGLISH_SUPPLEMENTARY_QUESTIONS + ENGLISH_GRAMMAR_QUESTIONS
         else:
             # General or prose
             pool = ENGLISH_PROSE_QUESTIONS + ENGLISH_POETRY_QUESTIONS + ENGLISH_GRAMMAR_QUESTIONS
@@ -3595,10 +4004,11 @@ def match_curriculum_question(
     # Filter candidates by board, class, and unit relevance
     STOP_WORDS = {
         "unit", "chapter", "part", "class", "term", "section", "elements",
-        "principles", "concepts", "theory", "studies", "skills", "python", "with", "into", "from",
+        "studies", "skills", "python", "with", "into", "from",
         "compounds", "compound", "organic", "inorganic"
     }
     unit_matched_candidates = []
+    is_reading_comp = any(w in u_lower for w in ["reading", "comprehension", "inference", "passage"])
     for q in available_candidates:
         cand_unit = q.get("unit", "").lower()
         cand_kws = [w for w in cand_unit.split() if len(w) > 3 and w not in STOP_WORDS]
@@ -3609,9 +4019,10 @@ def match_curriculum_question(
             and ("poet" in u_lower or "poem" in u_lower)
         )
         is_prose_match = (
-            ("prose" in cand_unit or "literature" in cand_unit or "first flight" in cand_unit or "flamingo" in cand_unit)
-            and ("prose" in u_lower or "literature" in u_lower or "first flight" in u_lower or "flamingo" in u_lower or "reading" in u_lower or "comprehension" in u_lower)
+            ("prose" in cand_unit or "literature" in cand_unit or "first flight" in cand_unit or "flamingo" in cand_unit or "supplementary" in cand_unit or "footprints" in cand_unit or "vistas" in cand_unit)
+            and ("prose" in u_lower or "literature" in u_lower or "first flight" in u_lower or "flamingo" in u_lower or "reading" in u_lower or "comprehension" in u_lower or "supplementary" in u_lower)
         )
+        is_english_lit_comp = ("english" in s_lower) and is_reading_comp and any(w in cand_unit for w in ["prose", "poet", "poem", "supplementary", "first flight", "flamingo", "vistas", "footprints", "reader"])
         is_science = "science" in s_lower
         is_sci_physics_match = is_science and any(w in u_lower for w in ["physic", "motion", "optic", "light", "electri", "magnet", "sound"]) and any(w in cand_unit for w in ["optic", "light", "ray", "wave", "electr", "magnet", "current", "potential", "charge", "motion", "force"])
         is_sci_chem_match = is_science and any(w in u_lower for w in ["chem", "reaction", "acid", "base", "salt", "metal", "carbon", "compound", "periodic", "solution"]) and any(w in cand_unit for w in ["chem", "reaction", "solution", "electrochem", "kinetic", "organic", "halo", "acid", "amine", "carbon"])
@@ -3622,6 +4033,7 @@ def match_curriculum_question(
             or (any(w in u_lower for w in cand_kws) if cand_kws else False)
             or is_poetry_match
             or is_prose_match
+            or is_english_lit_comp
             or is_sci_physics_match
             or is_sci_chem_match
             or is_sci_bio_match
@@ -3653,7 +4065,7 @@ def match_curriculum_question(
         else:
             return -100  # Disallow conflicting board
 
-        if cand_class in (c_num, None):
+        if cand_class in (c_num, None) or ("science" in s_lower and c_num == 10 and cand_board in (b_norm, "COMMON")):
             score += 3
         else:
             return -100  # Disallow conflicting class
@@ -3665,8 +4077,10 @@ def match_curriculum_question(
                 score += 15
             elif c_bl in BLOOM_HIERARCHY and t_bl in BLOOM_HIERARCHY:
                 diff = abs(BLOOM_HIERARCHY[c_bl] - BLOOM_HIERARCHY[t_bl])
-                if diff == 1 and not (t_bl == "Remember" and BLOOM_HIERARCHY[c_bl] >= 4) and not (t_bl in ("Evaluate", "Create") and BLOOM_HIERARCHY[c_bl] <= 2):
-                    score += 5
+                if diff == 1 and not (t_bl == "Remember" and BLOOM_HIERARCHY[c_bl] >= 4) and not (t_bl in ("Evaluate", "Create") and BLOOM_HIERARCHY[c_bl] <= 4):
+                    score += 8
+                elif diff == 2 and not (t_bl == "Remember" and BLOOM_HIERARCHY[c_bl] >= 4) and not (t_bl in ("Evaluate", "Create") and BLOOM_HIERARCHY[c_bl] <= 4):
+                    score += 2
                 else:
                     return -100
             else:
@@ -4494,13 +4908,23 @@ def get_math_curriculum_question(
     if unexcluded:
         return random.choice(unexcluded)
 
-    # If all in requested bloom are excluded, check other bloom levels in the same category
-    all_cat: List[Dict[str, str]] = []
-    for pool in category_pools.values():
-        all_cat.extend(pool)
-    unex_all = [c for c in all_cat if normalize_text_for_comparison(c.get("q", "")) not in norm_excludes]
-    if unex_all:
-        return random.choice(unex_all)
+    # If all in requested bloom are excluded, check only compatible adjacent bloom levels in the same category
+    if b_key:
+        ADJACENT_MATH_BLOOMS = {
+            "Remember": ["Understand"],
+            "Understand": ["Apply", "Remember"],
+            "Apply": ["Understand", "Analyze"],
+            "Analyze": ["Apply", "Evaluate"],
+            "Evaluate": ["Analyze"],
+        }
+        compat_levels = ADJACENT_MATH_BLOOMS.get(b_key, [])
+        compat_candidates: List[Dict[str, str]] = []
+        for c_lvl in compat_levels:
+            if c_lvl in category_pools:
+                compat_candidates.extend(category_pools[c_lvl])
+        unex_compat = [c for c in compat_candidates if normalize_text_for_comparison(c.get("q", "")) not in norm_excludes]
+        if unex_compat:
+            return random.choice(unex_compat)
 
     # All questions in this category have been used; return None so caller handles exhaustion cleanly
     return None

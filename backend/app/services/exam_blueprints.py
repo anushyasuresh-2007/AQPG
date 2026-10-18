@@ -4,7 +4,8 @@ Authoritative board-specific examination blueprints and paper assembly validator
 for CBSE and Tamil Nadu State Board (TNSB) (Classes 10 & 12).
 """
 
-from typing import Dict, Any, List, Optional
+import math
+from typing import Dict, Any, List, Optional, Set, Tuple
 from dataclasses import dataclass, field
 
 
@@ -822,3 +823,173 @@ def build_custom_paper_blueprint(
         ],
         source_reference="Custom Examination Configuration",
     )
+
+
+def get_allowed_marks_for_format(
+    board: Optional[str] = None,
+    class_name: Optional[Any] = None,
+    subject_name: Optional[str] = None,
+    subject_code: Optional[str] = None,
+    max_marks_limit: Optional[int] = None,
+    is_custom_assessment: bool = False,
+) -> Tuple[int, int, Set[int]]:
+    """
+    Determine the supported (min_mark, max_mark, allowed_marks_set) for the given paper format.
+    Respects authoritative official blueprints where available.
+
+    In board-compliant mode (is_custom_assessment=False), requests cannot exceed official
+    board format limits. max_marks_limit may only be used to specify a stricter ceiling,
+    and attempting to exceed the official maximum raises a ValueError.
+
+    In explicit custom assessment mode (is_custom_assessment=True), caller-configured
+    max_marks_limit overrides board ceilings.
+    """
+    # 1. Determine official/standard blueprint boundaries
+    bp = get_exam_blueprint(
+        board_code=board or "CBSE",
+        class_number=class_name,
+        subject_code=subject_code,
+        subject_name=subject_name,
+    )
+    if bp and bp.sections:
+        section_marks = {int(math.ceil(s.marks_per_question)) for s in bp.sections if s.marks_per_question > 0}
+        if section_marks:
+            max_m = max(5, max(section_marks)) if (board or "CBSE").upper() in ("CBSE", "TNSB") else max(section_marks)
+            official_min, official_max = min(section_marks), max_m
+        else:
+            official_min, official_max = 1, 5
+    else:
+        # Paper-format rules when no exact blueprint is matched:
+        b_norm = (board or "CBSE").upper().strip()
+        c_str = str(class_name or "").lower()
+        is_class_10 = "10" in c_str or "x" in c_str
+
+        if b_norm == "TNSB" and is_class_10:
+            # TNSB SSLC Class 10 permits 8-mark questions (e.g. geometry, essay, map)
+            official_min, official_max = 1, 8
+        else:
+            sn_low = (subject_name or "").lower()
+            if any(w in sn_low for w in ["economic", "account", "business", "commerce"]):
+                official_min, official_max = 1, 6
+            elif any(w in sn_low for w in [
+                "math", "science", "physics", "chemistry", "biology", "english",
+                "social", "history", "geography", "civics", "political", "tamil", "hindi",
+                "computer", "informatics", "cs"
+            ]):
+                official_min, official_max = 1, 6
+            else:
+                # Custom/unconstrained subjects without blueprint default to 10
+                official_min, official_max = 1, 10
+
+    # 2. Handle custom-assessment mode vs board-compliant mode
+    b_is_custom = (board or "").strip().upper() in ("CUSTOM", "OTHER")
+    if is_custom_assessment or b_is_custom:
+        # Custom-assessment mode: caller can configure any custom marks limit >= 1
+        if max_marks_limit is not None and max_marks_limit >= 1:
+            eff_min = min(1, official_min)
+            return eff_min, max_marks_limit, set(range(eff_min, max_marks_limit + 1))
+        return 1, 10, set(range(1, 11))
+
+    # 3. Board-compliant mode: official board format limits are strictly enforced
+    if max_marks_limit is not None and max_marks_limit >= 1:
+        if max_marks_limit > official_max:
+            format_name = f"{board or 'CBSE'} {class_name or ''} {subject_name or ''}".strip()
+            raise ValueError(
+                f"Requested max_marks_per_question ({max_marks_limit}) exceeds official {format_name} "
+                f"limit ({official_max} marks). Board-compliant assessments cannot exceed official format limits. "
+                f"Specify assessment_mode='custom' or is_custom_assessment=true to enable custom assessment overrides."
+            )
+        # Stricter ceiling allowed (e.g. quiz with max 3 marks under CBSE format)
+        effective_max = min(max_marks_limit, official_max)
+        return official_min, effective_max, set(range(official_min, effective_max + 1))
+
+    return official_min, official_max, set(range(official_min, official_max + 1))
+
+
+def validate_paper_allocation_feasibility(
+    total_marks: int,
+    bloom_distribution: Dict[str, int],
+    number_of_questions: Optional[int] = None,
+    min_allowed_mark: int = 1,
+    max_allowed_mark: int = 6,
+    format_description: str = "supported paper format",
+) -> None:
+    """
+    Validate that total_marks, number_of_questions, Bloom distribution, and allowed marks per question
+    form a feasible mathematical and pedagogical combination.
+    Raises ValueError with a clear explanation if the combination is impossible.
+    """
+    if total_marks < 1:
+        raise ValueError("total_marks must be at least 1")
+
+    if not bloom_distribution:
+        raise ValueError("bloom_distribution is required")
+
+    active_blooms = {k: v for k, v in bloom_distribution.items() if v > 0}
+    if sum(active_blooms.values()) != 100:
+        raise ValueError("Bloom distribution percentages must total 100")
+
+    if number_of_questions is None:
+        return
+
+    if number_of_questions < 1:
+        raise ValueError("number_of_questions must be at least 1")
+
+    # Overall marks boundaries
+    min_possible_marks = number_of_questions * min_allowed_mark
+    max_possible_marks = number_of_questions * max_allowed_mark
+
+    if total_marks < min_possible_marks:
+        raise ValueError(
+            f"Impossible allocation: total_marks ({total_marks}) is less than the minimum required "
+            f"({min_possible_marks} marks) for {number_of_questions} questions "
+            f"(minimum {min_allowed_mark} mark per question in {format_description})."
+        )
+
+    if total_marks > max_possible_marks:
+        raise ValueError(
+            f"Impossible allocation: {total_marks} marks across {number_of_questions} questions exceeds the maximum "
+            f"possible ({max_possible_marks} marks) for {format_description} "
+            f"(maximum {max_allowed_mark} marks per question)."
+        )
+
+    # Per-Bloom distribution boundaries
+    sum_pct = sum(active_blooms.values())
+    raw_targets = []
+    for b_name, pct in active_blooms.items():
+        norm_pct = round((pct / sum_pct) * 100)
+        raw_m = (norm_pct / 100.0) * total_marks
+        int_m = int(raw_m)
+        rem_m = raw_m - int_m
+        raw_targets.append({"name": b_name, "marks": int_m, "rem": rem_m})
+
+    shortage = total_marks - sum(t["marks"] for t in raw_targets)
+    if shortage > 0:
+        raw_targets.sort(key=lambda x: x["rem"], reverse=True)
+        for i in range(shortage):
+            raw_targets[i % len(raw_targets)]["marks"] += 1
+
+    active_with_marks = [t for t in raw_targets if t["marks"] > 0]
+    num_active_levels = len(active_with_marks)
+
+    if number_of_questions < num_active_levels:
+        raise ValueError(
+            f"Impossible allocation: {number_of_questions} questions cannot satisfy {num_active_levels} "
+            f"distinct Bloom taxonomy levels with non-zero allocation."
+        )
+
+    min_questions_needed = sum(math.ceil(t["marks"] / max_allowed_mark) for t in active_with_marks)
+    max_questions_allowed = sum(t["marks"] // min_allowed_mark for t in active_with_marks)
+
+    if number_of_questions < min_questions_needed:
+        raise ValueError(
+            f"Impossible allocation: {number_of_questions} questions cannot satisfy the requested Bloom distribution "
+            f"for {total_marks} marks under the format's limit of {max_allowed_mark} marks per question. "
+            f"At least {min_questions_needed} questions are required."
+        )
+
+    if number_of_questions > max_questions_allowed:
+        raise ValueError(
+            f"Impossible allocation: {number_of_questions} questions exceeds the maximum question count "
+            f"({max_questions_allowed}) possible with {total_marks} marks (minimum {min_allowed_mark} mark per question)."
+        )
