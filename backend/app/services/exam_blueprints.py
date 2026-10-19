@@ -968,6 +968,7 @@ def validate_paper_allocation_feasibility(
     min_allowed_mark: int = 1,
     max_allowed_mark: int = 6,
     format_description: str = "supported paper format",
+    is_custom_assessment: bool = False,
 ) -> None:
     """
     Validate that total_marks, number_of_questions, Bloom distribution, and allowed marks per question
@@ -1033,10 +1034,30 @@ def validate_paper_allocation_feasibility(
             f"distinct Bloom taxonomy levels with non-zero allocation."
         )
 
-    min_questions_needed = sum(math.ceil(t["marks"] / max_allowed_mark) for t in active_with_marks)
+    # In standard board assessments, simple recall ('Remember') questions are strictly limited to
+    # at most 4 marks (MCQ, VSA, or SA). They cannot pedagogically receive 5 or more marks (Long Answer).
+    level_max_map = {}
+    for t in active_with_marks:
+        if t["name"].lower() == "remember" and not is_custom_assessment:
+            level_max_map[t["name"]] = min(max_allowed_mark, 4)
+        else:
+            level_max_map[t["name"]] = max_allowed_mark
+
+    min_questions_needed = sum(math.ceil(t["marks"] / level_max_map[t["name"]]) for t in active_with_marks)
     max_questions_allowed = sum(t["marks"] // min_allowed_mark for t in active_with_marks)
 
     if number_of_questions < min_questions_needed:
+        remember_target = next((t for t in active_with_marks if t["name"].lower() == "remember"), None)
+        standard_min = sum(math.ceil(t["marks"] / max_allowed_mark) for t in active_with_marks)
+        if remember_target and not is_custom_assessment and standard_min <= number_of_questions < min_questions_needed:
+            rem_m = remember_target["marks"]
+            raise ValueError(
+                f"Impossible allocation: {number_of_questions} questions cannot satisfy the requested Bloom distribution "
+                f"for {total_marks} marks. Foundational recall ('Remember') questions are allocated {rem_m} marks, "
+                f"which cannot be satisfied without assigning 5 marks to a recall question (maximum 4 marks in {format_description}). "
+                f"To resolve this conflict, please increase the question count to at least {min_questions_needed} questions, "
+                f"reduce total marks, or adjust the Bloom distribution to assign higher weights to analytical levels (Apply, Analyze, Evaluate)."
+            )
         raise ValueError(
             f"Impossible allocation: {number_of_questions} questions cannot satisfy the requested Bloom distribution "
             f"for {total_marks} marks under the format's limit of {max_allowed_mark} marks per question. "

@@ -179,7 +179,9 @@ def test_ai_paper_generation_largest_remainder_odd_distribution(client_and_db):
             "Understand": 33,
             "Apply": 34
         },
-        "use_ai": True
+        "use_ai": True,
+        "assessment_mode": "custom",
+        "max_marks_per_question": 10,
     }
 
     response = client.post("/api/v1/generate-paper", json=payload)

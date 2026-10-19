@@ -71,7 +71,7 @@ class OfflineFallbackProvider(BaseAIProvider):
                     marks=matched_pool_q.get("marks", marks),
                     difficulty=prompt.difficulty.lower(),
                     bloom=matched_pool_q.get("bloom", b_lvl),
-                    unit_name=prompt.unit_name,
+                    unit_name=matched_pool_q.get("unit") or prompt.unit_name,
                     topic_name=prompt.topic_name,
                 )
 

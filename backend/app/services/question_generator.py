@@ -452,6 +452,93 @@ def validate_unit_relevance(
         ]):
             return False
 
+    # 5. If subject is Commerce / Accountancy / Business Studies, enforce chapter-level isolation
+    if any(c in s_clean for c in ["account", "commerc", "business"]):
+        u_name_low = unit_name.lower()
+
+        # Partnership unit check
+        if any(p in u_name_low for p in ["partnership", "partner", "goodwill", "admission", "reconstitution", "dissolution"]):
+            if any(term in clean_q_lower for term in [
+                "forfeiture of", "equity shares", "preference shares", "debentures issued",
+                "calls in arrears", "calls in advance", "capital reserve and reserve capital",
+                "collateral security"
+            ]) and not any(term in clean_q_lower for term in ["partner", "partnership", "goodwill"]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "4 ps", "societal marketing", "consumer protection act", "quasi-judicial redressal",
+                "district commission", "state commission"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "henri fayol", "f.w. taylor", "scalar chain", "gang plank", "unity of command",
+                "principles of management", "esprit de corps", "span of management"
+            ]):
+                return False
+
+        # Company Accounts (Share Capital & Debentures) unit check
+        elif any(c in u_name_low for c in ["company", "companies", "share capital", "debenture"]):
+            if any(term in clean_q_lower for term in [
+                "partnership deed", "fixed capital method", "fluctuating capital method",
+                "interest on capital", "past adjustments", "guaranteed a minimum profit",
+                "admit c into partnership", "sacrificing ratio", "section 48 of the indian partnership"
+            ]) and not any(term in clean_q_lower for term in ["share", "debenture", "company"]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "4 ps", "societal marketing", "consumer protection", "quasi-judicial"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "henri fayol", "f.w. taylor", "scalar chain", "gang plank", "unity of command", "principles of management"
+            ]):
+                return False
+
+        # Management Principles / Functions unit check
+        elif any(m in u_name_low for m in ["nature and significance", "principles of management", "planning", "organizing", "staffing", "directing", "controlling"]):
+            if any(term in clean_q_lower for term in [
+                "4 ps", "societal marketing", "selling concept", "consumer protection", "quasi-judicial redressal"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "primary market and secondary market", "sebi", "stock exchange", "trading on equity", "capital structure"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "forfeiture of", "equity shares", "partnership deed", "balance sheet", "journal entry", "cash flow statement"
+            ]):
+                return False
+
+        # Marketing Management & Consumer Protection unit check
+        elif any(m in u_name_low for m in ["marketing", "consumer"]):
+            if any(term in clean_q_lower for term in [
+                "henri fayol", "f.w. taylor", "scalar chain", "gang plank", "division of work",
+                "unity of command", "esprit de corps", "functional structure", "recruitment", "maslow",
+                "span of management", "delegation of authority"
+            ]) and not any(term in clean_q_lower for term in ["marketing", "consumer"]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "primary market and secondary market", "sebi", "trading on equity", "capital structure"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "forfeiture of", "equity shares", "partnership deed", "balance sheet", "journal entry", "cash flow"
+            ]):
+                return False
+
+        # Financial Markets unit check
+        elif any(f in u_name_low for f in ["financial market", "capital market", "financial management"]):
+            if any(term in clean_q_lower for term in [
+                "4 ps", "societal marketing", "consumer protection", "quasi-judicial redressal"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "henri fayol", "f.w. taylor", "scalar chain", "division of work", "unity of command"
+            ]):
+                return False
+            if any(term in clean_q_lower for term in [
+                "partnership deed", "forfeiture of 500 equity shares", "reissue of equity shares"
+            ]):
+                return False
+
     # Explicit non-mathematics subjects (Computer Science, Physics, Chemistry, etc.) are never gated by math signatures
     if subject_name and not any(
         m in s_clean
@@ -768,6 +855,7 @@ def generate_question_paper(
         min_allowed_mark=min_allowed_mark,
         max_allowed_mark=max_allowed_mark,
         format_description=format_desc,
+        is_custom_assessment=is_custom,
     )
 
     selected_questions: List[Dict[str, Any]] = []
@@ -870,6 +958,7 @@ def generate_question_paper(
                         "question_type": q.question_type or "Short Answer",
                         "unit_id": q.unit_id,
                         "unit_name": unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name,
+                        "source_unit": unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name,
                         "topic_name": (u_topics[0] if u_topics else unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name),
                         "board": resolved_board,
                         "class_name": resolved_class,
@@ -907,6 +996,7 @@ def generate_question_paper(
                         "question_type": q.question_type or "Short Answer",
                         "unit_id": q.unit_id,
                         "unit_name": unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name,
+                        "source_unit": unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name,
                         "topic_name": (u_topics[0] if u_topics else unit_map.get(q.unit_id, Unit(unit_name="Unit")).unit_name),
                         "board": resolved_board,
                         "class_name": resolved_class,
@@ -972,7 +1062,13 @@ def generate_question_paper(
             # Distribute remaining_q_count among shortage targets respecting min and max question bounds
             import math
             min_q_per_target = {
-                s["bloom_obj"].level_name: max(1, math.ceil(s["missing_marks"] / max_allowed_mark))
+                s["bloom_obj"].level_name: max(
+                    1,
+                    math.ceil(
+                        s["missing_marks"]
+                        / (min(max_allowed_mark, 4) if not is_custom and s["bloom_obj"].level_name.lower() == "remember" else max_allowed_mark)
+                    ),
+                )
                 for s in shortages
             }
             max_q_per_target = {
@@ -1031,6 +1127,23 @@ def generate_question_paper(
                 base_m = rem_marks // target_bloom_q
                 rem_m = rem_marks % target_bloom_q
                 mark_splits = [base_m + (1 if i < rem_m else 0) for i in range(target_bloom_q)]
+            elif bloom_obj.level_name.lower() == "remember" and not is_custom:
+                # Foundational recall questions in board mode are capped at 4 marks (e.g. 4, 3, 2, 1)
+                mark_splits = []
+                curr_rem = rem_marks
+                while curr_rem > 0:
+                    if curr_rem >= 4:
+                        mark_splits.append(4)
+                        curr_rem -= 4
+                    elif curr_rem == 3:
+                        mark_splits.append(3)
+                        curr_rem -= 3
+                    elif curr_rem == 2:
+                        mark_splits.append(2)
+                        curr_rem -= 2
+                    elif curr_rem == 1:
+                        mark_splits.append(1)
+                        curr_rem -= 1
             else:
                 if max_allowed_mark <= 4:
                     # Decompose using allowed marks <= 4 (e.g. 4, 2, 1 for IT)
@@ -1093,6 +1206,12 @@ def generate_question_paper(
                         f"Unsupported marks-per-question value ({q_mark} marks) for {resolved_board} "
                         f"{resolved_class} {subject.subject_name}. Supported marks range is "
                         f"{min_allowed_mark} to {max_allowed_mark} marks."
+                    )
+                if bloom_obj.level_name.lower() == "remember" and q_mark >= 5 and not is_custom:
+                    raise ValueError(
+                        f"Pedagogical constraint violation: A foundational recall ('Remember') question cannot be assigned "
+                        f"{q_mark} marks in {format_desc}. Recall questions are limited to a maximum of 4 marks. "
+                        f"Please increase question count or adjust the Bloom distribution."
                     )
                 if q_mark >= 5 or (max_allowed_mark == 4 and q_mark == 4):
                     q_type = "Long Answer" if "math" not in subject.subject_name.lower() else "Numerical"
@@ -1202,6 +1321,26 @@ def generate_question_paper(
                                 attempt_excludes.append(q_text)
                                 continue
 
+                            # Validate candidate intrinsic unit alignment with candidate slot
+                            cand_source_unit = getattr(candidate, "unit_name", None)
+                            if cand_source_unit and any(c in subject.subject_name.lower() for c in ["account", "commerc", "business"]):
+                                from app.services.ai.curriculum_pools import _match_commerce_unit
+                                # Candidate must align with the target candidate slot
+                                if not _match_commerce_unit(cand_source_unit, cand_unit.unit_name):
+                                    attempt_excludes.append(q_text)
+                                    continue
+                                # In multi-unit requests, candidate must not be a cross-unit match belonging to another selected unit
+                                if len(available_units) > 1:
+                                    is_unit_conflict = False
+                                    for other_unit in available_units:
+                                        if other_unit.id != cand_unit.id:
+                                            if _match_commerce_unit(cand_source_unit, other_unit.unit_name) and not _match_commerce_unit(cand_source_unit, cand_unit.unit_name):
+                                                is_unit_conflict = True
+                                                break
+                                    if is_unit_conflict:
+                                        attempt_excludes.append(q_text)
+                                        continue
+
                             gen_res = candidate
                             gen_res.question_text = q_text
                             used_question_hashes.add(q_h)
@@ -1277,6 +1416,7 @@ def generate_question_paper(
                     "question_type": final_q.question_type or q_type,
                     "unit_id": assigned_unit.id,
                     "unit_name": assigned_unit.unit_name,
+                    "source_unit": getattr(gen_res, "unit_name", None) or assigned_unit.unit_name,
                     "topic_name": prompt.topic_name or ((unit_curriculum_context.get(assigned_unit.id, {}).get("topics") or [assigned_unit.unit_name])[0]),
                     "board": resolved_board,
                     "class_name": resolved_class,

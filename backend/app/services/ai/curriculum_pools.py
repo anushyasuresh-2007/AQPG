@@ -4143,6 +4143,83 @@ def normalize_text_for_comparison(text: str) -> str:
     return " ".join(text.split())
 
 
+def _match_commerce_unit(cand_unit: str, u_lower: str) -> bool:
+    """Distinctive chapter-specific anchor matching for Commerce, Accountancy, and Business Studies.
+
+    Prevents cross-unit question attribution between distinct chapters such as:
+    - Partnership vs Company Accounts (Share Capital / Debentures)
+    - Principles/Functions of Management vs Marketing Management vs Financial Markets
+    - Financial Statement Analysis / Cash Flow vs Incomplete Records / NPO
+    """
+    c_low = cand_unit.lower().strip()
+    u_low = u_lower.lower().strip()
+
+    # 1. Partnership Firms (Fundamentals, Goodwill, Admission, Retirement, Dissolution)
+    if any(p in c_low for p in ["partnership", "partner", "goodwill", "admission"]):
+        return any(w in u_low for w in [
+            "partnership", "partner", "goodwill", "admission",
+            "reconstitution", "dissolution", "sacrificing", "realisation"
+        ])
+
+    # 2. Company Accounts (Share Capital, Debentures, Forfeiture, Reissue)
+    if any(s in c_low for s in ["share capital", "debenture", "company", "shares"]):
+        if any(w in u_low for w in ["partnership", "partner", "goodwill", "admission", "reconstitution", "dissolution"]):
+            return False
+        return any(w in u_low for w in [
+            "share", "shares", "capital", "debenture", "debentures",
+            "company", "companies", "forfeiture"
+        ])
+
+    # 3. Analysis of Financial Statements & Cash Flow Statements
+    if any(f in c_low for f in ["financial statement", "cash flow", "ratio"]):
+        if any(w in u_low for w in ["partnership", "partner", "share capital", "debenture", "company"]):
+            return False
+        return any(w in u_low for w in [
+            "financial statement", "financial statements", "cash flow",
+            "ratio", "ratios", "analysis of financial", "comparative", "common size"
+        ])
+
+    # 4. Accounts of Not-for-Profit Organisations & Incomplete Records
+    if any(n in c_low for n in ["not-for-profit", "incomplete records", "single entry"]):
+        return any(w in u_low for w in [
+            "not-for-profit", "npo", "incomplete records", "single entry",
+            "statement of affairs", "receipts and payments"
+        ])
+
+    # 5. Marketing Management & Consumer Protection
+    if "marketing" in c_low or "consumer" in c_low:
+        if any(w in u_low for w in ["principles of management", "nature and significance", "principles and functions", "business environment", "planning and organizing", "staffing", "directing", "controlling"]) and not any(w in u_low for w in ["marketing", "consumer"]):
+            return False
+        return any(w in u_low for w in ["marketing", "consumer", "consumer protection", "4 ps", "societal marketing", "redressal"])
+
+    # 6. Financial Markets & Financial Management
+    if any(m in c_low for m in ["financial market", "capital market", "financial markets"]):
+        if any(w in u_low for w in ["marketing", "consumer"]):
+            return False
+        if any(w in u_low for w in ["principles of management", "nature and significance", "planning and organizing"]) and not any(w in u_low for w in ["financial market", "capital market", "financial management"]):
+            return False
+        return any(w in u_low for w in [
+            "financial market", "financial markets", "capital market", "capital markets",
+            "financial management", "stock exchange", "sebi", "money market", "trading on equity"
+        ])
+
+    # 7. Principles and Functions of Management (Nature & Significance, Principles, Planning, Organizing, Staffing, Directing, Controlling)
+    if any(m in c_low for m in ["principles and functions", "principles of management", "functions of management", "principles"]):
+        if any(w in u_low for w in ["marketing", "consumer", "financial market", "capital market", "financial management", "partnership", "partner", "share capital", "debenture", "company"]):
+            if not any(w in u_low for w in ["principles", "functions", "nature", "significance", "planning", "organizing", "staffing", "directing", "controlling"]):
+                return False
+        return any(w in u_low for w in [
+            "nature and significance", "nature", "significance",
+            "principles of management", "principles", "business environment",
+            "planning", "organizing", "organising", "staffing", "directing", "controlling",
+            "delegation", "decentralization", "decentralisation", "fayol", "taylor",
+            "scalar chain", "division of work", "scientific management", "esprit de corps",
+            "unity of command", "management by exception", "management"
+        ])
+
+    return False
+
+
 def match_curriculum_question(
     board: str,
     class_name: str,
@@ -4290,10 +4367,12 @@ def match_curriculum_question(
     STOP_WORDS = {
         "unit", "chapter", "part", "class", "term", "section", "elements",
         "studies", "skills", "python", "with", "into", "from",
-        "compounds", "compound", "organic", "inorganic"
+        "compounds", "compound", "organic", "inorganic",
+        "accounting", "management"
     }
     unit_matched_candidates = []
     is_reading_comp = any(w in u_lower for w in ["reading", "comprehension", "inference", "passage"])
+    is_commerce = any(w in s_lower for w in ["account", "commerc", "business"])
     for q in available_candidates:
         cand_unit = q.get("unit", "").lower()
         cand_kws = [w for w in cand_unit.split() if len(w) > 3 and w not in STOP_WORDS]
@@ -4312,25 +4391,29 @@ def match_curriculum_question(
         is_sci_physics_match = is_science and any(w in u_lower for w in ["physic", "motion", "optic", "light", "electri", "magnet", "sound"]) and any(w in cand_unit for w in ["optic", "light", "ray", "wave", "electr", "magnet", "current", "potential", "charge", "motion", "force"])
         is_sci_chem_match = is_science and any(w in u_lower for w in ["chem", "reaction", "acid", "base", "salt", "metal", "carbon", "compound", "periodic", "solution"]) and any(w in cand_unit for w in ["chem", "reaction", "solution", "electrochem", "kinetic", "organic", "halo", "acid", "amine", "carbon"])
         is_sci_bio_match = is_science and any(w in u_lower for w in ["bio", "life", "cell", "reproduction", "heredity", "plant", "organism", "ecol", "environ"]) and any(w in cand_unit for w in ["reproduction", "genetics", "inherit", "evolut", "health", "biotech", "organism", "population", "ecosystem"])
-        is_u_match = (
-            (cand_unit in u_lower)
-            or (u_lower in cand_unit)
-            or (any(w in u_lower for w in cand_kws) if cand_kws else False)
-            or is_poetry_match
-            or is_prose_match
-            or is_english_lit_comp
-            or is_sci_physics_match
-            or is_sci_chem_match
-            or is_sci_bio_match
-            or (is_cs and any(w in u_lower for w in ["array", "list", "tree", "graph", "stack", "queue", "data structure", "oop", "computational thinking"]))
-            or (is_cs and "unit 1" in u_lower and "problem solving" in cand_unit)
-            or (is_cs and "unit 2" in u_lower and "core" in cand_unit)
-            or (is_cs and "unit 3" in u_lower and "object oriented" in cand_unit)
-            or (is_cs and "unit 4" in u_lower and "database" in cand_unit)
-            or (is_cs and "unit 5" in u_lower and "mysql" in cand_unit)
-            or (is_chem and "biomolecule" in u_lower and "biomolecule" in cand_unit)
-            or (is_chem and ("unit 10" in u_lower or "unit 8" in u_lower) and "biomolecule" in cand_unit)
-        )
+
+        if is_commerce:
+            is_u_match = _match_commerce_unit(cand_unit, u_lower) or (cand_unit == u_lower)
+        else:
+            is_u_match = (
+                (cand_unit in u_lower)
+                or (u_lower in cand_unit)
+                or (any(w in u_lower for w in cand_kws) if cand_kws else False)
+                or is_poetry_match
+                or is_prose_match
+                or is_english_lit_comp
+                or is_sci_physics_match
+                or is_sci_chem_match
+                or is_sci_bio_match
+                or (is_cs and any(w in u_lower for w in ["array", "list", "tree", "graph", "stack", "queue", "data structure", "oop", "computational thinking"]))
+                or (is_cs and "unit 1" in u_lower and "problem solving" in cand_unit)
+                or (is_cs and "unit 2" in u_lower and "core" in cand_unit)
+                or (is_cs and "unit 3" in u_lower and "object oriented" in cand_unit)
+                or (is_cs and "unit 4" in u_lower and "database" in cand_unit)
+                or (is_cs and "unit 5" in u_lower and "mysql" in cand_unit)
+                or (is_chem and "biomolecule" in u_lower and "biomolecule" in cand_unit)
+                or (is_chem and ("unit 10" in u_lower or "unit 8" in u_lower) and "biomolecule" in cand_unit)
+            )
         if cand_unit and is_u_match:
             unit_matched_candidates.append(q)
 

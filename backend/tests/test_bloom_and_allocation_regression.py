@@ -241,22 +241,86 @@ class TestQuestionCountAndMarkAllocationRegression:
     def test_impossible_allocation_bloom_partition_exceeds_format_marks(self):
         """When a Bloom target requires more questions than total allocated questions under format max marks."""
         # 20 marks total, 4 questions.
-        # Bloom: Remember 90% (18 marks), Understand 10% (2 marks).
+        # Bloom: Understand 90% (18 marks), Apply 10% (2 marks).
         # Max marks per question = 5.
-        # Remember (18 marks) requires at least ceil(18/5) = 4 questions!
-        # Understand (2 marks) requires at least ceil(2/5) = 1 question!
+        # Understand (18 marks) requires at least ceil(18/5) = 4 questions!
+        # Apply (2 marks) requires at least ceil(2/5) = 1 question!
         # Total questions needed is 4 + 1 = 5 questions!
         # Requested questions = 4 is less than the 5 required!
         with pytest.raises(ValueError) as excinfo:
             validate_paper_allocation_feasibility(
                 total_marks=20,
-                bloom_distribution={"Remember": 90, "Understand": 10},
+                bloom_distribution={"Understand": 90, "Apply": 10},
                 number_of_questions=4,
                 min_allowed_mark=1,
                 max_allowed_mark=5,
             )
         assert "cannot satisfy the requested Bloom distribution" in str(excinfo.value)
         assert "At least 5 questions are required" in str(excinfo.value)
+
+    def test_remember_cognitive_ceiling_conflict_in_board_mode(self):
+        """When 5 marks are assigned to Remember across 5 questions total, it fails because Remember <= 4 marks requires 2 questions."""
+        with pytest.raises(ValueError) as excinfo:
+            validate_paper_allocation_feasibility(
+                total_marks=25,
+                bloom_distribution={"Remember": 20, "Understand": 20, "Apply": 20, "Analyze": 20, "Evaluate": 20},
+                number_of_questions=5,
+                min_allowed_mark=1,
+                max_allowed_mark=5,
+                format_description="CBSE Class 10 Science format",
+                is_custom_assessment=False,
+            )
+        err = str(excinfo.value)
+        assert "Foundational recall ('Remember') questions are allocated 5 marks" in err
+        assert "cannot be satisfied without assigning 5 marks to a recall question" in err
+        assert "increase the question count to at least 6 questions" in err
+
+    def test_remember_cognitive_ceiling_allowed_in_custom_mode(self):
+        """In custom assessment mode, recall questions can take higher marks up to max_allowed_mark."""
+        # In custom mode, max_allowed_mark is 5, so 5 marks across 5 questions (1 per level) is valid.
+        validate_paper_allocation_feasibility(
+            total_marks=25,
+            bloom_distribution={"Remember": 20, "Understand": 20, "Apply": 20, "Analyze": 20, "Evaluate": 20},
+            number_of_questions=5,
+            min_allowed_mark=1,
+            max_allowed_mark=5,
+            format_description="Custom Class 10 Science format",
+            is_custom_assessment=True,
+        )
+
+    def test_generate_paper_api_rejects_remember_cognitive_ceiling_conflict(self, client_and_test_db):
+        """API returns HTTP 400 with actionable error when Remember ceiling is violated in board mode."""
+        client, SessionLocal = client_and_test_db
+        db = SessionLocal()
+        sub = Subject(subject_name="Science", class_name="Class 10", board="CBSE")
+        db.add(sub)
+        db.flush()
+        u = Unit(subject_id=sub.id, unit_name="Chemical Reactions and Equations", unit_number=1)
+        b_rem = Bloom(level_name="Remember")
+        b_und = Bloom(level_name="Understand")
+        b_app = Bloom(level_name="Apply")
+        b_ana = Bloom(level_name="Analyze")
+        b_eva = Bloom(level_name="Evaluate")
+        db.add_all([u, b_rem, b_und, b_app, b_ana, b_eva])
+        db.commit()
+        sub_id = sub.id
+        u_id = u.id
+        db.close()
+
+        payload = {
+            "subject_id": sub_id,
+            "units": [u_id],
+            "total_marks": 25,
+            "number_of_questions": 5,
+            "bloom_distribution": {"Remember": 20, "Understand": 20, "Apply": 20, "Analyze": 20, "Evaluate": 20},
+            "source_mode": "ai",
+            "assessment_mode": "board",
+        }
+        res = client.post("/api/v1/generate-paper", json=payload)
+        assert res.status_code == 400
+        detail = res.json()["detail"]
+        assert "Foundational recall ('Remember') questions are allocated 5 marks" in detail
+        assert "increase the question count to at least 6 questions" in detail
 
     def test_format_rule_distinguishes_cbse_5_marks_vs_tnsb_8_marks(self):
         """Format rules distinguish CBSE (max 5) vs TNSB Class 10 (max 8) without universal hardcoding."""
@@ -278,7 +342,7 @@ class TestQuestionCountAndMarkAllocationRegression:
         # In TNSB 10 (max 8): 2 * 8 = 16 marks is feasible!
         validate_paper_allocation_feasibility(
             total_marks=16,
-            bloom_distribution={"Remember": 50, "Understand": 50},
+            bloom_distribution={"Understand": 50, "Apply": 50},
             number_of_questions=2,
             min_allowed_mark=min_tnsb,
             max_allowed_mark=max_tnsb,
@@ -288,7 +352,7 @@ class TestQuestionCountAndMarkAllocationRegression:
         with pytest.raises(ValueError):
             validate_paper_allocation_feasibility(
                 total_marks=16,
-                bloom_distribution={"Remember": 50, "Understand": 50},
+                bloom_distribution={"Understand": 50, "Apply": 50},
                 number_of_questions=2,
                 min_allowed_mark=min_cbse,
                 max_allowed_mark=max_cbse,
