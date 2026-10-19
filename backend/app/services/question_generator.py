@@ -656,6 +656,41 @@ def generate_question_paper(
 
     # Load syllabus units
     available_units = db.query(Unit).filter(Unit.subject_id == subject_id).all()
+    if not available_units:
+        # Context-dependent unambiguous alias resolution for Commerce on CBSE Class 11/12
+        sub_name_clean = (subject.subject_name or "").strip().lower()
+        is_cbse = resolved_board.upper() in ("CBSE", "ALL INDIA", "CENTRAL BOARD OF SECONDARY EDUCATION")
+        c_str = str(resolved_class or "").lower()
+        if "11" in c_str or (("xi" in c_str) and ("xii" not in c_str)):
+            c_num = 11
+            roman_class = "XI"
+        elif "12" in c_str or "xii" in c_str:
+            c_num = 12
+            roman_class = "XII"
+        elif "10" in c_str or "x" in c_str:
+            c_num = 10
+            roman_class = "X"
+        else:
+            c_num = 12
+            roman_class = "XII"
+
+        if is_cbse and c_num in (11, 12) and sub_name_clean in ("commerce", "com", "commerce (business studies)"):
+            allowed_classes = [str(c_num), f"Class {c_num}", f"Class {roman_class}", roman_class]
+            companion_sub = (
+                db.query(Subject)
+                .filter(
+                    Subject.board == "CBSE",
+                    Subject.subject_name == "Business Studies",
+                    Subject.class_name.in_(allowed_classes),
+                )
+                .first()
+            )
+            if companion_sub:
+                available_units = db.query(Unit).filter(Unit.subject_id == companion_sub.id).all()
+
+    if not available_units:
+        raise ValueError(f"Subject '{subject.subject_name}' has no syllabus units configured. Please configure or synchronize official curriculum units before generating a question paper.")
+
     unit_map = {u.id: u for u in available_units}
 
     if selected_units:
@@ -664,7 +699,6 @@ def generate_question_paper(
             raise ValueError("Selected units are invalid or do not belong to the selected subject")
     else:
         unit_ids_to_use = [u.id for u in available_units]
-
 
     unit_names_list = [unit_map[uid].unit_name for uid in unit_ids_to_use if uid in unit_map]
     unit_names_str = ", ".join(unit_names_list) if unit_names_list else "All Syllabus Units"
@@ -892,9 +926,15 @@ def generate_question_paper(
                     "missing_marks": missing_marks,
                 })
 
-        # If legacy call without AI enabled and shortages exist
+        # If call in bank-only mode and shortages exist
         if shortages and use_ai is not True and source_mode == "bank":
-            raise ValueError(f"Insufficient approved questions in question bank for {subject.subject_name}")
+            approved_count = len(raw_eligible_questions) if "raw_eligible_questions" in locals() else 0
+            raise ValueError(
+                f"Insufficient approved questions in question bank for {subject.subject_name} "
+                f"({approved_count} approved question(s) found in selected units). "
+                f"Question Bank mode requires pre-approved questions. "
+                f"Please approve drafted questions in Question Bank Management or select Hybrid mode ('hybrid') / AI mode to synthesize curriculum-grounded questions."
+            )
 
     # =========================================================================
     # STEP 2: AI SYNTHESIS FOR SHORTAGES (Hybrid or Full AI mode)
@@ -908,7 +948,13 @@ def generate_question_paper(
 
     if shortages:
         if use_ai is False:
-            raise ValueError(f"Insufficient approved questions in question bank for {subject.subject_name}")
+            approved_count = len(raw_eligible_questions) if "raw_eligible_questions" in locals() else 0
+            raise ValueError(
+                f"Insufficient approved questions in question bank for {subject.subject_name} "
+                f"({approved_count} approved question(s) found in selected units). "
+                f"Question Bank mode requires pre-approved questions. "
+                f"Please approve drafted questions in Question Bank Management or select Hybrid mode ('hybrid') / AI mode to synthesize curriculum-grounded questions."
+            )
 
         ai_generator = get_ai_generator()
         unit_cycle = 0
@@ -986,38 +1032,59 @@ def generate_question_paper(
                 rem_m = rem_marks % target_bloom_q
                 mark_splits = [base_m + (1 if i < rem_m else 0) for i in range(target_bloom_q)]
             else:
-                # Standard secondary board decomposition (marks strictly 1 to 5)
-                mark_splits = []
-                curr_rem = rem_marks
-                while curr_rem > 0:
-                    if curr_rem >= 5:
-                        if curr_rem == 6:
-                            mark_splits.extend([3, 3])
-                            curr_rem -= 6
-                        elif curr_rem == 7:
-                            mark_splits.extend([4, 3])
-                            curr_rem -= 7
-                        elif curr_rem == 8:
-                            mark_splits.extend([5, 3])
-                            curr_rem -= 8
-                        elif curr_rem == 9:
-                            mark_splits.extend([5, 4])
-                            curr_rem -= 9
-                        else:
-                            mark_splits.append(5)
-                            curr_rem -= 5
-                    elif curr_rem == 4:
-                        mark_splits.append(4)
-                        curr_rem -= 4
-                    elif curr_rem == 3:
-                        mark_splits.append(3)
-                        curr_rem -= 3
-                    elif curr_rem == 2:
-                        mark_splits.append(2)
-                        curr_rem -= 2
-                    elif curr_rem == 1:
-                        mark_splits.append(1)
-                        curr_rem -= 1
+                if max_allowed_mark <= 4:
+                    # Decompose using allowed marks <= 4 (e.g. 4, 2, 1 for IT)
+                    mark_splits = []
+                    curr_rem = rem_marks
+                    while curr_rem > 0:
+                        if curr_rem >= 4:
+                            mark_splits.append(4)
+                            curr_rem -= 4
+                        elif curr_rem == 3:
+                            if 2 in allowed_marks and 1 in allowed_marks:
+                                mark_splits.extend([2, 1])
+                            else:
+                                mark_splits.append(3)
+                            curr_rem -= 3
+                        elif curr_rem == 2:
+                            mark_splits.append(2)
+                            curr_rem -= 2
+                        elif curr_rem == 1:
+                            mark_splits.append(1)
+                            curr_rem -= 1
+                else:
+                    # Standard secondary board decomposition (marks strictly 1 to 5)
+                    mark_splits = []
+                    curr_rem = rem_marks
+                    while curr_rem > 0:
+                        if curr_rem >= 5:
+                            if curr_rem == 6:
+                                mark_splits.extend([3, 3])
+                                curr_rem -= 6
+                            elif curr_rem == 7:
+                                mark_splits.extend([4, 3])
+                                curr_rem -= 7
+                            elif curr_rem == 8:
+                                mark_splits.extend([5, 3])
+                                curr_rem -= 8
+                            elif curr_rem == 9:
+                                mark_splits.extend([5, 4])
+                                curr_rem -= 9
+                            else:
+                                mark_splits.append(5)
+                                curr_rem -= 5
+                        elif curr_rem == 4:
+                            mark_splits.append(4)
+                            curr_rem -= 4
+                        elif curr_rem == 3:
+                            mark_splits.append(3)
+                            curr_rem -= 3
+                        elif curr_rem == 2:
+                            mark_splits.append(2)
+                            curr_rem -= 2
+                        elif curr_rem == 1:
+                            mark_splits.append(1)
+                            curr_rem -= 1
             mark_splits = [m for m in mark_splits if m > 0]
 
             for q_mark in mark_splits:
@@ -1027,9 +1094,9 @@ def generate_question_paper(
                         f"{resolved_class} {subject.subject_name}. Supported marks range is "
                         f"{min_allowed_mark} to {max_allowed_mark} marks."
                     )
-                if q_mark >= 5:
+                if q_mark >= 5 or (max_allowed_mark == 4 and q_mark == 4):
                     q_type = "Long Answer" if "math" not in subject.subject_name.lower() else "Numerical"
-                elif q_mark >= 3:
+                elif q_mark >= 3 or (max_allowed_mark == 4 and q_mark == 2):
                     q_type = "Short Answer" if "math" not in subject.subject_name.lower() else "Numerical"
                 elif q_mark == 2:
                     q_type = "Very Short Answer"

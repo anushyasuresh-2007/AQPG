@@ -292,23 +292,42 @@ def fetch_syllabus_units(board: str, class_name: str, subject_name: str) -> list
             return ["Chemical Reactions and Equations", "Acids, Bases and Salts", "Metals and Non-metals", "Carbon and its Compounds", "Life Processes", "Control and Coordination"]
 
         b_upper = (board or "").upper()
+        s_clean = (subject_name or "").strip().lower()
+        c_str = str(class_name or "").lower()
+        if "11" in c_str or (("xi" in c_str) and ("xii" not in c_str)):
+            c_num = 11
+        elif "12" in c_str or "xii" in c_str:
+            c_num = 12
+        elif "10" in c_str or "x" in c_str:
+            c_num = 10
+        else:
+            c_num = 12
+
         if "TN" in b_upper:
             try:
                 from app.services.curriculum.tn_board_importer import TamilNaduBoardImporter
-                c_num = 12 if ("12" in str(class_name) or "xii" in str(class_name).lower()) else 10
                 curriculum = TamilNaduBoardImporter().fetch_curriculum(target_classes=[c_num])
                 for sub in curriculum.subjects:
-                    if sub.subject_name.lower() in subject_name.lower() or subject_name.lower() in sub.subject_name.lower():
+                    if sub.subject_name.lower() == s_clean or sub.subject_name.lower() in s_clean or s_clean in sub.subject_name.lower():
                         return [u.unit_name for u in sub.units]
             except Exception:
                 pass
         else:
             try:
                 from app.services.curriculum.cbse_importer import CBSEImporter
-                c_num = 12 if ("12" in str(class_name) or "xii" in str(class_name).lower()) else 10
+                from app.services.exam_blueprints import _are_subjects_compatible
                 curriculum = CBSEImporter().fetch_curriculum(target_classes=[c_num])
+                target_sub_name = subject_name
+                # Unambiguous Commerce alias resolution for CBSE Senior Secondary (Class 11/12)
+                if c_num in (11, 12) and s_clean in ("commerce", "com", "commerce (business studies)"):
+                    target_sub_name = "Business Studies"
+
                 for sub in curriculum.subjects:
-                    if sub.subject_name.lower() in subject_name.lower() or subject_name.lower() in sub.subject_name.lower():
+                    if sub.subject_name.lower() == target_sub_name.lower():
+                        return [u.unit_name for u in sub.units]
+                    if _are_subjects_compatible(sub.subject_name, target_sub_name):
+                        return [u.unit_name for u in sub.units]
+                    if sub.subject_name.lower() in target_sub_name.lower() or target_sub_name.lower() in sub.subject_name.lower():
                         return [u.unit_name for u in sub.units]
             except Exception:
                 pass

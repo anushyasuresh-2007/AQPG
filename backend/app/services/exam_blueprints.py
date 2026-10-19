@@ -144,6 +144,28 @@ OFFICIAL_BLUEPRINTS: Dict[str, ExamBlueprint] = {
         ],
         source_reference="CBSE Class X English Language and Literature Curriculum 2026-27",
     ),
+    "CBSE-10-402": ExamBlueprint(
+        board_code="CBSE",
+        class_number=10,
+        subject_code="402",
+        subject_name="Information Technology",
+        academic_year="2026-27",
+        total_marks=50,
+        duration_minutes=120,
+        sections=[
+            BlueprintSection("Section A: Objective Type", "Employability and Subject Skills (MCQ, Fill in blanks, Direct)", "Objective", 24, 1),
+            BlueprintSection("Section B: Short Answer", "Employability and Subject Specific Skills Short Answers", "Short Answer", 7, 2),
+            BlueprintSection("Section B: Long Answer", "Subject Specific Competency and Application Questions", "Long Answer", 3, 4),
+        ],
+        general_instructions=[
+            "Please read the instructions carefully.",
+            "This question paper consists of 21 questions in two sections: Section A & Section B.",
+            "Section A has Objective type questions (24 marks) with sub-questions of 1 mark each.",
+            "Section B has Subjective type questions (26 marks): Short Answer (2 marks) and Long Answer (4 marks).",
+            "Out of 21 questions, candidates must answer 15 questions in 2 hours.",
+        ],
+        source_reference="CBSE Department of Skill Education, Class X Information Technology (Subject Code 402) Blueprint 2026-27",
+    ),
 
     # -------------------------------------------------------------------------
     # CBSE CLASS 12 (Senior Secondary)
@@ -683,7 +705,7 @@ def get_exam_blueprint(
             c_num = 10
         elif b_norm == "CBSE" and clean_code in ("042", "043", "044", "083", "301"):
             c_num = 12
-        elif b_norm == "CBSE" and clean_code in ("086", "087", "184"):
+        elif b_norm == "CBSE" and clean_code in ("086", "087", "184", "402"):
             c_num = 10
         elif clean_code in ("003", "3", "03"):
             # Dual-use code: Class 10 Math vs Class 12 English
@@ -854,32 +876,64 @@ def get_allowed_marks_for_format(
     if bp and bp.sections:
         section_marks = {int(math.ceil(s.marks_per_question)) for s in bp.sections if s.marks_per_question > 0}
         if section_marks:
-            max_m = max(5, max(section_marks)) if (board or "CBSE").upper() in ("CBSE", "TNSB") else max(section_marks)
-            official_min, official_max = min(section_marks), max_m
+            official_min = min(section_marks)
+            official_max = max(section_marks)
+            allowed_base_set = set(section_marks)
         else:
             official_min, official_max = 1, 5
+            allowed_base_set = set(range(1, 6))
     else:
         # Paper-format rules when no exact blueprint is matched:
         b_norm = (board or "CBSE").upper().strip()
         c_str = str(class_name or "").lower()
         is_class_10 = "10" in c_str or "x" in c_str
 
-        if b_norm == "TNSB" and is_class_10:
+        # Safe whole-word and normalized alias matching
+        import re
+        sn_low = (subject_name or "").lower().strip()
+        words = set(re.findall(r"\b[a-z0-9]+\b", sn_low))
+        norm_sn = _normalize_subject_string(subject_name)
+        clean_code = (subject_code or "").strip().upper()
+
+        is_it_subject = (
+            "information technology" in norm_sn
+            or "it" in words
+            or clean_code in ("402", "IT")
+        )
+        is_cs_subject = (
+            "computer science" in norm_sn
+            or "computer" in words
+            or "cs" in words
+            or clean_code in ("083", "519", "019", "CS")
+        )
+
+        if b_norm == "CBSE" and is_class_10 and is_it_subject:
+            # Official CBSE Class 10 Information Technology (402) blueprint
+            official_min, official_max = 1, 4
+            allowed_base_set = {1, 2, 4}
+        elif b_norm == "TNSB" and is_class_10:
             # TNSB SSLC Class 10 permits 8-mark questions (e.g. geometry, essay, map)
             official_min, official_max = 1, 8
+            allowed_base_set = set(range(1, 9))
         else:
-            sn_low = (subject_name or "").lower()
             if any(w in sn_low for w in ["economic", "account", "business", "commerce"]):
                 official_min, official_max = 1, 6
-            elif any(w in sn_low for w in [
-                "math", "science", "physics", "chemistry", "biology", "english",
-                "social", "history", "geography", "civics", "political", "tamil", "hindi",
-                "computer", "informatics", "cs"
-            ]):
+                allowed_base_set = set(range(1, 7))
+            elif (
+                any(w in sn_low for w in [
+                    "math", "science", "physics", "chemistry", "biology", "english",
+                    "social", "history", "geography", "civics", "political", "tamil", "hindi",
+                    "informatics", "technology"
+                ])
+                or is_cs_subject
+                or is_it_subject
+            ):
                 official_min, official_max = 1, 6
+                allowed_base_set = set(range(1, 7))
             else:
                 # Custom/unconstrained subjects without blueprint default to 10
                 official_min, official_max = 1, 10
+                allowed_base_set = set(range(1, 11))
 
     # 2. Handle custom-assessment mode vs board-compliant mode
     b_is_custom = (board or "").strip().upper() in ("CUSTOM", "OTHER")
@@ -901,9 +955,10 @@ def get_allowed_marks_for_format(
             )
         # Stricter ceiling allowed (e.g. quiz with max 3 marks under CBSE format)
         effective_max = min(max_marks_limit, official_max)
-        return official_min, effective_max, set(range(official_min, effective_max + 1))
+        allowed_set = {m for m in allowed_base_set if m <= effective_max}
+        return official_min, effective_max, allowed_set
 
-    return official_min, official_max, set(range(official_min, official_max + 1))
+    return official_min, official_max, allowed_base_set
 
 
 def validate_paper_allocation_feasibility(

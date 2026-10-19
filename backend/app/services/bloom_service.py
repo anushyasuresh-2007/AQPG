@@ -69,9 +69,11 @@ def infer_bloom_level(question_text: str) -> str:
         create_patterns = [
             r"^(you are to\s+|please\s+)?write\s+(an?\s+)?(formal\s+|informal\s+|application\s+)?(letter|notice|report|speech|article|summary|analytical paragraph|dialogue|composition)\b",
             r"\bwrite\s+(an?\s+)?(formal\s+|informal\s+|application\s+)?(letter|notice|report|speech|article|summary|analytical paragraph|dialogue|composition)\s+(to|about|for|on|highlighting|complaining|inviting)\b",
-            r"\bdraft\s+(an?\s+)?(notice|poster|advertisement|invitation|reply)\b",
+            r"\bdraft\s+(an?\s+)?(formal\s+|informal\s+)?(notice|poster|advertisement|invitation|reply|job\s+application)\b",
             r"\b(compose|create)\s+(an?\s+)?(poem|paragraph|essay|story|dialogue)\b",
             r"\b(design|construct|formulate|devise|propose)\s+(an?\s+)?(new\s+)?(solution|model|system|circuit|experiment|algorithm|framework|plan)\b",
+            r"\b(respond\s+to\s+an?\s+advertisement|job\s+application\s+with\s+(a\s+)?(comprehensive\s+)?bio-data)\b",
+            r"^(as\s+the\s+[^,]+,\s*)?(write|draft)\s+(an?\s+)?(formal\s+|informal\s+|official\s+)?(speech|article|notice|report|letter|invitation)\b",
         ]
         if any(re.search(pat, q) for pat in create_patterns):
             return "Create"
@@ -82,13 +84,14 @@ def infer_bloom_level(question_text: str) -> str:
 
     # High-order: Evaluate (Critique, justification, assessing trade-offs, defending stand)
     eval_patterns = [
-        r"\bcritically\s+(evaluate|assess|examine|analyze|discuss)\b",
+        r"\bcritically\s+(evaluate|assess|examine|analyze|discuss|appraise)\b",
         r"\bevaluate\b",
         r"\bassess\b",
         r"\bjustify\s+(your|this|the|whether|why)\b",
         r"\bdo you agree\b",
         r"\bdiscuss\b.*\b(conflict|moral|dilemma|implications|vulnerability|trade-offs|themes?)\b",
         r"\b(critique|appraise|judge the merits|evaluate the advantages)\b",
+        r"\b(assess|evaluate)\s+(the\s+)?(strategic|economic|operational|pedagogical|ethical|environmental|practical|effectiveness|benefits|limitations|validity|impact|utility|feasibility|relevance|trade-offs?)\b",
     ]
     if any(re.search(pat, q) for pat in eval_patterns):
         return "Evaluate"

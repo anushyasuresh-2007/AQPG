@@ -40,6 +40,41 @@ ENGLISH_PROSE_QUESTIONS = [
         "a": "The Buddha asked Kisa Gotami to procure mustard seeds from a house where no one had died. When she could find no such house, she realized that death is common to all mortals and that grief and lamentation only increase pain rather than bringing peace of mind."
     },
     {
+        "board": "CBSE", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the transformation of Nelson Mandela from a frightened young man into a bold leader in 'Long Walk to Freedom'.",
+        "a": "Mandela's desire for the freedom of his people animated his life, transforming a law-abiding attorney into a bold freedom fighter willing to endure imprisonment and hardship to dismantle apartheid."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically assess the role of faith and courage in 'Two Stories about Flying', comparing the young seagull's fears with the pilot of the Dakota.",
+        "a": "Both stories illustrate that overcoming fear requires courage; while the seagull conquered hunger and self-doubt with parental guidance, the Dakota pilot demonstrated unshakeable faith navigating through blinding storm clouds."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Anne Frank's statement that 'paper has more patience than people' in 'The Diary of a Young Girl'.",
+        "a": "Anne felt isolated among superficial friends who lacked emotional depth, making her personal diary 'Kitty' the sole intimate confidante capable of absorbing her deepest confidences without judgment or betrayal."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the satirical critique of upper-class marital alliances presented by Anton Chekhov in 'The Proposal'.",
+        "a": "Chekhov satirizes the landed gentry who view marriage as a calculated commercial transaction of estates and pedigree rather than a romantic bond, illustrated by Lomov and Natalya squabbling over Oxen Meadows."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the role of parental motivation and tough love in Liam O'Flaherty's 'His First Flight'.",
+        "a": "The parents' refusal to feed the young seagull and the mother's deliberate temptation with fish forced the bird to abandon paralyzing fear and discover his innate flying capability."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the themes of moral redemption and restitution depicted in Satyajit Ray's short story 'The Attic'.",
+        "a": "Aditya's visit to the village attic to retrieve Sanyal's medal and return it along with monetary compensation demonstrated that conscience and remorse can overcome youthful selfishness and restore dignity."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the significance of the INSV Tarini circumnavigation in 'Empowered Women Navigating the World'.",
+        "a": "The historic voyage by an all-woman naval crew showcased technical competence, teamwork, and resilience under extreme maritime conditions, breaking gender stereotypes and inspiring self-reliance across the nation."
+    },
+    {
         "board": "TNSB", "class": 10, "unit": "Prose", "bloom": "Remember", "type": "Objective", "marks": 1,
         "q": "Name the author of the autobiographical short story 'The Night the Ghost Got In'.",
         "a": "James Grover Thurber."
@@ -73,8 +108,23 @@ ENGLISH_PROSE_QUESTIONS = [
     },
     {
         "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Contrast the lives of Saheb-e-Alam in Seemapuri and Mukesh in Firozabad in Anees Jung's 'Lost Spring'. How do their attitudes toward their destiny differ?",
+        "q": "Critically evaluate and contrast the lives of Saheb-e-Alam in Seemapuri and Mukesh in Firozabad in Anees Jung's 'Lost Spring'. How do their attitudes toward their destiny differ?",
         "a": "Saheb resigns himself to ragpicking and loses his freedom when he takes a tea stall job. In contrast, Mukesh dares to dream of breaking the vicious cycle of poverty and exploitation by declaring his ambition to become a motor mechanic."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the emotional and political significance of linguistic identity in Alphonse Daudet's 'The Last Lesson'.",
+        "a": "M. Hamel's speech reveals that an enslaved people holding fast to their language hold the key to their prison, showing that linguistic chauvinism imposed by conquerors destroys culture and collective identity."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess William Douglas's systematic triumph over hydrophobia in 'Deep Water' as a model of perseverance.",
+        "a": "Douglas engaged an instructor, practicing breathing, kicking, and swimming across miles in Lake Wentworth, illustrating Roosevelt's maxim that 'all we have to fear is fear itself'."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Mahatma Gandhi's strategy of civil disobedience during the Champaran episode in Louis Fischer's 'Indigo'.",
+        "a": "Gandhi combined peaceful defiance of unjust orders with meticulous factual documentation and grassroots social welfare, proving that moral truth and mass mobilization can defeat colonial exploitation."
     },
     {
         "board": "CBSE", "class": 12, "unit": "Prose", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
@@ -220,6 +270,41 @@ ENGLISH_POETRY_QUESTIONS = [
         "a": "Alliteration ('Has given my heart'). It signifies a sudden psychological shift from melancholy and regret to renewed optimism brought about by the gentle touch of nature."
     },
     {
+        "board": "CBSE", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Robert Frost's dual apocalyptic vision in 'Fire and Ice', assessing whether desire or hatred poses a greater threat to humanity.",
+        "a": "Frost equates fire with uncontrolled passion and greed, and ice with cold malice and indifference. He demonstrates that while both emotions are equally destructive, cold indifference is sufficient to end civilization."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the ethical critique of caging wild animals presented by Leslie Norris in 'A Tiger in the Zoo'.",
+        "a": "The poem contrasts the majestic grandeur of the tiger in his natural grassland habitat with the pathetic suppressed rage of his concrete cell, condemning human vanity for depriving wild beasts of their natural liberty."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the central epistemological lesson in John Berryman's 'The Ball Poem' regarding loss and maturity.",
+        "a": "The lost ball symbolizes childhood innocence and material possessions. Berryman emphasizes that every individual must learn the epistemology of loss, recognizing that grief is universal and personal responsibility is essential to adulthood."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the psychological tension between parental discipline and adolescent autonomy portrayed in Robin Klein's 'Amanda!'.",
+        "a": "Constant maternal nagging forces Amanda into imaginative reveries as a mermaid, orphan, and Rapunzel, showing that excessive authoritarian micro-management stifles personal freedom and fosters escapism."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Henry Van Dyke's philosophical outlook on life and adversity in the poem 'Life'.",
+        "a": "Van Dyke advocates living each day with cheerfulness and an unreluctant soul, embracing challenges as opportunities for growth and greeting the future with optimism without mourning the past."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess Rakhi Nariani Shirke's portrayal of modern womanhood in 'I am Every Woman'.",
+        "a": "The poem celebrates a woman's inner strength, resilience, and compassion, highlighting that her gentleness is not a weakness and warning that she will fiercely protect her dignity when tested."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Rudyard Kipling's warning on the limits of mechanical power in 'The Secret of the Machines'.",
+        "a": "While machines possess monumental physical capabilities, they lack moral judgment, love, and forgiveness; mishandling them leads to fatal catastrophe, reminding humanity that machines remain children of the human brain."
+    },
+    {
         "board": "TNSB", "class": 10, "unit": "Poetry", "bloom": "Remember", "type": "Objective", "marks": 1,
         "q": "Who wrote the inspirational poem 'Life' featuring the lines 'Let me but live my life from year to year'?",
         "a": "Henry Van Dyke."
@@ -248,6 +333,16 @@ ENGLISH_POETRY_QUESTIONS = [
         "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Evaluate", "type": "Short Answer", "marks": 3,
         "q": "In Pablo Neruda's 'Keeping Quiet', critically evaluate what the poet means by 'huge silence' and assess how it can heal human suffering.",
         "a": "The 'huge silence' represents a collective pause for introspection. It halts destructive activities (war, environmental exploitation) and allows humans to overcome the sadness of never understanding themselves and threatening themselves with death."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate John Keats's romantic philosophy of enduring joy in 'A Thing of Beauty'.",
+        "a": "Keats asserts that beauty is immortal, offering an eternal bower of peace and emotional solace that lifts the pall of despondency, sorrow, and earthly suffering from the human soul."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess Adrienne Rich's critique of patriarchal oppression in 'Aunt Jennifer's Tigers'.",
+        "a": "Aunt Jennifer's needlework tigers represent the fearless, proud vitality denied to her under the massive weight of Uncle's wedding band, proving that art survives as an enduring testimony of suppressed rebellion."
     },
     {
         "board": "CBSE", "class": 12, "unit": "Poetry", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
@@ -351,7 +446,7 @@ ENGLISH_POETRY_QUESTIONS = [
     },
     {
         "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "All the World's a Stage", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Examine Shakespeare's philosophy of human existence in 'All the World's a Stage' leading to the final stage of 'second childishness and mere oblivion'.",
+        "q": "Critically evaluate Shakespeare's philosophy of human existence in 'All the World's a Stage' leading to the final stage of 'second childishness and mere oblivion'.",
         "a": "Jaques in 'As You Like It' portrays life as a predetermined sequence of seven stages. Each human passes through helplessness, reckless ambition, social respectability, and physical decline, concluding in second childishness—sans teeth, sans eyes, sans taste, sans everything—underscoring universal transience and mortality."
     },
     {
@@ -426,7 +521,7 @@ ENGLISH_POETRY_QUESTIONS = [
     },
     {
         "board": "TNSB", "class": 12, "unit": "Poetry Appreciation", "topic": "Incident of the French Camp", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Analyze the themes of heroism, patriotic sacrifice, and emotional contrast in Robert Browning's 'Incident of the French Camp'.",
+        "q": "Critically evaluate the themes of heroism, patriotic sacrifice, and emotional contrast in Robert Browning's 'Incident of the French Camp'.",
         "a": "Browning highlights the sublime courage of a young soldier whose devotion to Napoleon elevates him above personal survival. Napoleon's calculating imperial ambitions are momentarily pierced by genuine sorrow as tears spring to his eyes, celebrating the supreme nobility of youthful self-sacrifice."
     },
 ]
@@ -443,6 +538,36 @@ ENGLISH_SUPPLEMENTARY_QUESTIONS = [
         "a": "Hari Singh remembered Anil's trusting nature, kindness, and genuine effort to teach him how to read, write, and add numbers. He realized that a life of respectability and literacy was far more valuable than a few hundred stolen rupees."
     },
     {
+        "board": "CBSE", "class": 10, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Mrs. Pumphrey's overindulgent affection for Tricki versus Dr. Herriot's pragmatic medical care in 'A Triumph of Surgery'.",
+        "a": "Mrs. Pumphrey's lavish pampering and overfeeding caused Tricki severe illness, whereas Dr. Herriot's strict diet, abundant water, and physical exercise restored the dog to health without medicinal intervention."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess how unconditional trust and moral education brought about a transformation in Hari Singh in Ruskin Bond's 'The Thief's Story'.",
+        "a": "Anil's decision to teach Hari reading, writing, and arithmetic provided a moral anchor far superior to immediate monetary gain, proving that respect and education are more powerful rehabilitative forces than punishment."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Griffin's misuse of scientific discovery in H.G. Wells' 'Footprints without Feet'.",
+        "a": "Griffin was a brilliant scientist whose discovery of invisibility could have benefited humanity, but his lawless, vengeful, and egoistic temper reduced him to a petty criminal and public menace."
+    },
+    {
+        "board": "CBSE", "class": 10, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the consequences of vanity and unrealistic social aspirations in Guy de Maupassant's 'The Necklace'.",
+        "a": "Mathilde Loisel's obsession with superficial aristocratic glamour led her to borrow the necklace, resulting in ten years of crushing labor and poverty to replace an ornament that was actually imitation paste."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Prospero's moral decision to choose forgiveness over vengeance in Shakespeare's 'The Tempest'.",
+        "a": "Prospero uses his magical art not to destroy his treacherous brother and the King of Naples, but to awaken their remorse, demonstrating that the rarer action is in virtue and reconciliation rather than vengeance."
+    },
+    {
+        "board": "TNSB", "class": 10, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the heroic sacrifice and filial devotion portrayed in 'The Story of Mulan'.",
+        "a": "Mulan disguises herself as a male soldier to save her aging, ailing father from conscription, proving that filial love, strategic brilliance, and bravery transcend traditional gender barriers."
+    },
+    {
         "board": "TNSB", "class": 10, "unit": "Supplementary", "bloom": "Understand", "type": "Short Answer", "marks": 3,
         "q": "Describe the extraordinary talent of the bird 'Zigzag' in Asha Nehemiah's story.",
         "a": "Zigzag was a rare, multilingual bird gifted by Dr. Somu. Though he initially fell asleep and snored deafeningly, he later spoke twenty-one languages and efficiently managed Dr. Krishnan's chaotic clinic by comforting agitated patients."
@@ -451,6 +576,21 @@ ENGLISH_SUPPLEMENTARY_QUESTIONS = [
         "board": "CBSE", "class": 12, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
         "q": "Discuss the conflict Dr. Sadao Hoki faces between his duty as a doctor and his patriotism as a Japanese citizen in Pearl S. Buck's 'The Enemy'.",
         "a": "When an injured American prisoner of war washes ashore, Sadao faces the dilemma of saving his enemy or turning him in. Upholding medical ethics and universal human compassion, he operates on the soldier, conceals him in his home, and eventually aids his escape."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the satirical portrayal of autocratic arrogance in Kalki's 'The Tiger King'.",
+        "a": "The Maharaja of Pratibandapuram dedicated his kingdom's resources to hunting a hundred tigers to evade a prophecy, only to die from an infection caused by a crude wooden toy tiger, exposing the folly of despotic vanity."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the importance of Antarctica as an ecological barometer of global climate change in Tishani Doshi's 'Journey to the End of the Earth'.",
+        "a": "Antarctica holds in its ice cores half-million-year-old carbon records, lacking human settlement and showing that microscopic phytoplankton collapse threatens the entire Southern Ocean food chain."
+    },
+    {
+        "board": "CBSE", "class": 12, "unit": "Supplementary", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Mr. Lamb's positive philosophy of life versus Derry's bitter alienation in Susan Hill's 'On the Face of It'.",
+        "a": "While Derry suffers from hypersensitivity over his acid-burned face, Mr. Lamb's open garden, tolerant attitude, and resilience overcome Derry's self-pity and encourage him to embrace the world."
     },
     {
         "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Remember", "type": "Objective", "marks": 1,
@@ -474,7 +614,7 @@ ENGLISH_SUPPLEMENTARY_QUESTIONS = [
     },
     {
         "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "God Sees the Truth, but Waits", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Analyze the moral journey of Ivan Dmitrich Aksionov in Leo Tolstoy's 'God Sees the Truth, but Waits'.",
+        "q": "Critically evaluate the moral journey of Ivan Dmitrich Aksionov in Leo Tolstoy's 'God Sees the Truth, but Waits'. Does his final forgiveness represent true spiritual transcendence?",
         "a": "Aksionov evolves from a prosperous, carefree merchant to an enlightened, saintly figure through twenty-six years of wrongful imprisonment in Siberia. He surrenders earthly desires, placing complete trust in God's will. His supreme triumph occurs when he forgives Makar Semyonich, the real murderer, illustrating Tolstoy's message that true justice and inner peace transcend human law."
     },
     {
@@ -494,7 +634,7 @@ ENGLISH_SUPPLEMENTARY_QUESTIONS = [
     },
     {
         "board": "TNSB", "class": 12, "unit": "Supplementary Reader Stories", "topic": "Life of Pi", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Examine Yann Martel's 'Life of Pi' as a story of faith, resilience, and coexistence in the face of mortal peril.",
+        "q": "Critically evaluate Yann Martel's 'Life of Pi' as an allegory of spiritual faith, psychological resilience, and existential survival in the face of mortal peril.",
         "a": "The narrative explores how human spirit adapts under extreme isolation following the shipwreck of the Tsimtsum. Pi's multifaceted faith, practical knowledge of zoology, and willpower allow him to tame fear and coexist with Richard Parker for 227 days, demonstrating the indomitable instinct of survival."
     },
     {
@@ -1475,7 +1615,7 @@ COMMERCE_ACCOUNTANCY_QUESTIONS = [
     },
     {
         "board": "COMMON", "class": 12, "unit": "Marketing Management", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
-        "q": "Explain the '4 Ps' of the Marketing Mix in Business Studies.",
+        "q": "Analyze the strategic interplay among the '4 Ps' (Product, Price, Place, Promotion) in the Marketing Mix of an enterprise.",
         "a": "1. Product (goods or services satisfying consumer needs). 2. Price (monetary value charged for the product). 3. Place (distribution channels ensuring product availability). 4. Promotion (advertising, personal selling, sales promotion communicating product benefits)."
     },
     {'a': 'Scalar chain is the formal line of authority and communication running from the highest executive to the lowest '
@@ -1595,6 +1735,149 @@ COMMERCE_ACCOUNTANCY_QUESTIONS = [
       'lender.',
  'type': 'Short Answer',
  'unit': 'Financial Statement Analysis'},
+
+    # -------------------------------------------------------------------------
+    # Accountancy: Analyze Level (CBSE & TNSB Classes 11 & 12)
+    # -------------------------------------------------------------------------
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounts of Partnership Firms - Fundamentals", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the reasons why Interest on Capital is allowed only out of profits unless explicitly agreed as a charge in the partnership agreement.",
+        "a": "Interest on capital is an appropriation of profit designed to compensate partners for unequal capital contributions. If treated as a charge without profits, it creates an unrecoverable capital deficit unless explicitly contracted in the partnership deed."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounts of Partnership Firms - Fundamentals", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Compare and contrast the accounting treatment of Goodwill upon admission of a partner when goodwill is brought in cash versus when it is adjusted through capital accounts.",
+        "a": "When brought in cash, Premium for Goodwill is credited to sacrificing partners in sacrificing ratio. When adjusted through capital accounts under AS-26, the incoming partner's current account is debited and sacrificing partners' capital accounts are credited without raising goodwill in balance sheet."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounts of Partnership Firms - Fundamentals", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
+        "q": "Analyze the statutory priority of payments under Section 48 of the Indian Partnership Act during the settlement of accounts upon firm dissolution.",
+        "a": "Section 48 mandates: First, paying external third-party debts and liabilities; Second, paying partner loans rateably; Third, repaying partner capital balances; Finally, distributing any remaining surplus among partners according to their profit-sharing ratio."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounts of Partnership Firms - Fundamentals", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the financial implications of changing the profit-sharing ratio among existing partners on accumulated reserves and revaluation profit.",
+        "a": "A change in ratio represents reconstitution where one partner gains and another sacrifices. Accumulated profits/reserves and revaluation net profit must be adjusted through capital accounts in sacrificing/gaining ratio so no partner suffers unearned loss or receives unearned gain."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounting for Share Capital", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the accounting procedure for the forfeiture and reissue of equity shares originally issued at a securities premium when the premium has not been received.",
+        "a": "Under Section 52(2) of Companies Act, 2013, Securities Premium Account must be debited with the uncollected premium amount upon forfeiture. On reissue at discount, the discount cannot exceed the amount previously forfeited on those shares."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounting for Share Capital", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Compare and contrast Capital Reserve and Reserve Capital in corporate accounting, highlighting their legal creation and utilization.",
+        "a": "Reserve Capital is that uncalled portion of share capital callable only on liquidation by special resolution under Section 99. Capital Reserve is created out of capital profits (e.g. share forfeiture, revaluation) and can be used to write off capital losses or issue bonus shares."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Accounting for Share Capital", "bloom": "Analyze", "type": "Long Answer", "marks": 5,
+        "q": "Analyze the two accounting methods for recording Debentures issued as Collateral Security in company accounts.",
+        "a": "Method 1: No journal entry is passed; the fact of collateral issue is shown as a disclosure footnote under the secured loan in the balance sheet. Method 2: Debenture Suspense A/c is debited and Debentures A/c credited, presenting both on the balance sheet face to reflect contingent liability."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Financial Statement Analysis", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the effects of (a) cash collected from trade receivables and (b) redemption of debentures on the Current Ratio of a firm having an initial ratio of 2:1.",
+        "a": "(a) Cash collected from receivables increases cash and decreases debtors equally, leaving total current assets unchanged and Current Ratio unaffected. (b) Redeeming debentures decreases cash (current asset) without reducing current liabilities, decreasing the Current Ratio."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Cash Flow Statement", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze why non-cash charges like depreciation and loss on sale of fixed assets are added back to net profit in the indirect method of Cash Flow Statement.",
+        "a": "Depreciation and book losses reduce net profit reported in the statement of profit and loss without causing an actual cash outflow. They are added back to reconcile accounting net profit to actual cash generated from operational transactions."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Financial Statement Analysis", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Compare and contrast horizontal financial analysis and vertical financial analysis with reference to Comparative Statements and Common Size Statements.",
+        "a": "Horizontal analysis compares line items across multiple consecutive accounting periods to observe percentage growth trends. Vertical analysis evaluates items of a single period as percentages of a common base (e.g. Revenue from Operations or Total Assets)."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Accounts from Incomplete Records", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the differences between a Statement of Affairs prepared under Single Entry and a Balance Sheet under Double Entry System.",
+        "a": "A Statement of Affairs is prepared from incomplete records, rough estimates, and unverified memorandum books where capital is the balancing figure. A Balance Sheet is drawn from a balanced ledger trial balance guaranteeing mathematical and accounting accuracy."
+    },
+    {
+        "board": "TNSB", "class": 12, "unit": "Accounts of Not-for-Profit Organisation", "bloom": "Analyze", "type": "Short Answer", "marks": 3,
+        "q": "Analyze the distinction between Receipts and Payments Account and Income and Expenditure Account in not-for-profit entities.",
+        "a": "Receipts and Payments is a real account recording all cash inflows and outflows (capital and revenue) on cash basis. Income and Expenditure is a nominal account recording only revenue items for the current period on accrual basis, matching expenses against revenues to determine surplus or deficit."
+    },
+
+    # -------------------------------------------------------------------------
+    # Business Studies & Commerce: Evaluate Level (CBSE & TNSB Classes 11 & 12)
+    # -------------------------------------------------------------------------
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate Henri Fayol's 14 principles of management versus F.W. Taylor's Scientific Management in contemporary technology startups.",
+        "a": "Fayol focused on top-level administrative efficiency with universal guidelines like Unity of Command and Esprit de Corps. Taylor emphasized shop-floor engineering precision, time studies, and functional foremanship. Modern flat organizations adapt both by combining standardized productivity metrics with decentralized team autonomy."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess whether Management satisfies all essential criteria of a recognized profession in the context of the Indian economy.",
+        "a": "Management possesses a systematic body of knowledge, professional associations (AIMA), and ethical guidelines. However, it lacks a mandatory statutory license, universal code of conduct, or restricted entry, classifying it as an emerging rather than full-fledged profession like law or medicine."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the impact of digital payment infrastructure and Unified Payments Interface (UPI) on the Indian retail business environment.",
+        "a": "UPI democratized digital financial transactions, reduced cash handling overheads, expanded customer reach for MSMEs, and created transparency. However, it required investments in point-of-sale infrastructure and exposed retail businesses to cybersecurity and data breach risks."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess how economic environment factors such as inflation and interest rate fluctuations influence corporate long-term capital investment decisions.",
+        "a": "High inflation increases raw material and borrowing costs, shrinking net profit margins. Escalating interest rates raise the cost of debt capital, making discretionary expansion unviable and forcing conservative working capital management."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the limitations of planning in a dynamic business environment, assessing why planning cannot guarantee organizational success.",
+        "a": "Planning fosters psychological rigidity, consumes substantial management time and cost, and creates false security. Sudden environmental shocks (technological disruption, regulatory shifts, geopolitics) render rigid pre-set plans obsolete unless continuous contingency replanning occurs."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the strategic trade-offs between Functional Structure and Divisional Structure for a diversifying manufacturing enterprise.",
+        "a": "Functional structure promotes occupational specialization and economies of scale but causes inter-departmental conflict and slow decision-making. Divisional structure fosters product autonomy, accountability, and market agility, but leads to duplication of staff functions and higher operating costs."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the benefits and operational risks of extensive Decentralization of authority in modern corporate management.",
+        "a": "Decentralization relieves top management from operational routine, accelerates frontline problem-solving, and motivates subordinate managers. Conversely, excessive autonomy can cause loss of coordination, inconsistent corporate policies, and divergent division loyalties."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate internal versus external sources of recruitment with regard to employee morale, financial cost, and fresh talent infusion.",
+        "a": "Internal recruitment boosts workforce motivation, reduces training expenses, and ensures cultural alignment, but restricts innovation and creates inbreeding. External recruitment infuses modern technical skills and competitive perspectives, but increases hiring costs and may demoralize existing employees."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess Abraham Maslow's Need Hierarchy theory as a motivational framework for diverse employee segments in the service sector.",
+        "a": "Maslow highlights that human needs ascend from physiological survival to self-actualization. However, modern workers may prioritize higher-order esteem or creative purpose simultaneously rather than sequentially, requiring managers to customize intrinsic and financial incentives."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Principles and Functions of Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the principle of 'Management by Exception' (MBE) as an effective controlling mechanism in executive operations.",
+        "a": "MBE directs executive focus only to significant deviations from performance benchmarks, conserving valuable managerial time and resources. However, over-reliance can lead managers to overlook subtle emerging trends that precede critical systemic failures."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Financial Markets & Capital Market", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate how the use of Financial Leverage ('Trading on Equity') impacts Return on Equity and financial risk for an enterprise.",
+        "a": "When Return on Investment (ROI) exceeds the fixed interest rate on debt, financial leverage magnifies earnings per share for equity shareholders. However, if ROI falls below the debt cost, fixed interest commitments trigger severe financial distress and risk of insolvency."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Financial Markets & Capital Market", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the regulatory effectiveness of SEBI (Securities and Exchange Board of India) in safeguarding retail investor interests in Indian capital markets.",
+        "a": "SEBI instituted strict disclosure norms, T+1 settlement cycles, and algorithmic surveillance against insider trading. Nevertheless, complex derivatives, unregistered financial influencers, and sudden speculative volatility continue to test enforcement efficacy."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Financial Markets & Capital Market", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the primary factors determining the optimal Capital Structure for a capital-intensive manufacturing corporation.",
+        "a": "Key factors include Cash Flow Position (ability to service debt interest), Interest Coverage Ratio, Cost of Debt versus Cost of Equity, Floatation Costs, Control considerations, and prevailing Stock Market sentiment, requiring balancing financial risk against cost of capital."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Marketing Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Critically evaluate the Societal Marketing Concept versus the Selling Concept in promoting corporate sustainability and consumer welfare.",
+        "a": "The Selling Concept relies on aggressive promotional persuasion to push existing output regardless of consumer well-being. The Societal Marketing Concept balances customer satisfaction with long-term ecological preservation, ethical business practices, and social responsibility."
+    },
+    {
+        "board": "COMMON", "class": 12, "unit": "Marketing Management", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
+        "q": "Assess the effectiveness of the three-tier quasi-judicial redressal machinery established under the Consumer Protection Act, 2019.",
+        "a": "The Act raised pecuniary jurisdictions (District up to Rs 1 crore, State up to Rs 10 crores, National above Rs 10 crores), added e-filing provisions, and introduced mediation cells. However, judicial vacancies and procedural delays still hinder rapid dispute resolution."
+    },
 ]
 
 
@@ -1835,7 +2118,7 @@ COMPUTER_SCIENCE_QUESTIONS = [
     },
     {
         "board": "CBSE", "class": 12, "unit": "Trees", "bloom": "Evaluate", "type": "Long Answer", "marks": 5,
-        "q": "Compare Breadth-First Search (BFS) and Depth-First Search (DFS) for tree and graph traversal with respect to data structures used, memory complexity, and suitability for finding shortest paths.",
+        "q": "Critically evaluate and compare Breadth-First Search (BFS) and Depth-First Search (DFS) for tree and graph traversal with respect to data structures used, memory complexity, and suitability for finding shortest paths.",
         "a": "BFS uses a Queue (FIFO) and traverses nodes level by level, ensuring that the shortest path in an unweighted graph is discovered first. However, BFS requires O(V) auxiliary memory to hold entire frontiers. DFS uses a Stack (LIFO) or recursion to explore paths deeply before backtracking, consuming O(h) memory (tree height). While DFS is memory-efficient for deep graphs and ideal for topological sorting or cycle detection, it may explore deep dead-ends before discovering closer targets."
     },
 
@@ -3877,7 +4160,9 @@ def match_curriculum_question(
     s_lower = subject_name.lower()
     b_norm = "TNSB" if "tn" in board.lower() or "tamil" in board.lower() else "CBSE"
     c_str = str(class_name).lower()
-    if "12" in c_str or "xii" in c_str:
+    if "11" in c_str or (("xi" in c_str) and ("xii" not in c_str)):
+        c_num = 11
+    elif "12" in c_str or "xii" in c_str:
         c_num = 12
     elif "10" in c_str or "x" in c_str:
         c_num = 10
@@ -4065,7 +4350,11 @@ def match_curriculum_question(
         else:
             return -100  # Disallow conflicting board
 
-        if cand_class in (c_num, None) or ("science" in s_lower and c_num == 10 and cand_board in (b_norm, "COMMON")):
+        if (
+            cand_class in (c_num, None)
+            or (c_num in (11, 12) and cand_class in (11, 12) and any(w in s_lower for w in ["commerc", "business", "account"]))
+            or ("science" in s_lower and c_num == 10 and cand_board in (b_norm, "COMMON"))
+        ):
             score += 3
         else:
             return -100  # Disallow conflicting class
